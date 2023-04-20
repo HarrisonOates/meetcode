@@ -82,9 +82,10 @@ High level design and task allocation:
 | Create UML for this by Saturday                       |     Alex |
 | Convert diagrams to a more readable format for report |     Alex |
 | Lab checkpoint                                        |     Geun |
- | Wireframes for UI look into Android Studio & APK      |  Nikhila |
- | Write substantial portions of code                    |      All |
- | Setting up Firebase                                   | Harrison |
- | Grammar for the search and syntax highlighting        |   Jayden |
+ | Wireframes for UI look into Android Studio & APK     |  Nikhila |
+ | Write substantial portions of code                   |      All |
+ | Setting up Firebase                                  | Harrison |
+ | Grammar for the search                               |   Jayden |
+ | Grammar for the syntax highlighting                  | Harrison |
 | Create a whenisgood for next week                     |   Jayden |
 
