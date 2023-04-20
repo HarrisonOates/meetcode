@@ -47,7 +47,7 @@ Project scope (general features):
    - Clicking on question takes you to a question page
    - Question page should have code, description and an answer box
    - Get 3 points for correct answer
-   - If incorrect answer you get a second change
+   - If incorrect answer you get a second chance (if you get it right the second time you get 1 point)
    - You can only see comments after you answer once
    - Comments are done like Facebook/Instagram - flat but with replies
  - 
