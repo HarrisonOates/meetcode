@@ -8,3 +8,4 @@ pluginManagement {
 
 rootProject.name = "My Educational App"
 include ':app'
+include ':lib'
