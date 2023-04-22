@@ -35,6 +35,9 @@ public class Main {
         } catch (Exception e) {
             System.out.println(e);
         }
+
+        System.out.println(members);
+
         System.out.println(members.authoriseUser("Geun", "12345678"));
         System.out.println(members.authoriseUser("Geun", "123456783"));
         System.out.println(members.authoriseUser("geun", "12345678"));

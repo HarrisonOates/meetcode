@@ -1,6 +1,9 @@
 package com.example.lib;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Set;
 
 public class UserLogin {
     // <Username, Password> pair
@@ -29,5 +32,18 @@ public class UserLogin {
     public boolean authoriseUser(String username, String password) {
         String actual = username + password;
         return actual.hashCode() == hash(username);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        Set<String> usernamesSet = userLogins.keySet();
+        ArrayList<String> usernames = new ArrayList<>(usernamesSet);
+        Collection<String> pwCollection = userLogins.values();
+        ArrayList<String> passwords = new ArrayList<>(pwCollection);
+        for (int i = 0; i < usernames.size(); i++) {
+            sb.append(usernames.get(i) + ": " + passwords.get(i) + "\n");
+        }
+        return String.valueOf(sb);
     }
 }
