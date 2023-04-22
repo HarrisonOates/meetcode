@@ -1,7 +1,7 @@
 package com.example.myeducationalapp;
 import java.util.ArrayList;
 
-// TODO: right/left rotate, balancedInsert, traversal, delete
+// TODO: delete()
 public class AVLTree <T extends Comparable<T>> {
     // Keep a track of how many past questions have been deleted (e.g. wrong questions have been posted so need to be removed?)
     // delete() will be the last one to implement if we have time

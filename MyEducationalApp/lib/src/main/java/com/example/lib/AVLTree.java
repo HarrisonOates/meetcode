@@ -2,7 +2,7 @@ package com.example.lib;
 
 import java.util.ArrayList;
 
-public class AVLTree <T extends Comparable<T>> {
+public class AVLTree<T extends Comparable<T>> {
     // Keep a track of how many past questions have been deleted (e.g. wrong questions have been posted so need to be removed?)
     // delete() will be the last one to implement if we have time
     public int deletedNo = 0;
@@ -60,7 +60,7 @@ public class AVLTree <T extends Comparable<T>> {
         root.parent = newRoot;
     }
 
-    private int getBalance(Node<T> node) {
+    public int getBalance(Node<T> node) {
         if (node == null) {
             return 0;
         }
@@ -190,21 +190,6 @@ public class AVLTree <T extends Comparable<T>> {
 
             toStringHelper(sb, paddingForBoth, pointerLeft, node.left);
             toStringHelper(sb, paddingForBoth, pointerRight, node.right);
-        }
-    }
-
-    public static void main(String[] args) {
-        //Hard coded test to quickly check its implementation
-        AVLTree<Integer> tree = new AVLTree<>();
-        Integer[] nodesValues = new Integer[]{4,2,3,0,5,6,10,9,7};
-        for (Integer value : nodesValues) {
-            tree.insert(value);
-        }
-        System.out.println(tree);
-
-        ArrayList<Node<Integer>> nodes = tree.preOrderTraversal();
-        for (Node<Integer> node : nodes) {
-            System.out.println("Value: " + node.value + ", BF: " +  tree.getBalance(node));
         }
     }
 
