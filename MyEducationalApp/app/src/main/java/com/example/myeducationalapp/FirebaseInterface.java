@@ -8,22 +8,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * FirebaseInterface.java
- **
- * A Singleton class used to perform read and write operations directly to the Firebase
- * database. This class does not perform any data validation or format conversion - this must be
- * performed in a higher-level class.
- *
- * TODO: should auth checks be done at this layer??
- *
- * For example, to write to a direct message conversation:
- *      FirebaseInstance fb = FirebaseInterface.getInstance();
- *      fb.writeFile(fb.getDMFilepath("PVC Pat", "Patricia PVC"), "content goes here...");
+ * FirebaseInstance.java
  *
  * @author Alex Boxall
  */
@@ -37,7 +26,7 @@ public class FirebaseInterface {
         return instance;
     }
 
-    private List<FirebaseObserver> observers = new ArrayList<>();
+    private final List<FirebaseObserver> observers = new ArrayList<>();
 
     private DatabaseReference database;
     private FirebaseInterface() {
@@ -48,7 +37,7 @@ public class FirebaseInterface {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.w("FirebaseInterface", "GOT DATA");
 
-                // notifyObservers();
+                // notifyObservers(...);
             }
 
             @Override
@@ -64,9 +53,26 @@ public class FirebaseInterface {
         observers.add(observer);
     }
 
-    private void notifyObservers() {
+    private void notifyObservers(/*...*/) {
         for (FirebaseObserver observer: observers) {
-            observer.update();
+            observer.update(/*...*/);
+        }
+    }
+
+    /**
+     * Computes the location on the Firebase database where direct message history
+     * between two people is held.
+     *
+     * @param username1 One of the two users. It doesn't matter which user is passed in first.
+     * @param username2 The other user.
+     * @return The location on the Firebase server where those two users' direct message history
+     * is stored.
+     */
+    private String getDirectMessageStorageLocation(String username1, String username2) {
+        if (username1.compareTo(username2) < 0) {
+            return "dm_" + username1 + "_" + username2;
+        } else {
+            return "dm_" + username2 + "_" + username1;
         }
     }
 
@@ -75,6 +81,8 @@ public class FirebaseInterface {
     }
 
     public MessageThread readDirectMessages(String username1, String username2) {
+        String location = getDirectMessageStorageLocation(username1, username2);
+
         return null;
     }
 
@@ -91,6 +99,7 @@ public class FirebaseInterface {
     }
 
     public void writeDirectMessages(Person person1, Person person2, MessageThread messages) {
+        String location = getDirectMessageStorageLocation(person1.getUsername(), person2.getUsername());
 
     }
 
