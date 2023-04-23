@@ -17,11 +17,10 @@
         android:layout_width="319dp"
         android:layout_height="194dp"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="21dp"
         android:layout_alignParentTop="true"
+        android:layout_marginLeft="21dp"
         android:layout_marginTop="153dp"
         android:background="@drawable/question_of"
-        android:elevation="10dp"
-        />
+        android:elevation="60dp" />
 
 </FrameLayout>
