@@ -15,9 +15,12 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.myeducationalapp.databinding.ActivityMainBinding;
+import com.google.firebase.database.DatabaseReference;
 
 import android.view.Menu;
 import android.view.MenuItem;
+
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,12 +40,25 @@ public class MainActivity extends AppCompatActivity {
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
+
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FirebaseInterface fb = FirebaseInterface.getInstance();
+                DatabaseReference ref = fb.database.child("test");
 
-                fb.writeLoginDetails(UserLogin.getInstance().toString());
+                FirebaseResult res = new FirebaseResult(ref);
+                String finalObj = (String) res.apply((obj) -> {
+                    Log.w("fb", "the data is " + obj.toString());
+                    return obj.toString().toUpperCase();
+                }).apply((obj) -> {
+                    Log.w("fb", "the data is " + obj.toString());
+                    return obj + " haha";
+                }).waitForResult();
+
+                Log.w("fb", "final data: " + finalObj);
+
+                //fb.writeLoginDetails(UserLogin.getInstance().toString());
 
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();

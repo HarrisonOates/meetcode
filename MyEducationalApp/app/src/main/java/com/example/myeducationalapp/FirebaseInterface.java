@@ -29,9 +29,12 @@ public class FirebaseInterface {
 
     private final List<FirebaseObserver> observers = new ArrayList<>();
 
-    private DatabaseReference database;
+    /*private*/ public DatabaseReference database;
+    public FirebaseDebugger debug;
+
     private FirebaseInterface() {
-        database = FirebaseDatabase.getInstance().getReference();
+        database = FirebaseDatabase.getInstance("https://comp2100groupassignment-8427a-default-rtdb.asia-southeast1.firebasedatabase.app").getReference();
+        debug = new FirebaseDebugger(database);
 
         ValueEventListener postListener = new ValueEventListener() {
             @Override
@@ -83,7 +86,6 @@ public class FirebaseInterface {
 
     public MessageThread readDirectMessages(String username1, String username2) {
         String location = getDirectMessageStorageLocation(username1, username2);
-
         return null;
     }
 
