@@ -25,16 +25,20 @@ public class UserLogin {
     private UserLogin() {
         this.userLogins = new HashMap<>();
 
-        String fromString = FirebaseInterface.getInstance().readLoginDetails();
-        // TODO: set userLogins by doing the reverse of this.toString()
-        if (!fromString.isEmpty()) {
-            System.out.println(fromString);
-            String[] userLoginInfos = fromString.split("\n");
-            for (String userInfo : userLoginInfos) {
-                String[] pair = userInfo.split(",");
-                userLogins.put(pair[0], new String[]{pair[1], pair[2]});
+        Firebase.getInstance().readLoginDetails().then((obj) -> {
+            String data = (String) obj;
+
+            // TODO: use 'data' to set userLogins by doing the reverse of this.toString()
+            if (!data.isEmpty()) {
+                String[] userLoginInfos = data.split("\n");
+                for (String userInfo : userLoginInfos) {
+                    String[] pair = userInfo.split(",");
+                    userLogins.put(pair[0], new String[]{pair[1], pair[2]});
+                }
             }
-        }
+            return null;
+        });
+
     }
 
     public void addUser(String username, String password) {
@@ -49,7 +53,7 @@ public class UserLogin {
         byte[] salt = generateSalt();
         String hashedPassword = hashPassword(password, salt);
         userLogins.put(username, new String[]{hashedPassword, bytesToHex(salt)});
-        FirebaseInterface.getInstance().writeLoginDetails(this.toString());
+        Firebase.getInstance().writeLoginDetails(this.toString());
     }
 
     /**
