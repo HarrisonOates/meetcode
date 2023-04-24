@@ -18,7 +18,6 @@ public class UserLogin {
         return instance;
     }
 
-    // TODO: should change from storing passwords to storing hashes of the password
     // <Username, String[]{Hashed password, salt}> pair
     public HashMap<String, String[]>  userLogins;
 

@@ -38,7 +38,8 @@ public class FirebaseResult {
 
     enum Direction {
         READ,
-        WRITE,}
+        WRITE
+    }
 
     public FirebaseResult(DatabaseReference ref, Object value) {
         this(Direction.WRITE, ref, value);

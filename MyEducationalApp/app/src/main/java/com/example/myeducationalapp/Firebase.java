@@ -71,6 +71,10 @@ public class Firebase {
         }
     }
 
+    /*
+     TODO: User authentication checks
+     */
+
     public FirebaseResult readUserProfile(String username) {
         return FirebaseRequest.read(database, Arrays.asList("user", username));
     }
