@@ -4,20 +4,7 @@ import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
-        //Hard coded test to quickly check its implementation
 
-        //Informal test for AVLTree
-        AVLTree<Integer> tree = new AVLTree<>();
-        Integer[] nodesValues = new Integer[]{4,2,3,0,5,6,10,9,7};
-        for (Integer value : nodesValues) {
-            tree.insert(value);
-        }
-        System.out.println(tree);
-
-        ArrayList<AVLTree.Node<Integer>> nodes = tree.preOrderTraversal();
-        for (AVLTree.Node<Integer> node : nodes) {
-            System.out.println("Value: " + node.value + ", BF: " +  tree.getBalance(node));
-        }
 
         //Informal test for UserLogin
         UserLogin members = new UserLogin();
@@ -41,6 +28,16 @@ public class Main {
         System.out.println(members.authoriseUser("Geun", "12345678"));
         System.out.println(members.authoriseUser("Geun", "123456783"));
         System.out.println(members.authoriseUser("geun", "12345678"));
+
+        byte[] salt = members.generateSalt();
+        for (byte b : salt) {
+            System.out.println(b + " ");
+        }
+        System.out.println(salt);
+        System.out.println(members.bytesToHex(salt));
+        System.out.println(members.hexToByte(members.bytesToHex(salt)));
+
+
     }
 }
 

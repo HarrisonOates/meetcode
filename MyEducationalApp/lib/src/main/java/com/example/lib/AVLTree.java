@@ -163,7 +163,7 @@ public class AVLTree<T extends Comparable<T>> {
     }
 
     /**
-     * Insert a node with a given value to the AVLTree.
+     * Insert a node with a given value to the AVLTree. No change if the value does not exist.
      * @param value that is to be inserted
      */
     public void insert(T value) {
@@ -172,9 +172,18 @@ public class AVLTree<T extends Comparable<T>> {
     }
 
     /**
-     * Delete a node with a given value in the AVLTree.
+     * Delete a node with a given value in the AVLTree. No change if the value does not exist.
+     * @param curr node
      * @param value that is to be deleted
      */
+    public void deleteBeforeBalance(Node<T> curr, T value) {
+
+        Node<T> nodeToBeDeleted = search(value);
+        if (nodeToBeDeleted == null) {
+            return;
+        }
+    }
+
     public void delete(T value) {
         deletedNo++;
     }
