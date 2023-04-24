@@ -5,12 +5,22 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.UUID;
+
 public class UserLogin {
+    private static UserLogin instance;
+    public static UserLogin getInstance() {
+        if (instance == null) {
+            instance = new UserLogin();
+        }
+        return instance;
+    }
+
+    // TODO: should change from storing passwords to storing hashes of the password
     // <Username, Password> pair
     public HashMap<String, String>  userLogins;
 
-    public UserLogin() {
-        this.userLogins = new HashMap<>();
+    private UserLogin() {
+        this.userLogins = FirebaseInterface.getInstance().readLoginDetails();
     }
 
     public void addUser(String username, String password) {
@@ -21,6 +31,7 @@ public class UserLogin {
             throw new IllegalArgumentException("Password must be at least 8 characters long!");
         }
         userLogins.put(username, password);
+        FirebaseInterface.getInstance().writeLoginDetails(this.toString());
     }
 
     public int hash(String username) {

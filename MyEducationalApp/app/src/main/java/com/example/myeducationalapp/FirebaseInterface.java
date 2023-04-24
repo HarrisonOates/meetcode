@@ -9,6 +9,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -107,8 +108,13 @@ public class FirebaseInterface {
 
     }
 
-    // Covered in UserLogin class
-    public boolean authoriseUser(String username, String hashedPassword) {return false;}
+    public HashMap<String, String> readLoginDetails() {
+        return new HashMap<>();
+    }
+
+    public void writeLoginDetails(String userLoginString) {
+        database.child("login").setValue(userLoginString);
+    }
 
     public void savePerUserSettings(UserSettings settings) {
 
