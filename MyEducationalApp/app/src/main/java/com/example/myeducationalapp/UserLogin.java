@@ -20,7 +20,10 @@ public class UserLogin {
     public HashMap<String, String>  userLogins;
 
     private UserLogin() {
-        this.userLogins = FirebaseInterface.getInstance().readLoginDetails();
+        this.userLogins = new HashMap<>();
+
+        String fromString = FirebaseInterface.getInstance().readLoginDetails();
+        // TODO: set userLogins by doing the reverse of this.toString()
     }
 
     public void addUser(String username, String password) {

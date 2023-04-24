@@ -108,8 +108,9 @@ public class FirebaseInterface {
 
     }
 
-    public HashMap<String, String> readLoginDetails() {
-        return new HashMap<>();
+    public String readLoginDetails() {
+        String loginString = "";
+        return loginString;
     }
 
     public void writeLoginDetails(String userLoginString) {
