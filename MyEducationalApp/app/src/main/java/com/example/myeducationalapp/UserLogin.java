@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Set;
-import java.util.UUID;
 
 public class UserLogin {
     private static UserLogin instance;
@@ -22,8 +21,13 @@ public class UserLogin {
     private UserLogin() {
         this.userLogins = new HashMap<>();
 
-        String fromString = FirebaseInterface.getInstance().readLoginDetails();
-        // TODO: set userLogins by doing the reverse of this.toString()
+        Firebase.getInstance().readLoginDetails().then((obj) -> {
+            String data = (String) obj;
+
+            // TODO: use 'data' to set userLogins by doing the reverse of this.toString()
+
+            return null;
+        });
     }
 
     public void addUser(String username, String password) {
@@ -34,7 +38,7 @@ public class UserLogin {
             throw new IllegalArgumentException("Password must be at least 8 characters long!");
         }
         userLogins.put(username, password);
-        FirebaseInterface.getInstance().writeLoginDetails(this.toString());
+        Firebase.getInstance().writeLoginDetails(this.toString());
     }
 
     public int hash(String username) {

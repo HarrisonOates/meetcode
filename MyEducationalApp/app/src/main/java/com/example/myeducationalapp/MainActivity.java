@@ -7,7 +7,6 @@ import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.util.Log;
-import android.view.View;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -15,13 +14,11 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.myeducationalapp.databinding.ActivityMainBinding;
-import com.google.firebase.database.DatabaseReference;
 
 import android.view.Menu;
 import android.view.MenuItem;
 
 import java.util.Arrays;
-import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -43,9 +40,12 @@ public class MainActivity extends AppCompatActivity {
 
 
         binding.fab.setOnClickListener(view -> {
-            FirebaseInterface fb = FirebaseInterface.getInstance();
+            Firebase fb = Firebase.getInstance();
 
-            //FirebaseRequest.write(fb.dbgGetRoot(), Arrays.asList("test", "with", "subdirectories"), "hello world");
+            FirebaseRequest.write(fb.dbgGetRoot(), Arrays.asList("test", "with", "subdirectories"), "hello world").then((h) -> {
+                Log.w("fb", "write completed");
+                return null;
+            });
 
 
             FirebaseResult res = FirebaseRequest.read(fb.dbgGetRoot(), Arrays.asList("test", "with", "subdirectories"));
