@@ -27,7 +27,6 @@ public class UserLogin {
         Firebase.getInstance().readLoginDetails().then((obj) -> {
             String data = (String) obj;
 
-            // TODO: use 'data' to set userLogins by doing the reverse of this.toString()
             if (!data.isEmpty()) {
                 String[] userLoginInfos = data.split("\n");
                 for (String userInfo : userLoginInfos) {
@@ -35,6 +34,7 @@ public class UserLogin {
                     userLogins.put(pair[0], new String[]{pair[1], pair[2]});
                 }
             }
+
             return null;
         });
 
