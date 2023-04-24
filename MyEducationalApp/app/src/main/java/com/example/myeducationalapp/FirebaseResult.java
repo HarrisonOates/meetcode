@@ -38,9 +38,7 @@ public class FirebaseResult {
 
     enum Direction {
         READ,
-        WRITE,
-        GET_CHILD,
-    }
+        WRITE,}
 
     public FirebaseResult(DatabaseReference ref, Object value) {
         this(Direction.WRITE, ref, value);
@@ -75,8 +73,6 @@ public class FirebaseResult {
 
         if (dir == Direction.READ) {
             ref.get();
-        } else if (dir == Direction.GET_CHILD) {
-            ref.child((String) value);
         } else {
             ref.setValue(value);
         }
