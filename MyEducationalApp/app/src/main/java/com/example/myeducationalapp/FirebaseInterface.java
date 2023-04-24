@@ -107,9 +107,8 @@ public class FirebaseInterface {
 
     }
 
-    public boolean authoriseUser(String username, String hashedPassword) {
-        return false;
-    }
+    // Covered in UserLogin class
+    public boolean authoriseUser(String username, String hashedPassword) {return false;}
 
     public void savePerUserSettings(UserSettings settings) {
 
