@@ -20,6 +20,7 @@ import com.google.firebase.database.DatabaseReference;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.Arrays;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
@@ -41,28 +42,25 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
 
-        binding.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseInterface fb = FirebaseInterface.getInstance();
-                DatabaseReference ref = fb.database.child("test");
+        binding.fab.setOnClickListener(view -> {
+            FirebaseInterface fb = FirebaseInterface.getInstance();
 
-                FirebaseResult res = new FirebaseResult(ref);
-                String finalObj = (String) res.apply((obj) -> {
-                    Log.w("fb", "the data is " + obj.toString());
-                    return obj.toString().toUpperCase();
-                }).apply((obj) -> {
-                    Log.w("fb", "the data is " + obj.toString());
-                    return obj + " haha";
-                }).waitForResult();
+            //FirebaseRequest.write(fb.dbgGetRoot(), Arrays.asList("test", "with", "subdirectories"), "hello world");
 
-                Log.w("fb", "final data: " + finalObj);
 
-                //fb.writeLoginDetails(UserLogin.getInstance().toString());
+            FirebaseResult res = FirebaseRequest.read(fb.dbgGetRoot(), Arrays.asList("test", "with", "subdirectories"));
+            res.then((obj) -> {
+                Log.w("fb", "the data is " + obj.toString());
+                return obj.toString().toUpperCase();
+            }).then((obj) -> {
+                Log.w("fb", "the data is " + obj.toString());
+                return obj + " haha";
+            });
 
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
+            //fb.writeLoginDetails(UserLogin.getInstance().toString());
+
+            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
         });
     }
 

@@ -29,12 +29,14 @@ public class FirebaseInterface {
 
     private final List<FirebaseObserver> observers = new ArrayList<>();
 
-    /*private*/ public DatabaseReference database;
-    public FirebaseDebugger debug;
+    private DatabaseReference database;
+
+    public DatabaseReference dbgGetRoot() {
+        return database;
+    }
 
     private FirebaseInterface() {
         database = FirebaseDatabase.getInstance("https://comp2100groupassignment-8427a-default-rtdb.asia-southeast1.firebasedatabase.app").getReference();
-        debug = new FirebaseDebugger(database);
 
         ValueEventListener postListener = new ValueEventListener() {
             @Override

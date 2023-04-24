@@ -1,5 +1,7 @@
 package com.example.myeducationalapp;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.google.firebase.database.DataSnapshot;
@@ -13,47 +15,15 @@ import java.util.concurrent.CountDownLatch;
 import java.util.function.Function;
 
 public class FirebaseResult {
-    // adapted from here:
-    // https://stackoverflow.com/questions/55785311/how-do-i-wait-until-my-data-is-retrieved-from-firebase
-
     Object result;
+
+    // The use of a CountDownLatch came from here:
+    // https://stackoverflow.com/questions/55785311/how-do-i-wait-until-my-data-is-retrieved-from-firebase
     final CountDownLatch gotResult = new CountDownLatch(1);
+
     final List<Function<Object, Object>> callbacks;
 
-    public Object waitForResult() {
-        try {
-            new Thread(() -> {
-                while (true) {
-                    try {
-                        gotResult.await();
-
-                    } catch (InterruptedException ignored) {
-
-                    }
-
-                    synchronized (gotResult) {
-                        if (gotResult.getCount() == 0) {
-                            break;
-                        }
-                    }
-                }
-
-                synchronized (callbacks) {
-                    while (!callbacks.isEmpty()) {
-                        result = callbacks.remove(0).apply(result);
-                    }
-                }
-
-            }).join();
-
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
-        return result;
-    }
-
-    public FirebaseResult apply(Function<Object, Object> listener) {
+    public FirebaseResult then(Function<Object, Object> listener) {
         synchronized (gotResult) {
             if (gotResult.getCount() == 0) {
                 result = listener.apply(result);
@@ -66,7 +36,21 @@ public class FirebaseResult {
         return this;
     }
 
+    enum Direction {
+        READ,
+        WRITE,
+        GET_CHILD,
+    }
+
+    public FirebaseResult(DatabaseReference ref, Object value) {
+        this(Direction.WRITE, ref, value);
+    }
+
     public FirebaseResult(DatabaseReference ref) {
+        this(Direction.READ, ref, null);
+    }
+
+    private FirebaseResult(Direction dir, DatabaseReference ref, Object value) {
         callbacks = new ArrayList<>();
 
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -89,6 +73,12 @@ public class FirebaseResult {
             }
         });
 
-        ref.get();
+        if (dir == Direction.READ) {
+            ref.get();
+        } else if (dir == Direction.GET_CHILD) {
+            ref.child((String) value);
+        } else {
+            ref.setValue(value);
+        }
     }
 }
