@@ -172,34 +172,47 @@ public class AVLTree<T extends Comparable<T>> {
     }
 
     /**
+     * Delete a node with a given value in the AVLTree.
+     * @param value that is to be deleted
+     */
+    public void delete(T value) {
+        deletedNo++;
+    }
+
+    public int getDeletedNo(){
+        return deletedNo;
+    }
+
+    /**
      * Find and return the node with a given value if there is any.
      * If no node with the value exists, return null;
      * @param node whose value is being checked
-     * @param v that wants to be found
+     * @param value that wants to be found
      * @return the node with a given value or null
      */
-    public Node<T> find(Node<T> node, T v) {
+    public Node<T> find(Node<T> node, T value) {
         if (node.value == null) {
             return null;
         }
 
-        int cmp = v.compareTo(node.value);
+        int cmp = value.compareTo(node.value);
         if (cmp < 0)
-            return find(node.left, v);
+            return find(node.left, value);
         else if (cmp > 0)
-            return find(node.right, v);
+            return find(node.right, value);
         else
             return node;
     }
 
     /**
      * Search for a given value in the AVLTree
-     * @param v that is to be searched
+     * @param value that is to be searched
      * @return the node with the value or null
      */
-    public Node<T> search(T v) {
-        return find(this.root, v);
+    public Node<T> search(T value) {
+        return find(this.root, value);
     }
+
 
     /**
      * @return All the nodes in the AVLTree in pre order as an array list
@@ -257,7 +270,6 @@ public class AVLTree<T extends Comparable<T>> {
             this.right.parent = this;
         }
 
-        // Leaf node
         public Node() {
             this.value = null;
         }
