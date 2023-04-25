@@ -7,7 +7,6 @@ import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.util.Log;
-import android.view.View;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -18,6 +17,8 @@ import com.example.myeducationalapp.databinding.ActivityMainBinding;
 
 import android.view.Menu;
 import android.view.MenuItem;
+
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,12 +38,29 @@ public class MainActivity extends AppCompatActivity {
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
-        binding.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
+
+        binding.fab.setOnClickListener(view -> {
+            Firebase fb = Firebase.getInstance();
+
+            FirebaseRequest.write(fb.dbgGetRoot(), Arrays.asList("test", "with", "subdirectories"), "hello world").then((h) -> {
+                Log.w("fb", "write completed");
+                return null;
+            });
+
+
+            FirebaseResult res = FirebaseRequest.read(fb.dbgGetRoot(), Arrays.asList("test", "with", "subdirectories"));
+            res.then((obj) -> {
+                Log.w("fb", "the data is " + obj.toString());
+                return obj.toString().toUpperCase();
+            }).then((obj) -> {
+                Log.w("fb", "the data is " + obj.toString());
+                return obj + " haha";
+            });
+
+            //fb.writeLoginDetails(UserLogin.getInstance().toString());
+
+            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
         });
     }
 

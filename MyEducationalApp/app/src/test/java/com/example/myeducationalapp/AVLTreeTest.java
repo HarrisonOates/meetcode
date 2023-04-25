@@ -1,17 +1,44 @@
 package com.example.myeducationalapp;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+
 import static org.junit.Assert.*;
+
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
-
+@RunWith(Parameterized.class)
 public class AVLTreeTest {
+    @Parameterized.Parameters
+    public static Collection<Object[]> trees() {
+        // For the sake of non-existing values used to test search(),
+        // all values are in between -99 and 99 (inclusive)
+        Integer[] tree1Values = new Integer[]{-3,-2,-1,0,1,2,3,4,5};
+        Integer[] preOrder1 = new Integer[]{0,-2,-3,-1,2,1,4,3,5};
 
-    // Test preOrderTraversal(), search() and insert() on a simple AVLTree
+        Integer[] tree2Values = new Integer[]{4,2,3,0,5,6,10,9,7};
+        Integer[] preOrder2 = new Integer[]{3,2,0,6,5,4,9,7,10};
+
+        Integer[] tree3Values = new Integer[]{20,12,35,-21,0,-35,67,11,60,59,23,38,-99,99,42};
+        Integer[] preOrder3 = new Integer[]{20,0,-35,-99,-21,12,11,59,35,23,38,42,67,60,99};
+
+
+        return Arrays.asList(new Object[][]
+                {{tree1Values, preOrder1}, {tree2Values, preOrder2}, {tree3Values, preOrder3}});
+    }
+    @Parameterized.Parameter(0)
+    public Integer[] treeValues;
+    @Parameterized.Parameter(1)
+    public Integer[] preOrderValues;
+
+    // Test preOrderTraversal(), search() and insert()
     @Test (timeout = 100)
     public void simpleAVLTreeTest() {
         AVLTree<Integer> tree = new AVLTree<>();
-        Integer[] nodesValues = new Integer[]{4,2,3,0,5,6,10,9,7};
+        Integer[] nodesValues = treeValues;
         for (Integer value : nodesValues) {
             tree.insert(value);
         }
@@ -19,7 +46,7 @@ public class AVLTreeTest {
         System.out.println(tree);
 
         // Test the implementation of preOrderTraversal()
-        Integer[] preOrder = new Integer[]{3,2,0,6,5,4,9,7,10};
+        Integer[] preOrder = preOrderValues;
         ArrayList<Integer> preOrderValues = new ArrayList<>();
         Collections.addAll(preOrderValues, preOrder);
         ArrayList<AVLTree.Node<Integer>> nodes = tree.preOrderTraversal();
@@ -33,8 +60,8 @@ public class AVLTreeTest {
         for (Integer value : preOrder) {
             assertNotNull("This value exists in the tree", tree.search(value));
         }
-        int[] nonExVals = new int[]{-3,-1,8,11,-22,12,1};
-        for (int value : nonExVals) {
+        int[] nonExValues = new int[]{-100,201,218,100,123,1519,845};
+        for (int value : nonExValues) {
             assertNull("This values does not exist in the tree", tree.search(value));
         }
 
