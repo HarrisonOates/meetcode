@@ -111,6 +111,11 @@ public class UserLogin {
         return bytes;
     }
 
+    public boolean isUserLoggedIn(String username) {
+        // TODO: determine if the given user is logged into this phone
+        return false;
+    }
+
     public boolean authoriseUser(String username, String password) {
         if (!userLogins.containsKey(username)) {
             return false;
