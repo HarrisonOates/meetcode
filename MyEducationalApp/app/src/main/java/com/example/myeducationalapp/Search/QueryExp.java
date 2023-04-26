@@ -1,4 +1,4 @@
-package com.example.tokenizer;
+package com.example.myeducationalapp.Search;
 
 import java.util.List;
 
@@ -8,9 +8,9 @@ import java.util.List;
  */
 public class QueryExp extends Exp{
     //Stores the type of query
-    private SearchToken.Query queryType;
+    private final SearchToken.Query queryType;
     //Stores the query itself
-    private StatementExp statement;
+    private final StatementExp statement;
 
     /**
      * Constructs the expression

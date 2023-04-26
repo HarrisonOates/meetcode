@@ -1,4 +1,4 @@
-package com.example.tokenizer;
+package com.example.myeducationalapp.Search;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class StatementExp extends Exp{
     //Stores the words in the statement
-    private List<String> statement;
+    private final List<String> statement;
 
     /**
      * Constructs the expression

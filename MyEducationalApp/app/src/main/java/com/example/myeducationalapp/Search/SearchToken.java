@@ -1,8 +1,8 @@
-package com.example.tokenizer;
+package com.example.myeducationalapp.Search;
 
 import java.util.HashMap;
 
-import static com.example.tokenizer.SearchToken.Query.*;
+import static com.example.myeducationalapp.Search.SearchToken.Query.*;
 
 /**
  * Defines all general tokens used in the parsing the search system
