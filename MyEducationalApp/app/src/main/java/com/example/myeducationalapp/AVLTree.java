@@ -5,11 +5,10 @@ import java.util.ArrayList;
 // The AVLTree data structure will be implemented for each of these data sets:
 // - Past questions' ID
 // - Liked message ID
-// -
+// ...
 public class AVLTree<T extends Comparable<T>> {
     // Keep a track of how many past questions have been deleted (e.g. wrong questions have been posted so need to be removed?)
     // delete() will be the last one to implement if we have time
-    // TODO: implement delete()
     public int deletedNo = 0;
     public Node<T> root;
     public AVLTree() {this.root = null;}
@@ -163,7 +162,7 @@ public class AVLTree<T extends Comparable<T>> {
     }
 
     /**
-     * Insert a node with a given value to the AVLTree.
+     * Insert a node with a given value to the AVLTree. No change if the value does not exist.
      * @param value that is to be inserted
      */
     public void insert(T value) {
@@ -172,34 +171,93 @@ public class AVLTree<T extends Comparable<T>> {
     }
 
     /**
+     * Delete a node with a given value in the AVLTree. No change if the value does not exist.
+     * @param curr node
+     * @param value that is to be deleted
+     */
+    private Node<T> deleteBeforeBalance(Node<T> curr, T value) {
+        if (curr == null) {
+            return null;
+        }
+        if (value.compareTo(curr.value) > 0) {
+            curr.right = deleteBeforeBalance(curr.right, value);
+        } else if (value.compareTo(curr.value) < 0) {
+            curr.left = deleteBeforeBalance(curr.left, value);
+        } else {
+            if (curr.left.value == null && curr.right.value == null) {
+                curr = null;
+            } else if (curr.left.value == null) {
+                curr =  curr.right;
+            } else if (curr.right.value == null) {
+                curr = curr.left;
+            } else {
+                // This is case where the node that is to be deleted has two children.
+                // The inorder successor of the node needs to replace the deletedNode, since it is
+                // guaranteed to be greater than the deletedNode's left subtree and smaller than its right subtree.
+                Node<T> minNode = findSuccessor(curr.right);
+                curr.value = minNode.value;
+                curr.right = deleteBeforeBalance(curr.right, curr.value);
+            }
+        }
+        return curr;
+    }
+
+    private Node<T> findSuccessor(Node<T> node) {
+        while (node.left.value != null) {
+            node = node.left;
+        }
+        return node;
+    }
+
+    /**
+     * Delete a node with the given value and preserves all the properties of the AVLTree.
+     * @param value that is to be deleted
+     */
+    public void delete(T value) {
+        Node<T> deletedNode = deleteBeforeBalance(root, value);
+        if (deletedNode != null) {
+            deletedNo++;
+        }
+        Node<T> rootOfImbalance = findImbalance(deletedNode);
+        if (rootOfImbalance != null) {
+            balanceSubtree(rootOfImbalance);
+        }
+    }
+
+    public int getDeletedNo(){
+        return deletedNo;
+    }
+
+    /**
      * Find and return the node with a given value if there is any.
      * If no node with the value exists, return null;
      * @param node whose value is being checked
-     * @param v that wants to be found
+     * @param value that wants to be found
      * @return the node with a given value or null
      */
-    public Node<T> find(Node<T> node, T v) {
+    public Node<T> find(Node<T> node, T value) {
         if (node.value == null) {
             return null;
         }
 
-        int cmp = v.compareTo(node.value);
+        int cmp = value.compareTo(node.value);
         if (cmp < 0)
-            return find(node.left, v);
+            return find(node.left, value);
         else if (cmp > 0)
-            return find(node.right, v);
+            return find(node.right, value);
         else
             return node;
     }
 
     /**
      * Search for a given value in the AVLTree
-     * @param v that is to be searched
+     * @param value that is to be searched
      * @return the node with the value or null
      */
-    public Node<T> search(T v) {
-        return find(this.root, v);
+    public Node<T> search(T value) {
+        return find(this.root, value);
     }
+
 
     /**
      * @return All the nodes in the AVLTree in pre order as an array list
@@ -216,6 +274,10 @@ public class AVLTree<T extends Comparable<T>> {
             preOrderHelper(curr.left, nodes);
             preOrderHelper(curr.right, nodes);
         }
+    }
+
+    public int size() {
+        return preOrderTraversal().size();
     }
 
     @Override
@@ -257,7 +319,6 @@ public class AVLTree<T extends Comparable<T>> {
             this.right.parent = this;
         }
 
-        // Leaf node
         public Node() {
             this.value = null;
         }
@@ -271,7 +332,4 @@ public class AVLTree<T extends Comparable<T>> {
 
     }
 }
-
-
-
 
