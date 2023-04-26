@@ -18,6 +18,7 @@ import com.example.myeducationalapp.databinding.ActivityMainBinding;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.WindowInsetsController;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,6 +37,11 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+
+        // Hiding the Action bar
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
 
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override

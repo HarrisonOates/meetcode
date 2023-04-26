@@ -4,42 +4,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".Home"
-    android:clipChildren="false"
-    android:clipToPadding="false">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    tools:context=".HomeFragment">
 
     <!-- Question of Day -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <net.orandja.shadowlayout.ShadowLayout
-        android:layout_width="wrap_content"
-        android:layout_height="149dp"
-        android:layout_gravity="center"
-        android:background="@drawable/question_of"
-        android:padding="8dp"
-        app:shadow_cast_only_background="true"
-        app:shadow_color="#F25260"
-        app:shadow_downscale="1"
-        app:shadow_radius="15"
-        app:shadow_with_color="true"
-        app:shadow_with_css_scale="true"
-        app:shadow_with_dpi_scale="true"
-        app:shadow_x_shift="0dp"
-        app:shadow_y_shift="5dp">
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="The quick brown fox jump over the lazy dog"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
-
-    </net.orandja.shadowlayout.ShadowLayout>
-
+        <View
+            android:id="@+id/question_of"
+            android:layout_width="319dp"
+            android:layout_height="194dp"
+            android:background="@drawable/question_of"
+            android:elevation="60dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
