@@ -31,14 +31,22 @@ public class SearchToken {
          */
         @Override
         public String toString() {
-            return switch (this) {
-                case Question   -> "Question";
-                case User       -> "User";
-                case Discussion -> "Discussion";
-                case Topic      -> "Topic";
-                case Separator  -> "Separator";
-                case Word       -> "Word";
-            };
+            switch (this) {
+                case Question:
+                    return "Question";
+                case User:
+                    return "User";
+                case Discussion:
+                    return "Discussion";
+                case Topic:
+                    return "Topic";
+                case Separator:
+                    return "Separator";
+                case Word:
+                    return "Word";
+                default:
+                    throw new IllegalArgumentException();
+            }
         }
     }
 
