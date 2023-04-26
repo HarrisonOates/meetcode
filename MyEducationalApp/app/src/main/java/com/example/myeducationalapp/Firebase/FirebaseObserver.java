@@ -1,4 +1,4 @@
-package com.example.myeducationalapp;
+package com.example.myeducationalapp.Firebase;
 
 public interface FirebaseObserver {
     void update();

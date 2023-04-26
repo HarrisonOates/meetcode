@@ -1,8 +1,12 @@
-package com.example.myeducationalapp;
+package com.example.myeducationalapp.Firebase;
 
-import android.accounts.AuthenticatorException;
 import android.util.Log;
 
+import com.example.myeducationalapp.MessageThread;
+import com.example.myeducationalapp.Person;
+import com.example.myeducationalapp.Question;
+import com.example.myeducationalapp.UserLogin;
+import com.example.myeducationalapp.UserSettings;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;

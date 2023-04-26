@@ -1,4 +1,4 @@
-package com.example.tokenizer;
+package com.example.myeducationalapp.Search;
 
 import java.util.ArrayList;
 import java.util.Scanner;

@@ -1,4 +1,4 @@
-package com.example.myeducationalapp;
+package com.example.myeducationalapp.Firebase;
 
 import com.google.firebase.database.DatabaseReference;
 
