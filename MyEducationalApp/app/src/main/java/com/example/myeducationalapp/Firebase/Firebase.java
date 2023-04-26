@@ -231,7 +231,7 @@ public class Firebase {
      * @throws AccessDeniedException Thrown if neither of the specified people are currently
      * logged in to this device.
      */
-    public FirebaseResult writeDirectMessages(Person person1, Person person2, MessageThread messages) throws AccessDeniedException {
+    public FirebaseResult writeDirectMessages(String username1, String username2, MessageThread messages) throws AccessDeniedException {
         // TODO: RACE CONDITIONS
         //       if both users are trying to write to the database at the same time (i.e. they both
         //       post at the same time).
@@ -240,12 +240,12 @@ public class Firebase {
          * We can only write the direct message history if we are one of the two users participating
          * in the chat.
          */
-        if (!UserLogin.getInstance().isUserLoggedIn(person1.getUsername()) &&
-                !UserLogin.getInstance().isUserLoggedIn(person2.getUsername())) {
+        if (!UserLogin.getInstance().isUserLoggedIn(username1) &&
+                !UserLogin.getInstance().isUserLoggedIn(username2)) {
             throw new AccessDeniedException("you do not have permission to read this conversation");
         }
 
-        return FirebaseRequest.write(database, getDirectMessageFilepath(person1.getUsername(), person2.getUsername()), messages.toString());
+        return FirebaseRequest.write(database, getDirectMessageFilepath(username1, username2), messages.toString());
     }
 
     public FirebaseResult writeQuestionComments(Question question, MessageThread messages) {
@@ -269,4 +269,6 @@ public class Firebase {
     public FirebaseResult readPerUserSettings(String username) {
         return FirebaseRequest.read(database, Arrays.asList("per_user", username));
     }
+
+
 }

@@ -113,9 +113,12 @@ public class UserLogin {
         return bytes;
     }
 
+    public String getCurrentUsername() {
+        return "TODO: IMPLEMENT ME!";
+    }
+
     public boolean isUserLoggedIn(String username) {
-        // TODO: determine if the given user is logged into this phone
-        return false;
+        return getCurrentUsername().equals(username);
     }
 
     public boolean authoriseUser(String username, String password) {

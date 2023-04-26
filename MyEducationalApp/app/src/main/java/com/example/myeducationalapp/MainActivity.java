@@ -50,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
                 return null;
             });
 
-
             FirebaseResult res = FirebaseRequest.read(fb.dbgGetRoot(), Arrays.asList("test", "with", "subdirectories"));
             res.then((obj) -> {
                 Log.w("fb", "the data is " + obj.toString());
