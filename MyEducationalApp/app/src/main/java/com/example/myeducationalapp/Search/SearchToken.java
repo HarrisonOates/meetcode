@@ -1,8 +1,8 @@
 package com.example.myeducationalapp.Search;
 
-import static com.example.myeducationalapp.Search.SearchToken.Query.*;
-
 import java.util.HashMap;
+
+import static com.example.myeducationalapp.Search.SearchToken.Query.*;
 
 /**
  * Defines all general tokens used in the parsing the search system
@@ -31,22 +31,14 @@ public class SearchToken {
          */
         @Override
         public String toString() {
-            switch (this) {
-                case Question:
-                    return "Question";
-                case User:
-                    return "User";
-                case Discussion:
-                    return "Discussion";
-                case Topic:
-                    return "Topic";
-                case Separator:
-                    return "Separator";
-                case Word:
-                    return "Word";
-                default:
-                    throw new IllegalArgumentException();
-            }
+            return switch (this) {
+                case Question   -> "Question";
+                case User       -> "User";
+                case Discussion -> "Discussion";
+                case Topic      -> "Topic";
+                case Separator  -> "Separator";
+                case Word       -> "Word";
+            };
         }
     }
 
