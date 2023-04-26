@@ -5,11 +5,10 @@ import java.util.ArrayList;
 // The AVLTree data structure will be implemented for each of these data sets:
 // - Past questions' ID
 // - Liked message ID
-// -
+// ...
 public class AVLTree<T extends Comparable<T>> {
     // Keep a track of how many past questions have been deleted (e.g. wrong questions have been posted so need to be removed?)
     // delete() will be the last one to implement if we have time
-    // TODO: implement delete()
     public int deletedNo = 0;
     public Node<T> root;
     public AVLTree() {this.root = null;}
@@ -90,7 +89,7 @@ public class AVLTree<T extends Comparable<T>> {
      * @param leaf node that has been inserted
      * @return starting node of the imbalance
      */
-    private Node<T> findImbalance(Node<T> leaf){
+    private Node<T> findImbalanceInsert(Node<T> leaf){
         if (root == null) {
             return null;
         }
@@ -98,7 +97,7 @@ public class AVLTree<T extends Comparable<T>> {
         if (Math.abs(getBalance(leaf)) > 1){
             return leaf;
         } else if (leaf.parent != null){
-            return findImbalance(leaf.parent);
+            return findImbalanceInsert(leaf.parent);
         }
         return null;
     }
@@ -155,7 +154,7 @@ public class AVLTree<T extends Comparable<T>> {
             this.root = newNode;
         } else {
             insertBeforeBalance(this.root, newNode);
-            Node<T> rootOfImbalance = findImbalance(newNode);
+            Node<T> rootOfImbalance = findImbalanceInsert(newNode);
             if (rootOfImbalance != null) {
                 balanceSubtree(rootOfImbalance);
             }
@@ -172,20 +171,77 @@ public class AVLTree<T extends Comparable<T>> {
     }
 
     /**
+     * Finds the imbalanced node that is closest to the node that replaced the deleted node
+     * Such node will be the root of the subtree that is to be rebalanced.
+     * @param node that replaced the deleted node
+     * @return starting node of the imbalance
+     */
+    private void findImbalanceDelete(Node<T> node, ArrayList<Node<T>> nodes){
+        if (node == null) {
+            return;
+        }
+
+        if (Math.abs(getBalance(node)) > 1){
+            nodes.add(node);
+        }
+        findImbalanceDelete(node.left, nodes);
+        findImbalanceDelete(node.right, nodes);
+    }
+
+    /**
      * Delete a node with a given value in the AVLTree. No change if the value does not exist.
      * @param curr node
      * @param value that is to be deleted
      */
-    public void deleteBeforeBalance(Node<T> curr, T value) {
-
-        Node<T> nodeToBeDeleted = search(value);
-        if (nodeToBeDeleted == null) {
-            return;
+    private Node<T> deleteBeforeBalance(Node<T> curr, T value) {
+        if (curr == null) {
+            return null;
         }
+        if (value.compareTo(curr.value) > 0) {
+            curr.right = deleteBeforeBalance(curr.right, value);
+        } else if (value.compareTo(curr.value) < 0) {
+            curr.left = deleteBeforeBalance(curr.left, value);
+        } else {
+            if (curr.left.value == null && curr.right.value == null) {
+                curr = null;
+            } else if (curr.left.value == null) {
+                curr =  curr.right;
+            } else if (curr.right.value == null) {
+                curr = curr.left;
+            } else {
+                // This is case where the node that is to be deleted has two children.
+                // The inorder successor of the node needs to replace the deletedNode, since it is
+                // guaranteed to be greater than the deletedNode's left subtree and smaller than its right subtree.
+                Node<T> minNode = findSuccessor(curr.right);
+                curr.value = minNode.value;
+                curr.right = deleteBeforeBalance(curr.right, curr.value);
+            }
+        }
+        return curr;
     }
 
+    private Node<T> findSuccessor(Node<T> node) {
+        while (node.left.value != null) {
+            node = node.left;
+        }
+        return node;
+    }
+
+    /**
+     * Delete a node with the given value and preserves all the properties of the AVLTree.
+     * @param value that is to be deleted
+     */
     public void delete(T value) {
-        deletedNo++;
+        Node<T> deletedNode = deleteBeforeBalance(root, value);
+        if (deletedNode != null) {
+            deletedNo++;
+        }
+        ArrayList<Node<T>> nodes = new ArrayList<>();
+        findImbalanceDelete(deletedNode, nodes);
+
+        for (Node<T> node : nodes) {
+            System.out.println(node.value);
+        }
     }
 
     public int getDeletedNo(){
@@ -238,6 +294,10 @@ public class AVLTree<T extends Comparable<T>> {
             preOrderHelper(curr.left, nodes);
             preOrderHelper(curr.right, nodes);
         }
+    }
+
+    public int size() {
+        return preOrderTraversal().size();
     }
 
     @Override

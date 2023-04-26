@@ -89,7 +89,7 @@ public class AVLTree<T extends Comparable<T>> {
      * @param leaf node that has been inserted
      * @return starting node of the imbalance
      */
-    private Node<T> findImbalance(Node<T> leaf){
+    private Node<T> findImbalanceInsert(Node<T> leaf){
         if (root == null) {
             return null;
         }
@@ -97,7 +97,7 @@ public class AVLTree<T extends Comparable<T>> {
         if (Math.abs(getBalance(leaf)) > 1){
             return leaf;
         } else if (leaf.parent != null){
-            return findImbalance(leaf.parent);
+            return findImbalanceInsert(leaf.parent);
         }
         return null;
     }
@@ -154,7 +154,7 @@ public class AVLTree<T extends Comparable<T>> {
             this.root = newNode;
         } else {
             insertBeforeBalance(this.root, newNode);
-            Node<T> rootOfImbalance = findImbalance(newNode);
+            Node<T> rootOfImbalance = findImbalanceInsert(newNode);
             if (rootOfImbalance != null) {
                 balanceSubtree(rootOfImbalance);
             }
@@ -168,6 +168,24 @@ public class AVLTree<T extends Comparable<T>> {
     public void insert(T value) {
         Node<T> node = new Node<>(value);
         insert(node);
+    }
+
+    /**
+     * Finds the imbalanced node that is closest to the node that replaced the deleted node
+     * Such node will be the root of the subtree that is to be rebalanced.
+     * @param node that replaced the deleted node
+     * @param nodes that has unbalanced factor which there should only be one
+     */
+    private void findImbalanceDelete(Node<T> node, ArrayList<Node<T>> nodes){
+        if (node == null) {
+            return;
+        }
+
+        if (Math.abs(getBalance(node)) > 1){
+            nodes.add(node);
+        }
+        findImbalanceDelete(node.left, nodes);
+        findImbalanceDelete(node.right, nodes);
     }
 
     /**
@@ -218,9 +236,10 @@ public class AVLTree<T extends Comparable<T>> {
         if (deletedNode != null) {
             deletedNo++;
         }
-        Node<T> rootOfImbalance = findImbalance(deletedNode);
-        if (rootOfImbalance != null) {
-            balanceSubtree(rootOfImbalance);
+        ArrayList<Node<T>> nodes = new ArrayList<>();
+        findImbalanceDelete(deletedNode, nodes);
+        if (nodes.size() != 0) {
+            balanceSubtree(nodes.get(0));
         }
     }
 

@@ -115,14 +115,14 @@ public class AVLTreeTest {
 
             // If its left or right child is empty, then the child can be ignored and
             // the corresponding case can always be evaluated as true
-            if (node.left.value == null) {
+            if (node.left == null || node.left.value == null) {
                 // guarantees left < found.value to be true
                 left = node.value - 1;
             } else {
                 left = node.left.value;
             }
 
-            if (node.right.value == null) {
+            if (node.right == null || node.right.value == null) {
                 // guarantees found.value < right to be true
                 right = node.value + 1;
             } else {
