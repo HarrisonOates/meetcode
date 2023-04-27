@@ -28,6 +28,29 @@ public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
 
+    private void demo() {
+        UserLogin login = UserLogin.getInstance();
+        login.addUser("alex", "12345678");
+        login.addUser("geun", "12345678");
+        login.addUser("nikhila", "12345678");
+        login.addUser("harrison", "12345678");
+        login.addUser("jayden", "12345678");
+
+        login.authoriseUser("alex", "12345678");
+
+        String loggedInUser = login.getCurrentUsername();
+
+        DirectMessageThread dms = new DirectMessageThread("geun");
+        dms.__.then((obj) -> {
+            dms.postMessage("MSG ABC 1");
+            dms.postMessage("MSG ABC 2");
+            return null;
+        });
+
+        Firebase.getInstance().dump();
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +66,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         binding.fab.setOnClickListener(view -> {
-            Firebase fb = Firebase.getInstance();
+            demo();
+
+            /*Firebase fb = Firebase.getInstance();
 
             FirebaseRequest.write(fb.dbgGetRoot(), Arrays.asList("test", "with", "subdirectories"), "hello world").then((h) -> {
                 Log.w("fb", "write completed");
@@ -58,6 +83,8 @@ public class MainActivity extends AppCompatActivity {
                 Log.w("fb", "the data is " + obj.toString());
                 return obj + " haha";
             });
+            */
+
 
             //fb.writeLoginDetails(UserLogin.getInstance().toString());
 

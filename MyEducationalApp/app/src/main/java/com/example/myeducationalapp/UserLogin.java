@@ -5,6 +5,7 @@ import com.example.myeducationalapp.Firebase.Firebase;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.security.MessageDigest;
@@ -22,6 +23,11 @@ public class UserLogin {
 
     // <Username, String[]{Hashed password, salt}> pair
     public HashMap<String, String[]>  userLogins;
+
+    /*
+     * Stores the currently logged in user.
+     */
+    private String loggedInUsername;
 
     private UserLogin() {
         this.userLogins = new HashMap<>();
@@ -114,11 +120,11 @@ public class UserLogin {
     }
 
     public String getCurrentUsername() {
-        return "TODO: IMPLEMENT ME!";
+        return loggedInUsername;
     }
 
     public boolean isUserLoggedIn(String username) {
-        return getCurrentUsername().equals(username);
+        return loggedInUsername != null && getCurrentUsername().equals(username);
     }
 
     public boolean authoriseUser(String username, String password) {
@@ -129,7 +135,17 @@ public class UserLogin {
         String storedPassword = Objects.requireNonNull(userLogins.get(username))[0];
         byte[] salt = hexToByte(Objects.requireNonNull(userLogins.get(username))[1]);
         String hashedPassword = hashPassword(password, salt);
-        return storedPassword.equals(hashedPassword);
+
+        boolean success = storedPassword.equals(hashedPassword);
+
+        if (success) {
+            if (loggedInUsername != null) {
+                throw new RuntimeException("log out previous user before trying to log in!");
+            }
+            loggedInUsername = username;
+        }
+
+        return success;
     }
 
     @Override

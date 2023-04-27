@@ -2,11 +2,14 @@ package com.example.myeducationalapp.Firebase;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import com.example.myeducationalapp.MessageThread;
 import com.example.myeducationalapp.Person;
 import com.example.myeducationalapp.Question;
 import com.example.myeducationalapp.UserLogin;
 import com.example.myeducationalapp.UserSettings;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -16,6 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.nio.file.AccessDeniedException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -270,5 +274,33 @@ public class Firebase {
         return FirebaseRequest.read(database, Arrays.asList("per_user", username));
     }
 
+    public void dumpFrom(DatabaseReference root, String pathSoFar) {
+        root.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                int i = 0;
+                for (var ignored: snapshot.getChildren()) {
+                    ++i;
+                }
 
+                Log.w("dump", pathSoFar + (i == 0 ? ": " + snapshot.getValue() : ""));
+
+                for (var child: snapshot.getChildren()) {
+                    dumpFrom(child.getRef(), pathSoFar + "/" + child.getKey());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        root.get();
+    }
+
+    public void dump() {
+        Log.w("dump", "FIREBASE CONTENTS");
+        dumpFrom(database, "");
+    }
 }

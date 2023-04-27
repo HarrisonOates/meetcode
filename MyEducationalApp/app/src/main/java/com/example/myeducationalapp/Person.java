@@ -1,5 +1,7 @@
 package com.example.myeducationalapp;
 
+import android.util.Log;
+
 import com.example.myeducationalapp.Firebase.Firebase;
 
 public class Person {

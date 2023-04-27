@@ -3,6 +3,7 @@ package com.example.myeducationalapp;
 import com.example.myeducationalapp.Firebase.Firebase;
 import com.example.myeducationalapp.Firebase.FirebaseResult;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -16,13 +17,16 @@ public abstract class MessageThread {
     // IMPORTANT: this class needs to have the most up-to-date version of the backend data at all
     //            times, as having stale data could lead to messages being lost.
 
-    List<Message> messages;
-    int threadID;
+    protected List<Message> messages = new ArrayList<>();
+    protected int threadID;
+
+    public int getThreadID() {
+        return threadID;
+    }
 
     // TODO: subclass based on either DM / questions
     abstract FirebaseResult downloadMessages();
     abstract FirebaseResult uploadChanges();
-
 
     protected MessageThread() {
 
@@ -38,5 +42,23 @@ public abstract class MessageThread {
         }
 
         return result.toString();
+    }
+
+    public List<Message> getMessages() {
+        return messages;
+    }
+
+    public void postMessage(String content, Message replyingTo) {
+        int indexReplyingTo = replyingTo == null ? -1 : replyingTo.getIndex();
+
+        // -1\t content here \t\t
+        Message message = new Message(this, getMessages().size(), content, indexReplyingTo);
+        messages.add(message);
+
+        uploadChanges();
+    }
+
+    public void postMessage(String content) {
+        postMessage(content, null);
     }
 }
