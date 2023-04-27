@@ -1,7 +1,8 @@
-package com.example.tokenizer;
+package com.example.myeducationalapp.Search;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import com.example.myeducationalapp.Search.*;
 
 /**
  * A class for parsing search results, splitting them up by their query and by

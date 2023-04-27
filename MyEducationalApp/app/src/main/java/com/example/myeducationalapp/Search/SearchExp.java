@@ -1,4 +1,4 @@
-package com.example.tokenizer;
+package com.example.myeducationalapp.Search;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class SearchExp extends Exp{
     //Contains the first query expression
-    private Exp expression;
+    private final Exp expression;
     //Contains a second query expression if present
     private Exp nextExpression;
 

@@ -43,6 +43,7 @@ public class AVLTreeTest {
             tree.insert(value);
         }
         // Visual representation of the tree
+        assertNotNull(tree.search(tree.root.value));
         System.out.println(tree);
 
         // Test the implementation of preOrderTraversal()
@@ -51,7 +52,7 @@ public class AVLTreeTest {
         Collections.addAll(preOrderValues, preOrder);
         ArrayList<AVLTree.Node<Integer>> nodes = tree.preOrderTraversal();
         assertEquals("Size of values and nodes should be the same",
-                preOrderValues.size(), nodes.size());
+                treeValues.length, tree.size());
         for (int i = 0; i < preOrderValues.size(); i++) {
             assertEquals("Incorrect insertion", preOrderValues.get(i), nodes.get(i).value);
         }
@@ -85,6 +86,43 @@ public class AVLTreeTest {
             }
 
             if (node.right.value == null) {
+                // guarantees found.value < right to be true
+                right = node.value + 1;
+            } else {
+                right = node.right.value;
+            }
+            assertTrue("The value should be smaller than its left child and greater than its right child",
+                    left < node.value && node.value < right);
+        }
+
+        // The root should no longer exist after the deletion
+        Integer rootToBeDeleted = tree.root.value;
+        tree.delete(rootToBeDeleted);
+        assertNull(tree.search(rootToBeDeleted));
+        System.out.println(tree);
+
+        ArrayList<AVLTree.Node<Integer>> nodesAfterDel = tree.preOrderTraversal();
+        // Test whether the tree is still a valid AVLTree after delete()
+        for (AVLTree.Node<Integer> node : nodesAfterDel) {
+            // Test whether the height difference between left and right subtrees of a node is at most
+            System.out.println(node.value + ": " + tree.getBalance(node));
+            assertTrue("Balance factor condition is not met",
+                    Math.abs(tree.getBalance(node)) <= 1);
+
+            // Test whether the tree is a BST
+            int left;
+            int right;
+
+            // If its left or right child is empty, then the child can be ignored and
+            // the corresponding case can always be evaluated as true
+            if (node.left == null || node.left.value == null) {
+                // guarantees left < found.value to be true
+                left = node.value - 1;
+            } else {
+                left = node.left.value;
+            }
+
+            if (node.right == null || node.right.value == null) {
                 // guarantees found.value < right to be true
                 right = node.value + 1;
             } else {

@@ -1,6 +1,4 @@
-package com.example.myeducationalapp;
-
-import android.util.Log;
+package com.example.myeducationalapp.Firebase;
 
 import androidx.annotation.NonNull;
 
