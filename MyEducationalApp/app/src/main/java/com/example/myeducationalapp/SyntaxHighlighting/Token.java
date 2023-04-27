@@ -14,7 +14,8 @@ public class Token {
         IDENTIFIER,     // e.g SquareRoot
         STRING_LITERAL, // e.g "String Literal" or 's'
         NUMERIC_LITERAL,
-        WHITESPACE      // As we're only highlighting syntax, we want to preserve whitespace somehow
+        WHITESPACE,      // As we're only highlighting syntax, we want to preserve whitespace somehow
+        NEWLINE          // To preserve the structure.
     }
 
     private final String token;
