@@ -41,9 +41,16 @@ public class MessagingDemoActivity extends AppCompatActivity {
             if (text != null) {
                 dms.postMessage(text);
             }
+            // no change
+            if (adapter.getCount() == dms.getMessages().size()) {
+                return null;
+            }
             adapter.clear();
             for (Message msg: dms.getMessages()) {
-                adapter.add(msg.getPoster().getUsername() + ": " + msg.getContent());
+                msg.getPoster().runWhenReady((ignored) -> {
+                    adapter.add(msg.getPoster().getUsername() + ": " + msg.getContent());
+                    return null;
+                });
             }
             return null;
         });
