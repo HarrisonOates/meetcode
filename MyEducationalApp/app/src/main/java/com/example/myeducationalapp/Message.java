@@ -113,6 +113,10 @@ public class Message extends Asynchronous {
         addWaitRequirement(sentBy.getWaitRequirement());
     }
 
+    public String getContent() {
+        return content;
+    }
+
     public int getLikeCount() {
         return likedBy.size();
     }

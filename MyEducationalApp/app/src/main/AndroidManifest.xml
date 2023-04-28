@@ -12,6 +12,14 @@
         android:theme="@style/Theme.MyEducationalApp"
         tools:targetApi="31">
         <activity
+            android:name=".MessagingDemoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MessagingDemoFragment"
+            android:exported="false"
+            android:label="@string/title_activity_messaging_demo_fragment"
+            android:theme="@style/Theme.MyEducationalApp" />
+        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"

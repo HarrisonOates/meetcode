@@ -1,5 +1,6 @@
 package com.example.myeducationalapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.myeducationalapp.Firebase.Firebase;
@@ -43,7 +44,20 @@ public class MainActivity extends AppCompatActivity {
             DirectMessageThread dms = new DirectMessageThread("geun");
             dms.runWhenReady((obj) -> {
                 Log.w("dbg", "THE DM THREAD IS READY");
-                dms.postMessage("MSG ABC 1");
+                dms.postMessage("ABC");
+                //dms.postMessage("MSG ABC 2");
+                return null;
+            });
+
+            Firebase.getInstance().dump();
+
+        } else if (demoStage == 2) {
+            String loggedInUser = login.getCurrentUsername();
+
+            DirectMessageThread dms = new DirectMessageThread("geun");
+            dms.runWhenReady((obj) -> {
+                Log.w("dbg", "THE DM THREAD IS READY");
+                dms.postMessage("DEF");
                 //dms.postMessage("MSG ABC 2");
                 return null;
             });
@@ -70,7 +84,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         binding.fab.setOnClickListener(view -> {
-            demo();
+            Intent intent = new Intent(this, MessagingDemoActivity.class);
+            startActivity(intent);
 
             /*Firebase fb = Firebase.getInstance();
 
