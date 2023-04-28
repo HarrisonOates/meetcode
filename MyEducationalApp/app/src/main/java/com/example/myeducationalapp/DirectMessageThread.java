@@ -21,7 +21,10 @@ public class DirectMessageThread extends MessageThread {
          * We need both the messages, and the user to download before other classes
          * can start calling us.
          */
-        _ready = this.withUser._ready.merge(downloadMessages());
+        _ready = this.withUser._ready.merge(downloadMessages()).then((obj) -> {
+            Log.w("dbg", "played the waiting game");
+            return obj;
+        });
     }
 
     public int getThreadID() {

@@ -26,11 +26,9 @@ public class FirebaseResult {
 
     // The use of a CountDownLatch came from here:
     // https://stackoverflow.com/questions/55785311/how-do-i-wait-until-my-data-is-retrieved-from-firebase
-    final CountDownLatch gotResult = new CountDownLatch(1);
+    CountDownLatch gotResult = new CountDownLatch(1);
 
-    final List<Function<Object, Object>> callbacks = new ArrayList<>();
-
-    private FirebaseResult this_ = this;
+    List<Function<Object, Object>> callbacks = new ArrayList<>();
 
     /**
      * Waits for the current callback to complete, and another one, before calling any
@@ -42,24 +40,25 @@ public class FirebaseResult {
      */
     public FirebaseResult merge(FirebaseResult other) {
         then((obj) -> {
-            synchronized (this_.gotResult) {
-                synchronized (other.this_.gotResult) {
-                    if (this_.gotResult.getCount() == 0 && other.this_.gotResult.getCount() == 0) {
-                        /*
-                         * Both are already done, so don't need to do anything.
-                         */
+            Log.w("dbg", "running the merge");
+            if (gotResult.getCount() == 0 && other.gotResult.getCount() == 0) {
+                /*
+                 * Both are already done, so don't need to do anything.
+                 */
 
-                    } else if (this_.gotResult.getCount() == 0 && other.this_.gotResult.getCount() == 1) {
-                        /*
-                         * This one is done, but we have to wait for the other one to finish.
-                         * Hence we can just return the other one.
-                         */
-                        this_ = other.this_;
+            } else if (gotResult.getCount() == 0 && other.gotResult.getCount() == 1) {
+                /*
+                 * This one is done, but we have to wait for the other one to finish.
+                 * Hence we can just return the other one.
+                 */
+                gotResult = other.gotResult;
+                callbacks = other.callbacks;
+                result = other.result;
 
-                    } else {
-                        throw new AssertionError("how did this .then() handler run without the thing finishing??");
-                    }
-                }
+                Log.w("dbg", "playing the waiting game");
+
+            } else {
+                throw new AssertionError("how did this .then() handler run without the thing finishing??");
             }
             return obj;
         });
@@ -68,18 +67,16 @@ public class FirebaseResult {
     }
 
     public FirebaseResult then(Function<Object, Object> listener) {
-        synchronized (this_.gotResult) {
-            if (this_.gotResult.getCount() == 0) {
-                if (this_.callbacks.size() != 0) {
+            if (gotResult.getCount() == 0) {
+                if (callbacks.size() != 0) {
                     throw new AssertionError("callbacks non-null when then called on fulfilled result");
                 }
-                this_.result = listener.apply(this_.result);
+                result = listener.apply(result);
             } else {
-                synchronized (this_.callbacks) {
-                    this_.callbacks.add(listener);
-                }
+                Log.w("dbg", "added a callback");
+                callbacks.add(listener);
             }
-        }
+
         return this;
     }
 
@@ -100,14 +97,10 @@ public class FirebaseResult {
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                synchronized (this_.gotResult) {
-                    synchronized (this_.callbacks) {
-                        this_.gotResult.countDown();
-                        this_.result = snapshot.getValue();
-                        while (!this_.callbacks.isEmpty()) {
-                            this_.result = this_.callbacks.remove(0).apply(this_.result);
-                        }
-                    }
+                gotResult.countDown();
+                result = snapshot.getValue();
+                while (!callbacks.isEmpty()) {
+                    result = callbacks.remove(0).apply(result);
                 }
             }
 
