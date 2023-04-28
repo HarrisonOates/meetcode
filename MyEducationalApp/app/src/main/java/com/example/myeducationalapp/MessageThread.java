@@ -57,7 +57,7 @@ public abstract class MessageThread extends Asynchronous {
         Message message = new Message(this, getMessages().size(), content, indexReplyingTo);
         messages.add(message);
 
-        message._ready.then((obj) -> {
+        message.runWhenReady((obj) -> {
             Log.w("dbg", "MESSAGE IS READY TO UPLOAD");
             uploadChanges();
             return null;

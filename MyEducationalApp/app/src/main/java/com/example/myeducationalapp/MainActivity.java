@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
             dms.runWhenReady((obj) -> {
                 Log.w("dbg", "THE DM THREAD IS READY");
                 dms.postMessage("MSG ABC 1");
-                dms.postMessage("MSG ABC 2");
+                //dms.postMessage("MSG ABC 2");
                 return null;
             });
 

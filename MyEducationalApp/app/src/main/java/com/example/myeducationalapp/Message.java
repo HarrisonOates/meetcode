@@ -5,7 +5,7 @@ import android.util.Log;
 
 import com.example.myeducationalapp.Firebase.FirebaseResult;
 
-public class Message {
+public class Message extends Asynchronous {
     private String content;
 
     /**
@@ -34,8 +34,6 @@ public class Message {
      * to reduce the amount of time spent waiting to load it from Firebase.
      */
     private AVLTree<String> likedBy;
-
-    FirebaseResult _ready;
 
     public int getIndex() {
         return indexWithinThread;
@@ -86,7 +84,7 @@ public class Message {
         this.replyingTo = replyingTo;
         this.content = content;
         this.sentBy = new Person(UserLogin.getInstance().getCurrentUsername());
-        this._ready = this.sentBy._ready;
+        addWaitRequirement(sentBy.getWaitRequirement());
     }
 
     /**
@@ -112,7 +110,7 @@ public class Message {
         replyingTo = Integer.parseInt(components[0]);
         content = unescapeString(components[1]);
         sentBy = new Person(unescapeString(components[2]));
-        this._ready = this.sentBy._ready;
+        addWaitRequirement(sentBy.getWaitRequirement());
     }
 
     public int getLikeCount() {

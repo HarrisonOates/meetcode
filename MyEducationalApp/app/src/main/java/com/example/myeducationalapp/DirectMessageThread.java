@@ -15,7 +15,7 @@ public class DirectMessageThread extends MessageThread {
         this.withUsername = withUsername;
         this.withUser = new Person(withUsername);
 
-        addWaitRequirement(this.withUser._ready);
+        addWaitRequirement(this.withUser.getWaitRequirement());
         addWaitRequirement(downloadMessages());
     }
 

@@ -17,6 +17,14 @@ public class Asynchronous {
         requirements.add(result);
     }
 
+    public FirebaseResult getWaitRequirement() {
+        if (requirements.size() != 1) {
+            throw new AssertionError("Alex wants to cry");
+        }
+
+        return requirements.get(0);
+    }
+
     private void runWhenReadyInternal(Function<Object, Object> func, int index) {
         if (index < requirements.size()) {
             requirements.get(index).then((obj) -> {
