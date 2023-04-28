@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
@@ -25,6 +26,11 @@ public class MessagingDemoActivity extends AppCompatActivity {
 
         ListView list = (ListView) findViewById(R.id.myListView);
         list.setAdapter(adapter);
+
+        ((Button) findViewById(R.id.demoSendBtn)).setEnabled(false);
+        ((EditText) findViewById(R.id.demoMsgText)).setEnabled(false);
+        ((EditText) findViewById(R.id.demoMsgText2)).setEnabled(false);
+
     }
 
     public void demoBtnPress(View view) {
@@ -54,6 +60,13 @@ public class MessagingDemoActivity extends AppCompatActivity {
         login.addUser("jayden", "12345678");
 
         login.authoriseUser(username, "12345678");
+
+        ((Button) findViewById(R.id.demoSendBtn)).setEnabled(true);
+        ((Button) findViewById(R.id.demoSendBtn2)).setEnabled(false);
+        ((EditText) findViewById(R.id.demoMsgText)).setEnabled(true);
+        ((EditText) findViewById(R.id.demoMsgText2)).setEnabled(true);
+        ((EditText) findViewById(R.id.demoMsgText3)).setEnabled(false);
+
     }
 
     public void demoBtnPress3(View view) {
