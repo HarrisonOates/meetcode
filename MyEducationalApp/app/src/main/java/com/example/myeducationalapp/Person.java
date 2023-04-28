@@ -3,25 +3,36 @@ package com.example.myeducationalapp;
 import android.util.Log;
 
 import com.example.myeducationalapp.Firebase.Firebase;
+import com.example.myeducationalapp.Firebase.FirebaseResult;
 
 public class Person {
+    private String username;
+
     public String getUsername() {
-        return "";
+        return username;
     }
+
+    public FirebaseResult _ready;
 
     @Override
     public String toString() {
-        return "";
+        // TODO: do whatever is needed to save a Person object
+        return username;
     }
 
 
     public Person(String username) {
-        Firebase.getInstance().readUserProfile(username).then((obj) -> {
+        Log.w("dbg", "initing a person " + username + " with hashcode " + hashCode());
+        _ready = Firebase.getInstance().readUserProfile(username).then((obj) -> {
+            Log.w("dbg", "PERSON OBJECT READ " + username + " " + hashCode());
+
             String data = (String) obj;
 
             // TODO: do whatever is needed to load a Person object
 
-            return null;
+            this.username = username;
+
+            return obj;
         });
     }
 }

@@ -6,19 +6,22 @@ import com.example.myeducationalapp.Firebase.Firebase;
 import com.example.myeducationalapp.Firebase.FirebaseResult;
 
 import java.nio.file.AccessDeniedException;
-import java.util.Arrays;
-import java.util.List;
 
 public class DirectMessageThread extends MessageThread {
     private String withUsername;
     private Person withUser;
-    protected FirebaseResult __;
+    protected FirebaseResult _ready;
 
 
     public DirectMessageThread(String withUsername) {
         this.withUsername = withUsername;
         this.withUser = new Person(withUsername);
-        __ = downloadMessages();
+
+        /*
+         * We need both the messages, and the user to download before other classes
+         * can start calling us.
+         */
+        _ready = this.withUser._ready.merge(downloadMessages());
     }
 
     public int getThreadID() {
@@ -36,7 +39,7 @@ public class DirectMessageThread extends MessageThread {
     FirebaseResult downloadMessages() {
         try {
             return Firebase.getInstance().readDirectMessages(UserLogin.getInstance().getCurrentUsername(), withUsername).then((obj) -> {
-                Log.w("debug", "dmt downloadMessages callback");
+                Log.w("dbg", "ALL MESSAGES READY TO DOWNLOAD");
 
                 String str = (String) obj;
 
@@ -59,7 +62,7 @@ public class DirectMessageThread extends MessageThread {
                     }
                 }
 
-                Log.w("debug", "dmt downloadMessages callback completed");
+                Log.w("dbg", "ALL MESSAGES DOWNLOADED");
 
                 return obj;
             });

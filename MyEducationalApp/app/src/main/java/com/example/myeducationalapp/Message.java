@@ -35,6 +35,8 @@ public class Message {
      */
     private AVLTree<String> likedBy;
 
+    FirebaseResult _ready;
+
     public int getIndex() {
         return indexWithinThread;
     }
@@ -65,6 +67,7 @@ public class Message {
     @SuppressLint("DefaultLocale")
     @Override
     public String toString() {
+        Log.w("dbg", "sentBy is: " + sentBy + " " + sentBy.hashCode());
         return String.format("%d\t%s\t%s\t%s", replyingTo, escapeString(content), escapeString(sentBy.getUsername()), escapeString(likedBy.toString()));
     }
 
@@ -83,6 +86,7 @@ public class Message {
         this.replyingTo = replyingTo;
         this.content = content;
         this.sentBy = new Person(UserLogin.getInstance().getCurrentUsername());
+        this._ready = this.sentBy._ready;
     }
 
     /**
@@ -97,10 +101,6 @@ public class Message {
         this.likedBy = new AVLTree<>();
         this.indexWithinThread = index;
 
-        for (char c : data.toCharArray()) {
-            Log.w("dbg", "  -> character " + c + " " + ((int) c));
-        }
-
         /*
          * The -1 somehow makes it not remove 'empty' split cases (e.g. when a message
          * has no likes).
@@ -108,14 +108,11 @@ public class Message {
          * https://stackoverflow.com/questions/14602062/java-string-split-removed-empty-values
          */
         String[] components = data.split("\t", -1);
-        Log.w("dbg", "Loading message. Components:");
-        for (String component: components) {
-            Log.w("dbg", "    -> " + component);
-        }
 
         replyingTo = Integer.parseInt(components[0]);
         content = unescapeString(components[1]);
         sentBy = new Person(unescapeString(components[2]));
+        this._ready = this.sentBy._ready;
     }
 
     public int getLikeCount() {
@@ -144,6 +141,8 @@ public class Message {
          * might disappear).
          */
         downloadUpdatedLikeCount().then((obj) -> {
+            Log.w("dbg", "DOWNLOADED UPDATED LIKE COUNT");
+
             reloadLikedBy((String) obj);
 
             String currentUser = UserLogin.getInstance().getCurrentUsername();

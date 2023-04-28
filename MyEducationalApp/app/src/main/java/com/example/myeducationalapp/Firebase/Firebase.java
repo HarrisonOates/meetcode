@@ -299,6 +299,14 @@ public class Firebase {
         root.get();
     }
 
+    public void eraseAllData(String safetyCheck) {
+        if (!safetyCheck.equals("yes, I actually want to delete all data from firebase")) {
+            throw new RuntimeException("if you really want to delete everything, look at the source of Firebase.eraseAllData");
+        }
+
+        database.removeValue();
+    }
+
     public void dump() {
         Log.w("dump", "FIREBASE CONTENTS");
         dumpFrom(database, "");

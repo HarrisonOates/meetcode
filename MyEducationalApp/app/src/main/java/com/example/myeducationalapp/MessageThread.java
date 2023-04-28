@@ -1,5 +1,7 @@
 package com.example.myeducationalapp;
 
+import android.util.Log;
+
 import com.example.myeducationalapp.Firebase.Firebase;
 import com.example.myeducationalapp.Firebase.FirebaseResult;
 
@@ -55,7 +57,11 @@ public abstract class MessageThread {
         Message message = new Message(this, getMessages().size(), content, indexReplyingTo);
         messages.add(message);
 
-        uploadChanges();
+        message._ready.then((obj) -> {
+            Log.w("dbg", "MESSAGE IS READY TO UPLOAD");
+            uploadChanges();
+            return null;
+        });
     }
 
     public void postMessage(String content) {

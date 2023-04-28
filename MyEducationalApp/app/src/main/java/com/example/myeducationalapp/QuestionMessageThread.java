@@ -1,5 +1,7 @@
 package com.example.myeducationalapp;
 
+import android.util.Log;
+
 import com.example.myeducationalapp.Firebase.Firebase;
 import com.example.myeducationalapp.Firebase.FirebaseResult;
 
@@ -19,6 +21,8 @@ public class QuestionMessageThread extends MessageThread {
     @Override
     FirebaseResult downloadMessages() {
         return Firebase.getInstance().readQuestionComments(questionID).then((obj) -> {
+            Log.w("dbg", "QUESTION DOWNLOADED MESSAGES");
+
             List<String> allStrings = Arrays.asList(((String) obj).split("\n"));
             threadID = Integer.parseInt(allStrings.remove(0));
             int index = 0;

@@ -3,13 +3,9 @@ package com.example.myeducationalapp;
 import android.os.Bundle;
 
 import com.example.myeducationalapp.Firebase.Firebase;
-import com.example.myeducationalapp.Firebase.FirebaseRequest;
-import com.example.myeducationalapp.Firebase.FirebaseResult;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.util.Log;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -18,36 +14,44 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.myeducationalapp.databinding.ActivityMainBinding;
 
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-
-import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
 
+    int demoStage = 0;
+
     private void demo() {
         UserLogin login = UserLogin.getInstance();
-        login.addUser("alex", "12345678");
-        login.addUser("geun", "12345678");
-        login.addUser("nikhila", "12345678");
-        login.addUser("harrison", "12345678");
-        login.addUser("jayden", "12345678");
 
-        login.authoriseUser("alex", "12345678");
+        if (demoStage == 0) {
+            login.addUser("alex", "12345678");
+            login.addUser("geun", "12345678");
+            login.addUser("nikhila", "12345678");
+            login.addUser("harrison", "12345678");
+            login.addUser("jayden", "12345678");
 
-        String loggedInUser = login.getCurrentUsername();
+            login.authoriseUser("alex", "12345678");
 
-        DirectMessageThread dms = new DirectMessageThread("geun");
-        dms.__.then((obj) -> {
-            dms.postMessage("MSG ABC 1");
-            dms.postMessage("MSG ABC 2");
-            return null;
-        });
+        } else if (demoStage == 1) {
+            String loggedInUser = login.getCurrentUsername();
 
-        Firebase.getInstance().dump();
+            DirectMessageThread dms = new DirectMessageThread("geun");
+            dms._ready.then((obj) -> {
+                Log.w("dbg", "THE DM THREAD IS READY");
+                dms.postMessage("MSG ABC 1");
+                dms.postMessage("MSG ABC 2");
+                return null;
+            });
+
+            Firebase.getInstance().dump();
+        }
+
+        ++demoStage;
     }
 
 
