@@ -194,20 +194,24 @@ public class AVLTree<T extends Comparable<T>> {
      * @param value that is to be deleted
      */
     private Node<T> deleteBeforeBalance(Node<T> curr, T value) {
-        if (curr == null) {
+        if (curr == null || curr.value == null) {
             return null;
         }
+
         if (value.compareTo(curr.value) > 0) {
             curr.right = deleteBeforeBalance(curr.right, value);
         } else if (value.compareTo(curr.value) < 0) {
             curr.left = deleteBeforeBalance(curr.left, value);
         } else {
-            if (curr.left.value == null && curr.right.value == null) {
+            if ((curr.left == null || curr.left.value == null) && (curr.right == null || curr.right.value == null)) {
+                curr.value = null;
                 curr = null;
-            } else if (curr.left.value == null) {
-                curr =  curr.right;
-            } else if (curr.right.value == null) {
-                curr = curr.left;
+            } else if (curr.left == null || curr.left.value == null) {
+                curr.value = curr.right.value;
+                curr.right = deleteBeforeBalance(curr.right, curr.value);
+            } else if (curr.right == null || curr.right.value == null) {
+                curr.value = curr.left.value;
+                curr.left = deleteBeforeBalance(curr.left, curr.value);
             } else {
                 // This is case where the node that is to be deleted has two children.
                 // The inorder successor of the node needs to replace the deletedNode, since it is
@@ -221,7 +225,7 @@ public class AVLTree<T extends Comparable<T>> {
     }
 
     private Node<T> findSuccessor(Node<T> node) {
-        while (node.left.value != null) {
+        while (node.left != null && node.left.value != null) {
             node = node.left;
         }
         return node;
@@ -232,10 +236,11 @@ public class AVLTree<T extends Comparable<T>> {
      * @param value that is to be deleted
      */
     public void delete(T value) {
-        Node<T> deletedNode = deleteBeforeBalance(root, value);
-        if (deletedNode != null) {
+        if (search(value) != null) {
             deletedNo++;
         }
+
+        Node<T> deletedNode = deleteBeforeBalance(root, value);
         ArrayList<Node<T>> nodes = new ArrayList<>();
         findImbalanceDelete(deletedNode, nodes);
         if (nodes.size() != 0) {
@@ -255,7 +260,7 @@ public class AVLTree<T extends Comparable<T>> {
      * @return the node with a given value or null
      */
     public Node<T> find(Node<T> node, T value) {
-        if (node.value == null) {
+        if (node == null || node.value == null) {
             return null;
         }
 
