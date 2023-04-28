@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,6 +18,8 @@ import com.example.myeducationalapp.Firebase.Firebase;
 public class MessagingDemoActivity extends AppCompatActivity {
     ArrayAdapter<String> adapter;
 
+    final Handler handler = new Handler();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,24 +32,28 @@ public class MessagingDemoActivity extends AppCompatActivity {
 
         ((Button) findViewById(R.id.demoSendBtn)).setEnabled(false);
         ((EditText) findViewById(R.id.demoMsgText)).setEnabled(false);
-        ((EditText) findViewById(R.id.demoMsgText2)).setEnabled(false);
 
     }
 
-    public void demoBtnPress(View view) {
-        String text = String.valueOf(((EditText) findViewById(R.id.demoMsgText)).getText());
-        String to = String.valueOf(((EditText) findViewById(R.id.demoMsgText2)).getText());
-
-
+    public void update(String text, String to) {
         DirectMessageThread dms = new DirectMessageThread(to);
         dms.runWhenReady((obj) -> {
-            dms.postMessage(text);
+            if (text != null) {
+                dms.postMessage(text);
+            }
             adapter.clear();
             for (Message msg: dms.getMessages()) {
                 adapter.add(msg.getPoster().getUsername() + ": " + msg.getContent());
             }
             return null;
         });
+    }
+
+    public void demoBtnPress(View view) {
+        String text = String.valueOf(((EditText) findViewById(R.id.demoMsgText)).getText());
+        String to = String.valueOf(((EditText) findViewById(R.id.demoMsgText2)).getText());
+
+        update(text, to);
     }
 
     public void demoBtnPress2(View view) {
@@ -64,9 +71,21 @@ public class MessagingDemoActivity extends AppCompatActivity {
         ((Button) findViewById(R.id.demoSendBtn)).setEnabled(true);
         ((Button) findViewById(R.id.demoSendBtn2)).setEnabled(false);
         ((EditText) findViewById(R.id.demoMsgText)).setEnabled(true);
-        ((EditText) findViewById(R.id.demoMsgText2)).setEnabled(true);
+        ((EditText) findViewById(R.id.demoMsgText2)).setEnabled(false);
         ((EditText) findViewById(R.id.demoMsgText3)).setEnabled(false);
 
+        String to = String.valueOf(((EditText) findViewById(R.id.demoMsgText2)).getText());
+        update(null, to);
+
+        final int delay = 500; // 1000 milliseconds == 1 second
+
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                String to = String.valueOf(((EditText) findViewById(R.id.demoMsgText2)).getText());
+                update(null, to);
+                handler.postDelayed(this, delay);
+            }
+        }, delay);
     }
 
     public void demoBtnPress3(View view) {
