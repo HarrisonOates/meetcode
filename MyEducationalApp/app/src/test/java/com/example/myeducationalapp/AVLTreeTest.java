@@ -113,7 +113,7 @@ public class AVLTreeTest {
             validAVLTest(nodesAfterDel, tree);
         }
 
-        System.out.println("Test completed for the set of trees above \n __________________________");
+        System.out.println("Test completed for the set of trees above \n _________________________________");
     }
 
     // Test whether the current tree is a valid AVLTree
