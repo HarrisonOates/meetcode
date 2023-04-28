@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
             String loggedInUser = login.getCurrentUsername();
 
             DirectMessageThread dms = new DirectMessageThread("geun");
-            dms._ready.then((obj) -> {
+            dms.runWhenReady((obj) -> {
                 Log.w("dbg", "THE DM THREAD IS READY");
                 dms.postMessage("MSG ABC 1");
                 dms.postMessage("MSG ABC 2");

@@ -39,7 +39,7 @@ public class FirebaseResult {
      * @return
      */
     public FirebaseResult merge(FirebaseResult other) {
-        then((obj) -> {
+        return then((obj) -> {
             Log.w("dbg", "running the merge");
             if (gotResult.getCount() == 0 && other.gotResult.getCount() == 0) {
                 /*
@@ -52,30 +52,32 @@ public class FirebaseResult {
                  * Hence we can just return the other one.
                  */
                 gotResult = other.gotResult;
-                callbacks = other.callbacks;
+                callbacks.addAll(other.callbacks);
+                other.callbacks = callbacks;
                 result = other.result;
 
                 Log.w("dbg", "playing the waiting game");
+                Log.w("dbg", "assigned our gotResult to their gotResult, " + other.gotResult.hashCode());
 
             } else {
                 throw new AssertionError("how did this .then() handler run without the thing finishing??");
             }
             return obj;
         });
-
-        return this;
     }
 
     public FirebaseResult then(Function<Object, Object> listener) {
-            if (gotResult.getCount() == 0) {
-                if (callbacks.size() != 0) {
-                    throw new AssertionError("callbacks non-null when then called on fulfilled result");
-                }
-                result = listener.apply(result);
-            } else {
-                Log.w("dbg", "added a callback");
-                callbacks.add(listener);
+        if (gotResult.getCount() == 0) {
+            Log.w("dbg", "applying straight away");
+
+            if (callbacks.size() != 0) {
+                throw new AssertionError("callbacks non-null when then called on fulfilled result");
             }
+            result = listener.apply(result);
+        } else {
+            Log.w("dbg", "added a callback");
+            callbacks.add(listener);
+        }
 
         return this;
     }
@@ -97,6 +99,8 @@ public class FirebaseResult {
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.w("dbg", "data change, our gotResult is " + gotResult.hashCode());
+
                 gotResult.countDown();
                 result = snapshot.getValue();
                 while (!callbacks.isEmpty()) {

@@ -10,21 +10,13 @@ import java.nio.file.AccessDeniedException;
 public class DirectMessageThread extends MessageThread {
     private String withUsername;
     private Person withUser;
-    protected FirebaseResult _ready;
-
 
     public DirectMessageThread(String withUsername) {
         this.withUsername = withUsername;
         this.withUser = new Person(withUsername);
 
-        /*
-         * We need both the messages, and the user to download before other classes
-         * can start calling us.
-         */
-        _ready = this.withUser._ready.merge(downloadMessages()).then((obj) -> {
-            Log.w("dbg", "played the waiting game");
-            return obj;
-        });
+        addWaitRequirement(this.withUser._ready);
+        addWaitRequirement(downloadMessages());
     }
 
     public int getThreadID() {
