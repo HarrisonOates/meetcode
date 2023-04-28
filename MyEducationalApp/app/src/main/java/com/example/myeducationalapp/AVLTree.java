@@ -1,5 +1,7 @@
 package com.example.myeducationalapp;
 
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
 
 // The AVLTree data structure will be implemented for each of these data sets:
@@ -73,15 +75,24 @@ public class AVLTree<T extends Comparable<T>> {
      * @return balance factor at a given node
      */
     public int getBalance(Node<T> node) {
-        if (node == null) {
+        if (node == null || node.value == null) {
             return 0;
         }
 
-        int leftHeight = (node.left != null) ? node.left.getHeight() : 0;
-        int rightHeight = (node.right != null) ? node.right.getHeight() : 0;
+        int leftHeight = getHeight(node.left);
+        int rightHeight = getHeight(node.right);
 
         return leftHeight - rightHeight;
     }
+
+    private int getHeight(Node<T> node) {
+        if (node == null || node.value == null) {
+            return 0;
+        }
+
+        return 1 + Math.max(getHeight(node.left), getHeight(node.right));
+    }
+
 
     /**
      * Finds the imbalanced node that is closest to the node that has been inserted.
@@ -90,10 +101,6 @@ public class AVLTree<T extends Comparable<T>> {
      * @return starting node of the imbalance
      */
     private Node<T> findImbalanceInsert(Node<T> leaf){
-        if (root == null) {
-            return null;
-        }
-
         if (Math.abs(getBalance(leaf)) > 1){
             return leaf;
         } else if (leaf.parent != null){
@@ -194,10 +201,6 @@ public class AVLTree<T extends Comparable<T>> {
      * @param value that is to be deleted
      */
     private Node<T> deleteBeforeBalance(Node<T> curr, T value) {
-        if (curr == null || curr.value == null) {
-            return null;
-        }
-
         if (value.compareTo(curr.value) > 0) {
             curr.right = deleteBeforeBalance(curr.right, value);
         } else if (value.compareTo(curr.value) < 0) {
@@ -239,12 +242,15 @@ public class AVLTree<T extends Comparable<T>> {
         if (search(value) != null) {
             deletedNo++;
         }
-
         Node<T> deletedNode = deleteBeforeBalance(root, value);
         ArrayList<Node<T>> nodes = new ArrayList<>();
         findImbalanceDelete(deletedNode, nodes);
-        if (nodes.size() != 0) {
+        // There can be cases where more than one balancing is needed after one deletion
+        // https://cs.stackexchange.com/questions/128245/worst-case-for-avl-tree-balancing-after-deletion
+        while (nodes.size() != 0) {
             balanceSubtree(nodes.get(0));
+            nodes.clear();
+            findImbalanceDelete(root, nodes);
         }
     }
 
@@ -304,6 +310,7 @@ public class AVLTree<T extends Comparable<T>> {
         return preOrderTraversal().size();
     }
 
+    @NonNull
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -346,14 +353,6 @@ public class AVLTree<T extends Comparable<T>> {
         public Node() {
             this.value = null;
         }
-
-        public int getHeight(){
-            // Check whether leftNode or rightNode are null
-            int leftNodeHeight = left == null ? 0 : 1 + left.getHeight();
-            int rightNodeHeight = right == null ? 0 : 1 + right.getHeight();
-            return Math.max(leftNodeHeight, rightNodeHeight);
-        }
-
     }
 }
 

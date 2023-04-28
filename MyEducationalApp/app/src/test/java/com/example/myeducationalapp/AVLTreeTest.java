@@ -18,6 +18,9 @@ public class AVLTreeTest {
         // For the sake of non-existing values used to test search(),
         // all values are in between -99 and 99 (inclusive)
 
+        // Testing empty tree
+        Integer[] emptyTree = new Integer[0];
+
         // Testing delete() with no child case
         Integer[] singleTree = new Integer[]{99};
 
@@ -37,18 +40,26 @@ public class AVLTreeTest {
         Integer[] preOrder3 = new Integer[]{20,0,-35,-99,-21,12,11,59,35,23,38,42,67,60,99};
 
 
-        return Arrays.asList(new Object[][]
-                {{singleTree, singleTree},{trivialTree, trivialTree},{trivialTree2, trivialTree2},
-                        {tree1Values, preOrder1}, {tree2Values, preOrder2}, {tree3Values, preOrder3}});
+        return Arrays.asList(new Object[][]{
+                        {emptyTree, emptyTree}, {singleTree, singleTree},{trivialTree, trivialTree},
+                        {trivialTree2, trivialTree2}, {tree1Values, preOrder1}, {tree2Values, preOrder2},
+                        {tree3Values, preOrder3}});
     }
     @Parameterized.Parameter(0)
     public Integer[] treeValues;
     @Parameterized.Parameter(1)
     public Integer[] preOrderValues;
 
+    // Repeat the AVLTreeTest 100 times for each tree so that chance of having false positive result
+    // from getting 'lucky' shuffle in the deletion test becomes negligible.
+    @Test(timeout = 500)
+    public void repeatAVLTreeTest() {
+        for (int i = 0; i < 100; i++) {
+            AVLTreeTest();
+        }
+    }
 
-    // Test all methods in the AVLTree class
-    @Test(timeout = 100)
+    // Sufficiently test everything in the AVLTree class (100% Class, Method and Line coverages)
     public void AVLTreeTest() {
         AVLTree<Integer> tree = new AVLTree<>();
         Integer[] nodesValues = treeValues;
@@ -92,7 +103,8 @@ public class AVLTreeTest {
 
             // Check whether the deletedNo in the AVLTree was updated
             deletedNo++;
-            System.out.println(tree.getDeletedNo() + " node/s were deleted from the original tree");
+            System.out.println(valueToBeDeleted + " just got deleted");
+            System.out.println(tree.getDeletedNo() + " node/s were deleted in total from the original tree");
             assertEquals("deletedNode was not updated", deletedNo, tree.getDeletedNo());
 
 
@@ -134,6 +146,6 @@ public class AVLTreeTest {
             assertTrue("The value should be smaller than its left child and greater than its right child",
                     left < node.value && node.value < right);
         }
-        System.out.println("The above tree is a valid AVLTree \n");
+        System.out.println("");
     }
 }
