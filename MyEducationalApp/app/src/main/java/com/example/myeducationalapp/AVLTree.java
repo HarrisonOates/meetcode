@@ -9,6 +9,7 @@ import java.util.ArrayList;
 // - Liked message ID
 // ...
 public class AVLTree<T extends Comparable<T>> {
+
     // Keep a track of how many past questions have been deleted (e.g. wrong questions have been posted so need to be removed?)
     // delete() will be the last one to implement if we have time
     public int deletedNo = 0;
@@ -306,19 +307,42 @@ public class AVLTree<T extends Comparable<T>> {
         }
     }
 
+    public ArrayList<T> levelOrderTraversal(){
+        // TODO
+        ArrayList<Node<T>> nodes = new ArrayList<>();
+        ArrayList<T> values = new ArrayList<>();
+        return values;
+    }
+
+    private void levelOrderHelper(Node<T> curr, ArrayList<Node<T>> nodes) {
+        // TODO
+    }
+
+    public AVLTree<T> stringToTree(String levelOrderTraversal) {
+        AVLTree<T> tree = new AVLTree<>();
+        String[] values = levelOrderTraversal.split(",");
+        for (String value : values) {
+            // Checks whether T is Integer, which should always be the case for our app
+            try {
+                tree.insert((T) Integer.valueOf(value));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return tree;
+    }
+
     public int size() {
         return preOrderTraversal().size();
     }
 
-    @NonNull
-    @Override
-    public String toString() {
+    public String visualize() {
         StringBuilder sb = new StringBuilder();
-        toStringHelper(sb, "", "", root);
+        visualizeHelper(sb, "", "", root);
         return sb.toString();
     }
 
-    private void toStringHelper(StringBuilder sb, String padding, String pointer, Node<T> node) {
+    private void visualizeHelper(StringBuilder sb, String padding, String pointer, Node<T> node) {
         if (node != null) {
             sb.append(padding);
             sb.append(pointer);
@@ -329,9 +353,20 @@ public class AVLTree<T extends Comparable<T>> {
             String pointerRight = "R___";
             String pointerLeft = "L___";
 
-            toStringHelper(sb, paddingForBoth, pointerLeft, node.left);
-            toStringHelper(sb, paddingForBoth, pointerRight, node.right);
+            visualizeHelper(sb, paddingForBoth, pointerLeft, node.left);
+            visualizeHelper(sb, paddingForBoth, pointerRight, node.right);
         }
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        ArrayList<T> inOrder = levelOrderTraversal();
+        StringBuilder sb = new StringBuilder();
+        for (T value : inOrder) {
+            sb.append(value).append(",");
+        }
+        return sb.substring(0, sb.length() - 1);
     }
 
     public static class Node<E extends Comparable<E>> {
