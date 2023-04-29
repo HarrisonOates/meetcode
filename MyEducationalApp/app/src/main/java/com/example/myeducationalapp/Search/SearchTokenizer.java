@@ -1,7 +1,5 @@
 package com.example.myeducationalapp.Search;
 
-import java.util.Objects;
-
 /**
  * Class for tokenizing search strings based upon different queries
  * @author Jayden Skidmore

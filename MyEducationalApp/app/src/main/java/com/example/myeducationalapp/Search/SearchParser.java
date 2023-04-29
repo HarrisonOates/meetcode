@@ -2,7 +2,6 @@ package com.example.myeducationalapp.Search;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-import com.example.myeducationalapp.Search.*;
 
 /**
  * A class for parsing search results, splitting them up by their query and by
@@ -77,7 +76,7 @@ public class SearchParser {
         // If nothing more to parse, return nothing
         if (!tokenizer.hasNext()) return null;
 
-        // Ignores blank queries (The first thing is a query sparator)
+        // Ignores blank queries (The first thing is a query separator)
         if (tokenizer.currentToken().query == SearchToken.Query.Separator) {
             tokenizer.next();
             return parseExp();
@@ -87,7 +86,7 @@ public class SearchParser {
         else if (tokenizer.currentToken().query == SearchToken.Query.Word) {
             StatementExp statement = parseStatement(false);
 
-            // If a sepearator is used after a statement, parse the next query
+            // If a separator is used after a statement, parse the next query
             if (tokenizer.hasNext()) {
                 SearchExp nextQuery = parseExp();
                 return new SearchExp(statement, nextQuery);
@@ -100,7 +99,7 @@ public class SearchParser {
         else {
             QueryExp query = parseQuery();
 
-            // If a seperator is used after the query, parse the next query
+            // If a separator is used after the query, parse the next query
             if (tokenizer.hasNext()) {
                 SearchExp nextQuery = parseExp();
                 return new SearchExp(query, nextQuery);
