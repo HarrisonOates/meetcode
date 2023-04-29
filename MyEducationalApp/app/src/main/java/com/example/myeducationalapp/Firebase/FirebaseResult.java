@@ -53,6 +53,16 @@ public class FirebaseResult {
         this(Direction.READ, ref, null);
     }
 
+    public Object await() {
+        try {
+            gotResult.await();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        return result;
+    }
+
     private FirebaseResult(Direction dir, DatabaseReference ref, Object value) {
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

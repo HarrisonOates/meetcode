@@ -361,6 +361,9 @@ public class AVLTree<T extends Comparable<T>> {
     @NonNull
     @Override
     public String toString() {
+        if (size() == 0) {
+            return "";
+        }
         ArrayList<T> inOrder = levelOrderTraversal();
         StringBuilder sb = new StringBuilder();
         for (T value : inOrder) {

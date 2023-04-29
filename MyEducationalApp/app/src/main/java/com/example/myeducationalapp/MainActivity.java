@@ -19,6 +19,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.nio.file.AccessDeniedException;
+
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
@@ -40,6 +42,16 @@ public class MainActivity extends AppCompatActivity {
 
 
         binding.fab.setOnClickListener(view -> {
+            new Thread(() -> {
+                try {
+                    String res = (String) Firebase.getInstance().readDirectMessages("alex", "geun").await();
+                    Log.w("dbg", res);
+
+                } catch (AccessDeniedException e) {
+                    throw new RuntimeException(e);
+                }
+            }).start();
+
             Intent intent = new Intent(this, MessagingDemoActivity.class);
             startActivity(intent);
         });

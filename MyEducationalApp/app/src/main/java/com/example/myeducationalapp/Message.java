@@ -62,15 +62,12 @@ public class Message extends Asynchronous {
     }
 
     private void reloadLikedBy(String str) {
-        if (str.length() == 0) {
+        //if (str.length() == 0) {
             likedBy = new AVLTree<>();
 
-        } else {
-            throw new NotImplementedError("NEED TO BE ABLE TO RELOAD AN AVL FROM STRING");
-
-            // TODO: do this
-            //likedBy = new AVLTree<>(str);
-        }
+        /*} else {
+            likedBy = new AVLTree<>(str);
+        }*/
     }
 
     @SuppressLint("DefaultLocale")
