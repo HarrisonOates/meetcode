@@ -34,8 +34,6 @@ public class DirectMessageThread extends MessageThread {
     FirebaseResult downloadMessages() {
         try {
             return Firebase.getInstance().readDirectMessages(UserLogin.getInstance().getCurrentUsername(), withUsername).then((obj) -> {
-                Log.w("dbg", "ALL MESSAGES READY TO DOWNLOAD");
-
                 String str = (String) obj;
 
                 /*
@@ -51,13 +49,10 @@ public class DirectMessageThread extends MessageThread {
                     String[] allStrings = str.split("\n");
                     int index = 0;
                     for (String message: allStrings) {
-                        Log.w("debug", "  -> msg: " + message);
                         messages.add(new Message(this, index, message));
                         ++index;
                     }
                 }
-
-                Log.w("dbg", "ALL MESSAGES DOWNLOADED");
 
                 return obj;
             });

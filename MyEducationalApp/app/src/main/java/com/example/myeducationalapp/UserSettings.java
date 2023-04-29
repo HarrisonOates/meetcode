@@ -35,7 +35,7 @@ public class UserSettings {
         return instance;
     }
 
-    AVLTree<ComparablePair<Integer>> likedMessages;
+    AVLTree<ComparablePair<Integer>> likedMessages = new AVLTree<>();
 
     void toggleLikeMessage(int threadID, int messageID) {
         var pair = new ComparablePair<>(threadID, messageID);

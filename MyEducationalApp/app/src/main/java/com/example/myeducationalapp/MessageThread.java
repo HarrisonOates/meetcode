@@ -1,13 +1,10 @@
 package com.example.myeducationalapp;
 
-import android.util.Log;
-
-import com.example.myeducationalapp.Firebase.Firebase;
 import com.example.myeducationalapp.Firebase.FirebaseResult;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
 
 /**
  * MessageThread.java
@@ -30,8 +27,20 @@ public abstract class MessageThread extends Asynchronous {
     abstract FirebaseResult downloadMessages();
     abstract FirebaseResult uploadChanges();
 
+    FirebaseResult downloadMessageLikeCounts() {
+        return downloadMessages();
+    }
+
     protected MessageThread() {
 
+    }
+
+    void runAfterAllLoaded(Function<Object, Object> func) {
+        clearRequirements();
+        for (Message message: messages) {
+            addWaitRequirement(message.getWaitRequirement());
+        }
+        runWhenReady(func);
     }
 
     @Override
@@ -58,7 +67,6 @@ public abstract class MessageThread extends Asynchronous {
         messages.add(message);
 
         message.runWhenReady((obj) -> {
-            Log.w("dbg", "MESSAGE IS READY TO UPLOAD");
             uploadChanges();
             return null;
         });

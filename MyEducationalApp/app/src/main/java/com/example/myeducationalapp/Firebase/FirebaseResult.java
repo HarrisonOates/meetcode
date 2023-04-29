@@ -17,9 +17,6 @@ import java.util.function.Function;
 
 /**
  * FirebaseResult.java
- *
- * The world's most disgusting code. An absolute atrocity. Hides the ugliness of Firebase
- * by wrapping it in something uglier, and then making that look pretty.
  */
 public class FirebaseResult {
     Object result;
@@ -30,52 +27,13 @@ public class FirebaseResult {
 
     List<Function<Object, Object>> callbacks = new ArrayList<>();
 
-    /**
-     * Waits for the current callback to complete, and another one, before calling any
-     * .then() handlers. All .then() handlers will be called before the merge. The return
-     * value of the data is not guaranteed to be consistent, and may be from either.
-     *
-     * @param other
-     * @return
-     */
-    public FirebaseResult merge(FirebaseResult other) {
-        return then((obj) -> {
-            Log.w("dbg", "running the merge");
-            if (gotResult.getCount() == 0 && other.gotResult.getCount() == 0) {
-                /*
-                 * Both are already done, so don't need to do anything.
-                 */
-
-            } else if (gotResult.getCount() == 0 && other.gotResult.getCount() == 1) {
-                /*
-                 * This one is done, but we have to wait for the other one to finish.
-                 * Hence we can just return the other one.
-                 */
-                gotResult = other.gotResult;
-                callbacks.addAll(other.callbacks);
-                other.callbacks = callbacks;
-                result = other.result;
-
-                Log.w("dbg", "playing the waiting game");
-                Log.w("dbg", "assigned our gotResult to their gotResult, " + other.gotResult.hashCode());
-
-            } else {
-                throw new AssertionError("how did this .then() handler run without the thing finishing??");
-            }
-            return obj;
-        });
-    }
-
     public FirebaseResult then(Function<Object, Object> listener) {
         if (gotResult.getCount() == 0) {
-            Log.w("dbg", "applying straight away");
-
             if (callbacks.size() != 0) {
                 throw new AssertionError("callbacks non-null when then called on fulfilled result");
             }
             result = listener.apply(result);
         } else {
-            Log.w("dbg", "added a callback");
             callbacks.add(listener);
         }
 
@@ -99,8 +57,6 @@ public class FirebaseResult {
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Log.w("dbg", "data change, our gotResult is " + gotResult.hashCode());
-
                 gotResult.countDown();
                 result = snapshot.getValue();
                 while (!callbacks.isEmpty()) {

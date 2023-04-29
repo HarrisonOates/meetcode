@@ -2,6 +2,7 @@ package com.example.myeducationalapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -33,8 +34,23 @@ public class MessagingDemoActivity extends AppCompatActivity {
         ((Button) findViewById(R.id.demoSendBtn)).setEnabled(false);
         ((EditText) findViewById(R.id.demoMsgText)).setEnabled(false);
 
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String to = String.valueOf(((EditText) findViewById(R.id.demoMsgText2)).getText());
+                DirectMessageThread dms = new DirectMessageThread(to);
+                dms.runWhenReady((ignored1) -> {
+                    dms.getMessages().get(i).runWhenReady((ignored2) -> {
+                        dms.getMessages().get(i).toggleLikedByCurrentUser();
+                        return null;
+                    });
+                    return null;
+                });
+            }
+        });
     }
 
+    @SuppressLint("DefaultLocale")
     public void update(String text, String to) {
         DirectMessageThread dms = new DirectMessageThread(to);
         dms.runWhenReady((obj) -> {
@@ -48,7 +64,7 @@ public class MessagingDemoActivity extends AppCompatActivity {
             adapter.clear();
             for (Message msg: dms.getMessages()) {
                 msg.getPoster().runWhenReady((ignored) -> {
-                    adapter.add(msg.getPoster().getUsername() + ": " + msg.getContent());
+                    adapter.add(String.format("%s: %d likes: %s", msg.getPoster().getUsername(), msg.getLikeCount(), msg.getContent()));
                     return null;
                 });
             }
@@ -59,6 +75,11 @@ public class MessagingDemoActivity extends AppCompatActivity {
     public void demoBtnPress(View view) {
         String text = String.valueOf(((EditText) findViewById(R.id.demoMsgText)).getText());
         String to = String.valueOf(((EditText) findViewById(R.id.demoMsgText2)).getText());
+
+        if (text.equals("***debug")) {
+            Firebase.getInstance().dump();
+            return;
+        }
 
         update(text, to);
     }

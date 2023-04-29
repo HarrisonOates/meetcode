@@ -20,10 +20,7 @@ public class Person extends Asynchronous {
 
 
     public Person(String username) {
-        Log.w("dbg", "initing a person " + username + " with hashcode " + hashCode());
         addWaitRequirement(Firebase.getInstance().readUserProfile(username).then((obj) -> {
-            Log.w("dbg", "PERSON OBJECT READ " + username + " " + hashCode());
-
             String data = (String) obj;
 
             // TODO: do whatever is needed to load a Person object

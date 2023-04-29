@@ -3,7 +3,10 @@ package com.example.myeducationalapp;
 import android.annotation.SuppressLint;
 import android.util.Log;
 
+import com.example.myeducationalapp.Firebase.Firebase;
 import com.example.myeducationalapp.Firebase.FirebaseResult;
+
+import kotlin.NotImplementedError;
 
 public class Message extends Asynchronous {
     private String content;
@@ -40,11 +43,14 @@ public class Message extends Asynchronous {
     }
 
     private FirebaseResult downloadUpdatedLikeCount() {
-        return null;
+        return thread.downloadMessageLikeCounts();
     }
 
     private void uploadNewLikedByCount() {
-        thread.uploadChanges();
+        thread.runAfterAllLoaded((obj) -> {
+            thread.uploadChanges();
+            return null;
+        });
     }
 
     private String escapeString(String str) {
@@ -55,17 +61,24 @@ public class Message extends Asynchronous {
         return str.replace("\\t", "\t").replace("\\n", "\n").replace("\\\\", "\\");
     }
 
-    private void reloadLikedBy(String data) {
-        String str = data.split("\t")[3];
+    private void reloadLikedBy(String str) {
+        if (str.length() == 0) {
+            likedBy = new AVLTree<>();
 
-        // TODO: do this
-        //likedBy = new AVLTree<>(str);
+        } else {
+            throw new NotImplementedError("NEED TO BE ABLE TO RELOAD AN AVL FROM STRING");
+
+            // TODO: do this
+            //likedBy = new AVLTree<>(str);
+        }
     }
 
     @SuppressLint("DefaultLocale")
     @Override
     public String toString() {
-        Log.w("dbg", "sentBy is: " + sentBy + " " + sentBy.hashCode());
+        if (sentBy.getUsername() == null) {
+            throw new AssertionError("message toString() didn't wait for sentBy to complete");
+        }
         return String.format("%d\t%s\t%s\t%s", replyingTo, escapeString(content), escapeString(sentBy.getUsername()), escapeString(likedBy.toString()));
     }
 
@@ -110,6 +123,8 @@ public class Message extends Asynchronous {
         replyingTo = Integer.parseInt(components[0]);
         content = unescapeString(components[1]);
         sentBy = new Person(unescapeString(components[2]));
+        reloadLikedBy(components[3]);
+
         addWaitRequirement(sentBy.getWaitRequirement());
     }
 
@@ -130,11 +145,14 @@ public class Message extends Asynchronous {
     }
 
     public void toggleLikedByCurrentUser() {
+        boolean wasLikedByCurrentUser = isLikedByCurrentUser();
+
         /*
          * For the responsiveness of the UI, it is important that this is done quickly.
          * Adjust the redundant copy of the variable we have.
          */
         UserSettings.getInstance().toggleLikeMessage(thread.getThreadID(), indexWithinThread);
+
 
         /*
          * We must also ensure that it eventually reaches the server, so do this now.
@@ -142,14 +160,12 @@ public class Message extends Asynchronous {
          * it since we last read it. (If we didn't do another fetch here, someone else's likes
          * might disappear).
          */
-        downloadUpdatedLikeCount().then((obj) -> {
-            Log.w("dbg", "DOWNLOADED UPDATED LIKE COUNT");
-
-            reloadLikedBy((String) obj);
+        sentBy.runWhenReady((ignored) -> {
+            Log.w("dbg", "sendBy.getUsername(): " + sentBy.getUsername());
 
             String currentUser = UserLogin.getInstance().getCurrentUsername();
 
-            if (isLikedByCurrentUser()) {
+            if (wasLikedByCurrentUser) {
                 likedBy.delete(currentUser);
             } else {
                 likedBy.insert(currentUser);

@@ -24,50 +24,6 @@ public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
 
-    int demoStage = 0;
-
-    private void demo() {
-        UserLogin login = UserLogin.getInstance();
-
-        if (demoStage == 0) {
-            login.addUser("alex", "12345678");
-            login.addUser("geun", "12345678");
-            login.addUser("nikhila", "12345678");
-            login.addUser("harrison", "12345678");
-            login.addUser("jayden", "12345678");
-
-            login.authoriseUser("alex", "12345678");
-
-        } else if (demoStage == 1) {
-            String loggedInUser = login.getCurrentUsername();
-
-            DirectMessageThread dms = new DirectMessageThread("geun");
-            dms.runWhenReady((obj) -> {
-                Log.w("dbg", "THE DM THREAD IS READY");
-                dms.postMessage("ABC");
-                //dms.postMessage("MSG ABC 2");
-                return null;
-            });
-
-            Firebase.getInstance().dump();
-
-        } else if (demoStage == 2) {
-            String loggedInUser = login.getCurrentUsername();
-
-            DirectMessageThread dms = new DirectMessageThread("geun");
-            dms.runWhenReady((obj) -> {
-                Log.w("dbg", "THE DM THREAD IS READY");
-                dms.postMessage("DEF");
-                //dms.postMessage("MSG ABC 2");
-                return null;
-            });
-
-            Firebase.getInstance().dump();
-        }
-
-        ++demoStage;
-    }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,29 +42,6 @@ public class MainActivity extends AppCompatActivity {
         binding.fab.setOnClickListener(view -> {
             Intent intent = new Intent(this, MessagingDemoActivity.class);
             startActivity(intent);
-
-            /*Firebase fb = Firebase.getInstance();
-
-            FirebaseRequest.write(fb.dbgGetRoot(), Arrays.asList("test", "with", "subdirectories"), "hello world").then((h) -> {
-                Log.w("fb", "write completed");
-                return null;
-            });
-
-            FirebaseResult res = FirebaseRequest.read(fb.dbgGetRoot(), Arrays.asList("test", "with", "subdirectories"));
-            res.then((obj) -> {
-                Log.w("fb", "the data is " + obj.toString());
-                return obj.toString().toUpperCase();
-            }).then((obj) -> {
-                Log.w("fb", "the data is " + obj.toString());
-                return obj + " haha";
-            });
-            */
-
-
-            //fb.writeLoginDetails(UserLogin.getInstance().toString());
-
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
         });
     }
 
