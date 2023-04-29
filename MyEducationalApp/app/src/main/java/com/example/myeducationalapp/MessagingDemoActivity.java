@@ -33,6 +33,11 @@ public class MessagingDemoActivity extends AppCompatActivity {
         ((Button) findViewById(R.id.demoSendBtn)).setEnabled(false);
         ((EditText) findViewById(R.id.demoMsgText)).setEnabled(false);
 
+        Button backBtn =findViewById(R.id.backBtn);
+        backBtn.setOnClickListener(view -> {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        });
     }
 
     public void update(String text, String to) {
