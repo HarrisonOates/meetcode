@@ -2,11 +2,14 @@ package com.example.myeducationalapp.Firebase;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import com.example.myeducationalapp.MessageThread;
 import com.example.myeducationalapp.Person;
 import com.example.myeducationalapp.Question;
 import com.example.myeducationalapp.UserLogin;
 import com.example.myeducationalapp.UserSettings;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -16,6 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.nio.file.AccessDeniedException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -231,7 +235,7 @@ public class Firebase {
      * @throws AccessDeniedException Thrown if neither of the specified people are currently
      * logged in to this device.
      */
-    public FirebaseResult writeDirectMessages(Person person1, Person person2, MessageThread messages) throws AccessDeniedException {
+    public FirebaseResult writeDirectMessages(String username1, String username2, MessageThread messages) throws AccessDeniedException {
         // TODO: RACE CONDITIONS
         //       if both users are trying to write to the database at the same time (i.e. they both
         //       post at the same time).
@@ -240,12 +244,12 @@ public class Firebase {
          * We can only write the direct message history if we are one of the two users participating
          * in the chat.
          */
-        if (!UserLogin.getInstance().isUserLoggedIn(person1.getUsername()) &&
-                !UserLogin.getInstance().isUserLoggedIn(person2.getUsername())) {
+        if (!UserLogin.getInstance().isUserLoggedIn(username1) &&
+                !UserLogin.getInstance().isUserLoggedIn(username2)) {
             throw new AccessDeniedException("you do not have permission to read this conversation");
         }
 
-        return FirebaseRequest.write(database, getDirectMessageFilepath(person1.getUsername(), person2.getUsername()), messages.toString());
+        return FirebaseRequest.write(database, getDirectMessageFilepath(username1, username2), messages.toString());
     }
 
     public FirebaseResult writeQuestionComments(Question question, MessageThread messages) {
@@ -268,5 +272,43 @@ public class Firebase {
 
     public FirebaseResult readPerUserSettings(String username) {
         return FirebaseRequest.read(database, Arrays.asList("per_user", username));
+    }
+
+    public void dumpFrom(DatabaseReference root, String pathSoFar) {
+        root.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                int i = 0;
+                for (var ignored: snapshot.getChildren()) {
+                    ++i;
+                }
+
+                Log.w("dump", pathSoFar + (i == 0 ? ": " + snapshot.getValue() : ""));
+
+                for (var child: snapshot.getChildren()) {
+                    dumpFrom(child.getRef(), pathSoFar + "/" + child.getKey());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        root.get();
+    }
+
+    public void eraseAllData(String safetyCheck) {
+        if (!safetyCheck.equals("yes, I actually want to delete all data from firebase")) {
+            throw new RuntimeException("if you really want to delete everything, look at the source of Firebase.eraseAllData");
+        }
+
+        database.removeValue();
+    }
+
+    public void dump() {
+        Log.w("dump", "FIREBASE CONTENTS");
+        dumpFrom(database, "");
     }
 }
