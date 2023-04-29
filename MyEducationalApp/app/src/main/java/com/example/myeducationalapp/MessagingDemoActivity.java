@@ -48,6 +48,12 @@ public class MessagingDemoActivity extends AppCompatActivity {
                 });
             }
         });
+
+        Button backBtn =findViewById(R.id.backBtn);
+        backBtn.setOnClickListener(view -> {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        });
     }
 
     @SuppressLint("DefaultLocale")

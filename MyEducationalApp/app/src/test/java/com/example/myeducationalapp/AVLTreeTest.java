@@ -67,7 +67,7 @@ public class AVLTreeTest {
             tree.insert(value);
         }
         // Visual representation of the tree
-        System.out.println(tree);
+        System.out.println(tree.visualize());
 
         // Test the implementation of preOrderTraversal()
         Integer[] preOrder = preOrderValues;
@@ -99,7 +99,7 @@ public class AVLTreeTest {
             tree.delete(valueToBeDeleted);
             // The deleted value should no longer exist in the tree
             assertNull("The value was deleted, but still exists", tree.search(valueToBeDeleted));
-            System.out.println(tree);
+            System.out.println(tree.visualize());
 
             // Check whether the deletedNo in the AVLTree was updated
             deletedNo++;
