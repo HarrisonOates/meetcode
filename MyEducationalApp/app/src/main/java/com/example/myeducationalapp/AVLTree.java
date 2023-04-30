@@ -136,14 +136,14 @@ public class AVLTree<T extends Comparable<T>> {
      */
     private void insertBeforeBalance(Node<T> root, Node<T> curr) {
         if (root.value.compareTo(curr.value) > 0) {
-            if (root.left.value == null) {
+            if (root.left == null || root.left.value == null) {
                 root.left = curr;
                 curr.parent = root;
             } else {
                 insertBeforeBalance(root.left, curr);
             }
         } else if (root.value.compareTo(curr.value) < 0) {
-            if (root.right.value == null) {
+            if (root.right == null || root.right.value == null) {
                 root.right = curr;
                 curr.parent = root;
             } else {

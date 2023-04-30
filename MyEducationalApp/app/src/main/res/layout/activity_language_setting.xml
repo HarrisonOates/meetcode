@@ -31,6 +31,12 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <RadioButton
+            android:id="@+id/buttonPo"
+            android:layout_width="114dp"
+            android:layout_height="wrap_content"
+            android:text="@string/portuguese" />
+
+        <RadioButton
             android:id="@+id/buttonCh"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -54,11 +60,7 @@
             android:layout_height="wrap_content"
             android:text="@string/korean" />
 
-        <RadioButton
-            android:id="@+id/buttonPo"
-            android:layout_width="114dp"
-            android:layout_height="wrap_content"
-            android:text="@string/portuguese" />
+
     </RadioGroup>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

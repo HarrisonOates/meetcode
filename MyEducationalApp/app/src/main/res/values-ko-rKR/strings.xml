@@ -7,14 +7,9 @@
     <string name="next">다음</string>
     <string name="previous">이전</string>
     <string name="hello_first_fragment">첫 번째 환영</string>
-    <string name="hello_second_fragment">두 번째 환영 Arg:%1Ss</string>
+    <string name="hello_second_fragment">두 번째 환영\\</string>
     <string name="hello_blank_fragment">빈 환영</string>
     <string name="title_activity_messaging_demo_fragment">메세지 테스트</string>
-    <string name="english">영어</string>
-    <string name="korean">한국어</string>
     <string name="backBtn">홈으로</string>
     <string name="language_setting">언어 설정</string>
-    <string name="japanese">일본어</string>
-    <string name="chinese">중국어</string>
-    <string name="portuguese">포르투갈어</string>
 </resources>
