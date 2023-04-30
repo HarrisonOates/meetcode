@@ -59,6 +59,11 @@ public class MainActivity extends AppCompatActivity {
                 }
             }).start();*/
 
+            AVLTree<Integer> demo = new AVLTree<>();
+            demo.insert(5);
+            demo.delete(5);
+            demo.insert(5);
+
             Intent intent = new Intent(this, MessagingDemoActivity.class);
             startActivity(intent);
         });

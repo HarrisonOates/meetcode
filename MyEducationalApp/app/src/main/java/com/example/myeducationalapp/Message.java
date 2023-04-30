@@ -62,12 +62,11 @@ public class Message extends Asynchronous {
     }
 
     private void reloadLikedBy(String str) {
-        //if (str.length() == 0) {
-            likedBy = new AVLTree<>();
+        likedBy = new AVLTree<>();
 
-        /*} else {
-            likedBy = new AVLTree<>(str);
-        }*/
+        if (str.length() != 0) {
+            likedBy = likedBy.stringToTree(str);
+        }
     }
 
     @SuppressLint("DefaultLocale")

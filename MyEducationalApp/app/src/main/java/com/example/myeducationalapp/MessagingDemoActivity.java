@@ -16,6 +16,9 @@ import android.widget.ListView;
 
 import com.example.myeducationalapp.Firebase.Firebase;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MessagingDemoActivity extends AppCompatActivity {
     ArrayAdapter<String> adapter;
 
@@ -28,6 +31,9 @@ public class MessagingDemoActivity extends AppCompatActivity {
 
         adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1);
 
+        Firebase.getInstance().dump();
+        UserLogin.getInstance().loadUsers();
+
         ListView list = (ListView) findViewById(R.id.myListView);
         list.setAdapter(adapter);
 
@@ -38,7 +44,7 @@ public class MessagingDemoActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String to = String.valueOf(((EditText) findViewById(R.id.demoMsgText2)).getText());
-                DirectMessageThread dms = new DirectMessageThread(to);
+                MessageThread dms = new DirectMessageThread(to);
                 dms.runWhenReady((ignored1) -> {
                     dms.getMessages().get(i).runWhenReady((ignored2) -> {
                         dms.getMessages().get(i).toggleLikedByCurrentUser();
@@ -57,23 +63,27 @@ public class MessagingDemoActivity extends AppCompatActivity {
     }
 
     @SuppressLint("DefaultLocale")
+    void updateList(MessageThread dms, List<String> soFar) {
+        if (soFar.size() == dms.getMessages().size()) {
+            adapter.clear();
+            adapter.addAll(soFar);
+        } else {
+            Message msg = dms.getMessages().get(soFar.size());
+            msg.getPoster().runWhenReady((ignored) -> {
+                soFar.add(String.format("%s: %d likes: %s", msg.getPoster().getUsername(), msg.getLikeCount(), msg.getContent()));
+                updateList(dms, soFar);
+                return null;
+            });
+        }
+    }
+
     public void update(String text, String to) {
-        DirectMessageThread dms = new DirectMessageThread(to);
+        MessageThread dms = new DirectMessageThread(to);
         dms.runWhenReady((obj) -> {
             if (text != null) {
                 dms.postMessage(text);
             }
-            // no change
-            if (adapter.getCount() == dms.getMessages().size()) {
-                return null;
-            }
-            adapter.clear();
-            for (Message msg: dms.getMessages()) {
-                msg.getPoster().runWhenReady((ignored) -> {
-                    adapter.add(String.format("%s: %d likes: %s", msg.getPoster().getUsername(), msg.getLikeCount(), msg.getContent()));
-                    return null;
-                });
-            }
+            updateList(dms, new ArrayList<>());
             return null;
         });
     }
@@ -95,7 +105,10 @@ public class MessagingDemoActivity extends AppCompatActivity {
 
         UserLogin login = UserLogin.getInstance();
 
-        login.authoriseUser(username, "12345678");
+        boolean authWorked = login.authoriseUser(username, "12345678");
+        if (!authWorked) {
+            throw new AssertionError("yikes");
+        }
 
         ((Button) findViewById(R.id.demoSendBtn)).setEnabled(true);
         ((Button) findViewById(R.id.demoSendBtn2)).setEnabled(false);
@@ -104,7 +117,6 @@ public class MessagingDemoActivity extends AppCompatActivity {
         ((EditText) findViewById(R.id.demoMsgText3)).setEnabled(false);
 
         String to = String.valueOf(((EditText) findViewById(R.id.demoMsgText2)).getText());
-        update(null, to);
 
         final int delay = 500; // 1000 milliseconds == 1 second
 
@@ -118,14 +130,9 @@ public class MessagingDemoActivity extends AppCompatActivity {
     }
 
     public void demoBtnPress3(View view) {
-        Firebase.getInstance().eraseAllData("yes, I actually want to delete all data from firebase");
-        adapter.clear();
+        String to = String.valueOf(((EditText) findViewById(R.id.demoMsgText2)).getText());
+        String from = String.valueOf(((EditText) findViewById(R.id.demoMsgText3)).getText());
 
-        UserLogin login = UserLogin.getInstance();
-        login.addUser("alex", "12345678");
-        login.addUser("geun", "12345678");
-        login.addUser("nikhila", "12345678");
-        login.addUser("harrison", "12345678");
-        login.addUser("jayden", "12345678");
+        Firebase.getInstance().debugDeleteAllDirectMessages(to, from);
     }
 }

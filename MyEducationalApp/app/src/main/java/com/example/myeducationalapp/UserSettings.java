@@ -1,5 +1,7 @@
 package com.example.myeducationalapp;
 
+import android.util.Log;
+
 class ComparablePair<T extends Comparable> implements Comparable<ComparablePair<T>> {
     public T first;
     public T second;
@@ -18,6 +20,11 @@ class ComparablePair<T extends Comparable> implements Comparable<ComparablePair<
             return res;
         }
     }
+
+    @Override
+    public String toString() {
+        return first.toString() + "@" + second.toString();
+    }
 }
 
 public class UserSettings {
@@ -35,11 +42,16 @@ public class UserSettings {
         return instance;
     }
 
+    /**
+     * TODO: this needs to be saved to and from the disk - and on login and logout needs to be
+     *       synced to the firebase server!!
+     */
     AVLTree<ComparablePair<Integer>> likedMessages = new AVLTree<>();
 
     void toggleLikeMessage(int threadID, int messageID) {
         var pair = new ComparablePair<>(threadID, messageID);
         if (likedMessages.search(pair) == null) {
+            Log.w("dbg", "about to insert a like, avl tree is: " + likedMessages.toString());
             likedMessages.insert(pair);
         } else {
             likedMessages.delete(pair);

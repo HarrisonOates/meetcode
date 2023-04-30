@@ -253,6 +253,10 @@ public class Firebase {
         return FirebaseRequest.write(database, getDirectMessageFilepath(username1, username2), messages.toString());
     }
 
+    public FirebaseResult debugDeleteAllDirectMessages(String username1, String username2) {
+        return FirebaseRequest.write(database, getDirectMessageFilepath(username1, username2), "");
+    }
+
     public FirebaseResult writeQuestionComments(Question question, MessageThread messages) {
         // TODO: RACE CONDITIONS
 

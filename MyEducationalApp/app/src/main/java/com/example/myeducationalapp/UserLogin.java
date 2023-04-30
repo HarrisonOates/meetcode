@@ -48,6 +48,11 @@ public class UserLogin {
 
     }
 
+    public void loadUsers() {
+        // just initialising the singleton is enough to load users.
+        // hence by calling this, we know it must have already loaded the users
+    }
+
     public void addUser(String username, String password) {
         // No duplicate username allowed
         if (userLogins.containsKey(username)) {

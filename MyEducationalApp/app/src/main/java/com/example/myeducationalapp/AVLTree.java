@@ -135,6 +135,11 @@ public class AVLTree<T extends Comparable<T>> {
      * @param curr node that is to be inserted
      */
     private void insertBeforeBalance(Node<T> root, Node<T> curr) {
+        if (root == null || root.value == null) {
+            root = curr;
+            root.value = curr.value;
+        }
+
         if (root.value.compareTo(curr.value) > 0) {
             if (root.left == null || root.left.value == null) {
                 root.left = curr;
@@ -209,7 +214,11 @@ public class AVLTree<T extends Comparable<T>> {
         } else {
             if ((curr.left == null || curr.left.value == null) && (curr.right == null || curr.right.value == null)) {
                 curr.value = null;
+                if (curr == root) {
+                    root = null;
+                }
                 curr = null;
+
             } else if (curr.left == null || curr.left.value == null) {
                 curr.value = curr.right.value;
                 curr.right = deleteBeforeBalance(curr.right, curr.value);
@@ -340,6 +349,7 @@ public class AVLTree<T extends Comparable<T>> {
         String[] values = levelOrderTraversal.split(",");
         for (String value : values) {
             try {
+
                 // Checks whether T is Integer, which should be the case for most of the time.
                 tree.insert((T) Integer.valueOf(value));
             } catch (Exception e) {
