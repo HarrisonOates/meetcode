@@ -17,6 +17,7 @@ import java.util.Locale;
 public class LanguageSetting extends AppCompatActivity {
      Button buttonEn;
      Button buttonKr;
+     Button buttonJa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +26,7 @@ public class LanguageSetting extends AppCompatActivity {
 
         buttonEn = findViewById(R.id.buttonEn);
         buttonKr = findViewById(R.id.buttonKr);
+        buttonJa = findViewById(R.id.buttonJa);
 
         buttonEn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,6 +39,13 @@ public class LanguageSetting extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setLanguage("ko");
+            }
+        });
+
+        buttonJa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setLanguage("ja");
             }
         });
 
