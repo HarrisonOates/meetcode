@@ -29,9 +29,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-
-
-
             <!-- Star Container -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/toolbar_star_container"
@@ -43,7 +40,6 @@
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/toolbar_horizontal_guide">
-
 
                 <!-- Number of Stars -->
                 <TextView
