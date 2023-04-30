@@ -65,8 +65,8 @@ public class Tokenizer {
 
         // Identifier / keywords
         else if (Character.isAlphabetic(firstChar)){
-            StringBuilder s = new StringBuilder(firstChar);
-            int pointer = 1;
+            StringBuilder s = new StringBuilder();
+            int pointer = 0;
             while (pointer < buffer.length() && Character.isAlphabetic(buffer.charAt(pointer))){
                 s.append(buffer.charAt(pointer));
                 pointer++;
@@ -82,9 +82,9 @@ public class Tokenizer {
         }
         // Checking for numeric literal
         else if (Character.isDigit(firstChar)){
-            StringBuilder s = new StringBuilder(firstChar);
-            int pointer = 1;
-            while (pointer < buffer.length() && (Character.isDigit(firstChar) || firstChar == '.')){
+            StringBuilder s = new StringBuilder();
+            int pointer = 0;
+            while (pointer < buffer.length() && (Character.isDigit(buffer.charAt(pointer)) || buffer.charAt(pointer) == '.')){
                 s.append(buffer.charAt(pointer));
                 pointer++;
             }
@@ -93,7 +93,8 @@ public class Tokenizer {
 
         // Checking for string literal
         else if (firstChar == '\'' || firstChar == '\"'){
-            StringBuilder s = new StringBuilder(firstChar);
+            StringBuilder s = new StringBuilder();
+            s.append(firstChar);
             int pointer = 1;
             while (pointer < buffer.length() && buffer.charAt(pointer) != firstChar){
                 s.append(buffer.charAt(pointer));
