@@ -12,7 +12,7 @@ import java.util.Set;
 public class Tokenizer {
     // General structure of tokenizer taken from lab 5.
     private String buffer;
-    private Token currentToken;
+    Token currentToken;
 
     /* The list of currently-used java language keywords
      * Taken from https://docs.oracle.com/javase/tutorial/java/nutsandbolts/_keywords.html
