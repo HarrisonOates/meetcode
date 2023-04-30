@@ -6,9 +6,9 @@
     <string name="second_fragment_label">二番目のフラグメント</string>
     <string name="next">次</string>
     <string name="previous">前</string>
-    <string name="hello_first_fragment">こんいちは　一番目のフラグメント</string>
-    <string name="hello_second_fragment">こんいちは　二番目のフラグメント。Arg: %1$s</string>
-    <string name="hello_blank_fragment">こんいちは　空白のフラグメント</string>
+    <string name="hello_first_fragment">こんにちは　一番目のフラグメント</string>
+    <string name="hello_second_fragment">こんにちは　二番目のフラグメント。Arg: %1$s</string>
+    <string name="hello_blank_fragment">こんにちは　空白のフラグメント</string>
     <string name="title_activity_messaging_demo_fragment">メッセージングをしめすフラグメント</string>
     <string name="english">英語</string>
     <string name="korean">韓国語</string>
