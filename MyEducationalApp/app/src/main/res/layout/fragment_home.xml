@@ -12,6 +12,101 @@
         android:layout_height="match_parent">
 
 
+        <!-- Search Widget -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/home_search_container"
+            android:layout_width="350dp"
+            android:layout_height="63dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/home_search_container"
+            android:elevation="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.523"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <!-- Magnifying glass icon -->
+            <View
+                android:id="@+id/home_search_magnifying_glass_icon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/icon_magnifying_glass"
+                android:clipToOutline="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/home_search_start_guide"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/home_search_start_guide"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- Search text entry field -->
+            <EditText
+                android:id="@+id/editTextTextPersonName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="14dp"
+                android:ems="10"
+                android:fontFamily="@font/ibm_plex_sans_medium"
+                android:inputType="textPersonName"
+                android:text="Name"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/home_search_magnifying_glass_icon"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- Filter button container widget -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/home_search_filter_button"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/shapes_button_circle"
+                android:clipToOutline="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toStartOf="@+id/home_search_end_guide"
+                app:layout_constraintStart_toStartOf="@+id/home_search_end_guide"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <!-- Filter icon -->
+                <View
+                    android:id="@+id/home_search_filter_filter_icon"
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:background="@drawable/icon_filter"
+                    android:clipToOutline="true"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/home_search_start_guide"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.09" />
+
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/home_search_end_guide"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.91" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <!-- Daily Challenge Hero Widget -->
         <RelativeLayout
@@ -20,13 +115,12 @@
             android:layout_height="200dp"
             android:layout_alignParentTop="true"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="152dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
             android:background="@drawable/home_hero_container"
-            app:layout_constraintDimensionRatio="3:2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/home_search_container" />
 
 
 
