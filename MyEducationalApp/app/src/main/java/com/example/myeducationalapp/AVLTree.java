@@ -339,12 +339,14 @@ public class AVLTree<T extends Comparable<T>> {
         AVLTree<T> tree = new AVLTree<>();
         String[] values = levelOrderTraversal.split(",");
         for (String value : values) {
-            // Checks whether T is Integer, which should always be the case for our app
             try {
+                // Checks whether T is Integer, which should be the case for most of the time.
                 tree.insert((T) Integer.valueOf(value));
             } catch (Exception e) {
-                e.printStackTrace();
+                // This is if we decide to store keys of QuestionIDs as AVLTree.
+                tree.insert((T) value);
             }
+            // T can only be Integer or String in our app.
         }
         return tree;
     }
