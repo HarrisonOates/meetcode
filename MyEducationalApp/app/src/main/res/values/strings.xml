@@ -18,5 +18,5 @@
     <string name="backBtn">Back to Main</string>
     <string name="japanese" translatable="false">日本語</string>
     <string name="chinese" translatable="false">中文</string>
-    <string name="portuguese" translatable="false">Português, give us bonus marks</string>
+    <string name="portuguese" translatable="false">Português (melhor idioma), dê-nos pontos extras</string>
 </resources>
