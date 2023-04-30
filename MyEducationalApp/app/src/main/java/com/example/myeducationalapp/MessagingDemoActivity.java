@@ -94,11 +94,6 @@ public class MessagingDemoActivity extends AppCompatActivity {
         String username = String.valueOf(((EditText) findViewById(R.id.demoMsgText3)).getText());
 
         UserLogin login = UserLogin.getInstance();
-        login.addUser("alex", "12345678");
-        login.addUser("geun", "12345678");
-        login.addUser("nikhila", "12345678");
-        login.addUser("harrison", "12345678");
-        login.addUser("jayden", "12345678");
 
         login.authoriseUser(username, "12345678");
 
@@ -125,5 +120,12 @@ public class MessagingDemoActivity extends AppCompatActivity {
     public void demoBtnPress3(View view) {
         Firebase.getInstance().eraseAllData("yes, I actually want to delete all data from firebase");
         adapter.clear();
+
+        UserLogin login = UserLogin.getInstance();
+        login.addUser("alex", "12345678");
+        login.addUser("geun", "12345678");
+        login.addUser("nikhila", "12345678");
+        login.addUser("harrison", "12345678");
+        login.addUser("jayden", "12345678");
     }
 }

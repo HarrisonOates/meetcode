@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         binding.fab.setOnClickListener(view -> {
-            new Thread(() -> {
+            /*new Thread(() -> {
                 try {
                     String res = (String) Firebase.getInstance().readDirectMessages("alex", "geun").await();
                     Log.w("dbg", res);
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
                 } catch (AccessDeniedException e) {
                     throw new RuntimeException(e);
                 }
-            }).start();
+            }).start();*/
 
             Intent intent = new Intent(this, MessagingDemoActivity.class);
             startActivity(intent);
