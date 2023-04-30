@@ -34,7 +34,8 @@ public class QuestionSet {
         return usedQuestionSets.keySet();
     }
     // Type 0: Algo, 1: ControlFlow, 2: DataStructure, 3: Misc, 4: Recursion | difficulty: 1 ~ 5
-    public void addQuestion(String question, String answer, Category category, int difficulty) {
+    // difficulty is in String so that category + difficulty does not give sum of ascii values of characters
+    public void addQuestion(String question, String answer, Category category, String difficulty) {
         String uniqueID;
         // Make sure each ID is indeed unique
         do {
@@ -71,7 +72,7 @@ public class QuestionSet {
                         "map.put(2, \"-1\"); \n"+
                         "map.put(-1, \"6\");",
                 "D",
-                Category.DataStructure, 1
+                Category.DataStructure, "1"
         );
     }
 
