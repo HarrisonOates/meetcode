@@ -53,7 +53,7 @@ public class QuestionSet {
             List<String> keys = new ArrayList<>(unusedQuestionSets.keySet());
             Collections.shuffle(keys);
             uniqueID = keys.get(0);
-        } while (uniqueID.charAt(1) != categoryRotation[categoryIndex]);
+        } while (uniqueID.charAt(0) != categoryRotation[categoryIndex]);
         String[] question = unusedQuestionSets.get(uniqueID);
         unusedQuestionSets.remove(uniqueID);
         usedQuestionSets.put(uniqueID, question);
