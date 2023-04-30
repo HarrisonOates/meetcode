@@ -1,6 +1,7 @@
 package com.example.myeducationalapp;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.example.myeducationalapp.Firebase.Firebase;
@@ -18,6 +19,7 @@ import com.example.myeducationalapp.databinding.ActivityMainBinding;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 
 import java.nio.file.AccessDeniedException;
 
@@ -30,6 +32,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        SharedPreferences preferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        String language = preferences.getString("language", "en");
+
+        Log.d("LanguagePreference", "Selected language: " + language);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -53,6 +60,12 @@ public class MainActivity extends AppCompatActivity {
             }).start();
 
             Intent intent = new Intent(this, MessagingDemoActivity.class);
+            startActivity(intent);
+        });
+
+        Button langSetting =findViewById(R.id.language_setting);
+        langSetting.setOnClickListener(view -> {
+            Intent intent = new Intent(this, LanguageSetting.class);
             startActivity(intent);
         });
     }
