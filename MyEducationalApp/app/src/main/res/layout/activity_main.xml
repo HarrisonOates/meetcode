@@ -16,9 +16,121 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:popupTheme="@style/Theme.MyEducationalApp.PopupOverlay" >
+            android:visibility="gone"
+            app:popupTheme="@style/Theme.MyEducationalApp.PopupOverlay"
+            tools:visibility="gone" />
 
-        </androidx.appcompat.widget.Toolbar>
+        <!-- Toolbar -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <!-- Star Container -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/toolbar_star_container"
+                android:layout_width="74dp"
+                android:layout_height="38dp"
+                android:layout_marginStart="20dp"
+                android:background="@drawable/home_star_container"
+                app:layout_constraintBottom_toTopOf="@+id/toolbar_horizontal_guide"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/toolbar_horizontal_guide">
+
+
+                <!-- Number of Stars -->
+                <TextView
+                    android:id="@+id/toolbar_star_container_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginEnd="6dp"
+                    android:fontFamily="@font/ibm_plex_sans_semibold"
+                    android:text="90"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/toolbar_star_container_star_icon"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <!-- Star icon -->
+                <View
+                    android:id="@+id/toolbar_star_container_star_icon"
+                    android:layout_width="21.99dp"
+                    android:layout_height="21.3dp"
+                    android:layout_marginEnd="12dp"
+                    android:background="@drawable/icon_star"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Backwards Navigation Arrow -->
+            <View
+                android:id="@+id/toolbar_left_arrow_icon"
+                android:layout_width="46dp"
+                android:layout_height="46dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="15dp"
+                android:background="@drawable/icon_left_arrow"
+                android:clipToOutline="true"
+                app:layout_constraintBottom_toTopOf="@+id/toolbar_horizontal_guide"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/toolbar_horizontal_guide" />
+
+            <!-- Toolbar title -->
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/ibm_plex_sans_bold"
+                android:text="Home"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toTopOf="@+id/toolbar_horizontal_guide"
+                app:layout_constraintEnd_toStartOf="@+id/toolbar_vertical_guide"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/toolbar_vertical_guide"
+                app:layout_constraintTop_toTopOf="@+id/toolbar_horizontal_guide" />
+
+
+            <!-- User profile image -->
+            <ImageView
+                android:id="@+id/toolbar_user_image"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginEnd="20dp"
+                android:contentDescription="TODO"
+                android:src="@drawable/user_profile_default"
+                app:layout_constraintBottom_toTopOf="@+id/toolbar_horizontal_guide"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/toolbar_horizontal_guide" />
+
+            <!-- UI support guides -->
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/toolbar_vertical_guide"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.50" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/toolbar_horizontal_guide"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="35dp" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
 
