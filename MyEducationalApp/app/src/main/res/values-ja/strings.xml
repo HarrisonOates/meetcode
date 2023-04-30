@@ -15,4 +15,6 @@
     <string name="backBtn">ホームに戻る</string>
     <string name="language_setting">言語を変える</string>
     <string name="japanese">日本語</string>
+    <string name="chinese">Chinese</string>
+    <string name="portuguese">Portuguese</string>
 </resources>

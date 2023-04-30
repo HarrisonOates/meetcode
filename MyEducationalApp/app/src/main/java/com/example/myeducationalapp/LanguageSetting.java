@@ -2,6 +2,7 @@ package com.example.myeducationalapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,41 +12,50 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import java.util.Locale;
 
 public class LanguageSetting extends AppCompatActivity {
-     Button buttonEn;
-     Button buttonKr;
-     Button buttonJa;
+     RadioGroup languages;
+     RadioButton english, korean, japanese, portuguese, chinese;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_language_setting);
 
-        buttonEn = findViewById(R.id.buttonEn);
-        buttonKr = findViewById(R.id.buttonKr);
-        buttonJa = findViewById(R.id.buttonJa);
+        languages = findViewById(R.id.language_setting);
+        english = findViewById(R.id.buttonEn);
+        korean = findViewById(R.id.buttonKr);
+        japanese = findViewById(R.id.buttonJa);
+        portuguese = findViewById(R.id.buttonPo);
+        chinese = findViewById(R.id.buttonCh);
 
-        buttonEn.setOnClickListener(new View.OnClickListener() {
+        languages.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @SuppressLint("NonConstantResourceId")
             @Override
-            public void onClick(View v) {
-                setLanguage("en");
-            }
-        });
-
-        buttonKr.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setLanguage("ko");
-            }
-        });
-
-        buttonJa.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setLanguage("ja");
+            public void onCheckedChanged(RadioGroup group, int languageID) {
+                String languageCode = "";
+                switch (languageID) {
+                    case R.id.buttonEn:
+                        languageCode="en";
+                        break;
+                    case R.id.buttonKr:
+                        languageCode="ko";
+                        break;
+                    case R.id.buttonJa:
+                        languageCode="ja";
+                        break;
+                    case R.id.buttonPo:
+                        languageCode="pt";
+                        break;
+                    case R.id.buttonCh:
+                        languageCode="zh";
+                        break;
+                }
+                setLanguage(languageCode);
             }
         });
 
@@ -66,12 +76,6 @@ public class LanguageSetting extends AppCompatActivity {
         Configuration config = new Configuration(res.getConfiguration());
         config.setLocale(locale);
         res.updateConfiguration(config, res.getDisplayMetrics());
-
-        // Save the selected language preference in SharedPreferences
-        SharedPreferences preferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("language", languageCode);
-        editor.apply();
 
         // Restart the activity to apply the language changes
         Intent intent = new Intent(this, LanguageSetting.class);

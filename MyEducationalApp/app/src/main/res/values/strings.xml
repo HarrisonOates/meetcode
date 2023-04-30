@@ -17,4 +17,6 @@
     <string name="language_setting">Language Setting</string>
     <string name="backBtn">Back to Main</string>
     <string name="japanese">Japanese</string>
+    <string name="chinese">Chinese</string>
+    <string name="portuguese">Portuguese</string>
 </resources>
