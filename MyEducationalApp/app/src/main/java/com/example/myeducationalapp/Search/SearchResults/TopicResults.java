@@ -6,11 +6,12 @@ import java.util.List;
 
 public class TopicResults extends Results{
     @Override
-    public List<SearchResult> results() {
+    public List<SearchResult> results(List<String> search) {
+        return null;
+    }
 
-        //var results = Firebase.getInstance().
-
-
+    @Override
+    public List<SearchResult> looseResults(List<String> search) {
         return null;
     }
 }

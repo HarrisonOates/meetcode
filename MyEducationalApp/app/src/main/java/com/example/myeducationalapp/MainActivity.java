@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.example.myeducationalapp.Firebase.Firebase;
+import com.example.myeducationalapp.Search.SearchResults.QuestionResults;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
