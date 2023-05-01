@@ -30,7 +30,5 @@ allprojects {
 
         mavenCentral()  // Maven Central repository
 
-        //maven { url 'https://jitpack.io' } // Repository for ComplexView shadow Library
-
     }
 }
