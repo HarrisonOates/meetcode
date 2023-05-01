@@ -10,44 +10,135 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
+        <!-- horizontal scroll view wrapper -->
         <ScrollView
-            android:layout_width="350dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <!--  -->
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <!-- Linear layout with category cards -->
+            <LinearLayout
+                android:id="@+id/categories_list_card_linear_layout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="20dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|top"
+                android:orientation="vertical"
+                android:paddingBottom="20dp">
 
-
+                <!-- Card container -->
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
+                    android:id="@+id/categories_list_card_1"
+                    android:layout_width="350dp"
                     android:layout_height="150dp"
+                    android:layout_gravity="center|top"
+                    android:layout_marginTop="20dp"
                     android:background="@drawable/home_category_carousel_container"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
+                    <!-- Image for category -->
+                    <ImageView
+                        android:id="@+id/categories_list_card_image"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="23dp"
+                        android:layout_marginEnd="22dp"
+                        android:layout_marginBottom="23dp"
+                        android:contentDescription="TODO"
+                        android:src="@drawable/shape_placeholder_square"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintDimensionRatio="1:1"
+                        app:layout_constraintEnd_toStartOf="@+id/categories_list_card_guide"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <!-- Heading text -->
+                    <TextView
+                        android:id="@+id/categories_list_card_heading_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="23dp"
+                        android:fontFamily="@font/ibm_plex_sans_semibold"
+                        android:text="Basic Algorithms"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        app:layout_constraintStart_toStartOf="@+id/categories_list_card_guide"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <!-- Subheading text -->
+                    <TextView
+                        android:id="@+id/categories_list_card_subheading_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:fontFamily="@font/ibm_plex_sans"
+                        android:text="3 Questions"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        app:layout_constraintStart_toStartOf="@+id/categories_list_card_heading_text"
+                        app:layout_constraintTop_toBottomOf="@+id/categories_list_card_heading_text" />
+
+                    <!-- Secondary star container -->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_marginTop="7dp"
+                        android:layout_marginBottom="23dp"
+                        android:background="@drawable/categories_list_secondary_star_container"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/categories_list_card_guide"
+                        app:layout_constraintTop_toBottomOf="@+id/categories_list_card_subheading_text">
+
+                        <!-- Secondary star heading text -->
+                        <TextView
+                            android:id="@+id/categories_list_card_secondary_star_heading_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginEnd="8dp"
+                            android:fontFamily="@font/ibm_plex_sans_semibold"
+                            android:text="Achieved 0/3"
+                            android:textColor="@color/white"
+                            android:textSize="18sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/categories_list_card_secondary_star_icon"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <!-- Star icon -->
+                        <View
+                            android:id="@+id/categories_list_card_secondary_star_icon"
+                            android:layout_width="21.99dp"
+                            android:layout_height="21.3dp"
+                            android:layout_marginEnd="15dp"
+                            android:background="@drawable/icon_star"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <androidx.constraintlayout.widget.Guideline
-                        android:id="@+id/guideline"
+                        android:id="@+id/categories_list_card_guide"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        app:layout_constraintGuide_percent="0.36" />
+                        app:layout_constraintGuide_percent="0.39" />
+
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+            </LinearLayout>
         </ScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

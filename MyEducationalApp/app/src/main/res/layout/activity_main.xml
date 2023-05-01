@@ -57,12 +57,12 @@
                     android:textColor="@color/white"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/toolbar_star_container_star_icon"
+                    app:layout_constraintEnd_toStartOf="@+id/categories_list_card_secondary_star_icon"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <!-- Star icon -->
                 <View
-                    android:id="@+id/toolbar_star_container_star_icon"
+                    android:id="@+id/categories_list_card_secondary_star_icon"
                     android:layout_width="21.99dp"
                     android:layout_height="21.3dp"
                     android:layout_marginEnd="12dp"
