@@ -131,6 +131,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
+                <!-- Hero pretty image -->
                 <View
                     android:id="@+id/home_hero_image"
                     android:layout_width="70dp"
@@ -139,46 +140,57 @@
                     android:layout_alignParentTop="true"
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
                     android:background="@drawable/shape_placeholder_square"
                     android:elevation="5dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <!-- Hero Heading text -->
                 <TextView
                     android:id="@+id/home_hero_heading_text"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="20dp"
+                    android:layout_marginEnd="24dp"
                     android:fontFamily="@font/ibm_plex_sans_bold"
                     android:text="Daily Challenge"
+                    android:textAlignment="textStart"
                     android:textColor="@color/white"
                     android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/home_hero_image"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <!-- Hero subheading text -->
                 <TextView
                     android:id="@+id/home_hero_subheading_text"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/ibm_plex_sans_medium"
                     android:text="31st of December"
-                    android:textAlignment="textEnd"
+                    android:textAlignment="textStart"
                     android:textColor="@color/white"
                     android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="@+id/home_hero_heading_text"
                     app:layout_constraintStart_toStartOf="@+id/home_hero_heading_text"
                     app:layout_constraintTop_toBottomOf="@+id/home_hero_heading_text" />
 
+                <!-- Hero body text -->
                 <TextView
                     android:id="@+id/home_hero_body_text"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="24dp"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="20dp"
                     android:fontFamily="@font/ibm_plex_sans"
-                    android:text="Messing around with arrays and other stuff"
+                    android:text="Messing around with arrays and other stuff asd asd asd asd"
+                    android:textAlignment="textStart"
                     android:textColor="@color/white"
                     android:textSize="17sp"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/home_hero_subheading_text"
                     app:layout_constraintStart_toStartOf="@+id/home_hero_subheading_text"
                     app:layout_constraintTop_toBottomOf="@+id/home_hero_subheading_text" />
 
@@ -192,6 +204,157 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/home_hero_divider_guide">
+
+                <!-- Secondary decorator container -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="11dp"
+                    android:background="@drawable/home_hero_secondary_container"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <!-- Profile pictures carousel -->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraintLayout2"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/home_hero_secondary_1_guide"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <!-- Profile photo 1 -->
+                        <ImageView
+                            android:id="@+id/home_hero_secondary_profile_1"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_marginStart="10dp"
+                            android:src="@drawable/user_profile_default"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <!-- Profile photo 2 -->
+                        <ImageView
+                            android:id="@+id/home_hero_secondary_profile_2"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_marginStart="-12dp"
+                            android:src="@drawable/user_profile_default"
+                            app:layout_constraintBottom_toBottomOf="@+id/home_hero_secondary_profile_1"
+                            app:layout_constraintStart_toEndOf="@+id/home_hero_secondary_profile_1" />
+
+                        <!-- Profile photo 3 -->
+                        <ImageView
+                            android:id="@+id/home_hero_secondary_profile_3"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_marginStart="-12dp"
+                            android:src="@drawable/user_profile_default"
+                            app:layout_constraintStart_toEndOf="@+id/home_hero_secondary_profile_2"
+                            app:layout_constraintTop_toTopOf="@+id/home_hero_secondary_profile_2" />
+
+                        <!-- Profile photo 4 -->
+                        <ImageView
+                            android:id="@+id/home_hero_secondary_profile_4"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_marginStart="-12dp"
+                            android:src="@drawable/user_profile_default"
+                            app:layout_constraintBottom_toBottomOf="@+id/home_hero_secondary_profile_3"
+                            app:layout_constraintStart_toEndOf="@+id/home_hero_secondary_profile_3" />
+
+                        <!-- False profile photo 5 -->
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/home_hero_secondary_profile_5"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_marginStart="-12dp"
+                            android:background="@drawable/user_profile_default"
+                            app:layout_constraintStart_toEndOf="@+id/home_hero_secondary_profile_4"
+                            app:layout_constraintTop_toTopOf="@+id/home_hero_secondary_profile_4">
+
+                            <!-- Profile photo overflow text -->
+                            <TextView
+                                android:id="@+id/home_hero_secondary_profile_overflow_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/ibm_plex_sans_medium"
+                                android:text="5+"
+                                android:textColor="@color/black"
+                                android:textSize="15sp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    <!-- Secondary Star container -->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="6dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="6dp"
+                        android:background="@drawable/home_hero_secondary_star_container"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/home_hero_secondary_2_guide"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <!-- Call to action text -->
+                        <TextView
+                            android:id="@+id/home_hero_secondary_call_to_action_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:fontFamily="@font/ibm_plex_sans_semibold"
+                            android:text="Earn 3 stars"
+                            android:textColor="@color/black"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                        <!-- Star icon -->
+                        <View
+                            android:id="@+id/home_hero_secondary_star_icon"
+                            android:layout_width="21.99dp"
+                            android:layout_height="21.3dp"
+                            android:layout_marginEnd="10dp"
+                            android:background="@drawable/icon_star"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/home_hero_secondary_1_guide"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.41" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/home_hero_secondary_2_guide"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.57" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
