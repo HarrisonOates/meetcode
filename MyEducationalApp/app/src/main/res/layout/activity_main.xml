@@ -36,14 +36,18 @@
             <!-- Star Container -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/toolbar_star_container"
-                android:layout_width="74dp"
-                android:layout_height="38dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:background="@drawable/home_star_container"
-                app:layout_constraintBottom_toTopOf="@+id/toolbar_horizontal_guide"
+                android:paddingLeft="12dp"
+                android:paddingTop="8dp"
+                android:paddingRight="12dp"
+                android:paddingBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/toolbar_horizontal_guide">
+                app:layout_constraintTop_toTopOf="parent">
 
                 <!-- Number of Stars -->
                 <TextView
@@ -58,6 +62,7 @@
                     android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/categories_list_card_secondary_star_icon"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <!-- Star icon -->
@@ -65,7 +70,6 @@
                     android:id="@+id/categories_list_card_secondary_star_icon"
                     android:layout_width="21.99dp"
                     android:layout_height="21.3dp"
-                    android:layout_marginEnd="12dp"
                     android:background="@drawable/icon_star"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -83,9 +87,10 @@
                 android:layout_marginStart="15dp"
                 android:background="@drawable/icon_left_arrow"
                 android:clipToOutline="true"
-                app:layout_constraintBottom_toTopOf="@+id/toolbar_horizontal_guide"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/toolbar_horizontal_guide" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="gone" />
 
             <!-- Toolbar title -->
             <TextView
@@ -97,11 +102,10 @@
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="24sp"
-                app:layout_constraintBottom_toTopOf="@+id/toolbar_horizontal_guide"
-                app:layout_constraintEnd_toStartOf="@+id/toolbar_vertical_guide"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/toolbar_vertical_guide"
-                app:layout_constraintTop_toTopOf="@+id/toolbar_horizontal_guide" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
             <!-- User profile image -->
@@ -112,24 +116,9 @@
                 android:layout_marginEnd="20dp"
                 android:contentDescription="TODO"
                 android:src="@drawable/user_profile_default"
-                app:layout_constraintBottom_toTopOf="@+id/toolbar_horizontal_guide"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/toolbar_horizontal_guide" />
-
-            <!-- UI support guides -->
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/toolbar_vertical_guide"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.50" />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/toolbar_horizontal_guide"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_begin="35dp" />
+                app:layout_constraintTop_toTopOf="parent" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
