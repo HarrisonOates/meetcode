@@ -3,19 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/HomeFragment">
 
     <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.example.myeducationalapp.FirstFragment"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
-        <action
-            android:id="@+id/action_FirstFragment_to_home2"
-            app:destination="@id/home2" />
-    </fragment>
-    <fragment
-        android:id="@+id/home2"
+        android:id="@+id/HomeFragment"
         android:name="com.example.myeducationalapp.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
