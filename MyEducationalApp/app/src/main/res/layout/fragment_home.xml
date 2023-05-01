@@ -143,7 +143,8 @@
                     android:elevation="5dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintDimensionRatio="1:1"/>
 
                 <!-- Hero Heading text -->
                 <TextView
@@ -415,7 +416,63 @@
 
             <HorizontalScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                tools:layout_editor_absoluteX="118dp"
+                tools:layout_editor_absoluteY="517dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/home_category_carousel_scrollable"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/home_category_carousel_1"
+                        android:layout_width="190dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/home_category_carousel_container"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:id="@+id/home_category_carousel_1_image"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:elevation="5dp"
+                            app:layout_constraintBottom_toBottomOf="@+id/guideline"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/textView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="TextView"
+                            tools:layout_editor_absoluteY="162dp" />
+
+                        <TextView
+                            android:id="@+id/textView2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="TextView"
+                            tools:layout_editor_absoluteY="183dp" />
+
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/guideline"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layout_constraintGuide_percent="0.64" />
+
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </HorizontalScrollView>
 
