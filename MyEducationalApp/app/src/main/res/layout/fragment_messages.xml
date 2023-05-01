@@ -3,12 +3,68 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".MessagesFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|top"
+            android:paddingBottom="20dp"
+            android:orientation="vertical">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="350dp"
+                android:layout_gravity="center|top"
+                android:layout_marginTop="20dp"
+                android:layout_height="90dp">
+
+                <!-- User profile image -->
+                <ImageView
+                    android:id="@+id/toolbar_user_image"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:contentDescription="TODO"
+                    android:src="@drawable/user_profile_default" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/ibm_plex_sans_bold"
+                    android:text="Firstname Lastname"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    tools:layout_editor_absoluteX="71dp"
+                    tools:layout_editor_absoluteY="11dp" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/ibm_plex_sans"
+                    android:text="TextView"
+                    android:textSize="15sp"
+                    tools:layout_editor_absoluteX="72dp"
+                    tools:layout_editor_absoluteY="34dp" />
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:dividerThickness="2dp"
+                    app:dividerColor=""/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+
 
 </FrameLayout>
