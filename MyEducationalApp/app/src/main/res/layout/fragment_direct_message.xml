@@ -8,7 +8,9 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="25dp"
+        app:layout_constraintBottom_toTopOf="@+id/home_search_container">
 
     </ScrollView>
 
@@ -23,7 +25,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginBottom="20dp"
         android:background="@drawable/home_search_container"
-        android:elevation="10dp"
+        android:elevation="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.523"
