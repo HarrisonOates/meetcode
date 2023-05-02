@@ -417,21 +417,21 @@
             <!-- Categories carousel scrollable wrapper -->
             <HorizontalScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:layout_editor_absoluteX="118dp"
-                tools:layout_editor_absoluteY="517dp">
+                android:layout_height="match_parent">
 
                 <!-- Categories carousel inner wrapper -->
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <LinearLayout
                     android:id="@+id/home_category_carousel_scrollable"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent">
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
 
                     <!-- Categories carousel element container -->
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/home_category_carousel_1"
                         android:layout_width="190dp"
                         android:layout_height="match_parent"
+                        android:layout_marginRight="20dp"
                         android:background="@drawable/home_category_carousel_container"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -499,7 +499,9 @@
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                </LinearLayout>
 
             </HorizontalScrollView>
 

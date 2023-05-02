@@ -68,7 +68,7 @@
             android:layout_height="0dp"
             android:layout_marginTop="7dp"
             android:layout_marginBottom="23dp"
-            android:background="@drawable/category_secondary_star_container"
+            android:background="@drawable/categories_list_secondary_star_container"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/category_card_guide"
             app:layout_constraintTop_toBottomOf="@+id/category_card_subheading_text">
@@ -117,9 +117,61 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/category_card_1">
+
+        <LinearLayout
+            android:layout_gravity="center|top"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:paddingBottom="20dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/categories_list_secondary_star_container"
+                android:paddingVertical="10dp"
+                android:paddingHorizontal="15dp"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center|top"
+                >
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:fontFamily="@font/ibm_plex_sans_semibold"
+                    android:text="1. What does this code do?"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/category_card_secondary_star_ico"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <!-- Star icon -->
+                <View
+                    android:id="@+id/category_card_secondary_star_ico"
+                    android:layout_width="21.99dp"
+                    android:layout_height="21.3dp"
+                    android:background="@drawable/icon_star_hollow"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+
+
+
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
 
     </ScrollView>
 
