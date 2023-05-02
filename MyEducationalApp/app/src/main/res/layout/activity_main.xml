@@ -125,7 +125,6 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <!-- Navigation menu bar -->
     <include
         android:id="@+id/include"
         layout="@layout/content_main"
@@ -138,15 +137,16 @@
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout2"
         app:layout_constraintVertical_bias="0.0" />
 
+    <!-- Navigation menu bar -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/nav_menu"
         android:layout_width="350dp"
         android:layout_height="80dp"
         android:layout_marginBottom="20dp"
         android:background="@drawable/nav_menu"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintBottom_toBottomOf="@+id/include"
+        app:layout_constraintEnd_toEndOf="@+id/include"
+        app:layout_constraintStart_toStartOf="@+id/include">
 
         <!-- Home icon -->
         <View

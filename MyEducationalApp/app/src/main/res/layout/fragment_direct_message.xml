@@ -12,7 +12,15 @@
         android:layout_marginBottom="25dp"
         app:layout_constraintBottom_toTopOf="@+id/home_search_container"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        android:fillViewport="true"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </LinearLayout>
 
     </ScrollView>
 
