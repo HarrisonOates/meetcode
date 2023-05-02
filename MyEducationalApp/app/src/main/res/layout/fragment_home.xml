@@ -14,7 +14,7 @@
 
         <!-- Search Widget -->
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/home_search_container"
+            android:id="@+id/direct_message_text_container"
             android:layout_width="350dp"
             android:layout_height="63dp"
             android:layout_alignParentTop="true"
@@ -36,14 +36,14 @@
                 android:background="@drawable/icon_magnifying_glass"
                 android:clipToOutline="true"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/home_search_start_guide"
+                app:layout_constraintEnd_toStartOf="@+id/direct_message_start_guide"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/home_search_start_guide"
+                app:layout_constraintStart_toStartOf="@+id/direct_message_start_guide"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <!-- Search text entry field -->
             <EditText
-                android:id="@+id/editTextTextPersonName"
+                android:id="@+id/direct_message_input_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="14dp"
@@ -59,7 +59,7 @@
 
             <!-- Filter button container widget -->
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/home_search_filter_button"
+                android:id="@+id/direct_message_send_button"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:layout_alignParentStart="true"
@@ -68,13 +68,13 @@
                 android:clipToOutline="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="1:1"
-                app:layout_constraintEnd_toStartOf="@+id/home_search_end_guide"
-                app:layout_constraintStart_toStartOf="@+id/home_search_end_guide"
+                app:layout_constraintEnd_toStartOf="@+id/direct_message_end_guide"
+                app:layout_constraintStart_toStartOf="@+id/direct_message_end_guide"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <!-- Filter icon -->
                 <View
-                    android:id="@+id/home_search_filter_filter_icon"
+                    android:id="@+id/direct_message_send_arrow_icon"
                     android:layout_width="26dp"
                     android:layout_height="26dp"
                     android:layout_alignParentStart="true"
@@ -90,7 +90,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/home_search_start_guide"
+                android:id="@+id/direct_message_start_guide"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -98,7 +98,7 @@
 
 
             <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/home_search_end_guide"
+                android:id="@+id/direct_message_end_guide"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -117,7 +117,7 @@
             android:background="@drawable/home_hero_container"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/home_search_container">
+            app:layout_constraintTop_toBottomOf="@+id/direct_message_text_container">
 
             <!-- Hero main section -->
             <androidx.constraintlayout.widget.ConstraintLayout
