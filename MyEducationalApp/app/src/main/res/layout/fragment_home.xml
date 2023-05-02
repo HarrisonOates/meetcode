@@ -49,12 +49,13 @@
                 android:layout_marginStart="14dp"
                 android:ems="10"
                 android:fontFamily="@font/ibm_plex_sans_medium"
-                android:inputType="textPersonName"
-                android:text="Name"
+                android:inputType="textAutoComplete|text"
+                android:hint="Search"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/home_search_magnifying_glass_icon"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:background="@null" />
 
             <!-- Filter button container widget -->
             <androidx.constraintlayout.widget.ConstraintLayout
