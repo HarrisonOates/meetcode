@@ -116,27 +116,29 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/category_card_1">
+        app:layout_constraintTop_toBottomOf="@+id/category_card_1"
+        android:fillViewport="true">
 
         <LinearLayout
-            android:layout_gravity="center|top"
-            android:layout_height="wrap_content"
             android:layout_width="match_parent"
+            android:layout_height="3000dp"
+            android:layout_gravity="center|top"
+            android:orientation="vertical"
             android:paddingBottom="20dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
-                android:background="@drawable/categories_list_secondary_star_container"
-                android:paddingVertical="10dp"
-                android:paddingHorizontal="15dp"
-                android:layout_marginTop="20dp"
                 android:layout_gravity="center|top"
-                >
+                android:layout_marginTop="20dp"
+                android:background="@drawable/categories_list_secondary_star_container"
+                android:paddingHorizontal="15dp"
+                android:paddingVertical="10dp">
 
                 <TextView
                     android:id="@+id/textView"
@@ -163,12 +165,8 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
 
-
-
-
-
-
             </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         </LinearLayout>
 

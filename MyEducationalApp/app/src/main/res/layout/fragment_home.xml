@@ -417,7 +417,8 @@
             <!-- Categories carousel scrollable wrapper -->
             <HorizontalScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:fillViewport="true">
 
                 <!-- Categories carousel inner wrapper -->
                 <LinearLayout
