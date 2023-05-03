@@ -11,4 +11,12 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_messaging_demo_fragment">MessagingDemoFragment</string>
+    <string name="english" translatable="false">English</string>
+    <string name="korean" translatable="false">한국어</string>
+    <string name="language_setting">Language Setting</string>
+    <string name="backBtn">Back to Main</string>
+    <string name="japanese" translatable="false">日本語</string>
+    <string name="chinese" translatable="false">中文</string>
+    <string name="portuguese" translatable="false">Português (melhor idioma), dê-nos pontos extras</string>
 </resources>

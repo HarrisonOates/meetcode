@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">私の教育的なアプリ</string>
+    <string name="action_settings">設定</string>
+    <string name="first_fragment_label">一番目のフラグメント</string>
+    <string name="second_fragment_label">二番目のフラグメント</string>
+    <string name="next">次</string>
+    <string name="previous">前</string>
+    <string name="hello_first_fragment">こんにちは一番目のフラグメント</string>
+    <string name="hello_second_fragment">こんにちは二番目のフラグメント。Arg: %1$s</string>
+    <string name="hello_blank_fragment">こんにちは空白なフラグメント</string>
+    <string name="title_activity_messaging_demo_fragment">メッセージングをしめすフラグメント</string>
+    <string name="backBtn">ホームに戻る</string>
+    <string name="language_setting">言語を変える</string>
+</resources>

@@ -1,8 +1,15 @@
 package com.example.myeducationalapp;
+
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
 
-// TODO: delete()
-public class AVLTree <T extends Comparable<T>> {
+// The AVLTree data structure will be implemented for each of these data sets:
+// - Past questions' ID
+// - Liked message ID
+// ...
+public class AVLTree<T extends Comparable<T>> {
+
     // Keep a track of how many past questions have been deleted (e.g. wrong questions have been posted so need to be removed?)
     // delete() will be the last one to implement if we have time
     public int deletedNo = 0;
@@ -11,7 +18,7 @@ public class AVLTree <T extends Comparable<T>> {
 
     /**
      * Performs the right rotation at a given node
-     * @param root is a root of a subtree, not necessarily the root of the whole tree
+     * @param root of a subtree, not necessarily the root of the whole tree
      */
     private void rightRotate(Node<T> root) {
         //Temporary reference to the left child of the current root of the subtree
@@ -37,6 +44,10 @@ public class AVLTree <T extends Comparable<T>> {
         root.parent = newRoot;
     }
 
+    /**
+     * Perform left rotation at a given node
+     * @param root of a subtree, not necessarily the root of the whole tree
+     */
     private void leftRotate(Node<T> root) {
         Node<T> newRoot = root.right;
         root.right = newRoot.left;
@@ -60,58 +71,84 @@ public class AVLTree <T extends Comparable<T>> {
         root.parent = newRoot;
     }
 
-    private int getBalance(Node<T> node) {
-        if (node == null) {
+    /**
+     * @param node of the AVLTree
+     * @return balance factor at a given node
+     */
+    public int getBalance(Node<T> node) {
+        if (node == null || node.value == null) {
             return 0;
         }
 
-        int leftHeight = (node.left != null) ? node.left.getHeight() : 0;
-        int rightHeight = (node.right != null) ? node.right.getHeight() : 0;
+        int leftHeight = getHeight(node.left);
+        int rightHeight = getHeight(node.right);
 
         return leftHeight - rightHeight;
     }
 
-    private Node<T> findImbalance(Node<T> leaf){
-        if (root == null) {
-//            System.out.println("null");
-            return null;
+    private int getHeight(Node<T> node) {
+        if (node == null || node.value == null) {
+            return 0;
         }
 
+        return 1 + Math.max(getHeight(node.left), getHeight(node.right));
+    }
+
+
+    /**
+     * Finds the imbalanced node that is closest to the node that has been inserted.
+     * Such node will be the root of the subtree that is to be rebalanced.
+     * @param leaf node that has been inserted
+     * @return starting node of the imbalance
+     */
+    private Node<T> findImbalanceInsert(Node<T> leaf){
         if (Math.abs(getBalance(leaf)) > 1){
-//            System.out.println(leaf.value);
             return leaf;
         } else if (leaf.parent != null){
-            return findImbalance(leaf.parent);
+            return findImbalanceInsert(leaf.parent);
         }
-//        System.out.println("null!");
         return null;
     }
 
-    private void balanceSubtree(Node<T> node) {
-        int balanceFactor = getBalance(node);
+    /**
+     * Fixes the subtree to satisfy the AVLTree properties.
+     * @param root of the subtree that needs rebalancing
+     */
+    private void balanceSubtree(Node<T> root) {
+        int balanceFactor = getBalance(root);
         if (balanceFactor > 1) {
-            if (getBalance(node.left) <= -1) {
-                leftRotate(node.left);
+            if (getBalance(root.left) <= -1) {
+                leftRotate(root.left);
             }
-            rightRotate(node);
+            rightRotate(root);
         } else if (balanceFactor < -1) {
-            if (getBalance(node.right) >= 1) {
-                rightRotate(node.right);
+            if (getBalance(root.right) >= 1) {
+                rightRotate(root.right);
             }
-            leftRotate(node);
+            leftRotate(root);
         }
     }
 
+    /**
+     * Insert a node to the AVLTree as if it was an ordinary BST tree.
+     * @param root of the AVLTree
+     * @param curr node that is to be inserted
+     */
     private void insertBeforeBalance(Node<T> root, Node<T> curr) {
+        if (root == null || root.value == null) {
+            root = curr;
+            root.value = curr.value;
+        }
+
         if (root.value.compareTo(curr.value) > 0) {
-            if (root.left.value == null) {
+            if (root.left == null || root.left.value == null) {
                 root.left = curr;
                 curr.parent = root;
             } else {
                 insertBeforeBalance(root.left, curr);
             }
         } else if (root.value.compareTo(curr.value) < 0) {
-            if (root.right.value == null) {
+            if (root.right == null || root.right.value == null) {
                 root.right = curr;
                 curr.parent = root;
             } else {
@@ -121,41 +158,150 @@ public class AVLTree <T extends Comparable<T>> {
         // Do nothing if the tree already has a node with the same value.
     }
 
+    /**
+     * Insert the node while satisfying all the AVLTree properties.
+     * @param newNode that is to be inserted
+     */
     private void insert(Node<T> newNode) {
         if (this.root == null) {
             this.root = newNode;
         } else {
             insertBeforeBalance(this.root, newNode);
-            Node<T> rootOfImbalance = findImbalance(newNode);
+            Node<T> rootOfImbalance = findImbalanceInsert(newNode);
             if (rootOfImbalance != null) {
                 balanceSubtree(rootOfImbalance);
             }
         }
     }
 
+    /**
+     * Insert a node with a given value to the AVLTree. No change if the value does not exist.
+     * @param value that is to be inserted
+     */
     public void insert(T value) {
         Node<T> node = new Node<>(value);
         insert(node);
     }
 
-    public Node<T> find(Node<T> node, T v) {
-        if (node.value == null) {
+    /**
+     * Finds the imbalanced node that is closest to the node that replaced the deleted node
+     * Such node will be the root of the subtree that is to be rebalanced.
+     * @param node that replaced the deleted node
+     * @param nodes that has unbalanced factor which there should only be one
+     */
+    private void findImbalanceDelete(Node<T> node, ArrayList<Node<T>> nodes){
+        if (node == null) {
+            return;
+        }
+
+        if (Math.abs(getBalance(node)) > 1){
+            nodes.add(node);
+        }
+        findImbalanceDelete(node.left, nodes);
+        findImbalanceDelete(node.right, nodes);
+    }
+
+    /**
+     * Delete a node with a given value in the AVLTree. No change if the value does not exist.
+     * @param curr node
+     * @param value that is to be deleted
+     */
+    private Node<T> deleteBeforeBalance(Node<T> curr, T value) {
+        if (value.compareTo(curr.value) > 0) {
+            curr.right = deleteBeforeBalance(curr.right, value);
+        } else if (value.compareTo(curr.value) < 0) {
+            curr.left = deleteBeforeBalance(curr.left, value);
+        } else {
+            if ((curr.left == null || curr.left.value == null) && (curr.right == null || curr.right.value == null)) {
+                curr.value = null;
+                if (curr == root) {
+                    root = null;
+                }
+                curr = null;
+
+            } else if (curr.left == null || curr.left.value == null) {
+                curr.value = curr.right.value;
+                curr.right = deleteBeforeBalance(curr.right, curr.value);
+            } else if (curr.right == null || curr.right.value == null) {
+                curr.value = curr.left.value;
+                curr.left = deleteBeforeBalance(curr.left, curr.value);
+            } else {
+                // This is case where the node that is to be deleted has two children.
+                // The inorder successor of the node needs to replace the deletedNode, since it is
+                // guaranteed to be greater than the deletedNode's left subtree and smaller than its right subtree.
+                Node<T> minNode = findSuccessor(curr.right);
+                curr.value = minNode.value;
+                curr.right = deleteBeforeBalance(curr.right, curr.value);
+            }
+        }
+        return curr;
+    }
+
+    private Node<T> findSuccessor(Node<T> node) {
+        while (node.left != null && node.left.value != null) {
+            node = node.left;
+        }
+        return node;
+    }
+
+    /**
+     * Delete a node with the given value and preserves all the properties of the AVLTree.
+     * @param value that is to be deleted
+     */
+    public void delete(T value) {
+        if (search(value) != null) {
+            deletedNo++;
+        }
+        Node<T> deletedNode = deleteBeforeBalance(root, value);
+        ArrayList<Node<T>> nodes = new ArrayList<>();
+        findImbalanceDelete(deletedNode, nodes);
+        // There can be cases where more than one balancing is needed after one deletion
+        // https://cs.stackexchange.com/questions/128245/worst-case-for-avl-tree-balancing-after-deletion
+        while (nodes.size() != 0) {
+            balanceSubtree(nodes.get(0));
+            nodes.clear();
+            findImbalanceDelete(root, nodes);
+        }
+    }
+
+    public int getDeletedNo(){
+        return deletedNo;
+    }
+
+    /**
+     * Find and return the node with a given value if there is any.
+     * If no node with the value exists, return null;
+     * @param node whose value is being checked
+     * @param value that wants to be found
+     * @return the node with a given value or null
+     */
+    public Node<T> find(Node<T> node, T value) {
+        if (node == null || node.value == null) {
             return null;
         }
 
-        int cmp = v.compareTo(node.value);
+        int cmp = value.compareTo(node.value);
         if (cmp < 0)
-            return find(node.left, v);
+            return find(node.left, value);
         else if (cmp > 0)
-            return find(node.right, v);
+            return find(node.right, value);
         else
             return node;
     }
 
-    public Node<T> search(T v) {
-        return find(this.root, v);
+    /**
+     * Search for a given value in the AVLTree
+     * @param value that is to be searched
+     * @return the node with the value or null
+     */
+    public Node<T> search(T value) {
+        return find(this.root, value);
     }
 
+
+    /**
+     * @return All the nodes in the AVLTree in pre order as an array list
+     */
     public ArrayList<Node<T>> preOrderTraversal(){
         ArrayList<Node<T>> nodes = new ArrayList<>();
         preOrderHelper(this.root, nodes);
@@ -163,21 +309,69 @@ public class AVLTree <T extends Comparable<T>> {
     }
 
     private void preOrderHelper(Node<T> curr, ArrayList<Node<T>> nodes) {
-        if (curr != null) {
+        if (curr != null && curr.value != null) {
             nodes.add(curr);
             preOrderHelper(curr.left, nodes);
             preOrderHelper(curr.right, nodes);
         }
     }
 
-    @Override
-    public String toString() {
+    public ArrayList<T> levelOrderTraversal(){
+        ArrayList<T> nodes = new ArrayList<>();
+        int height = getHeight(root);
+        for (int i = 1; i <= height; i++) {
+            getCurrentLevel(root, i, nodes);
+        }
+        return nodes;
+    }
+
+    public void getCurrentLevel(Node<T> root, int level, ArrayList<T> nodes) {
+        if (root == null) {
+            return;
+        }
+        if (level == 1) {
+            nodes.add(root.value);
+        } else if (level > 1) {
+            getCurrentLevel(root.left, level - 1, nodes);
+            getCurrentLevel(root.right, level - 1, nodes);
+        }
+    }
+
+    /**
+     * AVLTree<T> treeFromString = tree.stringToTree(tree.toString());
+     * treeFromString.visualize() should print the same structure with same values as tree.visualize().
+     * @param levelOrderTraversal consisting of all the values in the tree in a level order
+     *                            such that the structure is preserved
+     * @return the AVLTree consisting of given values
+     */
+    public AVLTree<T> stringToTree(String levelOrderTraversal) {
+        AVLTree<T> tree = new AVLTree<>();
+        String[] values = levelOrderTraversal.split(",");
+        for (String value : values) {
+            try {
+
+                // Checks whether T is Integer, which should be the case for most of the time.
+                tree.insert((T) Integer.valueOf(value));
+            } catch (Exception e) {
+                // This is if we decide to store keys of QuestionIDs as AVLTree.
+                tree.insert((T) value);
+            }
+            // T can only be Integer or String in our app.
+        }
+        return tree;
+    }
+
+    public int size() {
+        return preOrderTraversal().size();
+    }
+
+    public String visualize() {
         StringBuilder sb = new StringBuilder();
-        toStringHelper(sb, "", "", root);
+        visualizeHelper(sb, "", "", root);
         return sb.toString();
     }
 
-    private void toStringHelper(StringBuilder sb, String padding, String pointer, Node<T> node) {
+    private void visualizeHelper(StringBuilder sb, String padding, String pointer, Node<T> node) {
         if (node != null) {
             sb.append(padding);
             sb.append(pointer);
@@ -188,9 +382,23 @@ public class AVLTree <T extends Comparable<T>> {
             String pointerRight = "R___";
             String pointerLeft = "L___";
 
-            toStringHelper(sb, paddingForBoth, pointerLeft, node.left);
-            toStringHelper(sb, paddingForBoth, pointerRight, node.right);
+            visualizeHelper(sb, paddingForBoth, pointerLeft, node.left);
+            visualizeHelper(sb, paddingForBoth, pointerRight, node.right);
         }
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        if (size() == 0) {
+            return "";
+        }
+        ArrayList<T> inOrder = levelOrderTraversal();
+        StringBuilder sb = new StringBuilder();
+        for (T value : inOrder) {
+            sb.append(value).append(",");
+        }
+        return sb.substring(0, sb.length() - 1);
     }
 
     public static class Node<E extends Comparable<E>> {
@@ -209,24 +417,9 @@ public class AVLTree <T extends Comparable<T>> {
             this.right.parent = this;
         }
 
-        // Leaf node
         public Node() {
             this.value = null;
         }
-
-        public int getHeight(){
-            // Check whether leftNode or rightNode are null
-            int leftNodeHeight = left == null ? 0 : 1 + left.getHeight();
-            int rightNodeHeight = right == null ? 0 : 1 + right.getHeight();
-            return Math.max(leftNodeHeight, rightNodeHeight);
-        }
-
-//        public int getBalanceFactor() {
-//            return left.getHeight() - right.getHeight();
-//        }
     }
 }
-
-
-
 

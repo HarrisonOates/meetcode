@@ -4,43 +4,18 @@ import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
-        //Hard coded test to quickly check its implementation
-
-        //Informal test for AVLTree
+        Integer[] tree1Values = new Integer[]{-3,-2,-1,0,1,2,3,4,5};
         AVLTree<Integer> tree = new AVLTree<>();
-        Integer[] nodesValues = new Integer[]{4,2,3,0,5,6,10,9,7};
-        for (Integer value : nodesValues) {
+        for (Integer value : tree1Values) {
             tree.insert(value);
         }
         System.out.println(tree);
+        Integer rootToBeDeleted = tree.root.value;
+        tree.delete(rootToBeDeleted);
+        System.out.println(tree);
 
-        ArrayList<AVLTree.Node<Integer>> nodes = tree.preOrderTraversal();
-        for (AVLTree.Node<Integer> node : nodes) {
-            System.out.println("Value: " + node.value + ", BF: " +  tree.getBalance(node));
-        }
 
-        //Informal test for UserLogin
-        UserLogin members = new UserLogin();
-        members.addUser("Alex", "!@#$%^&*");
-        members.addUser("Geun", "12345678");
-        members.addUser("Harrison", "WaHoOoOOO");
-        members.addUser("Jayden", "qwertyuiop");
-        try{
-            members.addUser("Nikhlia", "hihihi");
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        try{
-            members.addUser("Geun", "IamBack");
-        } catch (Exception e) {
-            System.out.println(e);
-        }
 
-        System.out.println(members);
-
-        System.out.println(members.authoriseUser("Geun", "12345678"));
-        System.out.println(members.authoriseUser("Geun", "123456783"));
-        System.out.println(members.authoriseUser("geun", "12345678"));
     }
 }
 
