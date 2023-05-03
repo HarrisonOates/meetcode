@@ -1,4 +1,6 @@
-package com.example.myeducationalapp.UserInterface;
+package com.example.myeducationalapp.UserInterface.State;
+
+import com.example.myeducationalapp.UserInterface.UserInterfaceManager;
 
 public abstract class ActionBarState {
 
@@ -8,3 +10,4 @@ public abstract class ActionBarState {
         this.actionBarManager = actionBarManager;
     }
 }
+
