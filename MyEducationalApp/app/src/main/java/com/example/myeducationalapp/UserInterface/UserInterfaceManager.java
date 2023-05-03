@@ -1,9 +1,11 @@
 package com.example.myeducationalapp.UserInterface;
 
+import com.example.myeducationalapp.Person;
 import com.example.myeducationalapp.UserInterface.State.ActionBarBackState;
 import com.example.myeducationalapp.UserInterface.State.ActionBarStarsState;
 import com.example.myeducationalapp.UserInterface.State.ActionBarState;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,6 +22,7 @@ public class UserInterfaceManager {
     // current visibility of notification dot for messages on navigation menu
     Boolean isNavigationMenuNotificationVisible;
 
+    // current visibility of notification dots for direct messages in the direct message fragment
     DirectMessageNotificationMap directMessageNotification = new DirectMessageNotificationMap();
 
     // previous fragment required for backwards navigation
@@ -59,7 +62,8 @@ public class UserInterfaceManager {
         } else if (actionBarState instanceof ActionBarBackState) {
             this.actionBarState = new ActionBarStarsState(this);
         } else {
-            throw new IllegalStateException("ActionBarManager was found to contain an illegal state");
+            throw new
+                    IllegalStateException("UserInterfaceManager was found to contain an illegal state");
         }
 
     }
@@ -96,26 +100,44 @@ public class UserInterfaceManager {
         return isNavigationMenuNotificationVisible;
     }
 
-
-
 }
 
 class DirectMessageNotificationMap {
 
-    private Map<String, Boolean> directMessageNotification;
+    private Map<Person, Boolean> directMessageNotification;
 
     public DirectMessageNotificationMap() {
         directMessageNotification = new HashMap<>();
     }
 
-    public Boolean put(String k, boolean v) {
-        return directMessageNotification.put(k, v);
+    public Boolean put(Person k, boolean v) {
+        if (k != null) {
+            return directMessageNotification.put(k, v);
+        }
+
+        return false;
     }
 
-    public Boolean remove(String k) {
-        return directMessageNotification.remove(k);
+    public Boolean remove(Person k) {
+        if (k != null) {
+            return directMessageNotification.remove(k);
+        }
+
+        return false;
     }
 
+    public ArrayList<Person> getAllNotifications() {
 
+        ArrayList<Person> allNotifications = new ArrayList<>();
 
+        directMessageNotification.forEach((person, hasNotification) -> {
+
+            if (hasNotification) {
+                allNotifications.add(person);
+            }
+
+        });
+
+        return allNotifications;
+    }
 }
