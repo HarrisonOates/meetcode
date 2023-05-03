@@ -10,8 +10,8 @@
     <!-- User profile image -->
     <ImageView
         android:id="@+id/messages_card_1_profile_image"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="135dp"
+        android:layout_height="135dp"
         android:layout_marginEnd="20dp"
         android:contentDescription="TODO"
         android:src="@drawable/user_profile_default"
