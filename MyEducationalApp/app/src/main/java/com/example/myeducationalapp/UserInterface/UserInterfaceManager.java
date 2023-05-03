@@ -1,7 +1,6 @@
 package com.example.myeducationalapp.UserInterface;
 
 import com.example.myeducationalapp.Person;
-import com.example.myeducationalapp.UserInterface.Generation.HomeCategoryCard;
 import com.example.myeducationalapp.UserInterface.State.ActionBarBackState;
 import com.example.myeducationalapp.UserInterface.State.ActionBarStarsState;
 import com.example.myeducationalapp.UserInterface.State.ActionBarState;
@@ -12,9 +11,6 @@ import java.util.Map;
 
 public class UserInterfaceManager {
 
-    // Singleton instance
-    private static UserInterfaceManager instance = null;
-    // current state of the action bar
     ActionBarState actionBarState;
 
     // current visibility of the navigation menu
@@ -24,6 +20,7 @@ public class UserInterfaceManager {
     Boolean isNavigationMenuNotificationVisible;
 
     // current visibility of notification dots for direct messages in the direct message fragment
+    // TODO specify method/s to change and update this when new notifications occur/old ones go away
     DirectMessageNotificationMap directMessageNotification = new DirectMessageNotificationMap();
 
     // previous fragment required for backwards navigation
@@ -32,26 +29,13 @@ public class UserInterfaceManager {
     Object previousFragment;
 
 
-    private UserInterfaceManager() {
+    // package-private constructor
+    UserInterfaceManager() {
 
         // ActionBarStarsState is default state as this class should be initialized
         // as soon as the app gets to the home screen
         this.actionBarState = new ActionBarStarsState(this);
     }
-
-    // Access to object
-    public static UserInterfaceManager getInstance() {
-        if (instance == null) {
-            instance = new UserInterfaceManager();
-        }
-
-        return instance;
-    }
-
-    public void updateState(Object currentlyDisplayedFragment) {
-        // TODO
-    }
-
 
     private void changeState() {
 
@@ -142,3 +126,4 @@ class DirectMessageNotificationMap {
         return allNotifications;
     }
 }
+

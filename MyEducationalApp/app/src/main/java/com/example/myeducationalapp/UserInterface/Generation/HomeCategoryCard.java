@@ -2,11 +2,6 @@ package com.example.myeducationalapp.UserInterface.Generation;
 
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.widget.ImageView;
-
-import androidx.constraintlayout.widget.ConstraintLayout;
-
-import com.example.myeducationalapp.MainActivity;
 
 public class HomeCategoryCard extends GeneratedUserInterfaceElement {
 
