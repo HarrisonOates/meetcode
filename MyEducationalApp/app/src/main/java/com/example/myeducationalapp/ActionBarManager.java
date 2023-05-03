@@ -2,6 +2,8 @@ package com.example.myeducationalapp;
 
 public class ActionBarManager {
 
+    // Singleton instance
+    private static ActionBarManager instance = null;
     // current state of the session
     ActionBarState actionBarState;
 
@@ -11,11 +13,20 @@ public class ActionBarManager {
     Object previousFragment;
 
 
-    public ActionBarManager() {
+    private ActionBarManager() {
 
         // ActionBarStarsState is default state as this class should be initialized
         // as soon as the app gets to the home screen
         this.actionBarState = new ActionBarStarsState(this);
+    }
+
+    // Access to object
+    public static ActionBarManager getInstance() {
+        if (instance == null) {
+            instance = new ActionBarManager();
+        }
+
+        return instance;
     }
 
     public void updateState(Object currentlyDisplayedFragment) {
