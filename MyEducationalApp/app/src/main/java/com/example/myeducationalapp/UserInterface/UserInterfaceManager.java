@@ -1,6 +1,7 @@
 package com.example.myeducationalapp.UserInterface;
 
 import com.example.myeducationalapp.Person;
+import com.example.myeducationalapp.UserInterface.Generation.HomeCategoryCard;
 import com.example.myeducationalapp.UserInterface.State.ActionBarBackState;
 import com.example.myeducationalapp.UserInterface.State.ActionBarStarsState;
 import com.example.myeducationalapp.UserInterface.State.ActionBarState;

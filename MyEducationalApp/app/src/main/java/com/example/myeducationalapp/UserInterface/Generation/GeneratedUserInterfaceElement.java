@@ -4,15 +4,11 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 public abstract class GeneratedUserInterfaceElement {
 
-    ConstraintLayout parentReference;
+    ConstraintLayout parent;
 
     public abstract GeneratedUserInterfaceElement generate();
 
-    public ConstraintLayout getParentReference() {
-        return parentReference;
-    }
-
-    public void setParentReference(ConstraintLayout parentReference) {
-        this.parentReference = parentReference;
+    public void setParent(ConstraintLayout parentReference) {
+        this.parent = parentReference;
     }
 }
