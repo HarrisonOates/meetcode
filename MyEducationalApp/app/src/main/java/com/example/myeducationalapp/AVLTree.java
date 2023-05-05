@@ -3,13 +3,13 @@ package com.example.myeducationalapp;
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 // The AVLTree data structure will be implemented for each of these data sets:
 // - Past questions' ID
 // - Liked message ID
 // ...
 public class AVLTree<T extends Comparable<T>> {
-
     // Keep a track of how many past questions have been deleted (e.g. wrong questions have been posted so need to be removed?)
     // delete() will be the last one to implement if we have time
     public int deletedNo = 0;
@@ -347,11 +347,17 @@ public class AVLTree<T extends Comparable<T>> {
     public AVLTree<T> stringToTree(String levelOrderTraversal) {
         AVLTree<T> tree = new AVLTree<>();
         String[] values = levelOrderTraversal.split(",");
-        for (String value : values) {
+        ArrayList<String> valuesList = new ArrayList<>(Arrays.asList(values));
+        ArrayList<String> strNull = new ArrayList<>();
+        strNull.add("null");
+        valuesList.removeAll(strNull);
+        for (String value : valuesList) {
+            System.out.println(value);
+            Integer valueInt = Integer.valueOf(value);
             try {
 
                 // Checks whether T is Integer, which should be the case for most of the time.
-                tree.insert((T) Integer.valueOf(value));
+                tree.insert((T) valueInt);
             } catch (Exception e) {
                 // This is if we decide to store keys of QuestionIDs as AVLTree.
                 tree.insert((T) value);

@@ -6,6 +6,7 @@ import org.junit.runners.Parameterized;
 
 import static org.junit.Assert.*;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -92,8 +93,35 @@ public class AVLTreeTest {
         // Test whether the tree is still a valid AVLTree after insert()
         validAVLTest(nodes, tree);
 
+        // Test whether stringToTree restores the non-empty original tree
+        if (tree.size() != 0) {
+            AVLTree<Integer> treeFromString = new AVLTree<>();
+            treeFromString = treeFromString.stringToTree(tree.toString());
+            System.out.println(treeFromString.visualize());
+            areTreesSame(tree.root, treeFromString.root);
+        }
+
+        // Test whether you can delete then insert consecutively
+        int randomNumber = getRandomNumber(-99, 99);
+        System.out.println("ranrdom number is: " + randomNumber);
+        tree.insert(randomNumber);
+        ArrayList<AVLTree.Node<Integer>> nodesAfterInsert = tree.preOrderTraversal();
+        validAVLTest(nodesAfterInsert, tree);
+
+        tree.delete(randomNumber);
+        ArrayList<AVLTree.Node<Integer>> nodesAfterDel2 = tree.preOrderTraversal();
+        validAVLTest(nodesAfterDel2, tree);
+
+        // Update the preOrderValues after the insert/delete test above
+        ArrayList<AVLTree.Node<Integer>> updatedNodes = tree.preOrderTraversal();
+        preOrderValues.clear();
+        for  (AVLTree.Node<Integer> node : updatedNodes) {
+            preOrderValues.add(node.value);
+        }
+
         // Randomize the order of the nodes to be deleted
-        int deletedNo = 0;
+        // local deletedNo in this test is initialized to 1, as delete() was already called once above.
+        int deletedNo = 1;
         Collections.shuffle(preOrderValues);
         for (Integer valueToBeDeleted : preOrderValues) {
             tree.delete(valueToBeDeleted);
@@ -147,5 +175,22 @@ public class AVLTreeTest {
                     left < node.value && node.value < right);
         }
         System.out.println("");
+    }
+
+    // Test whether two given trees are identical in terms of its values and their positions
+    // 0 (1 null) != 1 (0 null) although they have identical values
+    public void areTreesSame(AVLTree.Node<Integer> node1, AVLTree.Node<Integer> node2) {
+        if (node1 == null && node2 == null) {
+            return;
+        } else if (node1 == null) {
+            fail();
+        }
+        assertEquals(node1.value, node2.value);
+        areTreesSame(node1.left, node2.left);
+        areTreesSame(node1.right, node2.right);
+    }
+
+    public int getRandomNumber(int min, int max) {
+        return (int) ((Math.random() * (max - min)) + min);
     }
 }
