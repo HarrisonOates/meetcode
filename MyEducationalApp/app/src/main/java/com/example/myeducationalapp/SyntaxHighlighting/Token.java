@@ -49,4 +49,12 @@ public class Token {
     public int hashCode() {
         return Objects.hash(token, type);
     }
+
+    @Override
+    public String toString() {
+        return "Token(" +
+                token + ", " +
+                type +
+                ')';
+    }
 }

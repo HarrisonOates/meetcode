@@ -114,4 +114,7 @@ public class Tokenizer {
 
     }
 
+    public Token getCurrentToken() {
+        return currentToken;
+    }
 }
