@@ -4,6 +4,7 @@ import static com.example.myeducationalapp.SyntaxHighlighting.Token.Type.IDENTIF
 import static com.example.myeducationalapp.SyntaxHighlighting.Token.Type.KEYWORD;
 import static com.example.myeducationalapp.SyntaxHighlighting.Token.Type.NEWLINE;
 import static com.example.myeducationalapp.SyntaxHighlighting.Token.Type.NUMERIC_LITERAL;
+import static com.example.myeducationalapp.SyntaxHighlighting.Token.Type.PUNCTUATOR;
 import static com.example.myeducationalapp.SyntaxHighlighting.Token.Type.STRING_LITERAL;
 import static com.example.myeducationalapp.SyntaxHighlighting.Token.Type.WHITESPACE;
 
@@ -45,24 +46,24 @@ public class Parser {
         this.highlightedBlock = new StringBuilder();
     }
 
+    // Recursively parses the given tokens.
     public void parseCodeBlock() {
         if (tokenizer.currentToken == null){
             return;
         }
-        tokenizer.next();
         Token t = tokenizer.currentToken;
         if (t.getType() == KEYWORD){
-            highlightedBlock.append("<font color = \"orange\"");
+            highlightedBlock.append("<font color = \"orange\">");
             highlightedBlock.append(t.getToken());
             highlightedBlock.append("</font>");
         }
         else if (t.getType() == NUMERIC_LITERAL){
-            highlightedBlock.append("<font color = \"blue\"");
+            highlightedBlock.append("<font color = \"blue\">");
             highlightedBlock.append(t.getToken());
             highlightedBlock.append("</font>");
         }
         else if (t.getType() == STRING_LITERAL){
-            highlightedBlock.append("<font color = \"green\"");
+            highlightedBlock.append("<font color = \"green\">");
             highlightedBlock.append(t.getToken());
             highlightedBlock.append("</font>");
         }
@@ -71,7 +72,7 @@ public class Parser {
                 highlightedBlock.append(t.getToken());
             }
             else{
-                highlightedBlock.append("<font color = \"purple\"");
+                highlightedBlock.append("<font color = \"purple\">");
                 identifiers.add(t.getToken());
                 highlightedBlock.append(t.getToken());
                 highlightedBlock.append("</font>");
@@ -82,10 +83,15 @@ public class Parser {
         else if (t.getType() == WHITESPACE || t.getType() == NEWLINE){
             highlightedBlock.append(t.getToken());
         }
+        else if (t.getType() == PUNCTUATOR){
+            highlightedBlock.append("<font color = \"purple\">");
+            highlightedBlock.append(t.getToken());
+            highlightedBlock.append("</font>");
+        }
         else {
             throw new IllegalTokenException("Token " + t.getToken() + " of type " + t.getType() + " is not recognized");
         }
-
+        tokenizer.next();
         parseCodeBlock();
 
     }
@@ -93,14 +99,14 @@ public class Parser {
     // Testing shows that the printing isn't working quite as intended.
     // Need to look over tokenizer some more
     public static void main(String[] args) throws FileNotFoundException {
-        String input = "";
+        StringBuilder input = new StringBuilder();
         File testRead = new File("sample.txt");
         Scanner read = new Scanner(testRead);
         while (read.hasNextLine()){
-            input += read.nextLine();
+            input.append(read.nextLine());
         }
 
-        Tokenizer tok = new Tokenizer(input);
+        Tokenizer tok = new Tokenizer(input.toString());
         Parser parse = new Parser(tok);
         parse.parseCodeBlock();
         System.out.println(parse.highlightedBlock);
