@@ -9,8 +9,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 @RunWith(Parameterized.class)
 public class SyntaxHighlightingTest {
@@ -28,7 +30,7 @@ public class SyntaxHighlightingTest {
         return Arrays.asList(new String[][]{declaration, numericLiteral,newLine, arbitraryWhitespace, punctuator,stringLiteral});
     }
 
-    @Parameterized.Parameter(0)
+    @Parameterized.Parameter()
     public String inputText;
 
     @Parameterized.Parameter(1)
@@ -41,5 +43,28 @@ public class SyntaxHighlightingTest {
         Token t = tok.getCurrentToken();
         assertEquals(token, t.toString());
     }
+
+    @Test(timeout = 500)
+    public void lineTokenTest(){
+        String s = "int i = 0;\n";
+        Tokenizer tok = new Tokenizer(s);
+        List<String> results = new ArrayList<>();
+        while(tok.getCurrentToken() != null){
+            results.add(tok.getCurrentToken().toString());
+            tok.next();
+        }
+        List<String> expected = Arrays.asList(
+                "Token(int, KEYWORD)",
+                "Token( , WHITESPACE)",
+                "Token(i, IDENTIFIER)",
+                "Token( , WHITESPACE)",
+                "Token(=, PUNCTUATOR)",
+                "Token( , WHITESPACE)",
+                "Token(0, NUMERIC_LITERAL)",
+                "Token(;, PUNCTUATOR)",
+                "Token(\n, NEWLINE)");
+        assertEquals(expected, results);
+    }
+
 
 }
