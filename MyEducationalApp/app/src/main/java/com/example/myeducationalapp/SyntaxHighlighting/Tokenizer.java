@@ -50,13 +50,20 @@ public class Tokenizer {
         char firstChar = buffer.charAt(0);
         // Whitespace
         if (Character.isWhitespace(firstChar)){
-            StringBuilder s = new StringBuilder(" ");
-            int pointer = 1;
-            while (pointer < buffer.length() && Character.isWhitespace(buffer.charAt(pointer))){
-                s.append(" ");
-                pointer++;
+            // Is it a newline?
+            if (firstChar == '\n'){
+                currentToken = new Token(String.valueOf(firstChar), Token.Type.NEWLINE);
+
             }
-            currentToken = new Token(s.toString(), Token.Type.WHITESPACE);
+            else {
+                StringBuilder s = new StringBuilder(" ");
+                int pointer = 1;
+                while (pointer < buffer.length() && Character.isWhitespace(buffer.charAt(pointer))){
+                    s.append(" ");
+                    pointer++;
+                }
+                currentToken = new Token(s.toString(), Token.Type.WHITESPACE);
+            }
         }
         // Newline
         else if (firstChar == '\n'){
@@ -96,7 +103,12 @@ public class Tokenizer {
             StringBuilder s = new StringBuilder();
             s.append(firstChar);
             int pointer = 1;
-            while (pointer < buffer.length() && buffer.charAt(pointer) != firstChar){
+            while (pointer < buffer.length()){
+                // signals the end of the string
+                if (buffer.charAt(pointer) == firstChar){
+                    s.append(buffer.charAt(pointer));
+                    break;
+                }
                 s.append(buffer.charAt(pointer));
                 pointer++;
             }

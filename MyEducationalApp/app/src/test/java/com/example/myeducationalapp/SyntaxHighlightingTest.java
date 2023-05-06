@@ -19,7 +19,7 @@ public class SyntaxHighlightingTest {
     public static Collection<Object[]> tokenized() {
         String[] declaration         = new String[]{"int", "Token(int, KEYWORD)"};
         String[] numericLiteral      = new String[]{"1.23", "Token(1.23, NUMERIC_LITERAL)"};
-        String[] newLine             = new String[]{"\n", "Token(\n,NEWLINE)"};
+        String[] newLine             = new String[]{"\n", "Token(\n, NEWLINE)"};
         String[] arbitraryWhitespace = new String[]{"  ", "Token(  , WHITESPACE)"};
         String[] punctuator          = new String[]{"{", "Token({, PUNCTUATOR)"};
         String[] stringLiteral       = new String[]{"\"Hello World!\"", "Token(\"Hello World!\", STRING_LITERAL)"};
@@ -34,12 +34,12 @@ public class SyntaxHighlightingTest {
     @Parameterized.Parameter(1)
     public String token;
 
+    // Checks whether individual tokens are tokenizing as expected
     @Test(timeout = 500)
     public void SingleTokenTest(){
         Tokenizer tok = new Tokenizer(inputText);
         Token t = tok.getCurrentToken();
         assertEquals(token, t.toString());
-
     }
 
 }
