@@ -8,8 +8,7 @@ import com.example.myeducationalapp.MessageThread;
 import com.example.myeducationalapp.Person;
 import com.example.myeducationalapp.Question;
 import com.example.myeducationalapp.UserLogin;
-import com.example.myeducationalapp.UserSettings;
-import com.google.android.gms.tasks.Task;
+import com.example.myeducationalapp.UserLocalData;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -19,7 +18,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.nio.file.AccessDeniedException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -271,7 +269,7 @@ public class Firebase {
         return FirebaseRequest.write(database, Arrays.asList("login"), userLoginString);
     }
 
-    public FirebaseResult writePerUserSettings(String username, UserSettings settings) {
+    public FirebaseResult writePerUserSettings(String username, UserLocalData settings) {
         return FirebaseRequest.write(database, Arrays.asList("per_user", username), settings.toString());
     }
 

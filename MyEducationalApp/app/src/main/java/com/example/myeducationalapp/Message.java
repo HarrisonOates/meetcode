@@ -3,10 +3,7 @@ package com.example.myeducationalapp;
 import android.annotation.SuppressLint;
 import android.util.Log;
 
-import com.example.myeducationalapp.Firebase.Firebase;
 import com.example.myeducationalapp.Firebase.FirebaseResult;
-
-import kotlin.NotImplementedError;
 
 public class Message extends Asynchronous {
     private String content;
@@ -116,6 +113,8 @@ public class Message extends Asynchronous {
          */
         String[] components = data.split("\t", -1);
 
+        Log.w("dbg", "DATA IS: " + data);
+
         replyingTo = Integer.parseInt(components[0]);
         content = unescapeString(components[1]);
         sentBy = new Person(unescapeString(components[2]));
@@ -137,7 +136,7 @@ public class Message extends Asynchronous {
          * For the responsiveness of the UI, it is important that this value is loaded quickly.
          * Hence we keep a second copy locally that can be accessed instantly.
          */
-        return UserSettings.getInstance().isMessageLiked(thread.getThreadID(), indexWithinThread);
+        return UserLocalData.getInstance().isMessageLiked(thread.getThreadID(), indexWithinThread);
     }
 
     public void toggleLikedByCurrentUser() {
@@ -147,7 +146,7 @@ public class Message extends Asynchronous {
          * For the responsiveness of the UI, it is important that this is done quickly.
          * Adjust the redundant copy of the variable we have.
          */
-        UserSettings.getInstance().toggleLikeMessage(thread.getThreadID(), indexWithinThread);
+        UserLocalData.getInstance().toggleLikeMessage(thread.getThreadID(), indexWithinThread);
 
 
         /*

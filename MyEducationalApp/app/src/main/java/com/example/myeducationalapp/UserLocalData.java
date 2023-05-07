@@ -27,17 +27,17 @@ class ComparablePair<T extends Comparable> implements Comparable<ComparablePair<
     }
 }
 
-public class UserSettings {
+public class UserLocalData {
 
-    static private UserSettings instance;
+    static private UserLocalData instance;
 
-    private UserSettings() {
+    private UserLocalData() {
 
     }
 
-    public static UserSettings getInstance() {
+    public static UserLocalData getInstance() {
         if (instance == null) {
-            instance = new UserSettings();
+            instance = new UserLocalData();
         }
         return instance;
     }
