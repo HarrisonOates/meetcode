@@ -353,8 +353,8 @@ public class AVLTree<T extends Comparable<T>> {
         valuesList.removeAll(strNull);
         for (String value : valuesList) {
             System.out.println(value);
-            Integer valueInt = Integer.valueOf(value);
             try {
+                Integer valueInt = Integer.valueOf(value);
 
                 // Checks whether T is Integer, which should be the case for most of the time.
                 tree.insert((T) valueInt);

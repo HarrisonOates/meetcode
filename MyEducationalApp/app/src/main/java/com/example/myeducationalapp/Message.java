@@ -116,6 +116,8 @@ public class Message extends Asynchronous {
          */
         String[] components = data.split("\t", -1);
 
+        Log.w("dbg", "DATA IS: " + data);
+
         replyingTo = Integer.parseInt(components[0]);
         content = unescapeString(components[1]);
         sentBy = new Person(unescapeString(components[2]));

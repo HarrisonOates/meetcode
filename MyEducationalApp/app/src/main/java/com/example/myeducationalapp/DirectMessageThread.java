@@ -36,6 +36,8 @@ public class DirectMessageThread extends MessageThread {
             return Firebase.getInstance().readDirectMessages(UserLogin.getInstance().getCurrentUsername(), withUsername).then((obj) -> {
                 String str = (String) obj;
 
+                Log.w("dbg", "ALL MESSAGES: '" + str + "'");
+
                 /*
                  * This is slightly 'yikes' as it is very possible to have clashes, but
                  * let's not bother with that.
@@ -45,7 +47,7 @@ public class DirectMessageThread extends MessageThread {
                  */
                 threadID = getThreadID();
 
-                if (str != null) {
+                if (str != null && !str.isEmpty()) {
                     String[] allStrings = str.split("\n");
                     int index = 0;
                     for (String message: allStrings) {
