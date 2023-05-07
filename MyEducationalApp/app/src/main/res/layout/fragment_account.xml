@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".AccountFragment">
 
 
@@ -12,12 +12,66 @@
         android:id="@+id/messages_card_1_profile_image"
         android:layout_width="135dp"
         android:layout_height="135dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginTop="40dp"
         android:contentDescription="TODO"
         android:src="@drawable/user_profile_default"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-    
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:fontFamily="@font/ibm_plex_sans_bold"
+        android:text="TextView"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@+id/messages_card_1_profile_image"
+        app:layout_constraintStart_toStartOf="@+id/messages_card_1_profile_image"
+        app:layout_constraintTop_toBottomOf="@+id/messages_card_1_profile_image" />
+
+    <!-- Question cards -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/category_question_card_1"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|top"
+        android:background="@drawable/categories_list_secondary_star_container"
+        android:paddingHorizontal="15dp"
+        android:paddingVertical="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/textView"
+        app:layout_constraintStart_toStartOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/textView">
+
+        <!-- Question card heading -->
+        <TextView
+            android:id="@+id/category_question_car_heading_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:fontFamily="@font/ibm_plex_sans_semibold"
+            android:text="1. What does this code do?"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/category_question_card_star_icon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Star icon -->
+        <View
+            android:id="@+id/category_question_card_star_icon"
+            android:layout_width="21.99dp"
+            android:layout_height="21.3dp"
+            android:background="@drawable/icon_star"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
