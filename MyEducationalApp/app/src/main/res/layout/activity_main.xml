@@ -223,4 +223,90 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
+    
+    <!-- Text entry widget -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/direct_message_text_container"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/home_search_container"
+        android:elevation="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.523"
+        app:layout_constraintStart_toStartOf="parent"
+        android:paddingTop="9dp"
+        android:paddingBottom="9dp">
+
+        <!-- text entry field -->
+        <EditText
+            android:id="@+id/direct_message_input_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:background="@null"
+            android:ems="10"
+            android:fontFamily="@font/ibm_plex_sans_medium"
+            android:hint="Message..."
+            android:inputType="text|textMultiLine|textAutoComplete|textAutoCorrect|textLongMessage"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:textAlignment="textStart"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/direct_message_send_button"
+            app:layout_constraintStart_toStartOf="@+id/direct_message_start_guide"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- send button container widget -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/direct_message_send_button"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/shapes_button_circle"
+            android:clipToOutline="true"
+            app:layout_constraintBottom_toBottomOf="@+id/direct_message_input_text"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toStartOf="@+id/direct_message_end_guide"
+            app:layout_constraintStart_toStartOf="@+id/direct_message_end_guide">
+
+            <!-- send icon -->
+            <View
+                android:id="@+id/direct_message_send_arrow_icon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/icon_right_send_arrow"
+                android:clipToOutline="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.55"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/direct_message_start_guide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.07" />
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/direct_message_end_guide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.91" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
