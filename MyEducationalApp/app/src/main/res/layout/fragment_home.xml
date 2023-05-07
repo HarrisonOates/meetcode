@@ -1,27 +1,512 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Home">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".HomeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:paddingBottom="80dp">
 
-    <!-- Question of Day -->
-    <View
-        android:id="@+id/question_of"
-        android:layout_width="319dp"
-        android:layout_height="194dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="21dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="153dp"
-        android:background="@drawable/question_of"
-        android:elevation="10dp"
-        />
+        <!-- Search Widget -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/direct_message_text_container"
+            android:layout_width="350dp"
+            android:layout_height="63dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/home_search_container"
+            android:elevation="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.523"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-</FrameLayout>
+            <!-- Magnifying glass icon -->
+            <View
+                android:id="@+id/home_search_magnifying_glass_icon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/icon_magnifying_glass"
+                android:clipToOutline="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/direct_message_start_guide"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/direct_message_start_guide"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- Search text entry field -->
+            <EditText
+                android:id="@+id/direct_message_input_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="14dp"
+                android:ems="10"
+                android:fontFamily="@font/ibm_plex_sans_medium"
+                android:inputType="textAutoComplete|text"
+                android:hint="Search"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/home_search_magnifying_glass_icon"
+                app:layout_constraintTop_toTopOf="parent"
+                android:background="@null" />
+
+            <!-- Filter button container widget -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/direct_message_send_button"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/shapes_button_circle"
+                android:clipToOutline="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toStartOf="@+id/direct_message_end_guide"
+                app:layout_constraintStart_toStartOf="@+id/direct_message_end_guide"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <!-- Filter icon -->
+                <View
+                    android:id="@+id/direct_message_send_arrow_icon"
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:background="@drawable/icon_filter"
+                    android:clipToOutline="true"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/direct_message_start_guide"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.09" />
+
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/direct_message_end_guide"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.91" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- Daily Challenge Hero Widget -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/home_hero_container"
+            android:layout_width="350dp"
+            android:layout_height="200dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/home_hero_container"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/direct_message_text_container">
+
+            <!-- Hero main section -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toTopOf="@+id/home_hero_divider_guide"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <!-- Hero pretty image -->
+                <View
+                    android:id="@+id/home_hero_image"
+                    android:layout_width="70dp"
+                    android:layout_height="99dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/shape_placeholder_square"
+                    android:elevation="5dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintDimensionRatio="1:1"/>
+
+                <!-- Hero Heading text -->
+                <TextView
+                    android:id="@+id/home_hero_heading_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="24dp"
+                    android:fontFamily="@font/ibm_plex_sans_bold"
+                    android:text="Daily Challenge"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/home_hero_image"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <!-- Hero subheading text -->
+                <TextView
+                    android:id="@+id/home_hero_subheading_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/ibm_plex_sans_medium"
+                    android:text="31st of December"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="@+id/home_hero_heading_text"
+                    app:layout_constraintStart_toStartOf="@+id/home_hero_heading_text"
+                    app:layout_constraintTop_toBottomOf="@+id/home_hero_heading_text" />
+
+                <!-- Hero body text -->
+                <TextView
+                    android:id="@+id/home_hero_body_text"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="20dp"
+                    android:fontFamily="@font/ibm_plex_sans"
+                    android:text="Messing around with arrays and other stuff asd asd asd asd"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/white"
+                    android:textSize="17sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/home_hero_subheading_text"
+                    app:layout_constraintStart_toStartOf="@+id/home_hero_subheading_text"
+                    app:layout_constraintTop_toBottomOf="@+id/home_hero_subheading_text" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Hero secondary section -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/home_hero_divider_guide">
+
+                <!-- Secondary decorator container -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="11dp"
+                    android:background="@drawable/home_hero_secondary_container"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <!-- Profile pictures carousel -->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraintLayout2"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/home_hero_secondary_1_guide"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <!-- Profile photo 1 -->
+                        <ImageView
+                            android:id="@+id/home_hero_secondary_profile_1"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_marginStart="10dp"
+                            android:src="@drawable/user_profile_default"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <!-- Profile photo 2 -->
+                        <ImageView
+                            android:id="@+id/home_hero_secondary_profile_2"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_marginStart="-12dp"
+                            android:src="@drawable/user_profile_default"
+                            app:layout_constraintBottom_toBottomOf="@+id/home_hero_secondary_profile_1"
+                            app:layout_constraintStart_toEndOf="@+id/home_hero_secondary_profile_1" />
+
+                        <!-- Profile photo 3 -->
+                        <ImageView
+                            android:id="@+id/home_hero_secondary_profile_3"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_marginStart="-12dp"
+                            android:src="@drawable/user_profile_default"
+                            app:layout_constraintStart_toEndOf="@+id/home_hero_secondary_profile_2"
+                            app:layout_constraintTop_toTopOf="@+id/home_hero_secondary_profile_2" />
+
+                        <!-- Profile photo 4 -->
+                        <ImageView
+                            android:id="@+id/home_hero_secondary_profile_4"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_marginStart="-12dp"
+                            android:src="@drawable/user_profile_default"
+                            app:layout_constraintBottom_toBottomOf="@+id/home_hero_secondary_profile_3"
+                            app:layout_constraintStart_toEndOf="@+id/home_hero_secondary_profile_3" />
+
+                        <!-- False profile photo 5 -->
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/home_hero_secondary_profile_5"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_marginStart="-12dp"
+                            android:background="@drawable/user_profile_default"
+                            app:layout_constraintStart_toEndOf="@+id/home_hero_secondary_profile_4"
+                            app:layout_constraintTop_toTopOf="@+id/home_hero_secondary_profile_4">
+
+                            <!-- Profile photo overflow text -->
+                            <TextView
+                                android:id="@+id/home_hero_secondary_profile_overflow_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/ibm_plex_sans_medium"
+                                android:text="5+"
+                                android:textColor="@color/black"
+                                android:textSize="15sp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    <!-- Secondary Star container -->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="6dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="6dp"
+                        android:background="@drawable/home_hero_secondary_star_container"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/home_hero_secondary_2_guide"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <!-- Call to action text -->
+                        <TextView
+                            android:id="@+id/home_hero_secondary_call_to_action_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:fontFamily="@font/ibm_plex_sans_semibold"
+                            android:text="Earn 3 stars"
+                            android:textColor="@color/black"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                        <!-- Star icon -->
+                        <View
+                            android:id="@+id/home_hero_secondary_star_icon"
+                            android:layout_width="21.99dp"
+                            android:layout_height="21.3dp"
+                            android:layout_marginEnd="10dp"
+                            android:background="@drawable/icon_star"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/home_hero_secondary_1_guide"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.41" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/home_hero_secondary_2_guide"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.57" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/home_hero_divider_guide"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.7" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <!-- Category text section -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout3"
+            android:layout_width="350dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="25dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/home_hero_container">
+
+            <!-- Category text -->
+            <TextView
+                android:id="@+id/home_category_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/ibm_plex_sans_bold"
+                android:text="Categories"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- See more text -->
+            <TextView
+                android:id="@+id/home_category_see_more_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/ibm_plex_sans_semibold"
+                android:text="See more"
+                android:textColor="@color/black"
+                android:textSize="17sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/home_category_text" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- Categories carousel outer constraint layout wrapper -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="350dp"
+            android:layout_height="224dp"
+            android:layout_marginTop="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout3">
+
+            <!-- Categories carousel scrollable wrapper -->
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fillViewport="true">
+
+                <!-- Categories carousel inner wrapper -->
+                <LinearLayout
+                    android:id="@+id/home_category_carousel_scrollable"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <!-- Categories carousel element container -->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/home_category_carousel_1"
+                        android:layout_width="190dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="20dp"
+                        android:background="@drawable/home_category_carousel_container"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <!-- Wrapper for carousel element image -->
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/home_category_carousel_1_image"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:elevation="5dp"
+                            app:layout_constraintBottom_toBottomOf="@+id/home_category_carousel_guide"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <!-- Image for carousel element -->
+                            <ImageView
+                                android:id="@+id/home_category_carousel_image"
+                                android:layout_width="84dp"
+                                android:layout_height="100dp"
+                                android:contentDescription="TODO"
+                                android:src="@drawable/shape_placeholder_square"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintVertical_bias="0.65" />
+
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <!-- Carousel heading text -->
+                        <TextView
+                            android:id="@+id/home_category_carousel_heading_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="15dp"
+                            android:fontFamily="@font/ibm_plex_sans_semibold"
+                            android:text="Basic Algorithms"
+                            android:textColor="@color/white"
+                            android:textSize="20sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/home_category_carousel_1_image" />
+
+                        <!-- Carousel subheading text -->
+                        <TextView
+                            android:id="@+id/home_category_carousel_subheading_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:fontFamily="@font/ibm_plex_sans"
+                            android:text="3 Questions"
+                            android:textColor="@color/white"
+                            android:textSize="18sp"
+                            app:layout_constraintStart_toStartOf="@+id/home_category_carousel_heading_text"
+                            app:layout_constraintTop_toBottomOf="@+id/home_category_carousel_heading_text" />
+
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/home_category_carousel_guide"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layout_constraintGuide_percent="0.64" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+                </LinearLayout>
+
+            </HorizontalScrollView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

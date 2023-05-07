@@ -1,14 +1,13 @@
 package com.example.myeducationalapp;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
-import com.example.myeducationalapp.Firebase.Firebase;
-import com.example.myeducationalapp.Search.SearchResults.QuestionResults;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.util.Log;
+import android.view.View;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -17,27 +16,18 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.myeducationalapp.databinding.ActivityMainBinding;
 
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
-
-import java.nio.file.AccessDeniedException;
+import android.view.WindowInsetsController;
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        SharedPreferences preferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
-        String language = preferences.getString("language", "en");
-
-        Log.d("LanguagePreference", "Selected language: " + language);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -48,32 +38,11 @@ public class MainActivity extends AppCompatActivity {
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
+        // Hiding the Action bar
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
 
-        binding.fab.setOnClickListener(view -> {
-            /*new Thread(() -> {
-                try {
-                    String res = (String) Firebase.getInstance().readDirectMessages("alex", "geun").await();
-                    Log.w("dbg", res);
-
-                } catch (AccessDeniedException e) {
-                    throw new RuntimeException(e);
-                }
-            }).start();*/
-
-            AVLTree<Integer> demo = new AVLTree<>();
-            demo.insert(5);
-            demo.delete(5);
-            demo.insert(5);
-
-            Intent intent = new Intent(this, MessagingDemoActivity.class);
-            startActivity(intent);
-        });
-
-        Button langSetting =findViewById(R.id.language_setting);
-        langSetting.setOnClickListener(view -> {
-            Intent intent = new Intent(this, LanguageSetting.class);
-            startActivity(intent);
-        });
     }
 
     @Override
