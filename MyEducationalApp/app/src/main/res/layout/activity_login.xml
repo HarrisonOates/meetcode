@@ -4,6 +4,137 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    tools:context=".LoginActivity"
+    android:background="@drawable/login_background">
+
+
+    <!-- Username Widget -->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/username_text_container"
+        android:layout_width="350dp"
+        android:layout_height="63dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="25dp"
+        android:background="@drawable/home_search_container"
+        android:elevation="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/password_label_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.524"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <!-- Username entry field -->
+        <EditText
+            android:id="@+id/username_input_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:ems="10"
+            android:fontFamily="@font/ibm_plex_sans_medium"
+            android:hint="Enter your username"
+            android:inputType="textAutoComplete|text"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/username_start_guide"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/username_start_guide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.09" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/Username_label_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:fontFamily="@font/ibm_plex_sans_bold"
+        android:text="Username"
+        android:textColor="@color/black"
+        android:textSize="17sp"
+        app:layout_constraintBottom_toTopOf="@+id/username_text_container"
+        app:layout_constraintStart_toStartOf="@+id/username_text_container" />
+
+    <!-- Password Widget -->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/password_text_container"
+        android:layout_width="350dp"
+        android:layout_height="63dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="55dp"
+        android:background="@drawable/home_search_container"
+        android:elevation="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/submit_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.524"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <!-- Password entry field -->
+        <EditText
+            android:id="@+id/password_input_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:ems="10"
+            android:fontFamily="@font/ibm_plex_sans_medium"
+            android:hint="Enter your password"
+            android:inputType="textPassword"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/password_start_guide"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/password_start_guide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.09" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/password_label_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:fontFamily="@font/ibm_plex_sans_bold"
+        android:text="Password"
+        android:textColor="@color/black"
+        android:textSize="17sp"
+        app:layout_constraintBottom_toTopOf="@+id/password_text_container"
+        app:layout_constraintStart_toStartOf="@+id/password_text_container" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/submit_button"
+        android:layout_width="350dp"
+        android:layout_height="63dp"
+        android:layout_marginBottom="50dp"
+        android:background="@drawable/login_submit_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+
+        <TextView
+            android:id="@+id/submit_button_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/ibm_plex_sans_medium"
+            android:text="Log in ➜"
+            android:textAlignment="textEnd"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
