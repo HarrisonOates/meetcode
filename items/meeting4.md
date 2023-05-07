@@ -56,17 +56,18 @@ Features we are expected to complete
 Tested our message function very intensively for about 20 mins led by Jayden :)
 
 ## TODO Items
-| Task                           |   Assignee |
-|:-------------------------------|-----------:|
-| Start writing report           |   Everyone |
-| Storing User Local Data        |       Alex | 
-| Finish Search                  |     Jayden | 
-| Add blocking feature           |     Jayden |
-| Test for User Local Data       |       Alex | 
-| Finish UI                      |    Nikhlia | 
-| Merge UI work branch into main |    Nikhlia | 
-| Checkpoint 2                   |       Geun |
- | Add Question Sets              |   Everyone |
+| Task                           | Assignee |
+|:-------------------------------|---------:|
+| Start writing report           | Everyone |
+| Storing User Local Data        |     Alex | 
+| Finish Search                  |   Jayden | 
+| Add blocking feature           |   Jayden |
+| Test for User Local Data       |     Alex | 
+| Finish UI                      |  Nikhlia | 
+| Merge UI work branch into main |  Nikhlia | 
+| Checkpoint 2                   |     Geun |
+ | Add Question Sets              | Everyone |
+| UML Diagram                    |  Nikhlia | 
 
 ## Scribe Rotation for next meetings
 |  Name   |
