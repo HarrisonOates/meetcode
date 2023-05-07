@@ -223,7 +223,6 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    
     <!-- Text entry widget -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/direct_message_text_container"
