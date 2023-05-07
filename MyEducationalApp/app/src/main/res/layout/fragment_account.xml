@@ -35,9 +35,10 @@
     <!-- Question cards -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/category_question_card_1"
-        android:layout_width="350dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center|top"
+        android:layout_marginTop="20dp"
         android:background="@drawable/categories_list_secondary_star_container"
         android:paddingHorizontal="15dp"
         android:paddingVertical="10dp"
@@ -48,11 +49,11 @@
         <!-- Question card heading -->
         <TextView
             android:id="@+id/category_question_car_heading_text"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             android:fontFamily="@font/ibm_plex_sans_semibold"
-            android:text="1. What does this code do?"
+            android:text="You've achieved X stars"
             android:textColor="@color/white"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"

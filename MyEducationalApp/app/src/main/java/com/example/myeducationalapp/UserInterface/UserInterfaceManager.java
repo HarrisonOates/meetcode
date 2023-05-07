@@ -19,9 +19,6 @@ public class UserInterfaceManager {
     // current visibility of notification dot for messages on navigation menu
     boolean isNavigationMenuNotificationVisible;
 
-    // current visibility of the message sending container
-    boolean isMessageContainerVisible;
-
     // current visibility of notification dots for direct messages in the direct message fragment
     // TODO specify method/s to change and update this when new notifications occur/old ones go away
     DirectMessageNotificationMap directMessageNotification = new DirectMessageNotificationMap();
@@ -39,7 +36,6 @@ public class UserInterfaceManager {
         this.actionBarState = new ActionBarStarsState(this);
         this.isNavigationMenuVisible = true;
         this.isNavigationMenuNotificationVisible = false;
-        this.isMessageContainerVisible = false;
     }
 
     private void changeState() {
@@ -88,14 +84,6 @@ public class UserInterfaceManager {
 
     public boolean getNavigationMenuNotificationVisibility() {
         return isNavigationMenuNotificationVisible;
-    }
-
-    public boolean isMessageContainerVisible() {
-        return isMessageContainerVisible;
-    }
-
-    public void setMessageContainerVisible(boolean messageContainerVisible) {
-        isMessageContainerVisible = messageContainerVisible;
     }
 
 }
