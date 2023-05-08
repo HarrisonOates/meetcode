@@ -92,7 +92,7 @@
             android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout"
+                android:id="@+id/account_menu_category_constraint_layout"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|top"
@@ -127,7 +127,7 @@
 
             <!-- Daily Challenge Menu Element -->
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout4"
+                android:id="@+id/account_menu_daily_challenge_constraint_layout"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|top">
@@ -160,6 +160,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/account_menu_log_out_constraint_layout"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|top">
