@@ -56,6 +56,10 @@ public class FirebaseResult {
     public Object await() {
         try {
             gotResult.await();
+            while (!callbacks.isEmpty()) {
+                result = callbacks.remove(0).apply(result);
+            }
+
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }

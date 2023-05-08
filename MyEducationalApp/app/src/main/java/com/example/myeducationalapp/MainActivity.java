@@ -2,6 +2,7 @@ package com.example.myeducationalapp;
 
 import android.os.Bundle;
 
+import com.example.myeducationalapp.Firebase.Firebase;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -42,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
+
+        new Thread(() -> System.out.printf("HERE: %s\n", Firebase.getInstance().readAllUsernames())).start();
 
     }
 

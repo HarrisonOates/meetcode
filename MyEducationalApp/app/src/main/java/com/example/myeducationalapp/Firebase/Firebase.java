@@ -251,6 +251,21 @@ public class Firebase {
         return FirebaseRequest.write(database, getDirectMessageFilepath(username1, username2), messages.toString());
     }
 
+    public List<String> readAllUsernames() {
+        String data = (String) readLoginDetails().await();
+
+        List<String> usernames = new ArrayList<>();
+
+        if (!data.isEmpty()) {
+            String[] userLoginInfos = data.split("\n");
+            for (String userInfo : userLoginInfos) {
+                usernames.add(userInfo.split(",")[0]);
+            }
+        }
+
+        return usernames;
+    }
+
     public FirebaseResult debugDeleteAllDirectMessages(String username1, String username2) {
         return FirebaseRequest.write(database, getDirectMessageFilepath(username1, username2), "");
     }
