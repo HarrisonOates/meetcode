@@ -2,6 +2,7 @@ package com.example.myeducationalapp;
 
 import static org.junit.Assert.assertEquals;
 
+import com.example.myeducationalapp.SyntaxHighlighting.DetectCodeBlock;
 import com.example.myeducationalapp.SyntaxHighlighting.Token;
 import com.example.myeducationalapp.SyntaxHighlighting.Tokenizer;
 

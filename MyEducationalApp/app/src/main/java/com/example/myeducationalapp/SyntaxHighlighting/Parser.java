@@ -15,7 +15,7 @@ import java.util.Scanner;
 import java.util.Set;
 
 /**
- * Takes a block of Java code and transforms it into an XML string.
+ * Takes a block of Java code and transforms it into a HTML string.
  * Only one colour scheme for the moment.
  * @author Harrison Oates
  */
@@ -80,7 +80,10 @@ public class Parser {
 
 
         }
-        else if (t.getType() == WHITESPACE || t.getType() == NEWLINE){
+        else if (t.getType() == NEWLINE){
+            highlightedBlock.append("<br>");
+        }
+        else if (t.getType() == WHITESPACE){
             highlightedBlock.append(t.getToken());
         }
         else if (t.getType() == PUNCTUATOR){
@@ -96,24 +99,27 @@ public class Parser {
 
     }
 
-    // Testing shows that the printing isn't working quite as intended.
-    // Need to look over tokenizer some more
-    public static void main(String[] args) throws FileNotFoundException {
-        StringBuilder input = new StringBuilder();
-        File testRead = new File("sample.txt");
-        Scanner read = new Scanner(testRead);
-        while (read.hasNextLine()){
-            input.append(read.nextLine());
-        }
-
-        Tokenizer tok = new Tokenizer(input.toString());
-        Parser parse = new Parser(tok);
-        parse.parseCodeBlock();
-        System.out.println(parse.highlightedBlock);
-
+    public StringBuilder getHighlightedBlock() {
+        return highlightedBlock;
     }
 
+    public Tokenizer getTokenizer() {
+        return tokenizer;
+    }
 
+    public void setTokenizer(Tokenizer tokenizer) {
+        this.tokenizer = tokenizer;
+    }
 
+    public Set<String> getIdentifiers() {
+        return identifiers;
+    }
 
+    public void setIdentifiers(Set<String> identifiers) {
+        this.identifiers = identifiers;
+    }
+
+    public void setHighlightedBlock(StringBuilder highlightedBlock) {
+        this.highlightedBlock = highlightedBlock;
+    }
 }
