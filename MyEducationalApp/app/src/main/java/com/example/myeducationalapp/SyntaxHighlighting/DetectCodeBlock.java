@@ -26,8 +26,10 @@ public class DetectCodeBlock {
             if (s.charAt(pointer) == '`'){
                 consecutiveCount++;
                 if (consecutiveCount == 3){
-
                     if (openCodeBlock) {
+                        // TODO - get rid of backticks.
+                        //  They are being rendered. we don't want them.
+
                         // This is our sign to end parsing
                         String toParse = s.substring(startOfBlock, pointer + 1);
                         Tokenizer t = new Tokenizer(toParse);
