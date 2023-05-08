@@ -18,14 +18,15 @@ public class GeneratedUserInterfaceViewModel extends ViewModel {
     //   need a way of differentiating the elements somehow when storing them
     // - hope this works
 
-    Map<String, GeneratedUserInterfaceElement> listOfElements = new HashMap<>();
+    public ArrayList<GeneratedUserInterfaceElement> listOfElements = new ArrayList<>();
 
-    public void addToListOfElements(String id, GeneratedUserInterfaceElement element) {
+    public void addToListOfElements(GeneratedUserInterfaceElement element) {
 
         if (element != null){
-            listOfElements.put(id, element);
+            listOfElements.add(element);
         }
 
     }
+
 
 }

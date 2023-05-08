@@ -1,15 +1,28 @@
 package com.example.myeducationalapp;
 
+import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.myeducationalapp.UserInterface.Generation.GeneratedUserInterfaceViewModel;
+import com.example.myeducationalapp.UserInterface.Generation.HomeCategoryCard;
 import com.example.myeducationalapp.UserInterface.UserInterfaceManagerViewModel;
 
 /**
@@ -60,7 +73,7 @@ public class HomeFragment extends Fragment {
 
         GeneratedUserInterfaceViewModel genUserInterfaceManager = new ViewModelProvider(this).get(GeneratedUserInterfaceViewModel.class);
 
-        
+        genUserInterfaceManager.addToListOfElements(new HomeCategoryCard(null, null, "hi", "hasadsi"));
 
     }
 
@@ -69,5 +82,92 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false);
+    }
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+
+        GeneratedUserInterfaceViewModel genUserInterfaceManager = new ViewModelProvider(this).get(GeneratedUserInterfaceViewModel.class);
+        Log.w("Fragment Home", String.valueOf(genUserInterfaceManager.listOfElements.size()));
+        generateHomeCategoryCard((HomeCategoryCard) genUserInterfaceManager.listOfElements.get(0), getActivity());
+
+    }
+
+    public void generateHomeCategoryCard(HomeCategoryCard template, Context context) {
+        // making ui elements within parent
+        ImageView image = new ImageView(context);
+        TextView heading = new TextView(context);
+        TextView subheading = new TextView(context);
+        // Constraint layout stuff
+        ConstraintLayout constraintLayout = new ConstraintLayout(context);
+        ConstraintSet imageConstraintSet = new ConstraintSet();
+        ConstraintSet headingConstraintSet = new ConstraintSet();
+        ConstraintSet subheadingConstraintSet = new ConstraintSet();
+
+        constraintLayout.setId(View.generateViewId());
+        // TODO
+        constraintLayout.setBackground(ContextCompat.getDrawable(context, R.drawable.home_category_carousel_container));
+
+        // TODO set this using imageReference
+        image.setImageResource(R.drawable.shape_placeholder_square);
+        image.setId(View.generateViewId());
+
+
+        heading.setText(template.headingText);
+        heading.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+        Typeface headingTypeface = ResourcesCompat.getFont(context, R.font.ibm_plex_sans_semibold);
+        heading.setTypeface(headingTypeface);
+        heading.setId(View.generateViewId());
+
+
+        subheading.setText(template.subheadingText);
+        subheading.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+        Typeface subheadingTypeface = ResourcesCompat.getFont(context, R.font.ibm_plex_sans);
+        subheading.setTypeface(subheadingTypeface);
+        subheading.setId(View.generateViewId());
+
+        constraintLayout.addView(image, 0);
+        constraintLayout.addView(heading, 1);
+        constraintLayout.addView(subheading, 2);
+
+        imageConstraintSet.clone(constraintLayout);
+        imageConstraintSet.connect(image.getId(), ConstraintSet.TOP, constraintLayout.getId(), ConstraintSet.TOP, 28);
+        imageConstraintSet.connect(image.getId(), ConstraintSet.START, constraintLayout.getId(), ConstraintSet.START);
+        imageConstraintSet.connect(image.getId(), ConstraintSet.END, constraintLayout.getId(), ConstraintSet.END);
+        imageConstraintSet.connect(image.getId(), ConstraintSet.BOTTOM, heading.getId(), ConstraintSet.TOP, 5);
+        imageConstraintSet.applyTo(constraintLayout);
+
+        headingConstraintSet.clone(constraintLayout);
+        headingConstraintSet.connect(heading.getId(), ConstraintSet.START, image.getId(), ConstraintSet.START);
+        headingConstraintSet.connect(heading.getId(), ConstraintSet.END, image.getId(), ConstraintSet.END);
+        headingConstraintSet.connect(heading.getId(), ConstraintSet.BOTTOM, subheading.getId(), ConstraintSet.TOP, 2);
+        headingConstraintSet.applyTo(constraintLayout);
+
+        subheadingConstraintSet.clone(constraintLayout);
+        subheadingConstraintSet.connect(subheading.getId(), ConstraintSet.START, heading.getId(), ConstraintSet.START);
+        subheadingConstraintSet.connect(subheading.getId(), ConstraintSet.BOTTOM, constraintLayout.getId(), ConstraintSet.BOTTOM, 28);
+        subheadingConstraintSet.applyTo(constraintLayout);
+
+        LinearLayout parent = (LinearLayout) getView().findViewById(R.id.home_category_carousel_scrollable);
+        parent.addView(constraintLayout);
+
+        ViewGroup.LayoutParams constraintLayoutParams = constraintLayout.getLayoutParams();
+        constraintLayoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 190, getResources().getDisplayMetrics());
+        constraintLayoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
+        constraintLayout.setLayoutParams(constraintLayoutParams);
+
+        ViewGroup.LayoutParams imageLayoutParams = image.getLayoutParams();
+        imageLayoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 84, getResources().getDisplayMetrics());;
+        imageLayoutParams.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, getResources().getDisplayMetrics());
+        image.setLayoutParams(imageLayoutParams);
+
+        ViewGroup.LayoutParams headingLayoutParams = heading.getLayoutParams();
+        headingLayoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT;
+        headingLayoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        heading.setLayoutParams(headingLayoutParams);
+
+        ViewGroup.LayoutParams subheadingLayoutParams = subheading.getLayoutParams();
+        subheadingLayoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT;
+        subheadingLayoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        subheading.setLayoutParams(subheadingLayoutParams);
     }
 }
