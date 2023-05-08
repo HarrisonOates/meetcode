@@ -3,7 +3,9 @@ package com.example.myeducationalapp.UserInterface.Generation;
 import androidx.lifecycle.ViewModel;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class GeneratedUserInterfaceViewModel extends ViewModel {
 
@@ -16,12 +18,12 @@ public class GeneratedUserInterfaceViewModel extends ViewModel {
     //   need a way of differentiating the elements somehow when storing them
     // - hope this works
 
-    List<GeneratedUserInterfaceElement> listOfElements = new ArrayList<>();
+    Map<String, GeneratedUserInterfaceElement> listOfElements = new HashMap<>();
 
-    public void addToListOfElements(GeneratedUserInterfaceElement parentElement) {
+    public void addToListOfElements(String id, GeneratedUserInterfaceElement element) {
 
-        if (parentElement != null){
-            listOfElements.add(parentElement);
+        if (element != null){
+            listOfElements.put(id, element);
         }
 
     }

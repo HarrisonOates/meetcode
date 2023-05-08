@@ -28,6 +28,8 @@ public class UserInterfaceManager {
     // TODO specify what Object is
     Object previousFragment;
 
+    String toolbarTitle;
+
 
     // package-private constructor
     UserInterfaceManager() {

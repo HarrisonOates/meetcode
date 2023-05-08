@@ -3,10 +3,14 @@ package com.example.myeducationalapp;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.myeducationalapp.UserInterface.Generation.GeneratedUserInterfaceViewModel;
+import com.example.myeducationalapp.UserInterface.UserInterfaceManagerViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -53,6 +57,11 @@ public class HomeFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        GeneratedUserInterfaceViewModel genUserInterfaceManager = new ViewModelProvider(this).get(GeneratedUserInterfaceViewModel.class);
+
+        
+
     }
 
     @Override

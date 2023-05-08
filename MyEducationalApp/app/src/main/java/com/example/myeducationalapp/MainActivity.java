@@ -2,6 +2,7 @@ package com.example.myeducationalapp;
 
 import android.os.Bundle;
 
+import com.example.myeducationalapp.UserInterface.UserInterfaceManagerViewModel;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -19,6 +21,12 @@ import com.example.myeducationalapp.databinding.ActivityMainBinding;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowInsetsController;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
+
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(this).get(UserInterfaceManagerViewModel.class);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -42,6 +52,69 @@ public class MainActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
+
+        // Dynamic elements
+        View toolbarBackwardsArrow = (View) findViewById(R.id.toolbar_left_arrow_icon);
+        View navMenuMailNotificationDot = (View) findViewById(R.id.nav_menu_mail_notification_dot);
+        // Clickable elements
+        View navMenuHomeIcon = (View) findViewById(R.id.nav_menu_home_icon);
+        View navMenuMailIcon = (View) findViewById(R.id.nav_menu_mail_icon);
+        View navMenuHamburgerIcon = (View) findViewById(R.id.nav_menu_hamburger_icon);
+        // Toolbar elements
+        TextView toolbarTitle = (TextView) findViewById(R.id.toolbar_title);
+        ImageView toolbarProfileIcon = (ImageView) findViewById(R.id.toolbar_profile_icon);
+        TextView toolbarStarContainerText = (TextView) findViewById(R.id.toolbar_star_container_number);
+
+
+        // Setting initial states of dynamic elements
+        if (Objects.requireNonNull(userInterfaceManager.getUiState().getValue()).isActionBarInBackState()) {
+            toolbarBackwardsArrow.setVisibility(View.VISIBLE);
+        } else {
+            toolbarBackwardsArrow.setVisibility(View.GONE);
+        }
+
+        if (Objects.requireNonNull(userInterfaceManager.getUiState().getValue()).getNavigationMenuNotificationVisibility()) {
+            navMenuMailNotificationDot.setVisibility(View.VISIBLE);
+        } else {
+            navMenuMailNotificationDot.setVisibility(View.GONE);
+        }
+
+        // Anonymous on-click handlers
+        navMenuHomeIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        navMenuMailIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        navMenuHamburgerIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        toolbarBackwardsArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        toolbarProfileIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
 
     }
 
