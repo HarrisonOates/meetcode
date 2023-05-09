@@ -46,57 +46,54 @@ public class Parser {
         this.highlightedBlock = new StringBuilder();
     }
 
-    // Recursively parses the given tokens.
+    // Parses the given tokens.
     public void parseCodeBlock() {
-        if (tokenizer.currentToken == null){
-            return;
-        }
-        Token t = tokenizer.currentToken;
-        if (t.getType() == KEYWORD){
-            highlightedBlock.append("<font color = \"orange\">");
-            highlightedBlock.append(t.getToken());
-            highlightedBlock.append("</font>");
-        }
-        else if (t.getType() == NUMERIC_LITERAL){
-            highlightedBlock.append("<font color = \"blue\">");
-            highlightedBlock.append(t.getToken());
-            highlightedBlock.append("</font>");
-        }
-        else if (t.getType() == STRING_LITERAL){
-            highlightedBlock.append("<font color = \"green\">");
-            highlightedBlock.append(t.getToken());
-            highlightedBlock.append("</font>");
-        }
-        else if (t.getType() == IDENTIFIER){
-            if (identifiers.contains(t.getToken())){
-                highlightedBlock.append(t.getToken());
-            }
-            else{
-                highlightedBlock.append("<font color = \"purple\">");
-                identifiers.add(t.getToken());
+        while(tokenizer.currentToken != null){
+            Token t = tokenizer.currentToken;
+            if (t.getType() == KEYWORD){
+                highlightedBlock.append("<font color = \"orange\">");
                 highlightedBlock.append(t.getToken());
                 highlightedBlock.append("</font>");
             }
+            else if (t.getType() == NUMERIC_LITERAL){
+                highlightedBlock.append("<font color = \"blue\">");
+                highlightedBlock.append(t.getToken());
+                highlightedBlock.append("</font>");
+            }
+            else if (t.getType() == STRING_LITERAL){
+                highlightedBlock.append("<font color = \"green\">");
+                highlightedBlock.append(t.getToken());
+                highlightedBlock.append("</font>");
+            }
+            else if (t.getType() == IDENTIFIER){
+                if (identifiers.contains(t.getToken())){
+                    highlightedBlock.append(t.getToken());
+                }
+                else {
+                    highlightedBlock.append("<font color = \"purple\">");
+                    identifiers.add(t.getToken());
+                    highlightedBlock.append(t.getToken());
+                    highlightedBlock.append("</font>");
+                }
 
 
+            }
+            else if (t.getType() == NEWLINE){
+                highlightedBlock.append("<br>");
+            }
+            else if (t.getType() == WHITESPACE){
+                highlightedBlock.append(t.getToken());
+            }
+            else if (t.getType() == PUNCTUATOR){
+                highlightedBlock.append("<font color = \"purple\">");
+                highlightedBlock.append(t.getToken());
+                highlightedBlock.append("</font>");
+            }
+            else {
+                throw new IllegalTokenException("Token " + t.getToken() + " of type " + t.getType() + " is not recognized");
+            }
+            tokenizer.next();
         }
-        else if (t.getType() == NEWLINE){
-            highlightedBlock.append("<br>");
-        }
-        else if (t.getType() == WHITESPACE){
-            highlightedBlock.append(t.getToken());
-        }
-        else if (t.getType() == PUNCTUATOR){
-            highlightedBlock.append("<font color = \"purple\">");
-            highlightedBlock.append(t.getToken());
-            highlightedBlock.append("</font>");
-        }
-        else {
-            throw new IllegalTokenException("Token " + t.getToken() + " of type " + t.getType() + " is not recognized");
-        }
-        tokenizer.next();
-        parseCodeBlock();
-
     }
 
     public StringBuilder getHighlightedBlock() {
