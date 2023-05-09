@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 import java.util.UUID;
 
@@ -48,11 +49,20 @@ public class QuestionSet {
      * Randomly gets the question of the day where the category rotates every day.
      */
     public String[] getQuestionOfTheDay() {
+        /*
+         * This needs to be consistent, and so we should seed the random number generator
+         * before calling it. For it to change each day, we need the seed to change each
+         * day. The easiest way of doing that is just using the day itself.
+         */
+        long millisSince1970 = System.currentTimeMillis();
+        long day = millisSince1970 / (1000 * 60 * 60 * 24);
+        Random rng = new Random(day);
+
         categoryIndex = (categoryIndex + 1) % 5;
         String uniqueID;
         do {
             List<String> keys = new ArrayList<>(unusedQuestionSets.keySet());
-            Collections.shuffle(keys);
+            Collections.shuffle(keys, rng);
             uniqueID = keys.get(0);
         } while (uniqueID.charAt(0) != categoryRotation[categoryIndex]);
         String[] question = unusedQuestionSets.get(uniqueID);
