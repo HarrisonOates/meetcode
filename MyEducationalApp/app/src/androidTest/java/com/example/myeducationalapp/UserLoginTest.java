@@ -39,10 +39,17 @@ public class UserLoginTest {
     }
 
     @Test (expected = Exception.class)
-    public void invalidUserDetailsTest() throws IllegalArgumentException {
+    public void weakPasswordTest() throws IllegalArgumentException {
         UserLogin login = UserLogin.getInstance();
+
         // Too weak password
-        login.addUser("harry", "12345467");
+        login.addUser("harry", "1234567");
+    }
+
+    @Test (expected = Exception.class)
+    public void usernameAlreadyExistsTest() throws IllegalArgumentException {
+        UserLogin login = UserLogin.getInstance();
+
         // The username already exists
         login.addUser("alex", "13578642");
     }
