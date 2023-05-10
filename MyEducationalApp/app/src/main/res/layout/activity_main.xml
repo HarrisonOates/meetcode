@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-
+        <import type="android.view.View"/>
         <variable
             name="viewModel"
             type="com.example.myeducationalapp.userInterface.UserInterfaceManagerViewModel" />
@@ -59,7 +59,7 @@
                     app:layout_constraintHorizontal_chainStyle="packed"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:visibility="@{viewModel.getUiState().getIsActionBarInStarState()}">
+                    android:visibility="@{viewModel.getUiState().getIsActionBarInBackState() ? View.GONE : View.VISIBLE}">
 
                     <!-- Number of Stars -->
                     <TextView
@@ -102,7 +102,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:visibility="@{viewModel.getUiState().getIsActionBarInBackState()}" />
+                    tools:visibility="@{viewModel.getUiState().getIsActionBarInBackState() ? View.VISIBLE : View.GONE}" />
 
                 <!-- Toolbar title -->
                 <TextView
@@ -199,7 +199,7 @@
                     android:background="@drawable/icon_notification_dot"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:visibility="@{viewModel.getUiState().getNavMenuNotificationVisibility()}"/>
+                    android:visibility="@{viewModel.getUiState().getNavMenuNotificationVisibility() ? View.VISIBLE : View.GONE}"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

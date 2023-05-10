@@ -22,13 +22,14 @@ import java.util.Map;
 
 public class UserInterfaceManager {
 
-    ActionBarState actionBarState;
+    //MutableLiveData<ActionBarState> actionBarState = new MutableLiveData<>();
+    MutableLiveData<Boolean> isActionBarInBackState = new MutableLiveData<>();
 
     // current visibility of the navigation menu
-    boolean isNavigationMenuVisible;
+    MutableLiveData<Boolean> isNavigationMenuVisible = new MutableLiveData<>();
 
     // current visibility of notification dot for messages on navigation menu
-    boolean isNavMenuNotificationVisible;
+    MutableLiveData<Boolean> isNavMenuNotificationVisible = new MutableLiveData<>();
 
     // current visibility of notification dots for direct messages in the direct message fragment
     // TODO specify method/s to change and update this when new notifications occur/old ones go away
@@ -46,65 +47,74 @@ public class UserInterfaceManager {
     UserInterfaceManager() {
         // ActionBarStarsState is default state as this class should be initialized
         // as soon as the app gets to the home screen
-        this.actionBarState = new ActionBarStarsState(this);
-        this.isNavigationMenuVisible = true;
-        this.isNavMenuNotificationVisible = false;
+        //this.actionBarState.setValue(new ActionBarStarsState(this));
+        this.isActionBarInBackState.setValue(false);
+        this.isNavigationMenuVisible.setValue(true);
+        this.isNavMenuNotificationVisible.setValue(false);
     }
 
-    public void transitionState(int previousFragmentAction) {
+//    public void transitionState(int previousFragmentAction) {
+//
+//        this.previousFragmentAction = previousFragmentAction;
+//
+//        // ActionBarStarsState -> ActionBarBackState
+//        // and
+//        // ActionBarBackState -> ActionBarStarsState
+//        if (actionBarState.getValue() instanceof ActionBarStarsState) {
+//            this.actionBarState.setValue(new ActionBarBackState(this));
+//        } else if (actionBarState.getValue() instanceof ActionBarBackState) {
+//            this.actionBarState.setValue(new ActionBarStarsState(this));
+//        } else {
+//            throw new
+//                    IllegalStateException("UserInterfaceManager was found to contain an illegal state");
+//        }
+//    }
+//
+//    public int getIsActionBarInStarState() {
+//        if (actionBarState.getValue() instanceof ActionBarStarsState) {
+//            return View.VISIBLE;
+//        } else if (actionBarState.getValue() instanceof ActionBarBackState) {
+//            return View.GONE;
+//        } else {
+//            throw new
+//                    IllegalStateException("UserInterfaceManager was found to contain an illegal state");
+//        }
+//    }
+//
+//
+//    public int getIsActionBarInBackState() {
+//        if (actionBarState.getValue() instanceof ActionBarStarsState) {
+//            return View.GONE;
+//        } else if (actionBarState.getValue() instanceof ActionBarBackState) {
+//            return View.VISIBLE;
+//        } else {
+//            throw new
+//                    IllegalStateException("UserInterfaceManager was found to contain an illegal state");
+//        }
+//    }
 
-        this.previousFragmentAction = previousFragmentAction;
-
-        // ActionBarStarsState -> ActionBarBackState
-        // and
-        // ActionBarBackState -> ActionBarStarsState
-        if (actionBarState instanceof ActionBarStarsState) {
-            this.actionBarState = new ActionBarBackState(this);
-        } else if (actionBarState instanceof ActionBarBackState) {
-            this.actionBarState = new ActionBarStarsState(this);
-        } else {
-            throw new
-                    IllegalStateException("UserInterfaceManager was found to contain an illegal state");
-        }
+    public void setIsActionBarInBackState(boolean isActionBarInBackState) {
+        this.isActionBarInBackState.setValue(isActionBarInBackState);
     }
 
-    public int getIsActionBarInStarState() {
-        if (actionBarState instanceof ActionBarStarsState) {
-            return View.VISIBLE;
-        } else if (actionBarState instanceof ActionBarBackState) {
-            return View.GONE;
-        } else {
-            throw new
-                    IllegalStateException("UserInterfaceManager was found to contain an illegal state");
-        }
-    }
-
-
-    public int getIsActionBarInBackState() {
-        if (actionBarState instanceof ActionBarStarsState) {
-            return View.GONE;
-        } else if (actionBarState instanceof ActionBarBackState) {
-            return View.VISIBLE;
-        } else {
-            throw new
-                    IllegalStateException("UserInterfaceManager was found to contain an illegal state");
-        }
+    public LiveData<Boolean> getIsActionBarInBackState() {
+        return isActionBarInBackState;
     }
 
     public void setNavigationMenuVisibility(boolean isNavigationMenuVisible) {
-        this.isNavigationMenuVisible = isNavigationMenuVisible;
+        this.isNavigationMenuVisible.setValue(isNavigationMenuVisible);
     }
 
-    public boolean getNavigationMenuVisibility() {
+    public LiveData<Boolean> getNavigationMenuVisibility() {
         return isNavigationMenuVisible;
     }
 
     public void setNavigationMenuNotificationVisibility(boolean isNavigationMenuNotificationVisible) {
-        this.isNavMenuNotificationVisible = isNavigationMenuNotificationVisible;
+        this.isNavMenuNotificationVisible.setValue(isNavigationMenuNotificationVisible);
     }
 
-    public int getNavMenuNotificationVisibility() {
-        return isNavMenuNotificationVisible ? View.VISIBLE : View.GONE;
+    public LiveData<Boolean> getNavMenuNotificationVisibility() {
+        return isNavMenuNotificationVisible;
     }
 
     public LiveData<String> getToolbarTitle() {

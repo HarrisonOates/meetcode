@@ -3,10 +3,13 @@ package com.example.myeducationalapp;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.myeducationalapp.userInterface.UserInterfaceManagerViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +26,8 @@ public class QuestionFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private final String toolbarTitle = "QuestionName";
 
     public QuestionFragment() {
         // Required empty public constructor
@@ -53,6 +58,9 @@ public class QuestionFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
+        userInterfaceManager.getUiState().getValue().setToolbarTitle(toolbarTitle);
     }
 
     @Override
