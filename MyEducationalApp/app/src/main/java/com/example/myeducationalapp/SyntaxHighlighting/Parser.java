@@ -82,7 +82,15 @@ public class Parser {
                 highlightedBlock.append("<br>");
             }
             else if (t.getType() == WHITESPACE){
-                highlightedBlock.append(t.getToken());
+                // For portability, we're going to have to translate to html character &nbsp;
+                StringBuilder whitespace = new StringBuilder();
+
+                for (int i = 0; i < t.getToken().length(); i++){
+                    whitespace.append("&nbsp;");
+                }
+
+
+                highlightedBlock.append(whitespace);
             }
             else if (t.getType() == PUNCTUATOR){
                 highlightedBlock.append("<font color = \"purple\">");

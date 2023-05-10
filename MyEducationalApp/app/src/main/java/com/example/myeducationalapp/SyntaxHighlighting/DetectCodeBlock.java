@@ -23,34 +23,42 @@ public class DetectCodeBlock {
         int consecutiveCount = 0;
 
         while (pointer < s.length()){
-            if (s.charAt(pointer) == '`'){
+            char comp = s.charAt(pointer);
+            if (comp == '`'){
                 consecutiveCount++;
                 if (consecutiveCount == 3){
                     if (openCodeBlock) {
-                        // TODO - get rid of backticks.
-                        //  They are being rendered. we don't want them.
-
                         // This is our sign to end parsing
-                        String toParse = s.substring(startOfBlock, pointer + 1);
+                        String toParse = s.substring(startOfBlock, pointer - 2);
                         Tokenizer t = new Tokenizer(toParse);
                         Parser p    = new Parser(t);
                         p.parseCodeBlock();
                         toReturn.append(p.getHighlightedBlock());
                         openCodeBlock = false;
                         pointer++;
-                        startOfBlock = pointer;
                     }
                     else {
-                        String notCode = s.substring(startOfBlock, pointer + 1);
-                        toReturn.append(notCode);
                         openCodeBlock = true;
+                        startOfBlock = pointer + 1;
                         pointer++;
-                        startOfBlock = pointer;
                     }
+                    consecutiveCount = 0;
+                }
+                else {
+                    pointer++;
                 }
             }
-            else {
+            else if (!openCodeBlock){
                 consecutiveCount = 0;
+                if (comp == '\n'){
+                    toReturn.append("<br>");
+                }
+                else{
+                    toReturn.append(comp);
+                }
+                pointer++;
+            }
+            else {
                 pointer++;
             }
         }
