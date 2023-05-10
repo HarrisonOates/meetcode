@@ -29,42 +29,75 @@ The following is a report template to help your team successfully provide all th
 
 ## Team Members and Roles
 
-| UID | Name | Role |
-| :--- | :----: | ---: |
-| [uid] | [name] | [role] |
-| [uid] | [name] | [role] |
-| [uid] | [name] | [role] |
-| [uid] | [name] | [role] |
+| UID              |        Name        |                                                            Role |
+|:-----------------|:------------------:|----------------------------------------------------------------:|
+| u7468248         |    Alex Boxall     |                           Firebase and Messaging Implementation |
+| u7469758         |      Geun Yun      |  Data Structures, Authorisation and Localisation Implementation |
+| u7468212         |   Harrison Oates   |            Syntax Highlighting Design and Parser Implementation |
+| u7146309         |  Jayden Skidmore   |                 Search Grammar Design and Parser Implementation |
+| u7300256         | Nikhila Gurusinghe |                        User Interface Design and Implementation |
 
 ## Summary of Individual Contributions
 
-*[Summarise the contributions made by each member to the project, e.g. code implementation, code design, UI design, report writing, etc.]*
+**you should ALSO provide links to the specified classes and/or functions**
 
-*[Code Implementation. Which features did you implement? Which classes or methods was each member involved in? Provide an approximate proportion in pecentage of the contribution of each member to the whole code implementation, e.g. 30%.]*
-
-*Here is an example:*
-
-*UID1, Name1, I contribute 30% of the code. Here are my contributions:*
+u7468248, Alex Boxall: I contributed 20% of the code. Here are my contributions:
 * A.class
 * B.class: function1(), function2(), ...
-* ....
+* What design patterns, data structures, did the involved member propose?
+* Specify what design did the involved member propose? What tools were used for the design?
+* Which part of the report did the involved member write?
+* Were you responsible for the slides?
+* You are welcome to provide anything that you consider as a contribution to the project or team.
 
-*you should ALSO provide links to the specified classes and/or functions*
 
-*[Code Design. What design patterns, data structures, did the involved member propose?]*
+u7469758, Geun Yun: I contributed 20% of the code. Here are my contributions:
+* A.class
+* B.class: function1(), function2(), ...
+* What design patterns, data structures, did the involved member propose?
+* Specify what design did the involved member propose? What tools were used for the design?
+* Which part of the report did the involved member write?
+* Were you responsible for the slides?
+* You are welcome to provide anything that you consider as a contribution to the project or team.
 
-*[UI Design. Specify what design did the involved member propose? What tools were used for the design?]*
 
-*[Report Writing. Which part of the report did the involved member write?]*
+u7468212, Harrison Oates: I contributed 20% of the code. Here are my contributions:
+* A.class
+* B.class: function1(), function2(), ...
+* What design patterns, data structures, did the involved member propose?
+* Specify what design did the involved member propose? What tools were used for the design?
+* Which part of the report did the involved member write?
+* Were you responsible for the slides?
+* You are welcome to provide anything that you consider as a contribution to the project or team.
 
-*[Slide preparation. Were you responsible for the slides?]*
 
-*[Miscellaneous contributions. You are welcome to provide anything that you consider as a contribution to the project or team.]*
+u7146309, Jayden Skidmore: I contributed 20% of the code. Here are my contributions:
+* A.class
+* B.class: function1(), function2(), ...
+* What design patterns, data structures, did the involved member propose?
+* Specify what design did the involved member propose? What tools were used for the design?
+* Which part of the report did the involved member write?
+* Were you responsible for the slides?
+* You are welcome to provide anything that you consider as a contribution to the project or team.
+
+
+u7300256, Nikhila Gurusinghe: I contributed 20% of the code. Here are my contributions:
+* A.class
+* B.class: function1(), function2(), ...
+* What design patterns, data structures, did the involved member propose?
+* Specify what design did the involved member propose? What tools were used for the design?
+* Which part of the report did the involved member write?
+* Were you responsible for the slides?
+* You are welcome to provide anything that you consider as a contribution to the project or team.
 
 ## Conflict Resolution Protocol
 
-*[Write a well defined protocol your team can use to handle conflicts. That is, if your group has problems, what is the procedure for reaching consensus or solving a problem?
-(If you choose to make this an external document, link to it here)]*
+The following conflict resolution protocol was decided on in our first meeting.
+- If someone doesn't meet deadlines: Expectation to communicate if any deadline is expected to be missed.  Ask for explanation, how much more time they need. If they can't catch up, work is allocated to rest of team and contribution score is adjusted accordingly.
+- If someone gets sick: Take the time off, let everyone know you're sick. We'll try to program in a buffer period to account for this. If sickness is justifiable it will not affect contribution score.
+- In the case of disagreements: Civil discussion without talking over each other followed by a vote which bounds the team to that direction, the vote can only be overturned by another vote.
+- ChatGPT and other generative AI tools: Don't use it except as a last resort, ask team members before using.
+- Communication: use Microsoft Teams messages.
 
 
 ## Application Description
@@ -112,44 +145,65 @@ The following is a report template to help your team successfully provide all th
 
 *Please give clear and concise descriptions for each subsections of this part. It would be better to list all the concrete items for each subsection and give no more than `5` concise, crucial reasons of your design. Here is an example for the subsection `Data Structures`:*
 
-*I used the following data structures in my project:*
+**Data Structures**
 
-1. *LinkedList*
+We used the following data structures in our project:
 
-   * *Objective: It is used for storing xxxx for xxx feature.*
+1. AVL Tree
 
-   * *Locations: line xxx in XXX.java, ..., etc.*
+   * Objective: It is used for storing xxxx for xxx feature.
 
-   * *Reasons:*
+   * Locations: line xxx in XXX.java, ..., etc.
 
-     * *It is more efficient than Arraylist for insertion with a time complexity O(1)*
+   * Reasons:
 
-     * *We don't need to access the item by index for this feature*
+     * It is more efficient than Arraylist for insertion with a time complexity O(1)
+
+     * We don't need to access the item by index for this feature
 
 2. ...
 
 3. ...
 
-**Data Structures**
-
-*[What data structures did your team utilise? Where and why?]*
-
 **Design Patterns**
 
-*[What design patterns did your team utilise? Where and why?]*
+We used the following design patterns in our project:
+
+1. Singleton
+
+* Objective: It is used for storing xxxx for xxx feature.
+
+* Locations: line xxx in XXX.java, ..., etc.
+
+* Reasons:
+
+   * It is more efficient than Arraylist for insertion with a time complexity O(1)
+
+   * We don't need to access the item by index for this feature
+
+2. State
+
+3. Observer
 
 **Grammar(s)**
 
-Production Rules:
+Production rules for the search:
     
     <Non-Terminal> ::= <some output>
     <Non-Terminal> ::= <some output>
 
 *[How do you design the grammar? What are the advantages of your designs?]*
 
-*If there are several grammars, list them all under this section and what they relate to.*
+Production rules for syntax highlighting:
+
+    <Non-Terminal> ::= <some output>
+    <Non-Terminal> ::= <some output>
+
+*[How do you design the grammar? What are the advantages of your designs?]*
 
 **Tokenizer and Parsers**
+
+Two tokenizers and parses were built...
 
 *[Where do you use tokenisers and parsers? How are they built? What are the advantages of the designs?]*
 
@@ -204,20 +258,49 @@ Production Rules:
 <br><br>
 
 ### General Features
-Feature Category: Privacy <br>
-1. [Privacy-Request]. Description of the feature and your implementation (easy)
-   * Class X, methods Z, Y, Lines of code: 10-100
-   * Class Y, methods K, L, M, Lines of code: 35-150
+Feature Category: Data Structures <br>
+1. [Data-Deletion]. Deletion method of either a Red-Black Tree, AVL tree or B-Tree data structure. The deletion of nodes must serve a purpose within your application. (hard)
+   * Class AVLTree, methods delete, findImbalanceDelete, deleteBeforeBalance, balanceSubtree, Lines of code: 53
    * Additional description: ...
-<br>
-2. [Privacy-Block]. Description ... ... (medium)
-    * ... ...
-<br>
 
 Feature Category: Firebase Integration <br>
-3. [FB-Auth] Description of the feature and your implementation (easy)
-   * Class A: methods A, B, C, lines of code: whole file
-   * …
+2. [FB-Persist] Use Firebase to persist all data used in your app. (medium)
+   * Class Firebase.Firebase: methods A, B, C, lines of code: whole file
+   * Class Firebase.FirebaseRequest:
+   * Class Firebase.FirebaseResult:
+   * Class UserLocalData:
+   * Class Asynchronous:
+   * Additional description: ...
+<br>
+3. [FB-Syn] Using Firebase or another remote database to store user information and having the app
+   updated as the remote database is updated without restarting the application. (hard)
+   * Class Firebase.FirebaseRequest: methods A, B, C, lines of code: whole file
+   * Class Firebase.FirebaseResult:
+   * Class MessageThread:
+   * Class DirectMessageThread:
+   * Class QuestionMessageThread:
+   * Class Asynchronous:
+   * Class <some UI stuff>:
+   * Additional description: ...
+
+Feature Category: Peer-to-peer messaging <br>
+4. [P2P-Block] Provide users with the ability to ‘block’ users, preventing them from direct messaging
+   them. (medium)
+   * Class UserLocalData: methods A, B, C, lines of code: whole file
+   * Class ??? (probably some UI stuff): ...
+   * Additional description: ...
+<br>
+5. [P2P-DM] Provide users with the ability to message each other directly in private. (hard)
+   * Class Message: methods A, B, C, lines of code: whole file
+   * Class DirectMessageThread: ...
+   * Class ??? (probably some UI stuff): ...
+   * Additional description: ...
+
+Feature Category: Syntax Highlighting (custom, approved as per [here](https://wattlecourses.anu.edu.au/mod/forum/discuss.php?d=870859)) <br>
+6. [Custom-Syntax-Highlighting]. Description: The user interface will be able to display snippets of code to the user, with dynamically generated syntax highlighting applied. The syntax of the code will be Java-like. (hard)
+   * Class SyntaxHighlighting.???, methods Z, Y, Lines of code: 10-100
+   * Class SyntaxHighlighting.???, methods K, L, M, Lines of code: 35-150
+   * Additional description: ...
 
 *List all features you have completed in their separate categories with their difficulty classification. If they are features that are suggested and approved, please state this somewhere as well.*
 
@@ -226,7 +309,9 @@ Feature Category: Firebase Integration <br>
 *Here is an example (you could start numbering your meetings from 1):*
 
 - *[Team Meeting 1](./meeting1.md)*
-- ...
+- *[Team Meeting 2](./meeting2.md)*
+- *[Team Meeting 3](./meeting3.md)*
+- *[Team Meeting 4](./meeting4.md)*
 
 * Link to the minutes of your meetings as above. There must be at least 4 team meetings. 
 Note that you must commit your minute meetings shortly after your meeting has taken place (e.g., within 24h), otherwise your meeting minute will not be accepted.

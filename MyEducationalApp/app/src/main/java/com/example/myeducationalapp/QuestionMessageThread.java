@@ -22,7 +22,7 @@ public class QuestionMessageThread extends MessageThread {
     FirebaseResult downloadMessages() {
         return Firebase.getInstance().readQuestionComments(questionID).then((obj) -> {
             List<String> allStrings = Arrays.asList(((String) obj).split("\n"));
-            threadID = Integer.parseInt(allStrings.remove(0));
+            threadID = getThreadID();
             int index = 0;
             for (String message: allStrings) {
                 messages.add(new Message(this, index, message));
