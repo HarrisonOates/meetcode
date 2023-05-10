@@ -72,8 +72,10 @@ public class HomeFragment extends Fragment {
         }
 
         GeneratedUserInterfaceViewModel genUserInterfaceManager = new ViewModelProvider(this).get(GeneratedUserInterfaceViewModel.class);
+        genUserInterfaceManager.addToListOfElements(new HomeCategoryCard(null, null, "hiasdasdsadsasdasdsa", "hasadsi"));
 
-        genUserInterfaceManager.addToListOfElements(new HomeCategoryCard(null, null, "hi", "hasadsi"));
+        TextView seeMoreCategory = (TextView) getView().findViewById(R.id.home_category_see_more_text);
+
 
     }
 
@@ -111,7 +113,6 @@ public class HomeFragment extends Fragment {
         image.setImageResource(R.drawable.shape_placeholder_square);
         image.setId(View.generateViewId());
 
-
         heading.setText(template.headingText);
         heading.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
         Typeface headingTypeface = ResourcesCompat.getFont(context, R.font.ibm_plex_sans_semibold);
@@ -125,26 +126,26 @@ public class HomeFragment extends Fragment {
         subheading.setTypeface(subheadingTypeface);
         subheading.setId(View.generateViewId());
 
-        constraintLayout.addView(image, 0);
-        constraintLayout.addView(heading, 1);
-        constraintLayout.addView(subheading, 2);
+        constraintLayout.addView(image);
+        constraintLayout.addView(heading);
+        constraintLayout.addView(subheading);
 
         imageConstraintSet.clone(constraintLayout);
-        imageConstraintSet.connect(image.getId(), ConstraintSet.TOP, constraintLayout.getId(), ConstraintSet.TOP, 28);
+        imageConstraintSet.connect(image.getId(), ConstraintSet.TOP, constraintLayout.getId(), ConstraintSet.TOP, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30, getResources().getDisplayMetrics()));
         imageConstraintSet.connect(image.getId(), ConstraintSet.START, constraintLayout.getId(), ConstraintSet.START);
         imageConstraintSet.connect(image.getId(), ConstraintSet.END, constraintLayout.getId(), ConstraintSet.END);
-        imageConstraintSet.connect(image.getId(), ConstraintSet.BOTTOM, heading.getId(), ConstraintSet.TOP, 5);
         imageConstraintSet.applyTo(constraintLayout);
 
         headingConstraintSet.clone(constraintLayout);
-        headingConstraintSet.connect(heading.getId(), ConstraintSet.START, image.getId(), ConstraintSet.START);
-        headingConstraintSet.connect(heading.getId(), ConstraintSet.END, image.getId(), ConstraintSet.END);
-        headingConstraintSet.connect(heading.getId(), ConstraintSet.BOTTOM, subheading.getId(), ConstraintSet.TOP, 2);
+        headingConstraintSet.connect(heading.getId(), ConstraintSet.TOP, image.getId(), ConstraintSet.BOTTOM, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 15, getResources().getDisplayMetrics()));
+        headingConstraintSet.connect(heading.getId(), ConstraintSet.START, constraintLayout.getId(), ConstraintSet.START, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20, getResources().getDisplayMetrics()));
+        headingConstraintSet.connect(heading.getId(), ConstraintSet.END, constraintLayout.getId(), ConstraintSet.END, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20, getResources().getDisplayMetrics()));
+        headingConstraintSet.connect(heading.getId(), ConstraintSet.BOTTOM, subheading.getId(), ConstraintSet.TOP, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2, getResources().getDisplayMetrics()));
         headingConstraintSet.applyTo(constraintLayout);
 
         subheadingConstraintSet.clone(constraintLayout);
         subheadingConstraintSet.connect(subheading.getId(), ConstraintSet.START, heading.getId(), ConstraintSet.START);
-        subheadingConstraintSet.connect(subheading.getId(), ConstraintSet.BOTTOM, constraintLayout.getId(), ConstraintSet.BOTTOM, 28);
+        subheadingConstraintSet.connect(subheading.getId(), ConstraintSet.BOTTOM, constraintLayout.getId(), ConstraintSet.BOTTOM, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 28, getResources().getDisplayMetrics()));
         subheadingConstraintSet.applyTo(constraintLayout);
 
         LinearLayout parent = (LinearLayout) getView().findViewById(R.id.home_category_carousel_scrollable);
@@ -161,12 +162,12 @@ public class HomeFragment extends Fragment {
         image.setLayoutParams(imageLayoutParams);
 
         ViewGroup.LayoutParams headingLayoutParams = heading.getLayoutParams();
-        headingLayoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT;
+        headingLayoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 0, getResources().getDisplayMetrics());
         headingLayoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
         heading.setLayoutParams(headingLayoutParams);
 
         ViewGroup.LayoutParams subheadingLayoutParams = subheading.getLayoutParams();
-        subheadingLayoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT;
+        subheadingLayoutParams.width = 0;
         subheadingLayoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
         subheading.setLayoutParams(subheadingLayoutParams);
     }
