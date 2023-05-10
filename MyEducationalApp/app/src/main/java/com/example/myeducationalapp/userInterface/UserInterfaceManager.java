@@ -7,6 +7,8 @@ import android.widget.TextView;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 import androidx.databinding.BindingAdapter;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.example.myeducationalapp.Person;
 import com.example.myeducationalapp.R;
@@ -37,7 +39,7 @@ public class UserInterfaceManager {
     // TODO specify what Object is
     int previousFragmentAction;
 
-    String toolbarTitle;
+    MutableLiveData<String> toolbarTitle = new MutableLiveData<>();
 
 
     // package-private constructor
@@ -105,17 +107,13 @@ public class UserInterfaceManager {
         return isNavMenuNotificationVisible ? View.VISIBLE : View.GONE;
     }
 
-    public String getToolbarTitle() {
+    public LiveData<String> getToolbarTitle() {
         return toolbarTitle;
     }
 
-    @BindingAdapter("android:text")
-    public void setToolbarTitle(TextView textView) {
-        textView.setText(this.toolbarTitle);
-    }
 
     public void setToolbarTitle(String toolbarTitle) {
-        this.toolbarTitle = toolbarTitle;
+        this.toolbarTitle.setValue(toolbarTitle);
     }
 }
 

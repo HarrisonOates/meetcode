@@ -59,7 +59,7 @@
                     app:layout_constraintHorizontal_chainStyle="packed"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:visibility="@{viewModel.uiState.getIsActionBarInStarState()}">
+                    android:visibility="@{viewModel.getUiState().getIsActionBarInStarState()}">
 
                     <!-- Number of Stars -->
                     <TextView
@@ -102,7 +102,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:visibility="@{viewModel.uiState.getIsActionBarInBackState()}" />
+                    tools:visibility="@{viewModel.getUiState().getIsActionBarInBackState()}" />
 
                 <!-- Toolbar title -->
                 <TextView
@@ -110,7 +110,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/ibm_plex_sans_bold"
-                    android:text="@{viewModel.uiState.getToolbarTitle()}"
+                    android:text="@{viewModel.getUiState().getToolbarTitle()}"
                     android:textAlignment="center"
                     android:textColor="@color/black"
                     android:textSize="24sp"
@@ -199,7 +199,7 @@
                     android:background="@drawable/icon_notification_dot"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:visibility="@{viewModel.uiState.getNavMenuNotificationVisibility()}"/>
+                    android:visibility="@{viewModel.getUiState().getNavMenuNotificationVisibility()}"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
