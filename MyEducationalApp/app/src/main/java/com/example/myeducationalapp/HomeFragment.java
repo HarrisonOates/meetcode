@@ -101,12 +101,30 @@ public class HomeFragment extends Fragment {
         userInterfaceManager.getUiState().getValue().setToolbarTitle(toolbarTitle);
 
         binding.homeCategorySeeMoreText.setOnClickListener(view1 -> {
+            //userInterfaceManager.getUiState().getValue().setIsActionBarInBackState(true); //.transitionState(R.id.action_categoriesListFragment_to_HomeFragment);
             NavHostFragment.findNavController(HomeFragment.this).navigate(R.id.action_HomeFragment_to_categoriesListFragment);
-            userInterfaceManager.getUiState().getValue().setIsActionBarInBackState(true); //.transitionState(R.id.action_categoriesListFragment_to_HomeFragment);
             //Log.w("ModelView", String.valueOf((Integer) userInterfaceManager.getUiState().getValue().getIsActionBarInBackState()));
         });
 
 
+    }
+
+    @Override
+    public void setMenuVisibility(boolean isVisible) {
+
+        UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
+
+        if (!isVisible) {
+            //do when hidden
+            userInterfaceManager.getUiState().getValue().setIsActionBarInBackState(true);
+            Log.d("Viewpager", "fragment is not visible ");
+        } else {
+            //do when show
+            userInterfaceManager.getUiState().getValue().setIsActionBarInBackState(false);
+            Log.d("Viewpager", "fragment is visible ");
+        }
+
+        super.setMenuVisibility(isVisible);
     }
 
     public void generateHomeCategoryCard(HomeCategoryCard template, Context context) {

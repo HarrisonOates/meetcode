@@ -78,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 if (!Objects.equals(userInterfaceManager.getUiState().getValue().getToolbarTitle().getValue(), "Home")) {
+                    //userInterfaceManager.getUiState().getValue().setIsActionBarInBackState(false);
                     navController.navigate(R.id.HomeFragment);
                 }
 
@@ -89,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 if (!Objects.equals(userInterfaceManager.getUiState().getValue().getToolbarTitle().getValue(), "Messages")) {
+                    //userInterfaceManager.getUiState().getValue().setIsActionBarInBackState(true);
                     navController.navigate(R.id.messagesFragment);
                 }
 
@@ -100,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 if (!Objects.equals(userInterfaceManager.getUiState().getValue().getToolbarTitle().getValue(), "Menu")) {
+                    //userInterfaceManager.getUiState().getValue().setIsActionBarInBackState(true);
                     navController.navigate(R.id.accountFragment);
                 }
 
