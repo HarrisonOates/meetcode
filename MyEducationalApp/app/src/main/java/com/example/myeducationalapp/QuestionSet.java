@@ -175,4 +175,9 @@ public class QuestionSet {
                         "E) G(n) = SUM(G(i) * G(n - i)) over i = 1, ..., n - 1",
                 "B" ,QuestionSet.Category.DataStructure, "5");
     }
+
+
+    public HashMap<String, String[]> getUsedQuestionSets() {
+        return usedQuestionSets;
+    }
 }
