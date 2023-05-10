@@ -2,14 +2,13 @@ package com.example.myeducationalapp;
 
 import android.os.Bundle;
 
-import com.example.myeducationalapp.UserInterface.UserInterfaceManagerViewModel;
-import com.google.android.material.snackbar.Snackbar;
+import com.example.myeducationalapp.userInterface.UserInterfaceManagerViewModel;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.util.Log;
 import android.view.View;
 
+import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -20,13 +19,8 @@ import com.example.myeducationalapp.databinding.ActivityMainBinding;
 
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.WindowInsetsController;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
-
-import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,8 +33,13 @@ public class MainActivity extends AppCompatActivity {
 
         UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(this).get(UserInterfaceManagerViewModel.class);
 
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        //binding = ActivityMainBinding.inflate(getLayoutInflater());
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        binding.setViewModel(userInterfaceManager);
+        binding.setLifecycleOwner(this);
+
+
+        //setContentView(binding.getRoot());
 
         setSupportActionBar(binding.toolbar);
 
@@ -52,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
+
+
 
         // Dynamic elements
         View toolbarBackwardsArrow = (View) findViewById(R.id.toolbar_left_arrow_icon);
@@ -67,17 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         // Setting initial states of dynamic elements
-        if (Objects.requireNonNull(userInterfaceManager.getUiState().getValue()).isActionBarInBackState()) {
-            toolbarBackwardsArrow.setVisibility(View.VISIBLE);
-        } else {
-            toolbarBackwardsArrow.setVisibility(View.GONE);
-        }
 
-        if (Objects.requireNonNull(userInterfaceManager.getUiState().getValue()).getNavigationMenuNotificationVisibility()) {
-            navMenuMailNotificationDot.setVisibility(View.VISIBLE);
-        } else {
-            navMenuMailNotificationDot.setVisibility(View.GONE);
-        }
 
         // Anonymous on-click handlers
         navMenuHomeIcon.setOnClickListener(new View.OnClickListener() {
@@ -145,5 +136,9 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         return NavigationUI.navigateUp(navController, appBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    public void updateMenuUI() {
+
     }
 }

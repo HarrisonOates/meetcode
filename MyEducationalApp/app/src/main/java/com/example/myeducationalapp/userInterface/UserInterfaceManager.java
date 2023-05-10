@@ -1,9 +1,18 @@
-package com.example.myeducationalapp.UserInterface;
+package com.example.myeducationalapp.userInterface;
+
+import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
+
+import androidx.databinding.BaseObservable;
+import androidx.databinding.Bindable;
+import androidx.databinding.BindingAdapter;
 
 import com.example.myeducationalapp.Person;
-import com.example.myeducationalapp.UserInterface.State.ActionBarBackState;
-import com.example.myeducationalapp.UserInterface.State.ActionBarStarsState;
-import com.example.myeducationalapp.UserInterface.State.ActionBarState;
+import com.example.myeducationalapp.R;
+import com.example.myeducationalapp.userInterface.State.ActionBarBackState;
+import com.example.myeducationalapp.userInterface.State.ActionBarStarsState;
+import com.example.myeducationalapp.userInterface.State.ActionBarState;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,7 +26,7 @@ public class UserInterfaceManager {
     boolean isNavigationMenuVisible;
 
     // current visibility of notification dot for messages on navigation menu
-    boolean isNavigationMenuNotificationVisible;
+    boolean isNavMenuNotificationVisible;
 
     // current visibility of notification dots for direct messages in the direct message fragment
     // TODO specify method/s to change and update this when new notifications occur/old ones go away
@@ -26,7 +35,7 @@ public class UserInterfaceManager {
     // previous fragment required for backwards navigation
     // via the back button
     // TODO specify what Object is
-    Object previousFragment;
+    int previousFragmentAction;
 
     String toolbarTitle;
 
@@ -37,10 +46,12 @@ public class UserInterfaceManager {
         // as soon as the app gets to the home screen
         this.actionBarState = new ActionBarStarsState(this);
         this.isNavigationMenuVisible = true;
-        this.isNavigationMenuNotificationVisible = false;
+        this.isNavMenuNotificationVisible = false;
     }
 
-    private void changeState() {
+    public void transitionState(int previousFragmentAction) {
+
+        this.previousFragmentAction = previousFragmentAction;
 
         // ActionBarStarsState -> ActionBarBackState
         // and
@@ -53,23 +64,29 @@ public class UserInterfaceManager {
             throw new
                     IllegalStateException("UserInterfaceManager was found to contain an illegal state");
         }
-
     }
 
-    public boolean isActionBarInStarState() {
-        return actionBarState instanceof ActionBarStarsState;
+    public int getIsActionBarInStarState() {
+        if (actionBarState instanceof ActionBarStarsState) {
+            return View.VISIBLE;
+        } else if (actionBarState instanceof ActionBarBackState) {
+            return View.GONE;
+        } else {
+            throw new
+                    IllegalStateException("UserInterfaceManager was found to contain an illegal state");
+        }
     }
 
-    public boolean isActionBarInBackState() {
-        return actionBarState instanceof ActionBarBackState;
-    }
 
-    public Object getPreviousFragment() {
-        return previousFragment;
-    }
-
-    public void setPreviousFragment(Object previousFragment) {
-        this.previousFragment = previousFragment;
+    public int getIsActionBarInBackState() {
+        if (actionBarState instanceof ActionBarStarsState) {
+            return View.GONE;
+        } else if (actionBarState instanceof ActionBarBackState) {
+            return View.VISIBLE;
+        } else {
+            throw new
+                    IllegalStateException("UserInterfaceManager was found to contain an illegal state");
+        }
     }
 
     public void setNavigationMenuVisibility(boolean isNavigationMenuVisible) {
@@ -81,13 +98,25 @@ public class UserInterfaceManager {
     }
 
     public void setNavigationMenuNotificationVisibility(boolean isNavigationMenuNotificationVisible) {
-        this.isNavigationMenuNotificationVisible = isNavigationMenuNotificationVisible;
+        this.isNavMenuNotificationVisible = isNavigationMenuNotificationVisible;
     }
 
-    public boolean getNavigationMenuNotificationVisibility() {
-        return isNavigationMenuNotificationVisible;
+    public int getNavMenuNotificationVisibility() {
+        return isNavMenuNotificationVisible ? View.VISIBLE : View.GONE;
     }
 
+    public String getToolbarTitle() {
+        return toolbarTitle;
+    }
+
+    @BindingAdapter("android:text")
+    public void setToolbarTitle(TextView textView) {
+        textView.setText(this.toolbarTitle);
+    }
+
+    public void setToolbarTitle(String toolbarTitle) {
+        this.toolbarTitle = toolbarTitle;
+    }
 }
 
 class DirectMessageNotificationMap {

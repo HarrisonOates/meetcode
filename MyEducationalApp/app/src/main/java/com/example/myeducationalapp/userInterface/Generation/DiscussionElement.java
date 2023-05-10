@@ -1,4 +1,4 @@
-package com.example.myeducationalapp.UserInterface.Generation;
+package com.example.myeducationalapp.userInterface.Generation;
 
 public class DiscussionElement extends GeneratedUserInterfaceElement{
 

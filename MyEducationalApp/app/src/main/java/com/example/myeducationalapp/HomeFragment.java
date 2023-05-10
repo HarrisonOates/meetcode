@@ -11,6 +11,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.util.Log;
 import android.util.TypedValue;
@@ -18,12 +19,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.myeducationalapp.UserInterface.Generation.GeneratedUserInterfaceViewModel;
-import com.example.myeducationalapp.UserInterface.Generation.HomeCategoryCard;
-import com.example.myeducationalapp.UserInterface.UserInterfaceManagerViewModel;
+import com.example.myeducationalapp.userInterface.Generation.GeneratedUserInterfaceViewModel;
+import com.example.myeducationalapp.userInterface.Generation.HomeCategoryCard;
+import com.example.myeducationalapp.userInterface.UserInterfaceManagerViewModel;
+import com.example.myeducationalapp.databinding.FragmentHomeBinding;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -40,6 +41,9 @@ public class HomeFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private FragmentHomeBinding binding;
+    private final String toolbarTitle = "Home";
 
     public HomeFragment() {
         // Required empty public constructor
@@ -74,16 +78,14 @@ public class HomeFragment extends Fragment {
         GeneratedUserInterfaceViewModel genUserInterfaceManager = new ViewModelProvider(this).get(GeneratedUserInterfaceViewModel.class);
         genUserInterfaceManager.addToListOfElements(new HomeCategoryCard(null, null, "hiasdasdsadsasdasdsa", "hasadsi"));
 
-        TextView seeMoreCategory = (TextView) getView().findViewById(R.id.home_category_see_more_text);
-
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        binding = FragmentHomeBinding.inflate(inflater, container, false);
+        return binding.getRoot();
     }
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -91,6 +93,17 @@ public class HomeFragment extends Fragment {
         GeneratedUserInterfaceViewModel genUserInterfaceManager = new ViewModelProvider(this).get(GeneratedUserInterfaceViewModel.class);
         Log.w("Fragment Home", String.valueOf(genUserInterfaceManager.listOfElements.size()));
         generateHomeCategoryCard((HomeCategoryCard) genUserInterfaceManager.listOfElements.get(0), getActivity());
+
+        UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
+
+        userInterfaceManager.getUiState().getValue().setToolbarTitle(toolbarTitle);
+
+        binding.homeCategorySeeMoreText.setOnClickListener(view1 -> {
+            NavHostFragment.findNavController(HomeFragment.this).navigate(R.id.action_HomeFragment_to_categoriesListFragment);
+            userInterfaceManager.getUiState().getValue().transitionState(R.id.action_categoriesListFragment_to_HomeFragment);
+            Log.w("ModelView", String.valueOf((Integer) userInterfaceManager.getUiState().getValue().getIsActionBarInBackState()));
+        });
+
 
     }
 
@@ -148,8 +161,7 @@ public class HomeFragment extends Fragment {
         subheadingConstraintSet.connect(subheading.getId(), ConstraintSet.BOTTOM, constraintLayout.getId(), ConstraintSet.BOTTOM, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 28, getResources().getDisplayMetrics()));
         subheadingConstraintSet.applyTo(constraintLayout);
 
-        LinearLayout parent = (LinearLayout) getView().findViewById(R.id.home_category_carousel_scrollable);
-        parent.addView(constraintLayout);
+        binding.homeCategoryCarouselScrollable.addView(constraintLayout);
 
         ViewGroup.LayoutParams constraintLayoutParams = constraintLayout.getLayoutParams();
         constraintLayoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 190, getResources().getDisplayMetrics());

@@ -1,11 +1,8 @@
-package com.example.myeducationalapp.UserInterface.Generation;
+package com.example.myeducationalapp.userInterface.Generation;
 
 import androidx.lifecycle.ViewModel;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class GeneratedUserInterfaceViewModel extends ViewModel {
 
