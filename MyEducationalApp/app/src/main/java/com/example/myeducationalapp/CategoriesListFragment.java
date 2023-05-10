@@ -60,6 +60,13 @@ public class CategoriesListFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+
+        UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
+
+        userInterfaceManager.getUiState().getValue().setToolbarTitle(toolbarTitle);
+        userInterfaceManager.getUiState().getValue().setIsActionBarInBackState(true);
+
     }
 
     @Override
@@ -73,10 +80,7 @@ public class CategoriesListFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 
 
-        UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
 
-        userInterfaceManager.getUiState().getValue().setToolbarTitle(toolbarTitle);
-        Log.w("ModelView", String.valueOf(userInterfaceManager.getUiState().getValue().getToolbarTitle()));
 
     }
 

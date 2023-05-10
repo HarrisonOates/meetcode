@@ -80,6 +80,7 @@ public class HomeFragment extends Fragment {
 
         UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
         userInterfaceManager.getUiState().getValue().setToolbarTitle(toolbarTitle);
+        userInterfaceManager.getUiState().getValue().setIsActionBarInBackState(false);
     }
 
     @Override
@@ -107,24 +108,6 @@ public class HomeFragment extends Fragment {
         });
 
 
-    }
-
-    @Override
-    public void setMenuVisibility(boolean isVisible) {
-
-        UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
-
-        if (!isVisible) {
-            //do when hidden
-            userInterfaceManager.getUiState().getValue().setIsActionBarInBackState(true);
-            Log.d("Viewpager", "fragment is not visible ");
-        } else {
-            //do when show
-            userInterfaceManager.getUiState().getValue().setIsActionBarInBackState(false);
-            Log.d("Viewpager", "fragment is visible ");
-        }
-
-        super.setMenuVisibility(isVisible);
     }
 
     public void generateHomeCategoryCard(HomeCategoryCard template, Context context) {
