@@ -90,7 +90,11 @@ public class Tokenizer {
         else if (Character.isDigit(firstChar)){
             StringBuilder s = new StringBuilder();
             int pointer = 0;
-            while (pointer < buffer.length() && (Character.isDigit(buffer.charAt(pointer)) || buffer.charAt(pointer) == '.' ||  buffer.charAt(pointer) == 'b' || buffer.charAt(pointer) == 'x')){
+            while (pointer < buffer.length() && (Character.isDigit(buffer.charAt(pointer)) || buffer.charAt(pointer) == '.'
+                    ||  buffer.charAt(pointer) == 'b' || buffer.charAt(pointer) == 'x'
+                    || buffer.charAt(pointer) == 'A' || buffer.charAt(pointer) == 'B'
+                    || buffer.charAt(pointer) == 'C' || buffer.charAt(pointer) == 'D'
+                    || buffer.charAt(pointer) == 'E' || buffer.charAt(pointer) == 'F')){
                 s.append(buffer.charAt(pointer));
                 pointer++;
             }
