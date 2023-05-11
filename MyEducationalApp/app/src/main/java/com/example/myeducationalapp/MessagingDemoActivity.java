@@ -105,10 +105,10 @@ public class MessagingDemoActivity extends AppCompatActivity {
 
         UserLogin login = UserLogin.getInstance();
 
-        boolean authWorked = login.authoriseUser(username, "12345678");
+        /*boolean authWorked = login.authoriseUser(username, "12345678");
         if (!authWorked) {
             throw new AssertionError("yikes");
-        }
+        }*/
 
         ((Button) findViewById(R.id.demoSendBtn)).setEnabled(true);
         ((Button) findViewById(R.id.demoSendBtn2)).setEnabled(false);
