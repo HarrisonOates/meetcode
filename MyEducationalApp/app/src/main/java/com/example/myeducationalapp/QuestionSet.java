@@ -1,7 +1,5 @@
 package com.example.myeducationalapp;
 
-import com.example.myeducationalapp.Search.SearchToken;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -175,6 +173,45 @@ public class QuestionSet {
                         "E) G(n) = SUM(G(i) * G(n - i)) over i = 1, ..., n - 1",
                 "B" ,QuestionSet.Category.DataStructure, "5");
     }
+
+
+    public void addMiscellaneous() {
+        // Octal literals
+        addQuestion(
+                "What is the output of this line of code?" +
+                        "    System.out.printf(\"%03X%03X\", 050, 100);"
+        , "028064", Category.Miscellaneous, "3");
+
+        // XOR swapping
+        addQuestion(
+                "What is the output of this section of code?" +
+                        "    int a = 30;" +
+                        "    int b = 45;" +
+                        "    a ^= b;" +
+                        "    b ^= a;" +
+                        "    a ^= b;" +
+                        "    System.out.printf(\"%d, %d\", a, b);"
+                , "45, 30", Category.Miscellaneous, "3");
+
+        // XOR swapping gone wrong
+        addQuestion(
+                "What is the output of this section of code?" +
+                        "    int a = 45;" +
+                        "    int b = 45;" +
+                        "    a ^= b;" +
+                        "    b ^= a;" +
+                        "    a ^= b;" +
+                        "    System.out.printf(\"%d, %d\", a, b);"
+                , "0, 0", Category.Miscellaneous, "3");
+
+        // Weirdo bitwise manipulation
+        addQuestion(
+                "What is the value of y?" +
+                        "    int x = 1" +
+                        "    int y = ((x & (-2)) ^ (-1)) + 1;"
+        , "0", Category.Miscellaneous, "4");
+    }
+
 
 
     public HashMap<String, String[]> getUsedQuestionSets() {
