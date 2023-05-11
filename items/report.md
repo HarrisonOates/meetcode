@@ -182,8 +182,37 @@ Production rules for the search:
 
 Production rules for syntax highlighting:
 
-    <Non-Terminal> ::= <some output>
-    <Non-Terminal> ::= <some output>
+      TOKENS          ::= KEYWORD | NUMERIC_LITERAL | STRING_LITERAL | IDENTIFIER | NEWLINE | WHITESPACE | PUNCTUATOR | END-GRAMMAR
+      KEYWORD         ::= <font color = "orange"> keyword </font> TOKENS
+      NUMERIC_LITERAL ::= <font color = "blue"> numeric_literal </font> TOKENS
+      STRING_LITERAL  ::= <font color = "green"> string_literal </font> TOKENS 
+      IDENTIFIER      ::= <font color = "purple"> identifier </font> TOKENS | identifier TOKENS
+      NEWLINE         ::= <br> TOKENS 
+      WHITESPACE      ::= (<&nbsp;>)* TOKENS
+      PUNCTUATOR      ::= <font color = "purple"> punctuator </font> TOKENS
+      END-GRAMMAR     ::= [finish parsing]
+
+      keyword         ::=  abstract |  assert |  boolean |  break    |  byte 
+                        |  case   |  catch    |  char    |  continue |  default 
+                        |  do     |  double   |  else    |  enum     |  extends 
+                        |  final  |  finally  |  float   |  for      |  if 
+                        | implements |  import |  instanceof |  int |  interface 
+                        |  long |  native |  new |  package |  private |  protected 
+                        |  public |  return |  short |  static |  strictfp |  super 
+                        | synchronized |  this |  throw |  throws |  transient 
+                        |  try |  void |  volatile |  while 
+
+      numeric         ::= \{x | x \in \mathbb{R}, base 10, 2, or 16\}. 
+      string literal  ::= "[a-zA-Z]+" | ""
+      identifier      ::= [a-zA-Z]+
+      punctuator      :=  { | } | ( | ) | [ | ] | . | : | = | - | + | ! | @ | # 
+                        | $ | % | ^ | & | * | ; | ' | ~ | < | > | / | \ | | |
+
+   
+   This grammar implements a custom-designed syntax highlighter for Java. An advantage of this approach is that it is easily extensible if more complex syntax highlighting is required later, but does not need the full Java specification grammar to create the colours.
+   This choice was made because the student is not debugging code in our app, so additional context clues such as wavy red lines under invalid Java syntax is irrelevant, and not a feature of other dynamic syntax highlighting solutions like highlight.js, as the maintainer of that project highlights [here](https://stackoverflow.com/questions/60455635/does-highlight-js-check-syntax-as-well).
+   
+   The grammar was designed through observing the characteristics of common colour schemes like Dracula and Android Studio's default themes.
 
 *[How do you design the grammar? What are the advantages of your designs?]*
 
