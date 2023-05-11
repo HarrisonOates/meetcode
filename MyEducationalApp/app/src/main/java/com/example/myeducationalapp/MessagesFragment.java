@@ -236,6 +236,13 @@ public class MessagesFragment extends Fragment {
             // Maybe store a reference to a relevant class in the genUI list?
             // Need to send some intents as well
 
+            // TODO for notifications, need to store reference to heading, subheading,
+            // and notificationDot possible in the genUI class, or make a new viewModel?
+            // need to find a way to reference the template object that is in the list then
+            // maybe with a global counter, used to iterate through the list in genUI
+
+            UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
+            userInterfaceManager.getUiState().getValue().setToolbarTitle(heading.getText().toString());
             NavHostFragment.findNavController(MessagesFragment.this).navigate(R.id.action_messagesFragment_to_directMessageFragment);
 
 

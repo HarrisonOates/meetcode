@@ -126,6 +126,14 @@ public class UserInterfaceManager {
             this.isActionBarInBackState.setValue(true);
         }
     }
+
+    public void enterNewFragment() {
+        if (Objects.equals(this.toolbarTitle, homeToolbarTitle)) {
+            this.isActionBarInBackState.setValue(false);
+        } else {
+            this.isActionBarInBackState.setValue(true);
+        }
+    }
 }
 
 class DirectMessageNotificationMap {
