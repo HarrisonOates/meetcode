@@ -202,11 +202,17 @@ Production rules for syntax highlighting:
                         | synchronized |  this |  throw |  throws |  transient 
                         |  try |  void |  volatile |  while 
 
-      numeric         ::= \{x | x \in \mathbb{R} \} 
-         // express binary and hexa headings.
+      numeric         ::= \{x | x \in \mathbb{R}, x optionally has 0x or 0b prefix\} 
+      string literal  ::= "[a-zA-Z]+" | ""
+      identifier      ::= [a-zA-Z]+
+      punctuator      :=  { | } | ( | ) | [ | ] | . | : | = | - | + | ! | @ | # 
+                        | $ | % | ^ | & | * | ; | ' | ~ | < | > | / | \ | | |
 
    
-   This grammar implements a custom-designed syntax highlighter for Java. An advantage of this approach is that it is easily extensible if more complex syntax highlighting is required later, but does not need the full Java specification grammar to check for the code's . It was designed through observing the characteristics of common colour schemes like Dracula and Android Studio's default themes.
+   This grammar implements a custom-designed syntax highlighter for Java. An advantage of this approach is that it is easily extensible if more complex syntax highlighting is required later, but does not need the full Java specification grammar to create the colours.
+   This choice was made because the student is not debugging code in our app, so additional context clues such as wavy red lines under invalid Java syntax is irrelevant, and not a feature of other dynamic syntax highlighting solutions like highlight.js, as the maintainer of that project highlights [here](https://stackoverflow.com/questions/60455635/does-highlight-js-check-syntax-as-well).
+   
+   The grammar was designed through observing the characteristics of common colour schemes like Dracula and Android Studio's default themes.
 
 *[How do you design the grammar? What are the advantages of your designs?]*
 
