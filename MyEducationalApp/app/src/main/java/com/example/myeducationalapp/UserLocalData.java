@@ -51,7 +51,7 @@ public class UserLocalData {
     }
 
 
-    private AVLTree<ComparablePair<Integer>> likedMessages = new AVLTree<>();
+    AVLTree<ComparablePair<Integer>> likedMessages = new AVLTree<>();
 
     /*
      * Gives all of the answers you've given for each question. Stored as

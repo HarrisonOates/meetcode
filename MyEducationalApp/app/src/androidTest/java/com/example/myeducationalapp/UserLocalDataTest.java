@@ -9,6 +9,42 @@ import org.junit.Test;
 
 
 public class UserLocalDataTest {
+    @Test
+    public void testToString() {
+        UserLocalData localData = UserLocalData.getInstance();
+
+        UserLogin login = UserLogin.getInstance();
+        login.addUser("abc1231", "12345678");
+        login.authoriseUser("abc1231", "12345678");
+
+        assertEquals(";;;0", localData.toString());
+
+        localData.toggleLikeMessage(123,456);
+        assertEquals(";;123@456;0", localData.toString());
+
+        localData.toggleLikeMessage(888,999);
+        assertEquals(";;123@456,null,888@999;0", localData.toString());
+
+        localData.toggleBlockUser("lol i'm blocked;;");
+        assertEquals("lol i'm blocked\\;\\;;;123@456,null,888@999;0", localData.toString());
+
+        localData.submitCorrectAnswer("Q1");
+        assertEquals("lol i'm blocked\\;\\;;Q1;123@456,null,888@999;3", localData.toString());
+
+        localData.submitIncorrectAnswer("Q2", "WRONG");
+        assertEquals("lol i'm blocked\\;\\;;Q1;123@456,null,888@999;3;Q2;1;WRONG", localData.toString());
+
+        localData.submitIncorrectAnswer("Q2", "WRONG AGAIN");
+        assertEquals("lol i'm blocked\\;\\;;Q1;123@456,null,888@999;3;Q2;2;WRONG;WRONG AGAIN", localData.toString());
+
+        localData.submitCorrectAnswer("Q2");
+        assertEquals("lol i'm blocked\\;\\;;Q1,null,Q2;123@456,null,888@999;3;Q2;2;WRONG;WRONG AGAIN", localData.toString());
+
+        localData.submitIncorrectAnswer("Q3", "WRONGO");
+        assertEquals("lol i'm blocked\\;\\;;Q1,null,Q2;123@456,null,888@999;3;Q2;2;WRONG;WRONG AGAIN;Q3;1;WRONGO", localData.toString());
+
+        login.logout();
+    }
 
     @Test
     public void testBlockingUsers() {
@@ -27,6 +63,37 @@ public class UserLocalDataTest {
         localData.toggleBlockUser("abc");
         assertFalse(localData.isUserBlocked("abc"));
         assertTrue(localData.isUserBlocked("def"));
+
+        login.logout();
+    }
+
+    @Test
+    public void testLikingMessages() {
+        UserLocalData localData = UserLocalData.getInstance();
+
+        UserLogin login = UserLogin.getInstance();
+        login.addUser("abc12335", "12345678");
+        login.authoriseUser("abc12335", "12345678");
+
+        assertFalse(localData.isMessageLiked(1, 1));
+        assertFalse(localData.isMessageLiked(1, 2));
+        assertFalse(localData.isMessageLiked(2, 2));
+        localData.toggleLikeMessage(1, 2);
+        assertFalse(localData.isMessageLiked(1, 1));
+        assertTrue(localData.isMessageLiked(1, 2));
+        assertFalse(localData.isMessageLiked(2, 2));
+        localData.toggleLikeMessage(2, 2);
+        assertFalse(localData.isMessageLiked(1, 1));
+        assertTrue(localData.isMessageLiked(1, 2));
+        assertTrue(localData.isMessageLiked(2, 2));
+        localData.toggleLikeMessage(2, 2);
+        assertFalse(localData.isMessageLiked(1, 1));
+        assertTrue(localData.isMessageLiked(1, 2));
+        assertFalse(localData.isMessageLiked(2, 2));
+        localData.toggleLikeMessage(1, 1);
+        assertTrue(localData.isMessageLiked(1, 1));
+        assertTrue(localData.isMessageLiked(1, 2));
+        assertFalse(localData.isMessageLiked(2, 2));
 
         login.logout();
     }
