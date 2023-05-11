@@ -216,12 +216,12 @@ public class QuestionSet {
                         "    www.example.com                     // line 5" +
                         "    ();                                 // line 6" +
                         "}```" +
-                        "A: Yes" +
-                        "B: No, the first error occurs on line 2" +
-                        "C: No, the first error occurs on line 3" +
-                        "D: No, the first error occurs on line 4" +
-                        "E: No, the first error occurs on line 5" +
-                        "F: No, the first error occurs on line 6")
+                        "A) Yes" +
+                        "B) No, the first error occurs on line 2" +
+                        "C) No, the first error occurs on line 3" +
+                        "D) No, the first error occurs on line 4" +
+                        "E) No, the first error occurs on line 5" +
+                        "F) No, the first error occurs on line 6")
                 , "D", Category.Miscellaneous, "5");
 
     }
