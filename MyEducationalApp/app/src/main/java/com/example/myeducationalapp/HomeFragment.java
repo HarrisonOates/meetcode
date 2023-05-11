@@ -171,7 +171,7 @@ public class HomeFragment extends Fragment {
         constraintLayout.setLayoutParams(constraintLayoutParams);
 
         ViewGroup.LayoutParams imageLayoutParams = image.getLayoutParams();
-        imageLayoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 84, getResources().getDisplayMetrics());;
+        imageLayoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 84, getResources().getDisplayMetrics());
         imageLayoutParams.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, getResources().getDisplayMetrics());
         image.setLayoutParams(imageLayoutParams);
 
