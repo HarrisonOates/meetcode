@@ -1,5 +1,6 @@
 package com.example.myeducationalapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -84,6 +85,16 @@ public class AccountFragment extends Fragment {
         binding.accountMenuLogOutConstraintLayout.setOnClickListener(view1 -> {
             UserLogin.getInstance().logout();
             NavHostFragment.findNavController(AccountFragment.this).navigate(R.id.action_accountFragment_to_loginActivity);
+        });
+
+        binding.accountMenuMessageDevConstraintLayout.setOnClickListener(view1 -> {
+            Intent demoMessagingIntent = new Intent(getContext(), MessagingDemoActivity.class);
+            startActivity(demoMessagingIntent);
+        });
+
+        binding.accountMenuLanguageMenuConstraintLayout.setOnClickListener(view1 -> {
+            Intent languageIntent = new Intent(getContext(), LanguageSetting.class);
+            startActivity(languageIntent);
         });
 
     }

@@ -109,7 +109,7 @@ public class HomeFragment extends Fragment {
 
     }
 
-    public void generateHomeCategoryCard(HomeCategoryCard template, Context context) {
+    private void generateHomeCategoryCard(HomeCategoryCard template, Context context) {
         // making ui elements within parent
         ImageView image = new ImageView(context);
         TextView heading = new TextView(context);
