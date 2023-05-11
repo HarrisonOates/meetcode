@@ -4,9 +4,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import androidx.databinding.BaseObservable;
-import androidx.databinding.Bindable;
-import androidx.databinding.BindingAdapter;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 

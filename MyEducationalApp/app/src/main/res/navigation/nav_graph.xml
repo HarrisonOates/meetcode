@@ -15,7 +15,11 @@
             app:destination="@id/categoryFragment" />
         <action
             android:id="@+id/action_HomeFragment_to_categoriesListFragment"
-            app:destination="@id/categoriesListFragment" />
+            app:destination="@id/categoriesListFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_out" />
         <action
             android:id="@+id/action_HomeFragment_to_questionFragment"
             app:destination="@id/questionFragment" />
