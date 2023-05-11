@@ -10,11 +10,9 @@ import java.util.List;
 
 public class QuestionMessageThread extends MessageThread {
     private String questionID;
-    private Question question;
 
     public QuestionMessageThread(String questionID) {
         this.questionID = questionID;
-        this.question = new Question(questionID);
         downloadMessages();
     }
 
@@ -34,7 +32,7 @@ public class QuestionMessageThread extends MessageThread {
 
     @Override
     FirebaseResult uploadChanges() {
-        return Firebase.getInstance().writeQuestionComments(question, this);
+        return Firebase.getInstance().writeQuestionComments(questionID, this);
     }
 
 }
