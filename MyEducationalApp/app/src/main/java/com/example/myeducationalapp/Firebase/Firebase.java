@@ -265,7 +265,11 @@ public class Firebase {
                     DirectMessageThread dms = new DirectMessageThread(username);
                     dms.runWhenReady((ignored) -> {
                         if (!dms.getMessages().isEmpty()) {
-                            callback.apply(dms);
+                            dms.getMessages().get(dms.getMessages().size() - 1).runWhenReady((ignored1) -> {
+                                    callback.apply(dms);
+                                    return null;
+                                }
+                            );
                         }
                         return null;
                     });
