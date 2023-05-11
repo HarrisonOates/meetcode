@@ -1,6 +1,4 @@
-package com.example.myeducationalapp.UserInterface.Generation;
-
-import android.graphics.Color;
+package com.example.myeducationalapp.userInterface.Generation;
 
 public class DirectMessageBubble extends GeneratedUserInterfaceElement {
 

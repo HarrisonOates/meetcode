@@ -1,311 +1,240 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarLayout2"
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="viewModel"
+            type="com.example.myeducationalapp.userInterface.UserInterfaceManagerViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/Theme.MyEducationalApp.AppBarOverlay"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/white"
-            android:visibility="gone"
-            app:popupTheme="@style/Theme.MyEducationalApp.PopupOverlay"
-            tools:visibility="gone" />
 
-        <!-- Toolbar -->
-        <androidx.constraintlayout.widget.ConstraintLayout
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout2"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:background="@color/white"
-            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:theme="@style/Theme.MyEducationalApp.AppBarOverlay"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <!-- Star Container -->
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/white"
+                android:visibility="gone"
+                app:popupTheme="@style/Theme.MyEducationalApp.PopupOverlay"
+                tools:visibility="gone" />
+
+            <!-- Toolbar -->
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/toolbar_star_container"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:background="@drawable/home_star_container"
-                android:paddingLeft="12dp"
-                android:paddingTop="8dp"
-                android:paddingRight="12dp"
-                android:paddingBottom="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintStart_toStartOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <!-- Number of Stars -->
-                <TextView
-                    android:id="@+id/toolbar_star_container_number"
+                <!-- Star Container -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/toolbar_star_container"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginEnd="6dp"
-                    android:fontFamily="@font/ibm_plex_sans_semibold"
-                    android:text="90"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
+                    android:layout_marginStart="20dp"
+                    android:background="@drawable/home_star_container"
+                    android:paddingLeft="12dp"
+                    android:paddingTop="8dp"
+                    android:paddingRight="12dp"
+                    android:paddingBottom="8dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/categories_list_card_secondary_star_icon"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:visibility="@{viewModel.getUiState().getIsActionBarInBackState() ? View.GONE : View.VISIBLE}">
+
+                    <!-- Number of Stars -->
+                    <TextView
+                        android:id="@+id/toolbar_star_container_number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginEnd="6dp"
+                        android:fontFamily="@font/ibm_plex_sans_semibold"
+                        android:text="90"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/categories_list_card_secondary_star_icon"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <!-- Star icon -->
+                    <View
+                        android:id="@+id/categories_list_card_secondary_star_icon"
+                        android:layout_width="21.99dp"
+                        android:layout_height="21.3dp"
+                        android:background="@drawable/icon_star"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- Backwards Navigation Arrow -->
+                <View
+                    android:id="@+id/toolbar_left_arrow_icon"
+                    android:layout_width="46dp"
+                    android:layout_height="46dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="15dp"
+                    android:background="@drawable/icon_left_arrow"
+                    android:clipToOutline="true"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:visibility="@{viewModel.getUiState().getIsActionBarInBackState() ? View.VISIBLE : View.GONE}" />
+
+                <!-- Toolbar title -->
+                <TextView
+                    android:id="@+id/toolbar_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/ibm_plex_sans_bold"
+                    android:text="@{viewModel.getUiState().getToolbarTitle()}"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="24sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <!-- Star icon -->
-                <View
-                    android:id="@+id/categories_list_card_secondary_star_icon"
-                    android:layout_width="21.99dp"
-                    android:layout_height="21.3dp"
-                    android:background="@drawable/icon_star"
+
+                <!-- User profile image -->
+                <ImageView
+                    android:id="@+id/toolbar_profile_icon"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginEnd="20dp"
+                    android:contentDescription="TODO"
+                    android:src="@drawable/user_profile_default"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <!-- Backwards Navigation Arrow -->
-            <View
-                android:id="@+id/toolbar_left_arrow_icon"
-                android:layout_width="46dp"
-                android:layout_height="46dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="15dp"
-                android:background="@drawable/icon_left_arrow"
-                android:clipToOutline="true"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:visibility="gone" />
+        </com.google.android.material.appbar.AppBarLayout>
 
-            <!-- Toolbar title -->
-            <TextView
-                android:id="@+id/toolbar_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/ibm_plex_sans_bold"
-                android:text="Home"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textSize="24sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-            <!-- User profile image -->
-            <ImageView
-                android:id="@+id/messages_card_1_profile_image"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginEnd="20dp"
-                android:contentDescription="TODO"
-                android:src="@drawable/user_profile_default"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <include
-        android:id="@+id/include"
-        layout="@layout/content_main"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout2"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <!-- Navigation menu bar -->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/nav_menu"
-        android:layout_width="350dp"
-        android:layout_height="80dp"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/nav_menu"
-        app:layout_constraintBottom_toBottomOf="@+id/include"
-        app:layout_constraintEnd_toEndOf="@+id/include"
-        app:layout_constraintStart_toStartOf="@+id/include">
-
-        <!-- Home icon -->
-        <View
-            android:id="@+id/nav_menu_home_icon"
-            android:layout_width="34dp"
-            android:layout_height="34dp"
-            android:background="@drawable/icon_home"
+        <include
+            android:id="@+id/include"
+            layout="@layout/content_main"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/nav_menu_icon_left_guide"
-            app:layout_constraintStart_toStartOf="@+id/nav_menu_icon_left_guide"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appBarLayout2"
+            app:layout_constraintVertical_bias="0.0" />
 
-        <!-- Mail icon with notification dot -->
+        <!-- Navigation menu bar -->
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="43dp"
-            android:layout_height="40dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/nav_menu_icon_middle_guide"
-            app:layout_constraintStart_toStartOf="@+id/nav_menu_icon_middle_guide"
-            app:layout_constraintTop_toTopOf="parent">
+            android:id="@+id/nav_menu"
+            android:layout_width="350dp"
+            android:layout_height="80dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/nav_menu"
+            app:layout_constraintBottom_toBottomOf="@+id/include"
+            app:layout_constraintEnd_toEndOf="@+id/include"
+            app:layout_constraintStart_toStartOf="@+id/include">
 
-            <!-- Mail icon -->
+            <!-- Home icon -->
             <View
-                android:id="@+id/nav_menu_mail_icon"
+                android:id="@+id/nav_menu_home_icon"
                 android:layout_width="34dp"
                 android:layout_height="34dp"
-                android:background="@drawable/icon_envelope"
+                android:background="@drawable/icon_home"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/nav_menu_icon_left_guide"
+                app:layout_constraintStart_toStartOf="@+id/nav_menu_icon_left_guide"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <!-- Notification dot -->
+            <!-- Mail icon with notification dot -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="43dp"
+                android:layout_height="40dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/nav_menu_icon_middle_guide"
+                app:layout_constraintStart_toStartOf="@+id/nav_menu_icon_middle_guide"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <!-- Mail icon -->
+                <View
+                    android:id="@+id/nav_menu_mail_icon"
+                    android:layout_width="34dp"
+                    android:layout_height="34dp"
+                    android:background="@drawable/icon_envelope"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <!-- Notification dot -->
+                <View
+                    android:id="@+id/nav_menu_mail_notification_dot"
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:background="@drawable/icon_notification_dot"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:visibility="@{viewModel.getUiState().getNavMenuNotificationVisibility() ? View.VISIBLE : View.GONE}"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Hamburger menu icon -->
             <View
-                android:id="@+id/messages_card_1_notification_dot"
-                android:layout_width="14dp"
-                android:layout_height="14dp"
-                android:background="@drawable/icon_notification_dot"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:id="@+id/nav_menu_hamburger_icon"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:background="@drawable/icon_burger_menu"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/nav_menu_icon_right_guide"
+                app:layout_constraintStart_toStartOf="@+id/nav_menu_icon_right_guide"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/nav_menu_icon_left_guide"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.1667" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/nav_menu_icon_middle_guide"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/nav_menu_icon_right_guide"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.833" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <!-- Hamburger menu icon -->
-        <View
-            android:layout_width="34dp"
-            android:layout_height="34dp"
-            android:background="@drawable/icon_burger_menu"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/nav_menu_icon_right_guide"
-            app:layout_constraintStart_toStartOf="@+id/nav_menu_icon_right_guide"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/nav_menu_icon_left_guide"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.1667" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/nav_menu_icon_middle_guide"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.5" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/nav_menu_icon_right_guide"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.833" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    <!-- Text entry widget -->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/direct_message_text_container"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/home_search_container"
-        android:elevation="5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.523"
-        app:layout_constraintStart_toStartOf="parent"
-        android:paddingTop="9dp"
-        android:paddingBottom="9dp">
-
-        <!-- text entry field -->
-        <EditText
-            android:id="@+id/direct_message_input_text"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:background="@null"
-            android:ems="10"
-            android:fontFamily="@font/ibm_plex_sans_medium"
-            android:hint="Message..."
-            android:inputType="text|textMultiLine|textAutoComplete|textAutoCorrect|textLongMessage"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:textAlignment="textStart"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/direct_message_send_button"
-            app:layout_constraintStart_toStartOf="@+id/direct_message_start_guide"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <!-- send button container widget -->
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/direct_message_send_button"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:background="@drawable/shapes_button_circle"
-            android:clipToOutline="true"
-            app:layout_constraintBottom_toBottomOf="@+id/direct_message_input_text"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintEnd_toStartOf="@+id/direct_message_end_guide"
-            app:layout_constraintStart_toStartOf="@+id/direct_message_end_guide">
-
-            <!-- send icon -->
-            <View
-                android:id="@+id/direct_message_send_arrow_icon"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:background="@drawable/icon_right_send_arrow"
-                android:clipToOutline="true"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.55"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/direct_message_start_guide"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.07" />
-
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/direct_message_end_guide"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.91" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

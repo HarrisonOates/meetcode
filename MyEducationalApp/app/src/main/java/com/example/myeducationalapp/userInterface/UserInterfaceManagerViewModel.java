@@ -1,4 +1,4 @@
-package com.example.myeducationalapp.UserInterface;
+package com.example.myeducationalapp.userInterface;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
