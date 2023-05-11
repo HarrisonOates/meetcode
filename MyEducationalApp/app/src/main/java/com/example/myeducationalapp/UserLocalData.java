@@ -85,6 +85,7 @@ public class UserLocalData {
             String data = (String) obj;
 
             // TODO: reverse the effects of toString()
+            System.out.println("data: " + data);
 
             return null;
         });
@@ -155,6 +156,8 @@ public class UserLocalData {
             int failedAttempts = getNumberOfFailedAttempts(questionID);
             if (failedAttempts == 0) {
                 points += 3;
+//              Use this later as it rewards points based on the difficulty
+//              points += Character.getNumericValue(questionID.charAt(1));
             } else if (failedAttempts == 1) {
                 points += 1;
             }
