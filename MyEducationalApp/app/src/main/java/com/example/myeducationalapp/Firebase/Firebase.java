@@ -273,10 +273,8 @@ public class Firebase {
                         }
                         return null;
                     });
-
                 }
             }
-
             return null;
         });
     }
