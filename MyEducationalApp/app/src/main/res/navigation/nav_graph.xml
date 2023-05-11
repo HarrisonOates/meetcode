@@ -95,5 +95,13 @@
         <action
             android:id="@+id/action_accountFragment_to_questionFragment"
             app:destination="@id/questionFragment" />
+        <action
+            android:id="@+id/action_accountFragment_to_loginActivity"
+            app:destination="@id/loginActivity" />
     </fragment>
+    <activity
+        android:id="@+id/loginActivity"
+        android:name="com.example.myeducationalapp.LoginActivity"
+        android:label="activity_login"
+        tools:layout="@layout/activity_login" />
 </navigation>

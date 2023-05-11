@@ -22,6 +22,9 @@
             android:exported="false"
             android:label="@string/title_activity_messaging_demo_fragment"
             android:theme="@style/Theme.MyEducationalApp" />
+        <activity android:name=".LoginActivity"
+            android:windowSoftInputMode="adjustPan"
+            android:theme="@style/Theme.MyEducationalApp.NoActionBar"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"

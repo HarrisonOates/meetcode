@@ -104,6 +104,12 @@ public class HomeFragment extends Fragment {
             NavHostFragment.findNavController(HomeFragment.this).navigate(R.id.action_HomeFragment_to_categoriesListFragment);
         });
 
+        binding.homeHeroContainer.setOnClickListener(view1 -> {
+            NavHostFragment.findNavController(HomeFragment.this).navigate(R.id.action_HomeFragment_to_questionFragment);
+        });
+
+
+
 
     }
 
