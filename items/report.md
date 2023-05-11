@@ -38,9 +38,19 @@ u7468248, Alex Boxall: I contributed 20% of the code. Here are my contributions:
 
 
 u7469758, Geun Yun: I contributed 20% of the code. Here are my contributions:
-* A.class
+* All of MyEducationalApp/app/src/main/java/com/example/myeducationalapp/AVLTree.java
+  * All of MyEducationalApp/app/src/test/java/com/example/myeducationalapp/AVLTreeTest.java
+* Most of MyEducationalApp/app/src/main/java/com/example/myeducationalapp/UserLogin.java 
+  * Most of MyEducationalApp/app/src/androidTest/java/com/example/myeducationalapp/UserLoginTest.java
+* All of MyEducationalApp/app/src/main/java/com/example/myeducationalapp/LanguageSetting.java
+  * Most of
+    MyEducationalApp/app/src/main/res/values-pt-rBR/strings.xml
+    MyEducationalApp/app/src/main/res/values-zh-rCN/strings.xml
+    MyEducationalApp/app/src/main/res/values-ja/strings.xml
+    MyEducationalApp/app/src/main/res/values-ko-rKR/strings.xml
 * B.class: function1(), function2(), ...
 * What design patterns, data structures, did the involved member propose?
+  * I was responsible for implementing AVLTree as the data structure which stores xxx
 * Specify what design did the involved member propose? What tools were used for the design?
 * Which part of the report did the involved member write?
 * Were you responsible for the slides?
@@ -98,27 +108,20 @@ The following conflict resolution protocol was decided on in our first meeting.
 
 *[Provide use cases and examples of people using your application. Who are the target users of your application? How do the users use your application?]*
 
-*Here is a pet training application example*
+*Here is an educational application example*
 
-*Molly wants to inquiry about her cat, McPurr's recent troublesome behaviour*
-1. *Molly notices that McPurr has been hostile since...*
-2. *She makes a post about... with the tag...*
-3. *Lachlan, a vet, writes a reply to Molly's post...*
-4. ...
-5. *Molly gives Lachlan's reply a 'tick' response*
+*Target Users: Those who have started learning programming in java*
 
-*Here is a map navigation application example*
-
-*Targets Users: Drivers*
-
-* *Users can use it to navigate in order to reach the destinations.*
-* *Users can learn the traffic conditions*
+* *Users can get better understanding of various topics by attempting the daily question.*
+* *Users from non-English speaking background can still learn as the app supports localisation with multiple languages.*
 * ...
 
-*Target Users: Those who want to find some good restaurants*
+*Targets Users: Those who wish to discuss about programming*
 
-* *Users can find nearby restaurants and the application can give recommendations*
+* *Users can mutually interact with each other by direct messaging and comments which in return will benefit them from the progressing collective intelligence.*
+* *Users can maintain constructive relationships with others by blocking anyone, who is causing any harm through the interaction.*
 * ...
+
 
 *List all the use cases in text descriptions or create use case diagrams. Please refer to https://www.visual-paradigm.com/guide/uml-unified-modeling-language/what-is-use-case-diagram/ for use case diagram.*
 
@@ -147,9 +150,15 @@ We used the following data structures in our project:
 
      * We don't need to access the item by index for this feature
 
-2. ...
+2. Having the property of self-balancing along with the binary search tree guarantees the performance of O(logN) in the worst case for insertion, deletion and searching.
 
-3. ...
+3. Unlike the most operation in the AVL Tree, the deletion was not covered in the lecture, so its implementation will be briefly outlined.
+   * The node that is to be deleted first gets searched, similar to the initial search fro the insertion.
+   * It then gets deleted accordingly preserving the BST properties depending on the number of children node/s it has.
+   * The tree now identifies node/s that violate/s the balance factor rule.
+   * Balance the subtree based on the imbalanced nodes, which uses the same method for balancing in the insertion.
+   * Note that it is possible that the balancing is required multiple times, unlike the insertion where the whole tree was guaranteed to be AVL Tree after a single balancing.
+   * The author believes that it is because the insertion only manipulates the leaf node, while the deletion manipulates any node, which can cause more than one imbalanced path.
 
 **Design Patterns**
 
