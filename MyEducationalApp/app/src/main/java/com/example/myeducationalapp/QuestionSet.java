@@ -196,7 +196,7 @@ public class QuestionSet {
                         "    b ^= a;" +
                         "    a ^= b;" +
                         "    System.out.printf(\"%d, %d\", a, b);```")
-                , "0, 0", Category.Miscellaneous, "3");
+                , "0, 0", Category.Miscellaneous, "2");
 
         // Weirdo bitwise manipulation
         addQuestion(DetectCodeBlock.parseCodeBlocks(

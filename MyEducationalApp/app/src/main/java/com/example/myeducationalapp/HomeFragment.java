@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.myeducationalapp.Firebase.Firebase;
 import com.example.myeducationalapp.userInterface.Generation.GeneratedUserInterfaceViewModel;
 import com.example.myeducationalapp.userInterface.Generation.HomeCategoryCard;
 import com.example.myeducationalapp.userInterface.UserInterfaceManagerViewModel;
@@ -77,6 +78,8 @@ public class HomeFragment extends Fragment {
 
         GeneratedUserInterfaceViewModel genUserInterfaceManager = new ViewModelProvider(this).get(GeneratedUserInterfaceViewModel.class);
         genUserInterfaceManager.addToListOfElements(new HomeCategoryCard(null, null, "hiasdasdsadsasdasdsa", "hasadsi"));
+
+        Firebase.getInstance().dump();
     }
 
     @Override
