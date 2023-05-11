@@ -24,18 +24,19 @@
             android:theme="@style/Theme.MyEducationalApp" />
         <activity android:name=".LoginActivity"
             android:windowSoftInputMode="adjustPan"
-            android:theme="@style/Theme.MyEducationalApp.NoActionBar"/>
+            android:exported="true"
+            android:theme="@style/Theme.MyEducationalApp.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustPan"
             android:theme="@style/Theme.MyEducationalApp.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 
