@@ -4,11 +4,11 @@ import android.graphics.drawable.Drawable;
 
 public class MessageListCard extends GeneratedUserInterfaceElement{
 
-    Drawable profileImage;
+    public int profileImage;
     public String headingText;
     public String subHeadingText;
 
-    public MessageListCard(Drawable profileImage, String headingText, String subHeadingText) {
+    public MessageListCard(int profileImage, String headingText, String subHeadingText) {
         this.profileImage = profileImage;
         this.headingText = headingText;
         this.subHeadingText = subHeadingText;

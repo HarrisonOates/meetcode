@@ -26,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.myeducationalapp.Firebase.Firebase;
 import com.example.myeducationalapp.databinding.FragmentHomeBinding;
 import com.example.myeducationalapp.databinding.FragmentMessagesBinding;
 import com.example.myeducationalapp.userInterface.Generation.GeneratedUserInterfaceViewModel;
@@ -52,9 +53,9 @@ public class MessagesFragment extends Fragment {
 
     private FragmentMessagesBinding binding;
 
+    Firebase firebase;
+
     private final String toolbarTitle = "Chats";
-    private int headingMaxLength = 22;
-    private int subHeadingMaxLength = 10;
 
     public MessagesFragment() {
         // Required empty public constructor
@@ -86,12 +87,35 @@ public class MessagesFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
+
+        firebase = Firebase.getInstance();
+
+        firebase.getAllUsersYouHaveMessaged(dms -> {
+
+            Log.d("MessagesFragment", dms.getUsername());
+            Log.d("MessagesFragment", dms.getMessages().get(0).getContent());
+
+            GeneratedUserInterfaceViewModel genUserInterfaceManager = new ViewModelProvider(this).get(GeneratedUserInterfaceViewModel.class);
+
+            String directMessageRecipient = dms.getUsername();
+
+            MessageListCard template;
+
+            if (dms.getMessages().size() > 0) {
+                template = new MessageListCard(R.drawable.user_profile_default, directMessageRecipient, dms.getMessages().get(dms.getMessages().size() - 1).getContent());
+            } else {
+                template  = new MessageListCard(R.drawable.user_profile_default, directMessageRecipient,"THIS IS EMPTY");
+            }
+
+            genUserInterfaceManager.addToListOfElements(template);
+
+            generateMessageListCard(template, getActivity());
+            return null;
+        });
+
         GeneratedUserInterfaceViewModel genUserInterfaceManager = new ViewModelProvider(this).get(GeneratedUserInterfaceViewModel.class);
-        genUserInterfaceManager.addToListOfElements(new MessageListCard(null, "Firstname Lastname", "This is an example preview message"));
-        genUserInterfaceManager.addToListOfElements(new MessageListCard(null, "Another Longer Lastname So Longggg", "This is a very long example of a preview message"));
-
-        Log.d("MessagesFragment", String.valueOf(genUserInterfaceManager.listOfElements.size()));
-
+        //genUserInterfaceManager.addToListOfElements(new MessageListCard(null, "Firstname Lastname", "This is an example preview message"));
+        //genUserInterfaceManager.addToListOfElements(new MessageListCard(null, "Another Longer Lastname So Longggg", "This is a very long example of a preview message"));
 
     }
 
@@ -109,13 +133,20 @@ public class MessagesFragment extends Fragment {
         UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
         userInterfaceManager.getUiState().getValue().enterNewFragment(toolbarTitle, false);
 
-        GeneratedUserInterfaceViewModel genUserInterfaceManager = new ViewModelProvider(this).get(GeneratedUserInterfaceViewModel.class);
-        generateMessageListCard((MessageListCard) genUserInterfaceManager.listOfElements.get(0), getActivity());
-        generateMessageListCard((MessageListCard) genUserInterfaceManager.listOfElements.get(1), getActivity());
+        //GeneratedUserInterfaceViewModel genUserInterfaceManager = new ViewModelProvider(this).get(GeneratedUserInterfaceViewModel.class);
+        //generateMessageListCard((MessageListCard) genUserInterfaceManager.listOfElements.get(0), getActivity());
+        //generateMessageListCard((MessageListCard) genUserInterfaceManager.listOfElements.get(1), getActivity());
 
     }
 
-    public void generateMessageListCard(MessageListCard template, Context context) {
+    public void getAllUsersYouHaveMessagedCallback(DirectMessageThread directMessageThread) {
+        GeneratedUserInterfaceViewModel genUserInterfaceManager = new ViewModelProvider(this).get(GeneratedUserInterfaceViewModel.class);
+        MessageListCard template = new MessageListCard(R.drawable.user_profile_default, directMessageThread.getUsername(), "Test");
+        genUserInterfaceManager.addToListOfElements(template);
+        generateMessageListCard(template, getActivity());
+    }
+
+    private void generateMessageListCard(MessageListCard template, Context context) {
         // making ui elements within parent
         ImageView image = new ImageView(context);
         TextView heading = new TextView(context);
@@ -133,7 +164,7 @@ public class MessagesFragment extends Fragment {
         constraintLayout.setId(View.generateViewId());
 
         // TODO set this using imageReference
-        image.setImageResource(R.drawable.user_profile_default);
+        image.setImageResource(template.profileImage);
         image.setId(View.generateViewId());
 
         heading.setSingleLine();
