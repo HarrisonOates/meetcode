@@ -107,13 +107,13 @@
                 <!-- Toolbar title -->
                 <TextView
                     android:id="@+id/toolbar_title"
-                    android:ellipsize="end"
-                    android:maxLines="1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
+                    android:ellipsize="end"
                     android:fontFamily="@font/ibm_plex_sans_bold"
+                    android:maxLines="1"
                     android:text="@{viewModel.getUiState().getToolbarTitle()}"
                     android:textAlignment="center"
                     android:textColor="@color/black"
@@ -162,7 +162,8 @@
             android:background="@drawable/nav_menu"
             app:layout_constraintBottom_toBottomOf="@+id/include"
             app:layout_constraintEnd_toEndOf="@+id/include"
-            app:layout_constraintStart_toStartOf="@+id/include">
+            app:layout_constraintStart_toStartOf="@+id/include"
+            android:visibility="@{viewModel.getUiState().getNavigationMenuVisibility() ? View.VISIBLE : View.GONE}">
 
             <!-- Home icon -->
             <View

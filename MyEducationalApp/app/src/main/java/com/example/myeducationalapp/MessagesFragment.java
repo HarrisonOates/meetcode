@@ -107,7 +107,7 @@ public class MessagesFragment extends Fragment {
 
 
         UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
-        userInterfaceManager.getUiState().getValue().enterNewFragment(toolbarTitle);
+        userInterfaceManager.getUiState().getValue().enterNewFragment(toolbarTitle, false);
 
         GeneratedUserInterfaceViewModel genUserInterfaceManager = new ViewModelProvider(this).get(GeneratedUserInterfaceViewModel.class);
         generateMessageListCard((MessageListCard) genUserInterfaceManager.listOfElements.get(0), getActivity());

@@ -71,7 +71,7 @@ public class DirectMessageFragment extends Fragment {
 
 
         UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
-        userInterfaceManager.getUiState().getValue().enterNewFragment();
+        userInterfaceManager.getUiState().getValue().enterNewFragment(false);
 
 
     }

@@ -120,6 +120,8 @@ public class UserInterfaceManager {
     public void enterNewFragment(String newToolbarTitle) {
         this.toolbarTitle.setValue(newToolbarTitle);
 
+        this.isNavigationMenuVisible.setValue(true);
+
         if (Objects.equals(newToolbarTitle, homeToolbarTitle)) {
             this.isActionBarInBackState.setValue(false);
         } else {
@@ -127,12 +129,23 @@ public class UserInterfaceManager {
         }
     }
 
-    public void enterNewFragment() {
+    public void enterNewFragment(boolean isNavMenuVisible) {
+
+        this.isNavigationMenuVisible.setValue(isNavMenuVisible);
+
         if (Objects.equals(this.toolbarTitle, homeToolbarTitle)) {
             this.isActionBarInBackState.setValue(false);
         } else {
             this.isActionBarInBackState.setValue(true);
         }
+    }
+
+    public void enterNewFragment(String newToolbarTitle, boolean isNavMenuVisible) {
+
+        enterNewFragment(newToolbarTitle);
+
+        this.isNavigationMenuVisible.setValue(isNavMenuVisible);
+
     }
 }
 

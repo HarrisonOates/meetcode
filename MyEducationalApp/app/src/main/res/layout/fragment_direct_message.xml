@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
             android:background="@null"
-            android:ems="10"
+            android:maxLines="4"
             android:fontFamily="@font/ibm_plex_sans_medium"
             android:hint="Message..."
             android:inputType="text|textMultiLine|textAutoComplete|textAutoCorrect|textLongMessage"

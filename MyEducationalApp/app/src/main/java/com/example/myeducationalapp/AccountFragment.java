@@ -82,6 +82,7 @@ public class AccountFragment extends Fragment {
         });
 
         binding.accountMenuLogOutConstraintLayout.setOnClickListener(view1 -> {
+
             NavHostFragment.findNavController(AccountFragment.this).navigate(R.id.action_accountFragment_to_loginActivity);
         });
 
