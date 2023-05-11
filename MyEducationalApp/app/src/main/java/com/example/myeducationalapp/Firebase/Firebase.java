@@ -167,8 +167,7 @@ public class Firebase {
          * in the chat.
          */
         if (!UserLogin.getInstance().isUserLoggedIn(username1) && !UserLogin.getInstance().isUserLoggedIn(username2)) {
-            Log.e("dbg", "FOR DEBUGGING ONLY, AUTH HAS BEEN REMOVED");
-            //throw new AccessDeniedException("you do not have permission to read this conversation");
+            throw new AccessDeniedException("you do not have permission to read this conversation");
         }
         return FirebaseRequest.read(database, getDirectMessageFilepath(username1, username2));
     }

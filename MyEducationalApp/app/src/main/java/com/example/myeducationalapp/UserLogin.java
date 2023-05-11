@@ -156,6 +156,7 @@ public class UserLogin {
     }
 
     public void logout() {
+        UserLocalData.getInstance().logout();
         loggedInUsername = null;
     }
 
