@@ -57,7 +57,7 @@ public class Tokenizer {
             else {
                 StringBuilder s = new StringBuilder(" ");
                 int pointer = 1;
-                while (pointer < buffer.length() && Character.isWhitespace(buffer.charAt(pointer))){
+                while (pointer < buffer.length() && buffer.charAt(pointer) == ' '){
                     s.append(" ");
                     pointer++;
                 }
@@ -90,7 +90,7 @@ public class Tokenizer {
         else if (Character.isDigit(firstChar)){
             StringBuilder s = new StringBuilder();
             int pointer = 0;
-            while (pointer < buffer.length() && (Character.isDigit(buffer.charAt(pointer)) || buffer.charAt(pointer) == '.') ||  buffer.charAt(pointer) == 'b' || buffer.charAt(pointer) == 'x'){
+            while (pointer < buffer.length() && (Character.isDigit(buffer.charAt(pointer)) || buffer.charAt(pointer) == '.' ||  buffer.charAt(pointer) == 'b' || buffer.charAt(pointer) == 'x')){
                 s.append(buffer.charAt(pointer));
                 pointer++;
             }
