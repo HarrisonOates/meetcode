@@ -60,8 +60,8 @@ public class QuestionFragment extends Fragment {
         }
 
         UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
-        userInterfaceManager.getUiState().getValue().setToolbarTitle(toolbarTitle);
-        userInterfaceManager.getUiState().getValue().setIsActionBarInBackState(true);
+        userInterfaceManager.getUiState().getValue().enterNewFragment(toolbarTitle, false);
+
 
     }
 

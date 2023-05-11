@@ -118,9 +118,17 @@ public class UserInterfaceManager {
         return toolbarTitle;
     }
 
-
     public void setToolbarTitle(String toolbarTitle) {
         this.toolbarTitle.setValue(toolbarTitle);
+    }
+
+    public void enterNewFragment(String newToolbarTitle, boolean isHome) {
+        this.toolbarTitle.setValue(newToolbarTitle);
+        if (isHome) {
+            this.isActionBarInBackState.setValue(false);
+        } else {
+            this.isActionBarInBackState.setValue(true);
+        }
     }
 }
 
