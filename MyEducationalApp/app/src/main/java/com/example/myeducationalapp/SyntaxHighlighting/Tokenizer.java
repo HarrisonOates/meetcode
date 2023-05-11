@@ -39,7 +39,6 @@ public class Tokenizer {
         buffer = text;
         next();
     }
-
     // TODO - refactor the while loops if possible
     public void next(){
         if (buffer.isEmpty()){
@@ -91,7 +90,7 @@ public class Tokenizer {
         else if (Character.isDigit(firstChar)){
             StringBuilder s = new StringBuilder();
             int pointer = 0;
-            while (pointer < buffer.length() && (Character.isDigit(buffer.charAt(pointer)) || buffer.charAt(pointer) == '.')){
+            while (pointer < buffer.length() && (Character.isDigit(buffer.charAt(pointer)) || buffer.charAt(pointer) == '.') ||  buffer.charAt(pointer) == 'b' || buffer.charAt(pointer) == 'x'){
                 s.append(buffer.charAt(pointer));
                 pointer++;
             }

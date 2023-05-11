@@ -196,8 +196,31 @@ Production rules for the search:
 
 Production rules for syntax highlighting:
 
-    <Non-Terminal> ::= <some output>
-    <Non-Terminal> ::= <some output>
+      TOKENS          ::= KEYWORD | NUMERIC_LITERAL | STRING_LITERAL | IDENTIFIER | NEWLINE | WHITESPACE | PUNCTUATOR | END-GRAMMAR
+      KEYWORD         ::= <font color = "orange"> keyword </font> TOKENS
+      NUMERIC_LITERAL ::= <font color = "blue"> numeric_literal </font> TOKENS
+      STRING_LITERAL  ::= <font color = "green"> string_literal </font> TOKENS 
+      IDENTIFIER      ::= <font color = "purple"> identifier </font> TOKENS | identifier TOKENS
+      NEWLINE         ::= <br> TOKENS 
+      WHITESPACE      ::= (<&nbsp;>)* TOKENS
+      PUNCTUATOR      ::= <font color = "purple"> punctuator </font> TOKENS
+      END-GRAMMAR     ::= [finish parsing]
+
+      keyword         ::=  abstract |  assert |  boolean |  break    |  byte 
+                        |  case   |  catch    |  char    |  continue |  default 
+                        |  do     |  double   |  else    |  enum     |  extends 
+                        |  final  |  finally  |  float   |  for      |  if 
+                        | implements |  import |  instanceof |  int |  interface 
+                        |  long |  native |  new |  package |  private |  protected 
+                        |  public |  return |  short |  static |  strictfp |  super 
+                        | synchronized |  this |  throw |  throws |  transient 
+                        |  try |  void |  volatile |  while 
+
+      numeric         ::= \{x | x \in \mathbb{R} \} 
+         // express binary and hexa headings.
+
+   
+   This grammar implements a custom-designed syntax highlighter for Java. An advantage of this approach is that it is easily extensible if more complex syntax highlighting is required later, but does not need the full Java specification grammar to check for the code's . It was designed through observing the characteristics of common colour schemes like Dracula and Android Studio's default themes.
 
 *[How do you design the grammar? What are the advantages of your designs?]*
 
