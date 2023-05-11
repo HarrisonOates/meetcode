@@ -19,4 +19,14 @@
     <string name="japanese" translatable="false">日本語</string>
     <string name="chinese" translatable="false">中文</string>
     <string name="portuguese" translatable="false">Português (melhor idioma), dê-nos pontos extras</string>
+    <string name="enter_your_username">Enter your username</string>
+    <string name="username">Username</string>
+    <string name="enter_your_password">Enter your password</string>
+    <string name="password">Password</string>
+    <string name="log_in">Log in ➜</string>
+    <string name="you_ve_achieved_x_stars">You\'ve achieved X stars</string>
+    <string name="current_username">Current username</string>
+    <string name="categories">Categories</string>
+    <string name="daily_challenge">Daily Challenge</string>
+    <string name="logout">Logout</string>
 </resources>

@@ -12,4 +12,14 @@
     <string name="title_activity_messaging_demo_fragment">" 消息传递演示"</string>
     <string name="language_setting">语言设置</string>
     <string name="backBtn">返回主页</string>
+    <string name="enter_your_username">Enter your username</string>
+    <string name="username">Username</string>
+    <string name="enter_your_password">Enter your password</string>
+    <string name="password">Password</string>
+    <string name="log_in">Log in ➜</string>
+    <string name="you_ve_achieved_x_stars">You\'ve achieved X stars</string>
+    <string name="current_username">Current username</string>
+    <string name="categories">Categories</string>
+    <string name="daily_challenge">Daily Challenge</string>
+    <string name="logout">Logout</string>
 </resources>
