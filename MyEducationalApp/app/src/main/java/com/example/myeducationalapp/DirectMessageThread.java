@@ -11,6 +11,10 @@ public class DirectMessageThread extends MessageThread {
     private String withUsername;
     private Person withUser;
 
+    public String getUsername() {
+        return withUsername;
+    }
+
     public DirectMessageThread(String withUsername) {
         this.withUsername = withUsername;
         this.withUser = new Person(withUsername);

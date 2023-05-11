@@ -4,6 +4,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.example.myeducationalapp.DirectMessageThread;
 import com.example.myeducationalapp.MessageThread;
 import com.example.myeducationalapp.Person;
 import com.example.myeducationalapp.Question;
@@ -19,6 +20,7 @@ import java.nio.file.AccessDeniedException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
 
 
 /**
@@ -251,6 +253,32 @@ public class Firebase {
         return FirebaseRequest.write(database, getDirectMessageFilepath(username1, username2), messages.toString());
     }
 
+    public void getAllUsersYouHaveMessaged(Function<DirectMessageThread, Void> callback) {
+        readLoginDetails().then((obj) -> {
+            String data = (String) obj;
+
+            if (!data.isEmpty()) {
+                String[] userLoginInfos = data.split("\n");
+                for (String userInfo : userLoginInfos) {
+                    String username = userInfo.split(",")[0];
+
+                    DirectMessageThread dms = new DirectMessageThread(username);
+                    dms.runWhenReady((ignored) -> {
+                        if (!dms.getMessages().isEmpty()) {
+                            dms.getMessages().get(dms.getMessages().size() - 1).runWhenReady((ignored1) -> {
+                                    callback.apply(dms);
+                                    return null;
+                                }
+                            );
+                        }
+                        return null;
+                    });
+                }
+            }
+            return null;
+        });
+    }
+
     public List<String> readAllUsernames() {
         String data = (String) readLoginDetails().await();
 
@@ -319,7 +347,7 @@ public class Firebase {
 
     public void eraseAllData(String safetyCheck) {
         if (!safetyCheck.equals("yes, I actually want to delete all data from firebase")) {
-            throw new RuntimeException("if you really want to delete everything, look at the source of Firebase.eraseAllData");
+            throw new RuntimeException("if you really want to delete everything, look at the source of Firebase.eraseAllData. WARNING: Alex will probably kill you if you delete everything");
         }
 
         database.removeValue();

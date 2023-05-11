@@ -13,15 +13,16 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/username_text_container"
         android:layout_width="350dp"
-        android:layout_height="63dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginBottom="25dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/home_search_container"
         android:elevation="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/password_label_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.524"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Username_label_text"
+        android:paddingVertical="20dp">
 
         <!-- Username entry field -->
         <EditText
@@ -31,7 +32,7 @@
             android:background="@null"
             android:ems="10"
             android:fontFamily="@font/ibm_plex_sans_medium"
-            android:hint="Enter your username"
+            android:hint="@string/enter_your_username"
             android:inputType="textAutoComplete|text"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -51,28 +52,29 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
-        android:layout_marginBottom="8dp"
         android:fontFamily="@font/ibm_plex_sans_bold"
-        android:text="Username"
+        android:text="@string/username"
         android:textColor="@color/black"
         android:textSize="17sp"
-        app:layout_constraintBottom_toTopOf="@+id/username_text_container"
-        app:layout_constraintStart_toStartOf="@+id/username_text_container" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/username_text_container"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Password Widget -->
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/password_text_container"
         android:layout_width="350dp"
-        android:layout_height="63dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginBottom="55dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/home_search_container"
         android:elevation="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/submit_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.524"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/password_label_text"
+        android:paddingVertical="20dp">
 
         <!-- Password entry field -->
         <EditText
@@ -82,7 +84,7 @@
             android:background="@null"
             android:ems="10"
             android:fontFamily="@font/ibm_plex_sans_medium"
-            android:hint="Enter your password"
+            android:hint="@string/enter_your_password"
             android:inputType="textPassword"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -94,7 +96,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.09" />
+            app:layout_constraintGuide_begin="32dp" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -104,23 +106,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="25dp"
         android:fontFamily="@font/ibm_plex_sans_bold"
-        android:text="Password"
+        android:text="@string/password"
         android:textColor="@color/black"
         android:textSize="17sp"
-        app:layout_constraintBottom_toTopOf="@+id/password_text_container"
-        app:layout_constraintStart_toStartOf="@+id/password_text_container" />
+        app:layout_constraintStart_toStartOf="@+id/password_text_container"
+        app:layout_constraintTop_toBottomOf="@+id/username_text_container" />
 
+    <!-- Login button widget -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/submit_button"
         android:layout_width="350dp"
-        android:layout_height="63dp"
-        android:layout_marginBottom="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="55dp"
         android:background="@drawable/login_submit_button"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/password_text_container"
+        android:paddingVertical="20dp">
 
 
         <TextView
@@ -128,7 +132,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/ibm_plex_sans_medium"
-            android:text="Log in ➜"
+            android:text="@string/log_in"
             android:textAlignment="textEnd"
             android:textColor="@color/white"
             android:textSize="18sp"

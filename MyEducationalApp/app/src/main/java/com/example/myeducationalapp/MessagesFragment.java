@@ -2,11 +2,15 @@ package com.example.myeducationalapp;
 
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.myeducationalapp.userInterface.UserInterfaceManagerViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +27,8 @@ public class MessagesFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private final String toolbarTitle = "Chats";
 
     public MessagesFragment() {
         // Required empty public constructor
@@ -53,6 +59,8 @@ public class MessagesFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+
     }
 
     @Override
@@ -60,5 +68,15 @@ public class MessagesFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_messages, container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+
+
+        UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
+        userInterfaceManager.getUiState().getValue().enterNewFragment(toolbarTitle);
+
+
     }
 }

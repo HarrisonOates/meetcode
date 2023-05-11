@@ -2,16 +2,19 @@ package com.example.myeducationalapp;
 
 import android.os.Bundle;
 
-import com.example.myeducationalapp.Firebase.Firebase;
-import com.google.android.material.snackbar.Snackbar;
+import com.example.myeducationalapp.userInterface.UserInterfaceManagerViewModel;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.activity.OnBackPressedDispatcher;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.util.Log;
 import android.view.View;
 
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
@@ -19,7 +22,10 @@ import com.example.myeducationalapp.databinding.ActivityMainBinding;
 
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.WindowInsetsController;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,8 +36,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(this).get(UserInterfaceManagerViewModel.class);
+
+        //binding = ActivityMainBinding.inflate(getLayoutInflater());
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        binding.setViewModel(userInterfaceManager);
+        binding.setLifecycleOwner(this);
+
+
+        //setContentView(binding.getRoot());
 
         setSupportActionBar(binding.toolbar);
 
@@ -44,7 +57,66 @@ public class MainActivity extends AppCompatActivity {
             getSupportActionBar().hide();
         }
 
-        new Thread(() -> System.out.printf("HERE: %s\n", Firebase.getInstance().readAllUsernames())).start();
+
+
+        // Dynamic elements
+        View toolbarBackwardsArrow = (View) findViewById(R.id.toolbar_left_arrow_icon);
+        View navMenuMailNotificationDot = (View) findViewById(R.id.nav_menu_mail_notification_dot);
+        // Clickable elements
+        View navMenuHomeIcon = (View) findViewById(R.id.nav_menu_home_icon);
+        View navMenuMailIcon = (View) findViewById(R.id.nav_menu_mail_icon);
+        View navMenuHamburgerIcon = (View) findViewById(R.id.nav_menu_hamburger_icon);
+        // Toolbar elements
+        TextView toolbarTitle = (TextView) findViewById(R.id.toolbar_title);
+        ImageView toolbarProfileIcon = (ImageView) findViewById(R.id.toolbar_profile_icon);
+        TextView toolbarStarContainerText = (TextView) findViewById(R.id.toolbar_star_container_number);
+
+
+        // Setting initial states of dynamic elements
+
+
+        // Anonymous on-click handlers
+        navMenuHomeIcon.setOnClickListener(view -> {
+
+            if (!Objects.equals(userInterfaceManager.getUiState().getValue().getToolbarTitle().getValue(), "Home")) {
+                //userInterfaceManager.getUiState().getValue().setIsActionBarInBackState(false);
+                navController.navigate(R.id.HomeFragment);
+            }
+
+        });
+
+        navMenuMailIcon.setOnClickListener(view -> {
+
+            if (!Objects.equals(userInterfaceManager.getUiState().getValue().getToolbarTitle().getValue(), "Messages")) {
+                //userInterfaceManager.getUiState().getValue().setIsActionBarInBackState(true);
+                navController.navigate(R.id.messagesFragment);
+            }
+
+        });
+
+        navMenuHamburgerIcon.setOnClickListener(view -> {
+
+            if (!Objects.equals(userInterfaceManager.getUiState().getValue().getToolbarTitle().getValue(), "Menu")) {
+                //userInterfaceManager.getUiState().getValue().setIsActionBarInBackState(true);
+                navController.navigate(R.id.accountFragment);
+            }
+
+        });
+
+        toolbarBackwardsArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onSupportNavigateUp();
+            }
+        });
+
+        toolbarProfileIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
 
     }
 
@@ -75,5 +147,9 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         return NavigationUI.navigateUp(navController, appBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    public void updateMenuUI() {
+
     }
 }

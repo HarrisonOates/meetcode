@@ -2,11 +2,18 @@ package com.example.myeducationalapp;
 
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.myeducationalapp.databinding.FragmentAccountBinding;
+import com.example.myeducationalapp.databinding.FragmentHomeBinding;
+import com.example.myeducationalapp.userInterface.UserInterfaceManagerViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +30,10 @@ public class AccountFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private FragmentAccountBinding binding;
+
+    private final String toolbarTitle = "Menu";
 
     public AccountFragment() {
         // Required empty public constructor
@@ -53,12 +64,35 @@ public class AccountFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
     @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+
+        UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
+        userInterfaceManager.getUiState().getValue().enterNewFragment(toolbarTitle);
+
+        binding.accountMenuCategoryConstraintLayout.setOnClickListener(view1 -> {
+            NavHostFragment.findNavController(AccountFragment.this).navigate(R.id.action_accountFragment_to_categoriesListFragment);
+        });
+
+        binding.accountMenuDailyChallengeConstraintLayout.setOnClickListener(view1 -> {
+            NavHostFragment.findNavController(AccountFragment.this).navigate(R.id.action_accountFragment_to_questionFragment);
+        });
+
+        binding.accountMenuLogOutConstraintLayout.setOnClickListener(view1 -> {
+            UserLogin.getInstance().logout();
+            NavHostFragment.findNavController(AccountFragment.this).navigate(R.id.action_accountFragment_to_loginActivity);
+        });
+
+    }
+
+        @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_account, container, false);
+        binding = FragmentAccountBinding.inflate(inflater, container, false);
+        return binding.getRoot();
     }
 }

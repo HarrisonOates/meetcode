@@ -23,7 +23,7 @@ public class DirectMessageFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    
     public DirectMessageFragment() {
         // Required empty public constructor
     }
