@@ -14,8 +14,8 @@ public class UserLocalDataTest {
         UserLocalData localData = UserLocalData.getInstance();
 
         UserLogin login = UserLogin.getInstance();
-        login.addUser("abc1231", "12345678");
-        login.authoriseUser("abc1231", "12345678");
+        login.addUser("aabc1231", "12345678");
+        login.authoriseUser("aabc1231", "12345678");
 
         assertEquals(";;;0", localData.toString());
 
@@ -51,8 +51,8 @@ public class UserLocalDataTest {
         UserLocalData localData = UserLocalData.getInstance();
 
         UserLogin login = UserLogin.getInstance();
-        login.addUser("abc1234", "12345678");
-        login.authoriseUser("abc1234", "12345678");
+        login.addUser("aabc1234", "12345678");
+        login.authoriseUser("aabc1234", "12345678");
 
         assertFalse(localData.isUserBlocked("abc"));
         localData.toggleBlockUser("abc");
@@ -72,8 +72,8 @@ public class UserLocalDataTest {
         UserLocalData localData = UserLocalData.getInstance();
 
         UserLogin login = UserLogin.getInstance();
-        login.addUser("abc12335", "12345678");
-        login.authoriseUser("abc12335", "12345678");
+        login.addUser("aabc12335", "12345678");
+        login.authoriseUser("aabc12335", "12345678");
 
         assertFalse(localData.isMessageLiked(1, 1));
         assertFalse(localData.isMessageLiked(1, 2));
@@ -103,8 +103,8 @@ public class UserLocalDataTest {
         UserLocalData localData = UserLocalData.getInstance();
 
         UserLogin login = UserLogin.getInstance();
-        login.addUser("abc1235", "12345678");
-        login.authoriseUser("abc1235", "12345678");
+        login.addUser("aabc1235", "12345678");
+        login.authoriseUser("aabc1235", "12345678");
 
         assertEquals(localData.getIncorrectAnswers("Q").size(), 0);
         assertFalse(localData.hasQuestionBeenAnsweredCorrectly("Q"));
@@ -145,8 +145,8 @@ public class UserLocalDataTest {
         UserLocalData localData = UserLocalData.getInstance();
 
         UserLogin login = UserLogin.getInstance();
-        login.addUser("abc1236", "12345678");
-        login.authoriseUser("abc1236", "12345678");
+        login.addUser("aabc1236", "12345678");
+        login.authoriseUser("aabc1236", "12345678");
 
         assertEquals(localData.getPoints(), 0);
         localData.submitCorrectAnswer("Q");
@@ -160,8 +160,8 @@ public class UserLocalDataTest {
         UserLocalData localData = UserLocalData.getInstance();
 
         UserLogin login = UserLogin.getInstance();
-        login.addUser("abc1237", "12345678");
-        login.authoriseUser("abc1237", "12345678");
+        login.addUser("aabc1237", "12345678");
+        login.authoriseUser("aabc1237", "12345678");
 
         assertEquals(localData.getPoints(), 0);
         localData.submitIncorrectAnswer("Q", "A");
@@ -177,8 +177,8 @@ public class UserLocalDataTest {
         UserLocalData localData = UserLocalData.getInstance();
 
         UserLogin login = UserLogin.getInstance();
-        login.addUser("abc1238", "12345678");
-        login.authoriseUser("abc1238", "12345678");
+        login.addUser("aabc1238", "12345678");
+        login.authoriseUser("aabc1238", "12345678");
 
         assertEquals(localData.getPoints(), 0);
         localData.submitIncorrectAnswer("Q", "A");

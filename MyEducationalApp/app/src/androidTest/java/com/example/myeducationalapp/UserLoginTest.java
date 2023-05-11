@@ -16,24 +16,24 @@ public class UserLoginTest {
     @Test
     public void standardLogin() {
         UserLogin login = UserLogin.getInstance();
-        login.addUser("alex", "12345678");
+        login.addUser("alex2", "12345678");
         // Correct username and password pair should authorise the user
-        login.authoriseUser("alex", "12345678");
+        login.authoriseUser("alex2", "12345678");
 
         String loggedInUser = login.getCurrentUsername();
-        assertEquals(loggedInUser, "alex");
+        assertEquals(loggedInUser, "alex2");
 
-        login.addUser("jayden", "12345678");
-        login.addUser("nikhila", "12345678");
+        login.addUser("jayden2", "12345678");
+        login.addUser("nikhila2", "12345678");
 
         // Having same password still result in different hashedPasswords because of the unique salts
-        assertNotEquals(login.userLogins.get("alex"), login.userLogins.get("jayden"));
-        assertNotEquals(login.userLogins.get("nikhila"), login.userLogins.get("jayden"));
-        assertNotEquals(login.userLogins.get("alex"), login.userLogins.get("nikhila"));
+        assertNotEquals(login.userLogins.get("alex2"), login.userLogins.get("jayden2"));
+        assertNotEquals(login.userLogins.get("nikhila2"), login.userLogins.get("jayden2"));
+        assertNotEquals(login.userLogins.get("alex2"), login.userLogins.get("nikhila2"));
 
         // Wrong password should not authorise the user
-        login.addUser("geun", "123456789");
-        assertFalse(login.authoriseUser("geun", "12345678"));
+        login.addUser("geun2", "123456789");
+        assertFalse(login.authoriseUser("geun2", "12345678"));
 
         System.out.println(login);
     }
@@ -43,14 +43,16 @@ public class UserLoginTest {
         UserLogin login = UserLogin.getInstance();
 
         // Too weak password
-        login.addUser("harry", "1234567");
+        login.addUser("harry2", "1234567");
     }
 
     @Test (expected = Exception.class)
     public void usernameAlreadyExistsTest() throws IllegalArgumentException {
         UserLogin login = UserLogin.getInstance();
 
+        login.addUser("alex3", "124356354");
+
         // The username already exists
-        login.addUser("alex", "13578642");
+        login.addUser("alex3", "13578642");
     }
 }
