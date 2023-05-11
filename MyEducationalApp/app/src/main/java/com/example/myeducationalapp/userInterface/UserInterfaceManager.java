@@ -1,21 +1,14 @@
 package com.example.myeducationalapp.userInterface;
 
-import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.myeducationalapp.Person;
-import com.example.myeducationalapp.R;
-import com.example.myeducationalapp.userInterface.State.ActionBarBackState;
-import com.example.myeducationalapp.userInterface.State.ActionBarStarsState;
-import com.example.myeducationalapp.userInterface.State.ActionBarState;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class UserInterfaceManager {
 
@@ -38,6 +31,8 @@ public class UserInterfaceManager {
     int previousFragmentAction;
 
     MutableLiveData<String> toolbarTitle = new MutableLiveData<>();
+
+    private final String homeToolbarTitle = "Home";
 
 
     // package-private constructor
@@ -122,9 +117,10 @@ public class UserInterfaceManager {
         this.toolbarTitle.setValue(toolbarTitle);
     }
 
-    public void enterNewFragment(String newToolbarTitle, boolean isHome) {
+    public void enterNewFragment(String newToolbarTitle) {
         this.toolbarTitle.setValue(newToolbarTitle);
-        if (isHome) {
+
+        if (Objects.equals(newToolbarTitle, homeToolbarTitle)) {
             this.isActionBarInBackState.setValue(false);
         } else {
             this.isActionBarInBackState.setValue(true);

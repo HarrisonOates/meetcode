@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import com.example.myeducationalapp.userInterface.UserInterfaceManagerViewModel;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.activity.OnBackPressedDispatcher;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.View;
@@ -12,6 +14,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
@@ -73,46 +76,37 @@ public class MainActivity extends AppCompatActivity {
 
 
         // Anonymous on-click handlers
-        navMenuHomeIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        navMenuHomeIcon.setOnClickListener(view -> {
 
-                if (!Objects.equals(userInterfaceManager.getUiState().getValue().getToolbarTitle().getValue(), "Home")) {
-                    //userInterfaceManager.getUiState().getValue().setIsActionBarInBackState(false);
-                    navController.navigate(R.id.HomeFragment);
-                }
-
+            if (!Objects.equals(userInterfaceManager.getUiState().getValue().getToolbarTitle().getValue(), "Home")) {
+                //userInterfaceManager.getUiState().getValue().setIsActionBarInBackState(false);
+                navController.navigate(R.id.HomeFragment);
             }
+
         });
 
-        navMenuMailIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        navMenuMailIcon.setOnClickListener(view -> {
 
-                if (!Objects.equals(userInterfaceManager.getUiState().getValue().getToolbarTitle().getValue(), "Messages")) {
-                    //userInterfaceManager.getUiState().getValue().setIsActionBarInBackState(true);
-                    navController.navigate(R.id.messagesFragment);
-                }
-
+            if (!Objects.equals(userInterfaceManager.getUiState().getValue().getToolbarTitle().getValue(), "Messages")) {
+                //userInterfaceManager.getUiState().getValue().setIsActionBarInBackState(true);
+                navController.navigate(R.id.messagesFragment);
             }
+
         });
 
-        navMenuHamburgerIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        navMenuHamburgerIcon.setOnClickListener(view -> {
 
-                if (!Objects.equals(userInterfaceManager.getUiState().getValue().getToolbarTitle().getValue(), "Menu")) {
-                    //userInterfaceManager.getUiState().getValue().setIsActionBarInBackState(true);
-                    navController.navigate(R.id.accountFragment);
-                }
-
+            if (!Objects.equals(userInterfaceManager.getUiState().getValue().getToolbarTitle().getValue(), "Menu")) {
+                //userInterfaceManager.getUiState().getValue().setIsActionBarInBackState(true);
+                navController.navigate(R.id.accountFragment);
             }
+
         });
 
         toolbarBackwardsArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                onSupportNavigateUp();
             }
         });
 

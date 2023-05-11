@@ -65,13 +65,13 @@ public class AccountFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-        UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
-        userInterfaceManager.getUiState().getValue().enterNewFragment(toolbarTitle, false);
-
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+
+        UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
+        userInterfaceManager.getUiState().getValue().enterNewFragment(toolbarTitle);
 
         binding.accountMenuCategoryConstraintLayout.setOnClickListener(view1 -> {
             NavHostFragment.findNavController(AccountFragment.this).navigate(R.id.action_accountFragment_to_categoriesListFragment);

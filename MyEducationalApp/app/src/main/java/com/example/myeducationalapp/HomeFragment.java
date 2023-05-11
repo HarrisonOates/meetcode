@@ -77,9 +77,6 @@ public class HomeFragment extends Fragment {
 
         GeneratedUserInterfaceViewModel genUserInterfaceManager = new ViewModelProvider(this).get(GeneratedUserInterfaceViewModel.class);
         genUserInterfaceManager.addToListOfElements(new HomeCategoryCard(null, null, "hiasdasdsadsasdasdsa", "hasadsi"));
-
-        UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
-        userInterfaceManager.getUiState().getValue().enterNewFragment(toolbarTitle, true);
     }
 
     @Override
@@ -97,8 +94,7 @@ public class HomeFragment extends Fragment {
         generateHomeCategoryCard((HomeCategoryCard) genUserInterfaceManager.listOfElements.get(0), getActivity());
 
         UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
-
-        userInterfaceManager.getUiState().getValue().setToolbarTitle(toolbarTitle);
+        userInterfaceManager.getUiState().getValue().enterNewFragment(toolbarTitle);
 
         binding.homeCategorySeeMoreText.setOnClickListener(view1 -> {
             NavHostFragment.findNavController(HomeFragment.this).navigate(R.id.action_HomeFragment_to_categoriesListFragment);

@@ -62,8 +62,6 @@ public class CategoriesListFragment extends Fragment {
         }
 
 
-        UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
-        userInterfaceManager.getUiState().getValue().enterNewFragment(toolbarTitle, false);
 
     }
 
@@ -78,6 +76,8 @@ public class CategoriesListFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 
 
+        UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
+        userInterfaceManager.getUiState().getValue().enterNewFragment(toolbarTitle);
 
 
     }
