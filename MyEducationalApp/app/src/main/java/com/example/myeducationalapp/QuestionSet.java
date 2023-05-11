@@ -210,6 +210,24 @@ public class QuestionSet {
                         "    int x = 1" +
                         "    int y = ((x & (-2)) ^ (-1)) + 1;"
         , "0", Category.Miscellaneous, "4");
+
+        // Labels
+        addQuestion(
+                // THIS QUESTION NEEDS SYNTAX HIGHLIGHTING DISABLED FOR IT TO WORK PROPERLY
+                "Will this of piece of Java code compile (assuming it is placed within a valid class)?" +
+                        "public void method() {                  // line 1" +
+                        "    https://www.google.com              // line 2" +
+                        "    http://www.anusolarracing.com       // line 3" +
+                        "    https://www.example.com             // line 4" +
+                        "    www.example.com                     // line 5" +
+                        "}" +
+                        "A: Yes" +
+                        "B: No, the first error occurs on line 2" +
+                        "C: No, the first error occurs on line 3" +
+                        "D: No, the first error occurs on line 4" +
+                        "E: No, the first error occurs on line 5"
+                , "D", Category.Miscellaneous, "5");
+
     }
 
 
