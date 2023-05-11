@@ -39,10 +39,6 @@ public class Message extends Asynchronous {
         return indexWithinThread;
     }
 
-    private FirebaseResult downloadUpdatedLikeCount() {
-        return thread.downloadMessageLikeCounts();
-    }
-
     private void uploadNewLikedByCount() {
         thread.runAfterAllLoaded((obj) -> {
             thread.uploadChanges();
@@ -113,8 +109,6 @@ public class Message extends Asynchronous {
          */
         String[] components = data.split("\t", -1);
 
-        Log.w("dbg", "DATA IS: " + data);
-
         replyingTo = Integer.parseInt(components[0]);
         content = unescapeString(components[1]);
         sentBy = new Person(unescapeString(components[2]));
@@ -156,8 +150,6 @@ public class Message extends Asynchronous {
          * might disappear).
          */
         sentBy.runWhenReady((ignored) -> {
-            Log.w("dbg", "sendBy.getUsername(): " + sentBy.getUsername());
-
             String currentUser = UserLogin.getInstance().getCurrentUsername();
 
             if (wasLikedByCurrentUser) {

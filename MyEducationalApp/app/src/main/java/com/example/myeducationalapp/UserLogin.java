@@ -148,9 +148,16 @@ public class UserLogin {
                 throw new RuntimeException("log out previous user before trying to log in!");
             }
             loggedInUsername = username;
+
+            UserLocalData.getInstance().loadFromDisk();
         }
 
         return success;
+    }
+
+    public void logout() {
+        UserLocalData.getInstance().logout();
+        loggedInUsername = null;
     }
 
     @Override

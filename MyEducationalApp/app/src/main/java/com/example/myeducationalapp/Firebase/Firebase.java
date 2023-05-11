@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+
 /**
  * FirebaseInstance.java
  *
@@ -166,8 +167,7 @@ public class Firebase {
          * in the chat.
          */
         if (!UserLogin.getInstance().isUserLoggedIn(username1) && !UserLogin.getInstance().isUserLoggedIn(username2)) {
-            Log.e("dbg", "FOR DEBUGGING ONLY, AUTH HAS BEEN REMOVED");
-            //throw new AccessDeniedException("you do not have permission to read this conversation");
+            throw new AccessDeniedException("you do not have permission to read this conversation");
         }
         return FirebaseRequest.read(database, getDirectMessageFilepath(username1, username2));
     }
@@ -249,6 +249,21 @@ public class Firebase {
         }
 
         return FirebaseRequest.write(database, getDirectMessageFilepath(username1, username2), messages.toString());
+    }
+
+    public List<String> readAllUsernames() {
+        String data = (String) readLoginDetails().await();
+
+        List<String> usernames = new ArrayList<>();
+
+        if (!data.isEmpty()) {
+            String[] userLoginInfos = data.split("\n");
+            for (String userInfo : userLoginInfos) {
+                usernames.add(userInfo.split(",")[0]);
+            }
+        }
+
+        return usernames;
     }
 
     public FirebaseResult debugDeleteAllDirectMessages(String username1, String username2) {

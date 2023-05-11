@@ -1,18 +1,4 @@
-# [Team Name] Report
-
-The following is a report template to help your team successfully provide all the details necessary for your report in a structured and organised manner. Please give a straightforward and concise report that best demonstrates your project. Note that a good report will give a better impression of your project to the reviewers.
-
-*Here are some tips to write a good report:*
-
-* *Try to summarise and list the `bullet points` of your project as many as possible rather than give long, tedious paragraphs that mix up everything together.*
-
-* *Try to create `diagrams` instead of text descriptions, which are more straightforward and explanatory.*
-
-* *Try to make your report `well structured`, which is easier for the reviewers to capture the necessary information.*
-
-*We give instructions enclosed in square brackets [...] and examples for each sections to demonstrate what are expected for your project report.*
-
-*Please remove the instructions or examples in `italic` in your final report.*
+# G11 "Zenith Labs" Report
 
 ## Table of Contents
 
@@ -29,42 +15,85 @@ The following is a report template to help your team successfully provide all th
 
 ## Team Members and Roles
 
-| UID | Name | Role |
-| :--- | :----: | ---: |
-| [uid] | [name] | [role] |
-| [uid] | [name] | [role] |
-| [uid] | [name] | [role] |
-| [uid] | [name] | [role] |
+| UID              |        Name        |                                                            Role |
+|:-----------------|:------------------:|----------------------------------------------------------------:|
+| u7468248         |    Alex Boxall     |                           Firebase and Messaging Implementation |
+| u7469758         |      Geun Yun      |  Data Structures, Authorisation and Localisation Implementation |
+| u7468212         |   Harrison Oates   |            Syntax Highlighting Design and Parser Implementation |
+| u7146309         |  Jayden Skidmore   |                 Search Grammar Design and Parser Implementation |
+| u7300256         | Nikhila Gurusinghe |                        User Interface Design and Implementation |
 
 ## Summary of Individual Contributions
 
-*[Summarise the contributions made by each member to the project, e.g. code implementation, code design, UI design, report writing, etc.]*
+**you should ALSO provide links to the specified classes and/or functions**
 
-*[Code Implementation. Which features did you implement? Which classes or methods was each member involved in? Provide an approximate proportion in pecentage of the contribution of each member to the whole code implementation, e.g. 30%.]*
-
-*Here is an example:*
-
-*UID1, Name1, I contribute 30% of the code. Here are my contributions:*
+u7468248, Alex Boxall: I contributed 20% of the code. Here are my contributions:
 * A.class
 * B.class: function1(), function2(), ...
-* ....
+* What design patterns, data structures, did the involved member propose?
+* Specify what design did the involved member propose? What tools were used for the design?
+* Which part of the report did the involved member write?
+* Were you responsible for the slides?
+* You are welcome to provide anything that you consider as a contribution to the project or team.
 
-*you should ALSO provide links to the specified classes and/or functions*
 
-*[Code Design. What design patterns, data structures, did the involved member propose?]*
+u7469758, Geun Yun: I contributed 20% of the code. Here are my contributions:
+* All of MyEducationalApp/app/src/main/java/com/example/myeducationalapp/AVLTree.java
+  * All of MyEducationalApp/app/src/test/java/com/example/myeducationalapp/AVLTreeTest.java
+* Most of MyEducationalApp/app/src/main/java/com/example/myeducationalapp/UserLogin.java 
+  * Most of MyEducationalApp/app/src/androidTest/java/com/example/myeducationalapp/UserLoginTest.java
+* All of MyEducationalApp/app/src/main/java/com/example/myeducationalapp/LanguageSetting.java
+  * Most of
+    MyEducationalApp/app/src/main/res/values-pt-rBR/strings.xml
+    MyEducationalApp/app/src/main/res/values-zh-rCN/strings.xml
+    MyEducationalApp/app/src/main/res/values-ja/strings.xml
+    MyEducationalApp/app/src/main/res/values-ko-rKR/strings.xml
+* B.class: function1(), function2(), ...
+* What design patterns, data structures, did the involved member propose?
+  * I was responsible for implementing AVLTree as the data structure which stores xxx
+* Specify what design did the involved member propose? What tools were used for the design?
+* Which part of the report did the involved member write?
+* Were you responsible for the slides?
+* You are welcome to provide anything that you consider as a contribution to the project or team.
 
-*[UI Design. Specify what design did the involved member propose? What tools were used for the design?]*
 
-*[Report Writing. Which part of the report did the involved member write?]*
+u7468212, Harrison Oates: I contributed 20% of the code. Here are my contributions:
+* A.class
+* B.class: function1(), function2(), ...
+* What design patterns, data structures, did the involved member propose?
+* Specify what design did the involved member propose? What tools were used for the design?
+* Which part of the report did the involved member write?
+* Were you responsible for the slides?
+* You are welcome to provide anything that you consider as a contribution to the project or team.
 
-*[Slide preparation. Were you responsible for the slides?]*
 
-*[Miscellaneous contributions. You are welcome to provide anything that you consider as a contribution to the project or team.]*
+u7146309, Jayden Skidmore: I contributed 20% of the code. Here are my contributions:
+* A.class
+* B.class: function1(), function2(), ...
+* What design patterns, data structures, did the involved member propose?
+* Specify what design did the involved member propose? What tools were used for the design?
+* Which part of the report did the involved member write?
+* Were you responsible for the slides?
+* You are welcome to provide anything that you consider as a contribution to the project or team.
+
+
+u7300256, Nikhila Gurusinghe: I contributed 20% of the code. Here are my contributions:
+* A.class
+* B.class: function1(), function2(), ...
+* What design patterns, data structures, did the involved member propose?
+* Specify what design did the involved member propose? What tools were used for the design?
+* Which part of the report did the involved member write?
+* Were you responsible for the slides?
+* You are welcome to provide anything that you consider as a contribution to the project or team.
 
 ## Conflict Resolution Protocol
 
-*[Write a well defined protocol your team can use to handle conflicts. That is, if your group has problems, what is the procedure for reaching consensus or solving a problem?
-(If you choose to make this an external document, link to it here)]*
+The following conflict resolution protocol was decided on in our first meeting.
+- If someone doesn't meet deadlines: Expectation to communicate if any deadline is expected to be missed.  Ask for explanation, how much more time they need. If they can't catch up, work is allocated to rest of team and contribution score is adjusted accordingly.
+- If someone gets sick: Take the time off, let everyone know you're sick. We'll try to program in a buffer period to account for this. If sickness is justifiable it will not affect contribution score.
+- In the case of disagreements: Civil discussion without talking over each other followed by a vote which bounds the team to that direction, the vote can only be overturned by another vote.
+- ChatGPT and other generative AI tools: Don't use it except as a last resort, ask team members before using.
+- Communication: use Microsoft Teams messages.
 
 
 ## Application Description
@@ -79,27 +108,20 @@ The following is a report template to help your team successfully provide all th
 
 *[Provide use cases and examples of people using your application. Who are the target users of your application? How do the users use your application?]*
 
-*Here is a pet training application example*
+*Here is an educational application example*
 
-*Molly wants to inquiry about her cat, McPurr's recent troublesome behaviour*
-1. *Molly notices that McPurr has been hostile since...*
-2. *She makes a post about... with the tag...*
-3. *Lachlan, a vet, writes a reply to Molly's post...*
-4. ...
-5. *Molly gives Lachlan's reply a 'tick' response*
+*Target Users: Those who have started learning programming in java*
 
-*Here is a map navigation application example*
-
-*Targets Users: Drivers*
-
-* *Users can use it to navigate in order to reach the destinations.*
-* *Users can learn the traffic conditions*
+* *Users can get better understanding of various topics by attempting the daily question.*
+* *Users from non-English speaking background can still learn as the app supports localisation with multiple languages.*
 * ...
 
-*Target Users: Those who want to find some good restaurants*
+*Targets Users: Those who wish to discuss about programming*
 
-* *Users can find nearby restaurants and the application can give recommendations*
+* *Users can mutually interact with each other by direct messaging and comments which in return will benefit them from the progressing collective intelligence.*
+* *Users can maintain constructive relationships with others by blocking anyone, who is causing any harm through the interaction.*
 * ...
+
 
 *List all the use cases in text descriptions or create use case diagrams. Please refer to https://www.visual-paradigm.com/guide/uml-unified-modeling-language/what-is-use-case-diagram/ for use case diagram.*
 
@@ -112,44 +134,100 @@ The following is a report template to help your team successfully provide all th
 
 *Please give clear and concise descriptions for each subsections of this part. It would be better to list all the concrete items for each subsection and give no more than `5` concise, crucial reasons of your design. Here is an example for the subsection `Data Structures`:*
 
-*I used the following data structures in my project:*
-
-1. *LinkedList*
-
-   * *Objective: It is used for storing xxxx for xxx feature.*
-
-   * *Locations: line xxx in XXX.java, ..., etc.*
-
-   * *Reasons:*
-
-     * *It is more efficient than Arraylist for insertion with a time complexity O(1)*
-
-     * *We don't need to access the item by index for this feature*
-
-2. ...
-
-3. ...
-
 **Data Structures**
 
-*[What data structures did your team utilise? Where and why?]*
+We used the following data structures in our project:
+
+1. AVL Tree
+
+   * Objective: It is used for storing xxxx for xxx feature.
+
+   * Locations: line xxx in XXX.java, ..., etc.
+
+   * Reasons:
+
+     * It is more efficient than Arraylist for insertion with a time complexity O(1)
+
+     * We don't need to access the item by index for this feature
+
+2. Having the property of self-balancing along with the binary search tree guarantees the performance of O(logN) in the worst case for insertion, deletion and searching.
+
+3. Unlike the most operation in the AVL Tree, the deletion was not covered in the lecture, so its implementation will be briefly outlined.
+   * The node that is to be deleted first gets searched, similar to the initial search fro the insertion.
+   * It then gets deleted accordingly preserving the BST properties depending on the number of children node/s it has.
+   * The tree now identifies node/s that violate/s the balance factor rule.
+   * Balance the subtree based on the imbalanced nodes, which uses the same method for balancing in the insertion.
+   * Note that it is possible that the balancing is required multiple times, unlike the insertion where the whole tree was guaranteed to be AVL Tree after a single balancing.
+   * The author believes that it is because the insertion only manipulates the leaf node, while the deletion manipulates any node, which can cause more than one imbalanced path.
 
 **Design Patterns**
 
-*[What design patterns did your team utilise? Where and why?]*
+We used the following design patterns in our project:
+
+1. Singleton
+
+* Objective: It is used for storing xxxx for xxx feature.
+
+* Locations: line xxx in XXX.java, ..., etc.
+
+* Reasons:
+
+   * It is more efficient than Arraylist for insertion with a time complexity O(1)
+
+   * We don't need to access the item by index for this feature
+
+2. State
+
+3. Observer
 
 **Grammar(s)**
 
-Production Rules:
+Production rules for the search:
     
     <Non-Terminal> ::= <some output>
     <Non-Terminal> ::= <some output>
 
 *[How do you design the grammar? What are the advantages of your designs?]*
 
-*If there are several grammars, list them all under this section and what they relate to.*
+Production rules for syntax highlighting:
+
+      TOKENS          ::= KEYWORD | NUMERIC_LITERAL | STRING_LITERAL | IDENTIFIER | NEWLINE | WHITESPACE | PUNCTUATOR | END-GRAMMAR
+      KEYWORD         ::= <font color = "orange"> keyword </font> TOKENS
+      NUMERIC_LITERAL ::= <font color = "blue"> numeric_literal </font> TOKENS
+      STRING_LITERAL  ::= <font color = "green"> string_literal </font> TOKENS 
+      IDENTIFIER      ::= <font color = "purple"> identifier </font> TOKENS | identifier TOKENS
+      NEWLINE         ::= <br> TOKENS 
+      WHITESPACE      ::= (<&nbsp;>)* TOKENS
+      PUNCTUATOR      ::= <font color = "purple"> punctuator </font> TOKENS
+      END-GRAMMAR     ::= [finish parsing]
+
+      keyword         ::=  abstract |  assert |  boolean |  break    |  byte 
+                        |  case   |  catch    |  char    |  continue |  default 
+                        |  do     |  double   |  else    |  enum     |  extends 
+                        |  final  |  finally  |  float   |  for      |  if 
+                        | implements |  import |  instanceof |  int |  interface 
+                        |  long |  native |  new |  package |  private |  protected 
+                        |  public |  return |  short |  static |  strictfp |  super 
+                        | synchronized |  this |  throw |  throws |  transient 
+                        |  try |  void |  volatile |  while 
+
+      numeric         ::= \{x | x \in \mathbb{R}, base 10, 2, or 16\}. 
+      string literal  ::= "[a-zA-Z]+" | ""
+      identifier      ::= [a-zA-Z]+
+      punctuator      :=  { | } | ( | ) | [ | ] | . | : | = | - | + | ! | @ | # 
+                        | $ | % | ^ | & | * | ; | ' | ~ | < | > | / | \ | | |
+
+   
+   This grammar implements a custom-designed syntax highlighter for Java. An advantage of this approach is that it is easily extensible if more complex syntax highlighting is required later, but does not need the full Java specification grammar to create the colours.
+   This choice was made because the student is not debugging code in our app, so additional context clues such as wavy red lines under invalid Java syntax is irrelevant, and not a feature of other dynamic syntax highlighting solutions like highlight.js, as the maintainer of that project highlights [here](https://stackoverflow.com/questions/60455635/does-highlight-js-check-syntax-as-well).
+   
+   The grammar was designed through observing the characteristics of common colour schemes like Dracula and Android Studio's default themes.
+
+*[How do you design the grammar? What are the advantages of your designs?]*
 
 **Tokenizer and Parsers**
+
+Two tokenizers and parses were built...
 
 *[Where do you use tokenisers and parsers? How are they built? What are the advantages of the designs?]*
 
@@ -204,20 +282,49 @@ Production Rules:
 <br><br>
 
 ### General Features
-Feature Category: Privacy <br>
-1. [Privacy-Request]. Description of the feature and your implementation (easy)
-   * Class X, methods Z, Y, Lines of code: 10-100
-   * Class Y, methods K, L, M, Lines of code: 35-150
+Feature Category: Data Structures <br>
+1. [Data-Deletion]. Deletion method of either a Red-Black Tree, AVL tree or B-Tree data structure. The deletion of nodes must serve a purpose within your application. (hard)
+   * Class AVLTree, methods delete, findImbalanceDelete, deleteBeforeBalance, balanceSubtree, Lines of code: 53
    * Additional description: ...
-<br>
-2. [Privacy-Block]. Description ... ... (medium)
-    * ... ...
-<br>
 
 Feature Category: Firebase Integration <br>
-3. [FB-Auth] Description of the feature and your implementation (easy)
-   * Class A: methods A, B, C, lines of code: whole file
-   * …
+2. [FB-Persist] Use Firebase to persist all data used in your app. (medium)
+   * Class Firebase.Firebase: methods A, B, C, lines of code: whole file
+   * Class Firebase.FirebaseRequest:
+   * Class Firebase.FirebaseResult:
+   * Class UserLocalData:
+   * Class Asynchronous:
+   * Additional description: ...
+<br>
+3. [FB-Syn] Using Firebase or another remote database to store user information and having the app
+   updated as the remote database is updated without restarting the application. (hard)
+   * Class Firebase.FirebaseRequest: methods A, B, C, lines of code: whole file
+   * Class Firebase.FirebaseResult:
+   * Class MessageThread:
+   * Class DirectMessageThread:
+   * Class QuestionMessageThread:
+   * Class Asynchronous:
+   * Class <some UI stuff>:
+   * Additional description: ...
+
+Feature Category: Peer-to-peer messaging <br>
+4. [P2P-Block] Provide users with the ability to ‘block’ users, preventing them from direct messaging
+   them. (medium)
+   * Class UserLocalData: methods A, B, C, lines of code: whole file
+   * Class ??? (probably some UI stuff): ...
+   * Additional description: ...
+<br>
+5. [P2P-DM] Provide users with the ability to message each other directly in private. (hard)
+   * Class Message: methods A, B, C, lines of code: whole file
+   * Class DirectMessageThread: ...
+   * Class ??? (probably some UI stuff): ...
+   * Additional description: ...
+
+Feature Category: Syntax Highlighting (custom, approved as per [here](https://wattlecourses.anu.edu.au/mod/forum/discuss.php?d=870859)) <br>
+6. [Custom-Syntax-Highlighting]. Description: The user interface will be able to display snippets of code to the user, with dynamically generated syntax highlighting applied. The syntax of the code will be Java-like. (hard)
+   * Class SyntaxHighlighting.???, methods Z, Y, Lines of code: 10-100
+   * Class SyntaxHighlighting.???, methods K, L, M, Lines of code: 35-150
+   * Additional description: ...
 
 *List all features you have completed in their separate categories with their difficulty classification. If they are features that are suggested and approved, please state this somewhere as well.*
 
@@ -226,7 +333,9 @@ Feature Category: Firebase Integration <br>
 *Here is an example (you could start numbering your meetings from 1):*
 
 - *[Team Meeting 1](./meeting1.md)*
-- ...
+- *[Team Meeting 2](./meeting2.md)*
+- *[Team Meeting 3](./meeting3.md)*
+- *[Team Meeting 4](./meeting4.md)*
 
 * Link to the minutes of your meetings as above. There must be at least 4 team meetings. 
 Note that you must commit your minute meetings shortly after your meeting has taken place (e.g., within 24h), otherwise your meeting minute will not be accepted.

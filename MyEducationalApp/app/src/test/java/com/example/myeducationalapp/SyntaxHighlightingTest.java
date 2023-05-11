@@ -2,6 +2,7 @@ package com.example.myeducationalapp;
 
 import static org.junit.Assert.assertEquals;
 
+import com.example.myeducationalapp.SyntaxHighlighting.DetectCodeBlock;
 import com.example.myeducationalapp.SyntaxHighlighting.Token;
 import com.example.myeducationalapp.SyntaxHighlighting.Tokenizer;
 
@@ -25,9 +26,11 @@ public class SyntaxHighlightingTest {
         String[] arbitraryWhitespace = new String[]{"  ", "Token(  , WHITESPACE)"};
         String[] punctuator          = new String[]{"{", "Token({, PUNCTUATOR)"};
         String[] stringLiteral       = new String[]{"\"Hello World!\"", "Token(\"Hello World!\", STRING_LITERAL)"};
+        String[] binaryPrefix        = new String[]{"0b1001", "Token(0b1001, NUMERIC_LITERAL)"};
+        String[] hexPrefix          = new String[]{"0xDEADBEEF", "Token(0xDEADBEEF, NUMERIC_LITERAL)"};
 
 
-        return Arrays.asList(new String[][]{declaration, numericLiteral,newLine, arbitraryWhitespace, punctuator,stringLiteral});
+        return Arrays.asList(new String[][]{declaration, numericLiteral, newLine, arbitraryWhitespace, punctuator, stringLiteral, binaryPrefix, hexPrefix});
     }
 
     @Parameterized.Parameter()
