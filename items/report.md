@@ -202,7 +202,7 @@ Production rules for syntax highlighting:
                         | synchronized |  this |  throw |  throws |  transient 
                         |  try |  void |  volatile |  while 
 
-      numeric         ::= \{x | x \in \mathbb{R}, x optionally has 0x or 0b prefix\} 
+      numeric         ::= \{x | x \in \mathbb{R}, base 10, 2, or 16\}. 
       string literal  ::= "[a-zA-Z]+" | ""
       identifier      ::= [a-zA-Z]+
       punctuator      :=  { | } | ( | ) | [ | ] | . | : | = | - | + | ! | @ | # 
