@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import java.util.UUID;
+import java.util.function.Function;
 
 public class QuestionSet {
     public enum Category {Algorithm, ControlFlow, DataStructure, Miscellaneous, Recursion}
@@ -220,17 +221,17 @@ public class QuestionSet {
                         "    http://www.anusolarracing.com       // line 3" +
                         "    https://www.example.com             // line 4" +
                         "    www.example.com                     // line 5" +
+                        "    ();                                 // line 6" +
                         "}" +
                         "A: Yes" +
                         "B: No, the first error occurs on line 2" +
                         "C: No, the first error occurs on line 3" +
                         "D: No, the first error occurs on line 4" +
-                        "E: No, the first error occurs on line 5"
+                        "E: No, the first error occurs on line 5" +
+                        "F: No, the first error occurs on line 6"
                 , "D", Category.Miscellaneous, "5");
 
     }
-
-
 
     public HashMap<String, String[]> getUsedQuestionSets() {
         return usedQuestionSets;
