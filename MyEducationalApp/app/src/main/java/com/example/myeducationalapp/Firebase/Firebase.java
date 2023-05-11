@@ -347,7 +347,7 @@ public class Firebase {
 
     public void eraseAllData(String safetyCheck) {
         if (!safetyCheck.equals("yes, I actually want to delete all data from firebase")) {
-            throw new RuntimeException("if you really want to delete everything, look at the source of Firebase.eraseAllData");
+            throw new RuntimeException("if you really want to delete everything, look at the source of Firebase.eraseAllData. WARNING: Alex will probably kill you if you delete everything");
         }
 
         database.removeValue();
