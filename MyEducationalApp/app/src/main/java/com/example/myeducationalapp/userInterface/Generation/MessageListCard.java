@@ -25,7 +25,7 @@ public class MessageListCard {
         this.headingText = headingText;
         this.subHeadingText = subHeadingText;
         this.directMessageThread = directMessageThread;
-        this.isNotification = true;
+        this.isNotification = false;
     }
 
     @Override

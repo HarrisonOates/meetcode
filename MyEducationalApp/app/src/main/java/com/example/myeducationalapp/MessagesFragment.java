@@ -3,20 +3,7 @@ package com.example.myeducationalapp;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.os.AsyncTask;
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.ConstraintSet;
-import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.fragment.NavHostFragment;
-
-import android.os.Handler;
-import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
@@ -28,6 +15,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
+
 import com.example.myeducationalapp.Firebase.Firebase;
 import com.example.myeducationalapp.databinding.FragmentMessagesBinding;
 import com.example.myeducationalapp.userInterface.Generation.MessageListCard;
@@ -35,8 +31,6 @@ import com.example.myeducationalapp.userInterface.UserInterfaceManagerViewModel;
 import com.google.android.material.divider.MaterialDivider;
 
 import java.util.Objects;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -55,8 +49,6 @@ public class MessagesFragment extends Fragment {
     private String mParam2;
 
     private FragmentMessagesBinding binding;
-
-    Firebase firebase;
 
     private final String toolbarTitle = "Chats";
 
@@ -90,37 +82,6 @@ public class MessagesFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-
-        UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
-
-        Log.d("MessagesFragment", String.valueOf(userInterfaceManager.getCurrentDirectMessages().getValue().size()));
-
-//        // If view model has no data then we need to load it from the server into the view model
-//        if (userInterfaceManager.getCurrentDirectMessages().getValue().size() == 0) {
-//
-//            Firebase.getInstance().getAllUsersYouHaveMessaged(dms -> {
-//
-//                String directMessageRecipient = dms.getUsername();
-//
-//                MessageListCard template = new MessageListCard(R.drawable.user_profile_default, directMessageRecipient, "THIS IS EMPTY", dms);
-//
-//                if (dms.getMessages().size() > 0) {
-//                    Message lastDirectMessage = dms.getMessages().get(dms.getMessages().size() - 1);
-//
-//                    if (Objects.equals(lastDirectMessage.getPoster().getUsername(), UserLogin.getInstance().getCurrentUsername())) {
-//                        template = new MessageListCard(R.drawable.user_profile_default, directMessageRecipient, "You: " + lastDirectMessage.getContent(), dms);
-//                    } else {
-//                        template = new MessageListCard(R.drawable.user_profile_default, directMessageRecipient, lastDirectMessage.getContent(), dms);
-//                    }
-//                }
-//
-//                userInterfaceManager.getCurrentDirectMessages().getValue().put(directMessageRecipient, template);
-//                Log.d("MessagesFragment", String.valueOf(userInterfaceManager.getCurrentDirectMessages().getValue().size()));
-//                //drawAllMessageListCards();
-//
-//                return null;
-//            });
-//        }
     }
 
     @Override
@@ -137,15 +98,12 @@ public class MessagesFragment extends Fragment {
         UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
         userInterfaceManager.getUiState().getValue().enterNewFragment(toolbarTitle, false);
 
-
-        // do background stuff here
         if (userInterfaceManager.getCurrentDirectMessages().getValue().size() == 0) {
-            Log.d("MessagesFragment", "Reload");
             Firebase.getInstance().getAllUsersYouHaveMessaged(dms -> {
 
                 String directMessageRecipient = dms.getUsername();
 
-                MessageListCard template = new MessageListCard(R.drawable.user_profile_default, directMessageRecipient, "THIS IS EMPTY", dms);
+                MessageListCard template = new MessageListCard(R.drawable.user_profile_default, directMessageRecipient, "", dms);
 
                 if (dms.getMessages().size() > 0) {
                     Message lastDirectMessage = dms.getMessages().get(dms.getMessages().size() - 1);
@@ -163,12 +121,10 @@ public class MessagesFragment extends Fragment {
 
                 return null;
             });
+
         } else {
             drawAllMessageListCards();
         }
-
-        Log.d("MessagesFragment", "OnViewCreated");
-
     }
 
     public void getAllUsersYouHaveMessagedCallback(DirectMessageThread directMessageThread) {
@@ -306,15 +262,6 @@ public class MessagesFragment extends Fragment {
         }
 
         constraintLayout.setOnClickListener(view -> {
-
-            // TODO some way of relating this to the actual message thread
-            // Maybe store a reference to a relevant class in the genUI list?
-            // Need to send some intents as well
-
-            // TODO for notifications, need to store reference to heading, subheading,
-            // and notificationDot possible in the genUI class, or make a new viewModel?
-            // need to find a way to reference the template object that is in the list then
-            // maybe with a global counter, used to iterate through the list in genUI
 
             UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
             userInterfaceManager.getUiState().getValue().setToolbarTitle(heading.getText().toString());
