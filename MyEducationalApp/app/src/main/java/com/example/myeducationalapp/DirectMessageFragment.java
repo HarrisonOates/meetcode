@@ -120,7 +120,7 @@ public class DirectMessageFragment extends Fragment {
                 Log.d("DirectMessageFragment", "More than one message");
                 Log.d("DirectMessageFragment", String.valueOf(messages.get(i + 1).getPoster() == currentPoster));
 
-                if (messages.get(i + 1).getPoster() == currentPoster) {
+                if (messages.get(i + 1).getPoster().equals(currentPoster)) {
                     // We have multiple messages from the same poster
                     ArrayList<Message> currentPosterMessages = new ArrayList<>();
 
@@ -128,18 +128,19 @@ public class DirectMessageFragment extends Fragment {
                     currentPosterMessages.add(messages.get(i + 1));
 
                     // loop until we reach a message from the next poster
-                    for (int j = i + 1; j < messagesSize; j++) {
+                    for (int j = i + 2; j < messagesSize; j++) {
                         Log.d("DirectMessageFragment", "Looping...");
 
                         Message nextMessage = messages.get(j);
 
-                        if (nextMessage.getPoster() == currentPoster) {
+                        if (nextMessage.getPoster().equals(currentPoster)) {
                             currentPosterMessages.add(nextMessage);
+                            i = j;
                         } else {
                             // If poster is not the currentPoster, we've reached the end of
-                            // the posts from the currentPoster, so update i-1 (to account for increment)
+                            // the posts from the currentPoster, so update i
                             // index and then break
-                            i = j - 1;
+                            i = j;
                             break;
                         }
                     }
