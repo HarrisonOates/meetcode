@@ -4,6 +4,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.example.myeducationalapp.AVLTree;
 import com.example.myeducationalapp.DirectMessageThread;
 import com.example.myeducationalapp.MessageThread;
 import com.example.myeducationalapp.Person;
@@ -18,6 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.nio.file.AccessDeniedException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.function.Function;
 
@@ -58,6 +60,42 @@ public class Firebase {
      * A pointer to the internal Firebase object (i.e. the Android Firebase API).
      */
     private DatabaseReference database;
+
+    private HashMap<String, List<FirebaseObserver>> directMessageObservers = new HashMap<>();
+
+    public void addObserverToDirectMessageHistory(String username1, String username2, FirebaseObserver observer) {
+        List<String> path = getDirectMessageFilepath(username1, username2);
+        DatabaseReference fbObject = FirebaseRequest.traversePath(database, path);
+
+        List<FirebaseObserver> list;
+
+        if (!directMessageObservers.containsKey(path)) {
+            fbObject.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (!directMessageObservers.containsKey(path) || directMessageObservers.get(path) == null) {
+                        return;
+                    }
+
+                    for (FirebaseObserver observer: directMessageObservers.get(path)) {
+                        observer.notify();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+            list = new ArrayList<>();
+        } else {
+            list = directMessageObservers.get(path);
+        }
+
+        list.add(observer);
+        directMessageObservers.put(path.toString(), list);
+    }
 
     /**
      * Private constructor that cannot usually be called (as this is a singleton). Should only
