@@ -3,6 +3,7 @@ package com.example.myeducationalapp;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -14,7 +15,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 
-import android.text.InputFilter;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
@@ -27,13 +29,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.myeducationalapp.Firebase.Firebase;
-import com.example.myeducationalapp.databinding.FragmentHomeBinding;
 import com.example.myeducationalapp.databinding.FragmentMessagesBinding;
-import com.example.myeducationalapp.userInterface.Generation.GeneratedUserInterfaceViewModel;
-import com.example.myeducationalapp.userInterface.Generation.HomeCategoryCard;
 import com.example.myeducationalapp.userInterface.Generation.MessageListCard;
 import com.example.myeducationalapp.userInterface.UserInterfaceManagerViewModel;
 import com.google.android.material.divider.MaterialDivider;
+
+import java.util.Objects;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -88,35 +91,36 @@ public class MessagesFragment extends Fragment {
         }
 
 
-        firebase = Firebase.getInstance();
+        UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
 
-        firebase.getAllUsersYouHaveMessaged(dms -> {
+        Log.d("MessagesFragment", String.valueOf(userInterfaceManager.getCurrentDirectMessages().getValue().size()));
 
-            Log.d("MessagesFragment", dms.getUsername());
-            Log.d("MessagesFragment", dms.getMessages().get(0).getContent());
-
-            GeneratedUserInterfaceViewModel genUserInterfaceManager = new ViewModelProvider(this).get(GeneratedUserInterfaceViewModel.class);
-
-            String directMessageRecipient = dms.getUsername();
-
-            MessageListCard template;
-
-            if (dms.getMessages().size() > 0) {
-                template = new MessageListCard(R.drawable.user_profile_default, directMessageRecipient, dms.getMessages().get(dms.getMessages().size() - 1).getContent());
-            } else {
-                template  = new MessageListCard(R.drawable.user_profile_default, directMessageRecipient,"THIS IS EMPTY");
-            }
-
-            genUserInterfaceManager.addToListOfElements(template);
-
-            generateMessageListCard(template, getActivity());
-            return null;
-        });
-
-        GeneratedUserInterfaceViewModel genUserInterfaceManager = new ViewModelProvider(this).get(GeneratedUserInterfaceViewModel.class);
-        //genUserInterfaceManager.addToListOfElements(new MessageListCard(null, "Firstname Lastname", "This is an example preview message"));
-        //genUserInterfaceManager.addToListOfElements(new MessageListCard(null, "Another Longer Lastname So Longggg", "This is a very long example of a preview message"));
-
+//        // If view model has no data then we need to load it from the server into the view model
+//        if (userInterfaceManager.getCurrentDirectMessages().getValue().size() == 0) {
+//
+//            Firebase.getInstance().getAllUsersYouHaveMessaged(dms -> {
+//
+//                String directMessageRecipient = dms.getUsername();
+//
+//                MessageListCard template = new MessageListCard(R.drawable.user_profile_default, directMessageRecipient, "THIS IS EMPTY", dms);
+//
+//                if (dms.getMessages().size() > 0) {
+//                    Message lastDirectMessage = dms.getMessages().get(dms.getMessages().size() - 1);
+//
+//                    if (Objects.equals(lastDirectMessage.getPoster().getUsername(), UserLogin.getInstance().getCurrentUsername())) {
+//                        template = new MessageListCard(R.drawable.user_profile_default, directMessageRecipient, "You: " + lastDirectMessage.getContent(), dms);
+//                    } else {
+//                        template = new MessageListCard(R.drawable.user_profile_default, directMessageRecipient, lastDirectMessage.getContent(), dms);
+//                    }
+//                }
+//
+//                userInterfaceManager.getCurrentDirectMessages().getValue().put(directMessageRecipient, template);
+//                Log.d("MessagesFragment", String.valueOf(userInterfaceManager.getCurrentDirectMessages().getValue().size()));
+//                //drawAllMessageListCards();
+//
+//                return null;
+//            });
+//        }
     }
 
     @Override
@@ -124,29 +128,61 @@ public class MessagesFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentMessagesBinding.inflate(inflater, container, false);
-        return binding.getRoot();    }
+        return binding.getRoot();
+    }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 
-
         UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
         userInterfaceManager.getUiState().getValue().enterNewFragment(toolbarTitle, false);
 
-        //GeneratedUserInterfaceViewModel genUserInterfaceManager = new ViewModelProvider(this).get(GeneratedUserInterfaceViewModel.class);
-        //generateMessageListCard((MessageListCard) genUserInterfaceManager.listOfElements.get(0), getActivity());
-        //generateMessageListCard((MessageListCard) genUserInterfaceManager.listOfElements.get(1), getActivity());
+
+        // do background stuff here
+        if (userInterfaceManager.getCurrentDirectMessages().getValue().size() == 0) {
+            Log.d("MessagesFragment", "Reload");
+            Firebase.getInstance().getAllUsersYouHaveMessaged(dms -> {
+
+                String directMessageRecipient = dms.getUsername();
+
+                MessageListCard template = new MessageListCard(R.drawable.user_profile_default, directMessageRecipient, "THIS IS EMPTY", dms);
+
+                if (dms.getMessages().size() > 0) {
+                    Message lastDirectMessage = dms.getMessages().get(dms.getMessages().size() - 1);
+
+                    if (Objects.equals(lastDirectMessage.getPoster().getUsername(), UserLogin.getInstance().getCurrentUsername())) {
+                        template = new MessageListCard(R.drawable.user_profile_default, directMessageRecipient, "You: " + lastDirectMessage.getContent(), dms);
+                    } else {
+                        template = new MessageListCard(R.drawable.user_profile_default, directMessageRecipient, lastDirectMessage.getContent(), dms);
+                    }
+                }
+
+                userInterfaceManager.getCurrentDirectMessages().getValue().put(directMessageRecipient, template);
+
+                generateMessageListCard(template, getActivity(), template.isNotification);
+
+                return null;
+            });
+        } else {
+            drawAllMessageListCards();
+        }
+
+        Log.d("MessagesFragment", "OnViewCreated");
 
     }
 
     public void getAllUsersYouHaveMessagedCallback(DirectMessageThread directMessageThread) {
-        GeneratedUserInterfaceViewModel genUserInterfaceManager = new ViewModelProvider(this).get(GeneratedUserInterfaceViewModel.class);
-        MessageListCard template = new MessageListCard(R.drawable.user_profile_default, directMessageThread.getUsername(), "Test");
-        genUserInterfaceManager.addToListOfElements(template);
-        generateMessageListCard(template, getActivity());
+
     }
 
-    private void generateMessageListCard(MessageListCard template, Context context) {
+    private void drawAllMessageListCards() {
+        UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
+        userInterfaceManager.getCurrentDirectMessages().getValue().values().forEach(messageListCard -> {
+            generateMessageListCard(messageListCard, getActivity(), messageListCard.isNotification);
+        });
+    }
+
+    private ConstraintLayout generateMessageListCard(MessageListCard template, Context context, boolean isNotification) {
         // making ui elements within parent
         ImageView image = new ImageView(context);
         TextView heading = new TextView(context);
@@ -169,7 +205,7 @@ public class MessagesFragment extends Fragment {
 
         heading.setSingleLine();
         heading.setEllipsize(TextUtils.TruncateAt.END);
-        heading.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+        heading.setTextSize(TypedValue.COMPLEX_UNIT_SP, 19);
         heading.setText(template.headingText);
         Typeface headingTypeface = ResourcesCompat.getFont(context, R.font.ibm_plex_sans_bold);
         heading.setTypeface(headingTypeface);
@@ -179,7 +215,7 @@ public class MessagesFragment extends Fragment {
 
         subheading.setSingleLine();
         subheading.setEllipsize(TextUtils.TruncateAt.END);
-        subheading.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
+        subheading.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17);
         subheading.setText(template.subHeadingText);
         Typeface subheadingTypeface = ResourcesCompat.getFont(context, R.font.ibm_plex_sans);
         subheading.setTypeface(subheadingTypeface);
@@ -192,11 +228,11 @@ public class MessagesFragment extends Fragment {
         divider.setDividerColor(Color.parseColor("#A6000000"));
         divider.setId(View.generateViewId());
 
-        constraintLayout.addView(image);
-        constraintLayout.addView(heading);
-        constraintLayout.addView(subheading);
-        constraintLayout.addView(notificationDot);
-        constraintLayout.addView(divider);
+        constraintLayout.addView(image, 0);
+        constraintLayout.addView(heading, 1);
+        constraintLayout.addView(subheading, 2);
+        constraintLayout.addView(notificationDot, 3);
+        constraintLayout.addView(divider, 4);
 
         imageConstraintSet.clone(constraintLayout);
         imageConstraintSet.connect(image.getId(), ConstraintSet.BOTTOM, constraintLayout.getId(), ConstraintSet.BOTTOM);
@@ -211,7 +247,7 @@ public class MessagesFragment extends Fragment {
 
         subheadingConstraintSet.clone(constraintLayout);
         subheadingConstraintSet.connect(subheading.getId(), ConstraintSet.START, heading.getId(), ConstraintSet.START);
-        subheadingConstraintSet.connect(subheading.getId(), ConstraintSet.TOP, heading.getId(), ConstraintSet.BOTTOM, ((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources().getDisplayMetrics())));
+        subheadingConstraintSet.connect(subheading.getId(), ConstraintSet.TOP, heading.getId(), ConstraintSet.BOTTOM, ((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5, getResources().getDisplayMetrics())));
         subheadingConstraintSet.connect(subheading.getId(), ConstraintSet.END, heading.getId(), ConstraintSet.END);
         subheadingConstraintSet.applyTo(constraintLayout);
 
@@ -231,8 +267,8 @@ public class MessagesFragment extends Fragment {
 
         LinearLayout.LayoutParams constraintLayoutParams = (LinearLayout.LayoutParams) constraintLayout.getLayoutParams();
         constraintLayoutParams.width = ((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 350, getResources().getDisplayMetrics()));
-        constraintLayoutParams.height = ((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, getResources().getDisplayMetrics()));
-        constraintLayoutParams.topMargin = ((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20, getResources().getDisplayMetrics()));
+        constraintLayoutParams.height = ((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 105, getResources().getDisplayMetrics()));
+        constraintLayoutParams.topMargin = ((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, getResources().getDisplayMetrics()));
         constraintLayoutParams.gravity = Gravity.CENTER | Gravity.TOP;
         constraintLayout.setLayoutParams(constraintLayoutParams);
 
@@ -261,6 +297,14 @@ public class MessagesFragment extends Fragment {
         dividerLayoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
         divider.setLayoutParams(dividerLayoutParams);
 
+        if (!isNotification) {
+            // Notification dot
+            constraintLayout.getChildAt(3).setVisibility(View.GONE);
+        } else {
+            // Subheading text
+            ((TextView) constraintLayout.getChildAt(2)).setTypeface(headingTypeface);
+        }
+
         constraintLayout.setOnClickListener(view -> {
 
             // TODO some way of relating this to the actual message thread
@@ -274,10 +318,13 @@ public class MessagesFragment extends Fragment {
 
             UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
             userInterfaceManager.getUiState().getValue().setToolbarTitle(heading.getText().toString());
+            userInterfaceManager.getCurrentDirectMessages().getValue().get(template.headingText).isNotification = false;
+
             NavHostFragment.findNavController(MessagesFragment.this).navigate(R.id.action_messagesFragment_to_directMessageFragment);
 
-
         });
+
+        return constraintLayout;
 
     }
 }

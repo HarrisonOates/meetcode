@@ -92,74 +92,74 @@
             android:paddingBottom="20dp">
 
 
-            <!-- Card container -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/messages_card_1"
-                android:layout_width="350dp"
-                android:layout_height="100dp"
-                android:layout_gravity="center|top"
-                android:layout_marginTop="20dp">
+<!--            &lt;!&ndash; Card container &ndash;&gt;-->
+<!--            <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                android:id="@+id/messages_card_1"-->
+<!--                android:layout_width="350dp"-->
+<!--                android:layout_height="100dp"-->
+<!--                android:layout_gravity="center|top"-->
+<!--                android:layout_marginTop="20dp">-->
 
-                <!-- User profile image -->
-                <ImageView
-                    android:id="@+id/messages_card_1_profile_image"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:contentDescription="TODO"
-                    android:src="@drawable/user_profile_default"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+<!--                &lt;!&ndash; User profile image &ndash;&gt;-->
+<!--                <ImageView-->
+<!--                    android:id="@+id/messages_card_1_profile_image"-->
+<!--                    android:layout_width="60dp"-->
+<!--                    android:layout_height="60dp"-->
+<!--                    android:contentDescription="TODO"-->
+<!--                    android:src="@drawable/user_profile_default"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent" />-->
 
-                <!-- Profile name text -->
-                <TextView
-                    android:id="@+id/messages_card_1_profile_name_text"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginEnd="25dp"
-                    android:fontFamily="@font/ibm_plex_sans_bold"
-                    android:text="Firstname Lastname"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    app:layout_constraintEnd_toStartOf="@+id/messages_card_1_notification_dot"
-                    app:layout_constraintStart_toEndOf="@+id/messages_card_1_profile_image"
-                    app:layout_constraintTop_toTopOf="@+id/messages_card_1_profile_image" />
+<!--                &lt;!&ndash; Profile name text &ndash;&gt;-->
+<!--                <TextView-->
+<!--                    android:id="@+id/messages_card_1_profile_name_text"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="15dp"-->
+<!--                    android:layout_marginEnd="25dp"-->
+<!--                    android:fontFamily="@font/ibm_plex_sans_bold"-->
+<!--                    android:text="Firstname Lastname"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:textSize="18sp"-->
+<!--                    app:layout_constraintEnd_toStartOf="@+id/messages_card_1_notification_dot"-->
+<!--                    app:layout_constraintStart_toEndOf="@+id/messages_card_1_profile_image"-->
+<!--                    app:layout_constraintTop_toTopOf="@+id/messages_card_1_profile_image" />-->
 
-                <!-- Message snippet text -->
-                <TextView
-                    android:id="@+id/messages_card_1_message_text"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:fontFamily="@font/ibm_plex_sans"
-                    android:text="TextView"
-                    android:textSize="15sp"
-                    app:layout_constraintEnd_toEndOf="@+id/messages_card_1_profile_name_text"
-                    app:layout_constraintStart_toStartOf="@+id/messages_card_1_profile_name_text"
-                    app:layout_constraintTop_toBottomOf="@+id/messages_card_1_profile_name_text" />
+<!--                &lt;!&ndash; Message snippet text &ndash;&gt;-->
+<!--                <TextView-->
+<!--                    android:id="@+id/messages_card_1_message_text"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="4dp"-->
+<!--                    android:fontFamily="@font/ibm_plex_sans"-->
+<!--                    android:text="TextView"-->
+<!--                    android:textSize="15sp"-->
+<!--                    app:layout_constraintEnd_toEndOf="@+id/messages_card_1_profile_name_text"-->
+<!--                    app:layout_constraintStart_toStartOf="@+id/messages_card_1_profile_name_text"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/messages_card_1_profile_name_text" />-->
 
-                <!-- Message notification dot -->
-                <View
-                    android:id="@+id/messages_card_1_notification_dot"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_marginEnd="15dp"
-                    android:background="@drawable/icon_notification_dot"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+<!--                &lt;!&ndash; Message notification dot &ndash;&gt;-->
+<!--                <View-->
+<!--                    android:id="@+id/messages_card_1_notification_dot"-->
+<!--                    android:layout_width="15dp"-->
+<!--                    android:layout_height="15dp"-->
+<!--                    android:layout_marginEnd="15dp"-->
+<!--                    android:background="@drawable/icon_notification_dot"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent" />-->
 
-                <!-- Card divider element -->
-                <com.google.android.material.divider.MaterialDivider
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:dividerColor="#A6000000"
-                    app:dividerThickness="2dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+<!--                &lt;!&ndash; Card divider element &ndash;&gt;-->
+<!--                <com.google.android.material.divider.MaterialDivider-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    app:dividerColor="#A6000000"-->
+<!--                    app:dividerThickness="2dp"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent" />-->
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+<!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
 
         </LinearLayout>
 

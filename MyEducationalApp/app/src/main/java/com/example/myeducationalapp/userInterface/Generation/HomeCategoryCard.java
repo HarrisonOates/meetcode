@@ -3,7 +3,7 @@ package com.example.myeducationalapp.userInterface.Generation;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 
-public class HomeCategoryCard extends GeneratedUserInterfaceElement {
+public class HomeCategoryCard {
 
     Color backgroundContainerColor;
     Drawable profileImageReference;
@@ -16,11 +16,5 @@ public class HomeCategoryCard extends GeneratedUserInterfaceElement {
         this.headingText = headingText;
         this.subheadingText = subheadingText;
     }
-
-    @Override
-    public GeneratedUserInterfaceElement generate() {
-        return null;
-    }
-
 
 }

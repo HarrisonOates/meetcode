@@ -4,11 +4,11 @@ import androidx.lifecycle.ViewModel;
 
 import java.util.ArrayList;
 
-public class GeneratedUserInterfaceViewModel extends ViewModel {
+public class GeneratedUserInterfaceViewModel<T> extends ViewModel {
 
-    public ArrayList<GeneratedUserInterfaceElement> listOfElements = new ArrayList<>();
+    public ArrayList<T> listOfElements = new ArrayList<>();
 
-    public void addToListOfElements(GeneratedUserInterfaceElement element) {
+    public void addToListOfElements(T element) {
 
         if (element != null){
             listOfElements.add(element);

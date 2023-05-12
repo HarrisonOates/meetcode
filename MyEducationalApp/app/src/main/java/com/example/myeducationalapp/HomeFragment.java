@@ -76,7 +76,7 @@ public class HomeFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-        GeneratedUserInterfaceViewModel genUserInterfaceManager = new ViewModelProvider(this).get(GeneratedUserInterfaceViewModel.class);
+        GeneratedUserInterfaceViewModel<HomeCategoryCard> genUserInterfaceManager = new ViewModelProvider(this).get(GeneratedUserInterfaceViewModel.class);
         genUserInterfaceManager.addToListOfElements(new HomeCategoryCard(null, null, "hiasdasdsadsasdasdsa", "hasadsi"));
 
         Firebase.getInstance().dump();
@@ -92,7 +92,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 
-        GeneratedUserInterfaceViewModel genUserInterfaceManager = new ViewModelProvider(this).get(GeneratedUserInterfaceViewModel.class);
+        GeneratedUserInterfaceViewModel<HomeCategoryCard> genUserInterfaceManager = new ViewModelProvider(this).get(GeneratedUserInterfaceViewModel.class);
         Log.w("Fragment Home", String.valueOf(genUserInterfaceManager.listOfElements.size()));
         generateHomeCategoryCard((HomeCategoryCard) genUserInterfaceManager.listOfElements.get(0), getActivity());
 
