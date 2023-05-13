@@ -21,6 +21,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.example.myeducationalapp.databinding.FragmentDirectMessageBinding;
@@ -100,6 +101,31 @@ public class DirectMessageFragment extends Fragment {
         messageRecipient = userInterfaceManager.getUiState().getValue().getToolbarTitle().getValue();
         generateAllDirectMessageBubble(getActivity());
 
+        binding.directMessageScrollView.fullScroll(ScrollView.FOCUS_DOWN);
+
+        binding.directMessageSendButton.setOnClickListener(view1 -> {
+
+            DirectMessageThread dms = userInterfaceManager.getCurrentDirectMessages().getValue().get(messageRecipient).directMessageThread;
+
+            dms.runWhenReady((obj) -> {
+
+                Log.d("DirectMessageFragment", "Start");
+                dms.postMessage(binding.directMessageInputText.getText().toString());
+                Log.d("DirectMessageFragment", "End");
+
+                // TODO make this better
+                binding.directMessageLinearLayout.post(() -> {
+                    Log.d("DirectMessageFragment", "Start ui update");
+                    binding.directMessageLinearLayout.removeAllViews();
+                    generateAllDirectMessageBubble(getActivity());
+                    Log.d("DirectMessageFragment", "End ui update");
+                });
+
+                //binding.directMessageLinearLayout.invalidate();
+                return null;
+            });
+        });
+
     }
 
     private void generateAllDirectMessageBubble(Context context) {
@@ -117,8 +143,6 @@ public class DirectMessageFragment extends Fragment {
 
             // making sure that there is a next message
             if ((i + 1) < messagesSize) {
-                Log.d("DirectMessageFragment", "More than one message");
-                Log.d("DirectMessageFragment", String.valueOf(messages.get(i + 1).getPoster() == currentPoster));
 
                 if (messages.get(i + 1).getPoster().equals(currentPoster)) {
                     // We have multiple messages from the same poster
@@ -129,7 +153,6 @@ public class DirectMessageFragment extends Fragment {
 
                     // loop until we reach a message from the next poster
                     for (int j = i + 2; j < messagesSize; j++) {
-                        Log.d("DirectMessageFragment", "Looping...");
 
                         Message nextMessage = messages.get(j);
 
