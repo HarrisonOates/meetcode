@@ -176,7 +176,7 @@ public class DirectMessageFragment extends Fragment {
 
                         Message nextMessage = messages.get(j);
 
-                        if (nextMessage.getPoster().equals(currentPoster)) {
+                        if (nextMessage.getPoster().equals(currentPoster) || (j == messagesSize - 1) && isImmediate) {
                             currentPosterMessages.add(nextMessage);
                             i = j;
                         } else {
@@ -192,6 +192,7 @@ public class DirectMessageFragment extends Fragment {
                     // Draw currentPosterMessages to UI
                     generateDirectMessageBubble(currentPosterMessages.get(0), isRecipient, MessageBubbleOrientation.TOP, true, currentMessageIndex, context);
                     currentMessageIndex++;
+
                     for (int k = 1; k < currentPosterMessages.size() - 1; k++) {
                         generateDirectMessageBubble(currentPosterMessages.get(k), isRecipient, MessageBubbleOrientation.MIDDLE, false, currentMessageIndex, context);
                         currentMessageIndex++;
@@ -217,7 +218,7 @@ public class DirectMessageFragment extends Fragment {
                 }
 
                 // If we're at the last message
-                if (i - 1 > 0) {
+                if (i - 1 >= 0) {
 
                     if (i == messagesSize - 1 && !messages.get(i - 1).getPoster().equals(currentPoster)) {
                         // This is the last single message
