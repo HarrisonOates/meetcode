@@ -4,7 +4,6 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.example.myeducationalapp.AVLTree;
 import com.example.myeducationalapp.DirectMessageThread;
 import com.example.myeducationalapp.MessageThread;
 import com.example.myeducationalapp.Person;
