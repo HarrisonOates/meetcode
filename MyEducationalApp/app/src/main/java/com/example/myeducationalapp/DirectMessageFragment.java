@@ -186,6 +186,10 @@ public class DirectMessageFragment extends Fragment {
             }
         }
 
+        /*
+         * Scroll down to the most recent message.
+         */
+        binding.directMessageScrollView.post(() -> binding.directMessageScrollView.fullScroll(View.FOCUS_DOWN));
     }
 
     private void generateDirectMessageBubble(Message message, boolean isRecipient, MessageBubbleOrientation messageBubbleOrientation, boolean isSeperate, Context context) {
