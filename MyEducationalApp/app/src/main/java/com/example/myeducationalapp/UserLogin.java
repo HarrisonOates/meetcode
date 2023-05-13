@@ -29,6 +29,11 @@ public class UserLogin {
      */
     private String loggedInUsername;
 
+    private boolean containsAScaryCharacter(String username) {
+        return username.contains(".") || username.contains("[") || username.contains("]") ||
+                username.contains("#") || username.contains("$");
+    }
+
     private UserLogin() {
         this.userLogins = new HashMap<>();
 
@@ -39,13 +44,15 @@ public class UserLogin {
                 String[] userLoginInfos = data.split("\n");
                 for (String userInfo : userLoginInfos) {
                     String[] pair = userInfo.split(",");
+                    if (containsAScaryCharacter(pair[0])) {
+                        continue;
+                    }
                     userLogins.put(pair[0], new String[]{pair[1], pair[2]});
                 }
             }
 
             return null;
         });
-
     }
 
     public void loadUsers() {

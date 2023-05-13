@@ -49,6 +49,8 @@ public class Firebase {
         return instance;
     }
 
+
+
     /**
      * All observers in this array will have their .notify() method called whenever
      * any data has been modified on the Firebase backend.

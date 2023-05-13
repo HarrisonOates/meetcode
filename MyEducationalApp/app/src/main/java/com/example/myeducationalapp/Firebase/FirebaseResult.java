@@ -19,13 +19,13 @@ import java.util.function.Function;
  * FirebaseResult.java
  */
 public class FirebaseResult {
-    Object result;
+    private Object result;
 
     // The use of a CountDownLatch came from here:
     // https://stackoverflow.com/questions/55785311/how-do-i-wait-until-my-data-is-retrieved-from-firebase
-    CountDownLatch gotResult = new CountDownLatch(1);
+    private CountDownLatch gotResult = new CountDownLatch(1);
 
-    List<Function<Object, Object>> callbacks = new ArrayList<>();
+    private List<Function<Object, Object>> callbacks = new ArrayList<>();
 
     public FirebaseResult then(Function<Object, Object> listener) {
         if (gotResult.getCount() == 0) {

@@ -26,10 +26,10 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.HashMap;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
-
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
 
@@ -58,8 +58,6 @@ public class MainActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
-
-
 
         // Dynamic elements
         View toolbarBackwardsArrow = (View) findViewById(R.id.toolbar_left_arrow_icon);
@@ -118,7 +116,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
 
     }
 
