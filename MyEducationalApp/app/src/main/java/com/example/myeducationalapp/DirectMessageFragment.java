@@ -20,6 +20,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -136,6 +137,8 @@ public class DirectMessageFragment extends Fragment {
 
         List<Message> messages = messageListCard.directMessageThread.getMessages();
 
+        int currentMessage = 0;
+
         for (int i = 0, messagesSize = messages.size(); i < messagesSize; i++) {
             Message firstMessage = messages.get(i);
             Person currentPoster = firstMessage.getPoster();
@@ -163,26 +166,42 @@ public class DirectMessageFragment extends Fragment {
                             // If poster is not the currentPoster, we've reached the end of
                             // the posts from the currentPoster, so update i
                             // index and then break
-                            i = j;
+                            i = j - 1;
+
                             break;
                         }
                     }
 
                     // Draw currentPosterMessages to UI
-                    generateDirectMessageBubble(currentPosterMessages.get(0), isRecipient, MessageBubbleOrientation.TOP, true, context);
+                    generateDirectMessageBubble(currentPosterMessages.get(0), isRecipient, MessageBubbleOrientation.TOP, true, currentMessage, context);
+                    currentMessage++;
                     for (int k = 1; k < currentPosterMessages.size() - 1; k++) {
-                        generateDirectMessageBubble(currentPosterMessages.get(k), isRecipient, MessageBubbleOrientation.MIDDLE, false, context);
+                        generateDirectMessageBubble(currentPosterMessages.get(k), isRecipient, MessageBubbleOrientation.MIDDLE, false, currentMessage, context);
+                        currentMessage++;
                     }
-                    generateDirectMessageBubble(currentPosterMessages.get(currentPosterMessages.size() - 1), isRecipient, MessageBubbleOrientation.BOTTOM, false, getActivity());
+                    generateDirectMessageBubble(currentPosterMessages.get(currentPosterMessages.size() - 1), isRecipient, MessageBubbleOrientation.BOTTOM, false, currentMessage, getActivity());
+                    currentMessage++;
 
                 } else {
                     // The next message is from the other poster
                     // draw firstMessage to UI and continue with loop
-                    generateDirectMessageBubble(firstMessage, isRecipient, MessageBubbleOrientation.SINGLE, true, context);
+                    generateDirectMessageBubble(firstMessage, isRecipient, MessageBubbleOrientation.SINGLE, true, currentMessage, context);
+                    currentMessage++;
                 }
             } else {
-                // This is the last single message
-                generateDirectMessageBubble(firstMessage, isRecipient, MessageBubbleOrientation.SINGLE, true, context);
+                if (i - 1 > 0) {
+                    if (i == messagesSize - 1 && !messages.get(i - 1).getPoster().equals(currentPoster)) {
+                        // This is the last single message
+                        generateDirectMessageBubble(firstMessage, isRecipient, MessageBubbleOrientation.SINGLE, true, currentMessage, context);
+                        currentMessage++;
+                    }
+                } else {
+                    // This is the last single message
+                    generateDirectMessageBubble(firstMessage, isRecipient, MessageBubbleOrientation.SINGLE, true, currentMessage, context);
+                    currentMessage++;
+                }
+
+
             }
         }
 
@@ -192,7 +211,7 @@ public class DirectMessageFragment extends Fragment {
         binding.directMessageScrollView.post(() -> binding.directMessageScrollView.fullScroll(View.FOCUS_DOWN));
     }
 
-    private void generateDirectMessageBubble(Message message, boolean isRecipient, MessageBubbleOrientation messageBubbleOrientation, boolean isSeperate, Context context) {
+    private void generateDirectMessageBubble(Message message, boolean isRecipient, MessageBubbleOrientation messageBubbleOrientation, boolean isSeperate, int currentMessageIndex, Context context) {
 
 
         // Setting up ui elements
@@ -294,26 +313,6 @@ public class DirectMessageFragment extends Fragment {
         }
         constraintLayout.setLayoutParams(constraintLayoutParams);
 
-        ConstraintLayout.LayoutParams messageContainerLayoutParams = (ConstraintLayout.LayoutParams) messageContainerConstraintLayout.getLayoutParams();
-        messageContainerLayoutParams.width = ConstraintLayout.LayoutParams.WRAP_CONTENT;
-        messageContainerLayoutParams.height = ConstraintLayout.LayoutParams.WRAP_CONTENT;
-        messageContainerConstraintLayout.setLayoutParams(messageContainerLayoutParams);
-
-        ConstraintLayout.LayoutParams likeContainerLayoutParams = (ConstraintLayout.LayoutParams) likeContainerConstraintLayout.getLayoutParams();
-        likeContainerLayoutParams.width = ConstraintLayout.LayoutParams.WRAP_CONTENT;
-        likeContainerLayoutParams.height = ConstraintLayout.LayoutParams.WRAP_CONTENT;
-        likeContainerConstraintLayout.setLayoutParams(likeContainerLayoutParams);
-
-        ViewGroup.LayoutParams messageTextLayoutParams = messageText.getLayoutParams();
-        messageTextLayoutParams.width = 0;
-        messageTextLayoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-        messageText.setLayoutParams(messageTextLayoutParams);
-
-        ViewGroup.LayoutParams likeTextLayoutParams = messageText.getLayoutParams();
-        likeTextLayoutParams.width = 0;
-        likeTextLayoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-        likeText.setLayoutParams(likeTextLayoutParams);
-
         // If post has likes
         if (message.getLikeCount() > 0) {
             if (message.getLikeCount() > 1) {
@@ -321,12 +320,75 @@ public class DirectMessageFragment extends Fragment {
             } else {
                 likeText.setText("❤️");
             }
+
         } else {
             // If post does not have likes
             likeContainerConstraintLayout.setVisibility(View.GONE);
         }
 
-        // TODO set up double click listener for incrementing likes on message
+        // Long click to remove like when clicking on like container
+        likeContainerConstraintLayout.setOnLongClickListener(view -> {
+
+            UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
+            userInterfaceManager.getCurrentDirectMessages().getValue().get(messageRecipient).directMessageThread.getMessages().get(currentMessageIndex).toggleLikedByCurrentUser();
+            Log.d("DirectMessageFragment", userInterfaceManager.getCurrentDirectMessages().getValue().get(messageRecipient).directMessageThread.getMessages().get(currentMessageIndex).getContent());
+            Log.d("DirectMessageFragment", String.valueOf(currentMessageIndex));
+
+            int newLikeCount = userInterfaceManager.getCurrentDirectMessages().getValue().get(messageRecipient).directMessageThread.getMessages().get(currentMessageIndex).getLikeCount();
+
+            if (newLikeCount > 0) {
+                likeContainerConstraintLayout.setVisibility(View.VISIBLE);
+
+                if (newLikeCount > 1) {
+                    likeText.setText("❤️  " + newLikeCount);
+                } else {
+                    likeText.setText("❤️");
+                }
+
+            } else {
+                likeContainerConstraintLayout.setVisibility(View.GONE);
+
+            }
+
+
+
+            return false;
+        });
+
+        // Long click to add a like
+        messageContainerConstraintLayout.setOnLongClickListener(view -> {
+
+            UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
+            userInterfaceManager.getCurrentDirectMessages().getValue().get(messageRecipient).directMessageThread.getMessages().get(currentMessageIndex).toggleLikedByCurrentUser();
+            Log.d("DirectMessageFragment", userInterfaceManager.getCurrentDirectMessages().getValue().get(messageRecipient).directMessageThread.getMessages().get(currentMessageIndex).getContent());
+            Log.d("DirectMessageFragment", String.valueOf(currentMessageIndex));
+
+            int newLikeCount = userInterfaceManager.getCurrentDirectMessages().getValue().get(messageRecipient).directMessageThread.getMessages().get(currentMessageIndex).getLikeCount();
+
+
+            if (newLikeCount > 0) {
+                likeContainerConstraintLayout.setVisibility(View.VISIBLE);
+
+                userInterfaceManager.getCurrentDirectMessages().getValue().get(messageRecipient).directMessageThread.getMessages().forEach(x -> {
+                        Log.d("DirectMessageFragment", String.valueOf(x.getContent()));
+
+                });
+
+
+                if (newLikeCount > 1) {
+                    likeText.setText("❤️  " + newLikeCount);
+                } else {
+                    likeText.setText("❤️");
+                }
+
+            } else {
+                likeContainerConstraintLayout.setVisibility(View.GONE);
+
+            }
+
+
+            return false;
+        });
     }
 
     private enum MessageBubbleOrientation {

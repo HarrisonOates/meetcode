@@ -31,7 +31,6 @@
 
             <!-- Messages go here -->
 
-
 <!--            <androidx.constraintlayout.widget.ConstraintLayout-->
 <!--                android:layout_width="wrap_content"-->
 <!--                android:layout_height="wrap_content"-->
@@ -55,6 +54,7 @@
 <!--                        android:paddingTop="13dp"-->
 <!--                        android:paddingBottom="13dp"-->
 <!--                        android:text="This is some text asd asdasd How are you doing Blah"-->
+<!--                        android:textAlignment="textStart"-->
 <!--                        android:textColor="@color/black"-->
 <!--                        android:textSize="18sp"-->
 <!--                        app:layout_constraintBottom_toBottomOf="parent"-->
