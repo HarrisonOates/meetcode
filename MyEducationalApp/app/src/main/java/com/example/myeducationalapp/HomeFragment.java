@@ -106,10 +106,6 @@ public class HomeFragment extends Fragment {
         binding.homeHeroContainer.setOnClickListener(view1 -> {
             NavHostFragment.findNavController(HomeFragment.this).navigate(R.id.action_HomeFragment_to_questionFragment);
         });
-
-
-
-
     }
 
     private void generateHomeCategoryCard(HomeCategoryCard template, Context context) {

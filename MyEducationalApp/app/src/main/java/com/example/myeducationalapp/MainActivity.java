@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         TextView toolbarTitle = (TextView) findViewById(R.id.toolbar_title);
         ImageView toolbarProfileIcon = (ImageView) findViewById(R.id.toolbar_profile_icon);
         TextView toolbarStarContainerText = (TextView) findViewById(R.id.toolbar_star_container_number);
-
+        toolbarStarContainerText.setText(String.valueOf(UserLocalData.getInstance().getPoints()));
 
         // Setting initial states of dynamic elements
 
@@ -152,6 +152,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void updateMenuUI() {
+        TextView toolbarStarContainerText = (TextView) findViewById(R.id.toolbar_star_container_number);
+        toolbarStarContainerText.setText(String.valueOf(UserLocalData.getInstance().getPoints()));
 
     }
 }
