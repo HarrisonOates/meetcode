@@ -15,14 +15,12 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.util.Log;
 import android.util.TypedValue;
-import android.view.GestureDetector;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.example.myeducationalapp.databinding.FragmentDirectMessageBinding;
@@ -32,6 +30,8 @@ import com.example.myeducationalapp.userInterface.UserInterfaceManagerViewModel;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -98,38 +98,51 @@ public class DirectMessageFragment extends Fragment {
 
         UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
         userInterfaceManager.getUiState().getValue().enterNewFragment(false);
-        // Username of person you're messaging, found throught the toolbar title (set by previous fragment)
+        // Username of person you're messaging, found through the toolbar title (set by previous fragment)
         messageRecipient = userInterfaceManager.getUiState().getValue().getToolbarTitle().getValue();
-        generateAllDirectMessageBubble(getActivity());
+        generateAllDirectMessageBubble(getActivity(), false);
 
-        binding.directMessageScrollView.fullScroll(ScrollView.FOCUS_DOWN);
+        // Adding QOL for if you press enter in the message entry field
+        binding.directMessageInputText.setOnKeyListener((view1, keyCode, keyEvent) -> {
+
+            if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                if (!binding.directMessageInputText.getText().toString().isBlank()) {
+                    sendMessage();
+                }
+                return true;
+            }
+
+            return false;
+        });
 
         binding.directMessageSendButton.setOnClickListener(view1 -> {
-
-            DirectMessageThread dms = userInterfaceManager.getCurrentDirectMessages().getValue().get(messageRecipient).directMessageThread;
-
-            dms.runWhenReady((obj) -> {
-
-                Log.d("DirectMessageFragment", "Start");
-                dms.postMessage(binding.directMessageInputText.getText().toString());
-                Log.d("DirectMessageFragment", "End");
-
-                // TODO make this better
-                binding.directMessageLinearLayout.post(() -> {
-                    Log.d("DirectMessageFragment", "Start ui update");
-                    binding.directMessageLinearLayout.removeAllViews();
-                    generateAllDirectMessageBubble(getActivity());
-                    Log.d("DirectMessageFragment", "End ui update");
-                });
-
-                //binding.directMessageLinearLayout.invalidate();
-                return null;
-            });
+            if (!binding.directMessageInputText.getText().toString().isBlank()) {
+                sendMessage();
+            }
         });
 
     }
 
-    private void generateAllDirectMessageBubble(Context context) {
+    private void sendMessage() {
+
+        UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
+        DirectMessageThread dms = userInterfaceManager.getCurrentDirectMessages().getValue().get(messageRecipient).directMessageThread;
+
+        dms.runWhenReady((obj) -> {
+
+            dms.postMessage(binding.directMessageInputText.getText().toString());
+
+            // TODO make this better
+            binding.directMessageLinearLayout.post(() -> {
+                binding.directMessageLinearLayout.removeAllViews();
+                generateAllDirectMessageBubble(getActivity(), true);
+            });
+
+            return null;
+        });
+    }
+
+    private void generateAllDirectMessageBubble(Context context, boolean isImmediate) {
 
         UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
         MessageListCard messageListCard = userInterfaceManager.getCurrentDirectMessages().getValue().get(messageRecipient);
@@ -137,12 +150,16 @@ public class DirectMessageFragment extends Fragment {
 
         List<Message> messages = messageListCard.directMessageThread.getMessages();
 
-        int currentMessage = 0;
+        int currentMessageIndex = 0;
 
         for (int i = 0, messagesSize = messages.size(); i < messagesSize; i++) {
             Message firstMessage = messages.get(i);
             Person currentPoster = firstMessage.getPoster();
+
             boolean isRecipient = !Objects.equals(currentUsername, currentPoster.getUsername());
+
+
+            // TODO the following may not always be true
 
             // making sure that there is a next message
             if ((i + 1) < messagesSize) {
@@ -173,35 +190,45 @@ public class DirectMessageFragment extends Fragment {
                     }
 
                     // Draw currentPosterMessages to UI
-                    generateDirectMessageBubble(currentPosterMessages.get(0), isRecipient, MessageBubbleOrientation.TOP, true, currentMessage, context);
-                    currentMessage++;
+                    generateDirectMessageBubble(currentPosterMessages.get(0), isRecipient, MessageBubbleOrientation.TOP, true, currentMessageIndex, context);
+                    currentMessageIndex++;
                     for (int k = 1; k < currentPosterMessages.size() - 1; k++) {
-                        generateDirectMessageBubble(currentPosterMessages.get(k), isRecipient, MessageBubbleOrientation.MIDDLE, false, currentMessage, context);
-                        currentMessage++;
+                        generateDirectMessageBubble(currentPosterMessages.get(k), isRecipient, MessageBubbleOrientation.MIDDLE, false, currentMessageIndex, context);
+                        currentMessageIndex++;
                     }
-                    generateDirectMessageBubble(currentPosterMessages.get(currentPosterMessages.size() - 1), isRecipient, MessageBubbleOrientation.BOTTOM, false, currentMessage, getActivity());
-                    currentMessage++;
+
+                    if (isImmediate && (i == (messagesSize - 1))) {
+                        isRecipient = false;
+                    }
+
+                    generateDirectMessageBubble(currentPosterMessages.get(currentPosterMessages.size() - 1), isRecipient, MessageBubbleOrientation.BOTTOM, false, currentMessageIndex, getActivity());
+                    currentMessageIndex++;
 
                 } else {
                     // The next message is from the other poster
                     // draw firstMessage to UI and continue with loop
-                    generateDirectMessageBubble(firstMessage, isRecipient, MessageBubbleOrientation.SINGLE, true, currentMessage, context);
-                    currentMessage++;
+                    generateDirectMessageBubble(firstMessage, isRecipient, MessageBubbleOrientation.SINGLE, true, currentMessageIndex, context);
+                    currentMessageIndex++;
                 }
             } else {
+
+                if (isImmediate) {
+                    isRecipient = false;
+                }
+
+                // If we're at the last message
                 if (i - 1 > 0) {
+
                     if (i == messagesSize - 1 && !messages.get(i - 1).getPoster().equals(currentPoster)) {
                         // This is the last single message
-                        generateDirectMessageBubble(firstMessage, isRecipient, MessageBubbleOrientation.SINGLE, true, currentMessage, context);
-                        currentMessage++;
+                        generateDirectMessageBubble(firstMessage, isRecipient, MessageBubbleOrientation.SINGLE, true, currentMessageIndex, context);
+                        currentMessageIndex++;
                     }
                 } else {
                     // This is the last single message
-                    generateDirectMessageBubble(firstMessage, isRecipient, MessageBubbleOrientation.SINGLE, true, currentMessage, context);
-                    currentMessage++;
+                    generateDirectMessageBubble(firstMessage, isRecipient, MessageBubbleOrientation.SINGLE, true, currentMessageIndex, context);
+                    currentMessageIndex++;
                 }
-
-
             }
         }
 

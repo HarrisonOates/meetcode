@@ -181,4 +181,5 @@ public class Message extends Asynchronous {
     public Person getPoster() {
         return sentBy;
     }
+
 }
