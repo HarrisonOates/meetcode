@@ -17,7 +17,10 @@
         app:layout_constraintBottom_toTopOf="@+id/direct_message_text_container"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:scrollbars="none"
+        android:focusable="false"
+        android:focusableInTouchMode="false">
 
         <!-- Message view -->
         <LinearLayout
@@ -27,7 +30,9 @@
             android:orientation="vertical"
             android:gravity="bottom"
             android:paddingBottom="10dp"
-            android:paddingHorizontal="30dp">
+            android:paddingHorizontal="30dp"
+            android:focusable="false"
+            android:focusableInTouchMode="false">
 
             <!-- Messages go here -->
 
