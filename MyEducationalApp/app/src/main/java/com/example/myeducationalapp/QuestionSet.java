@@ -9,44 +9,56 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class QuestionSet {
     public enum Category {Algorithm, ControlFlow, DataStructure, Miscellaneous, Recursion}
 
     // <Question ID, String[]{Question, answer} pair
-    public HashMap<String, String[]> unusedQuestionSets;
     public HashMap<String, String[]> usedQuestionSets;
     public final char[] categoryRotation = new char[]{'0', '1', '2', '3', '4'};
     public int categoryIndex = 0;
     public HashMap<Category, Character> categoryCharacter;
-    public QuestionSet() {
-        unusedQuestionSets = new HashMap<>();
+    private QuestionSet() {
         usedQuestionSets = new HashMap<>();
         categoryCharacter = new HashMap<>();
         categoryCharacter.put(Category.Algorithm, '0');
         categoryCharacter.put(Category.ControlFlow, '1');
         categoryCharacter.put(Category.DataStructure, '2');
         categoryCharacter.put(Category.Miscellaneous, '3');
-        categoryCharacter.put(Category.Recursion, '4');}
-    public Set<String> futureQuestionIDs(){
-        return unusedQuestionSets.keySet();
+        categoryCharacter.put(Category.Recursion, '4');
+
+        addDataStructure();
+        addRecursion();
+        addMiscellaneous();
     }
-    public Set<String> pastQuestionIDs(){
+
+    static private QuestionSet instance;
+
+    static public QuestionSet getInstance() {
+        if (instance == null) {
+            instance = new QuestionSet();
+        }
+        return instance;
+    }
+
+    public List<String> getQuestionIDsInCategory(Category category) {
+        return usedQuestionSets.keySet().stream().filter((x) -> x.charAt(0) == categoryCharacter.get(category)).collect(Collectors.toList());
+    }
+
+    public Set<String> getQuestionIDs() {
         return usedQuestionSets.keySet();
     }
+
     // Type 0: Algo, 1: ControlFlow, 2: DataStructure, 3: Misc, 4: Recursion | difficulty: 1 ~ 5
     // difficulty is in String so that category + difficulty does not give sum of ascii values of characters
     public void addQuestion(String question, String answer, Category category, String difficulty) {
-        String uniqueID;
-        // Make sure each ID is indeed unique
-        do {
-            uniqueID = categoryCharacter.get(category) + difficulty + UUID.randomUUID().toString();
-        } while (unusedQuestionSets.containsKey(uniqueID));
-        unusedQuestionSets.put(uniqueID, new String[]{question, answer});
+        String uniqueID = categoryCharacter.get(category) + difficulty + question.hashCode();
+        usedQuestionSets.put(uniqueID, new String[]{question, answer});
     }
 
     /**
-     * Randomly gets the question of the day where the category rotates every day.
+     * Gets the question of the day where the category rotates every day.
      */
     public String[] getQuestionOfTheDay() {
         /*
@@ -58,16 +70,14 @@ public class QuestionSet {
         long day = millisSince1970 / (1000 * 60 * 60 * 24);
         Random rng = new Random(day);
 
-        categoryIndex = (categoryIndex + 1) % 5;
+        categoryIndex = (int) (day % 5);
         String uniqueID;
         do {
-            List<String> keys = new ArrayList<>(unusedQuestionSets.keySet());
+            List<String> keys = new ArrayList<>(usedQuestionSets.keySet());
             Collections.shuffle(keys, rng);
             uniqueID = keys.get(0);
         } while (uniqueID.charAt(0) != categoryRotation[categoryIndex]);
-        String[] question = unusedQuestionSets.get(uniqueID);
-        unusedQuestionSets.remove(uniqueID);
-        usedQuestionSets.put(uniqueID, question);
+        String[] question = usedQuestionSets.get(uniqueID);
         return question;
 
     }

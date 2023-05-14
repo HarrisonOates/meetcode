@@ -343,7 +343,6 @@ public class Firebase {
                 usernames.add(userInfo.split(",")[0]);
             }
         }
-
         return usernames;
     }
 
