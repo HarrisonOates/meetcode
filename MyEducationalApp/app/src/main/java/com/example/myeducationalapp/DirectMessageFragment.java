@@ -216,7 +216,7 @@ public class DirectMessageFragment extends Fragment {
         });
     }
 
-    private void generateAllDirectMessageBubble(Context context, boolean isImmediate) {
+    private void generateAllDirectMessageBubble(Context context) {
 
         UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
         MessageListCard messageListCard = userInterfaceManager.getCurrentDirectMessages().getValue().get(messageRecipient);
@@ -226,13 +226,7 @@ public class DirectMessageFragment extends Fragment {
 
         int currentMessageIndex = 0;
 
-        int maxLoop = messages.size();
-
-        if (isImmediate) {
-            maxLoop -= 1;
-        }
-
-        for (int i = 0, messagesSize = maxLoop; i < messagesSize; i++) {
+        for (int i = 0, messagesSize = messages.size(); i < messagesSize; i++) {
             Message firstMessage = messages.get(i);
             Person currentPoster = firstMessage.getPoster();
 
