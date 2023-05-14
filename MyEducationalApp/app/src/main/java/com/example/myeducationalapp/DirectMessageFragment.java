@@ -120,16 +120,12 @@ public class DirectMessageFragment extends Fragment {
             return false;
         });
 
+        // This is normal send button associated with the text entry field
         binding.directMessageSendButton.setOnClickListener(view1 -> {
             if (!binding.directMessageInputText.getText().toString().isBlank()) {
                 sendMessage();
             }
         });
-
-        Log.d("DMFragment", String.valueOf(wasLastRenderedMessageFromRecipient));
-        Log.d("DMFragment", String.valueOf(lastRenderedMessageOrientation));
-
-
 
     }
 
@@ -209,9 +205,28 @@ public class DirectMessageFragment extends Fragment {
                         // Updating these globals
                         wasLastRenderedMessageFromRecipient = false;
                         lastRenderedMessageOrientation = MessageBubbleOrientation.BOTTOM;
+                    } else {
+                        // If we are here, this means that this is the first message being sent in the DM
+                        // so just render a new SINGLE
+
+                        // Rendering a new SINGLE
+                        Message messageToRender = messages.get(messages.size() - 1);
+                        boolean isRecipient = false;
+                        int currentMessageIndex = binding.directMessageLinearLayout.getChildCount();
+                        generateDirectMessageBubble(messageToRender, isRecipient, MessageBubbleOrientation.SINGLE, true, currentMessageIndex, getActivity());
+
+                        // Remember to scroll to bottom
+                        binding.directMessageScrollView.post(() -> binding.directMessageScrollView.fullScroll(View.FOCUS_DOWN));
+
+                        // Updating these globals
+                        wasLastRenderedMessageFromRecipient = false;
+                        lastRenderedMessageOrientation = MessageBubbleOrientation.SINGLE;
                     }
                 }
             });
+
+            // Clearing input text
+            binding.directMessageInputText.getText().clear();
 
             return null;
         });
@@ -222,6 +237,12 @@ public class DirectMessageFragment extends Fragment {
         UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
         MessageListCard messageListCard = userInterfaceManager.getCurrentDirectMessages().getValue().get(messageRecipient);
         String currentUsername = UserLogin.getInstance().getCurrentUsername();
+
+        // If messageListCard is null here then it means that we're starting a new message thread
+        // hence there's nothing we should be rendering and we should stop
+        if (messageListCard == null) {
+            return;
+        }
 
         List<Message> messages = messageListCard.directMessageThread.getMessages();
 
