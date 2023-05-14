@@ -316,6 +316,24 @@ public class AVLTree<T extends Comparable<T>> {
         }
     }
 
+    /**
+     * @return All the nodes in the AVLTree in orderas an array list
+     */
+    public ArrayList<Node<T>> inOrderTraversal(){
+        ArrayList<Node<T>> nodes = new ArrayList<>();
+        inOrderHelper(this.root, nodes);
+        return nodes;
+    }
+
+    private void inOrderHelper(Node<T> curr, ArrayList<Node<T>> nodes) {
+        if (curr != null && curr.value != null) {
+            inOrderHelper(curr.left, nodes);
+            nodes.add(curr);
+            inOrderHelper(curr.right, nodes);
+        }
+    }
+
+
     public ArrayList<T> levelOrderTraversal(){
         ArrayList<T> nodes = new ArrayList<>();
         int height = getHeight(root);

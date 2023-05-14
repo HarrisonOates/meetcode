@@ -70,6 +70,19 @@ public class AVLTreeTest {
         // Visual representation of the tree
         System.out.println(tree.visualize());
 
+        //Test the inOrderTraversal()
+        ArrayList<AVLTree.Node<Integer>> inOrder = tree.inOrderTraversal();
+        for (AVLTree.Node<Integer> node : inOrder) {
+            System.out.println(node.value);
+        }
+        int prev = -100;
+        for (AVLTree.Node<Integer> node : inOrder) {
+            if (node.value != null) {
+                assertTrue(prev < node.value);
+                prev = node.value;
+            }
+        }
+
         // Test the implementation of preOrderTraversal()
         Integer[] preOrder = preOrderValues;
         ArrayList<Integer> preOrderValues = new ArrayList<>();
