@@ -23,6 +23,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.myeducationalapp.Firebase.Firebase;
+import com.example.myeducationalapp.Firebase.FirebaseObserver;
 import com.example.myeducationalapp.databinding.FragmentDirectMessageBinding;
 import com.example.myeducationalapp.userInterface.Generation.MessageListCard;
 import com.example.myeducationalapp.userInterface.UserInterfaceManagerViewModel;
@@ -87,6 +89,16 @@ public class DirectMessageFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        // Attaching observers
+
+        UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
+        userInterfaceManager.getCurrentDirectMessages().getValue().forEach((username, messageListCard) -> {
+
+            Firebase.getInstance().addObserverToDirectMessageHistory(username, messageListCard.directMessageThread.getUsername(), new DirectMessagesObserver(username));
+
+        });
+        //Firebase.getInstance().addObserverToDirectMessageHistory("nikhila", "geun", new DirectMessagesObserver());
     }
 
     @Override
@@ -335,9 +347,6 @@ public class DirectMessageFragment extends Fragment {
             }
         }
 
-        Log.d("DMFragment", String.valueOf(binding.directMessageLinearLayout.getChildCount() - 1));
-        Log.d("DMFragment", String.valueOf(currentMessageIndex));
-
         /*
          * Scroll down to the most recent message.
          */
@@ -494,12 +503,6 @@ public class DirectMessageFragment extends Fragment {
             if (newLikeCount > 0) {
                 likeContainerConstraintLayout.setVisibility(View.VISIBLE);
 
-                userInterfaceManager.getCurrentDirectMessages().getValue().get(messageRecipient).directMessageThread.getMessages().forEach(x -> {
-                        Log.d("DirectMessageFragment", String.valueOf(x.getContent()));
-
-                });
-
-
                 if (newLikeCount > 1) {
                     likeText.setText("❤️  " + newLikeCount);
                 } else {
@@ -543,5 +546,18 @@ public class DirectMessageFragment extends Fragment {
 
         }
     }
+}
 
+class DirectMessagesObserver implements FirebaseObserver {
+
+    String recipientUsername;
+
+    public DirectMessagesObserver(String recipientUsername) {
+        this.recipientUsername = recipientUsername;
+    }
+
+    @Override
+    public void update() {
+        Log.d("DirectMessageObserver", "UPDATE!" + recipientUsername);
+    }
 }

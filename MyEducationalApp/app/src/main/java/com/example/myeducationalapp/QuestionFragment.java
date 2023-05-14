@@ -9,7 +9,11 @@ import androidx.lifecycle.ViewModelProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.text.Html;
 
+import com.example.myeducationalapp.SyntaxHighlighting.DetectCodeBlock;
+import com.example.myeducationalapp.databinding.FragmentMessagesBinding;
+import com.example.myeducationalapp.databinding.FragmentQuestionBinding;
 import com.example.myeducationalapp.userInterface.UserInterfaceManagerViewModel;
 
 /**
@@ -29,6 +33,7 @@ public class QuestionFragment extends Fragment {
     private String mParam2;
 
     private final String toolbarTitle = "QuestionName";
+    private FragmentQuestionBinding binding;
 
     public QuestionFragment() {
         // Required empty public constructor
@@ -66,7 +71,8 @@ public class QuestionFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_question, container, false);
+        binding = FragmentQuestionBinding.inflate(inflater, container, false);
+        return binding.getRoot();
     }
 
     @Override
@@ -75,6 +81,13 @@ public class QuestionFragment extends Fragment {
 
         UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
         userInterfaceManager.getUiState().getValue().enterNewFragment(toolbarTitle);
+
+
+        binding.questionCodeBlockText.setText(Html.fromHtml(DetectCodeBlock.parseCodeBlocks("```Map<Integer, String> map = new HashMap<Integer, String>();\n"+
+                "map.put(1, \"2\");\n"+
+                "map.put(2, \"5\");\n"+
+                "map.put(2, \"-1\");\n"+
+                "map.put(-1, \"6\");```")));
 
 
     }
