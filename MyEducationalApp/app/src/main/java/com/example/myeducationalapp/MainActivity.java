@@ -2,6 +2,7 @@ package com.example.myeducationalapp;
 
 import android.os.Bundle;
 
+import com.example.myeducationalapp.Firebase.Firebase;
 import com.example.myeducationalapp.userInterface.UserInterfaceManagerViewModel;
 
 import androidx.activity.OnBackPressedCallback;
@@ -117,6 +118,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Firebase.getInstance().dump();
+        //UserLogin.getInstance().addUser("test", "123456789");
     }
 
     @Override

@@ -447,18 +447,6 @@ public class Firebase {
     }
 
     /**
-     * Please don't call this. Deletes absolutely everything from Firebase.
-     * @param safetyCheck This value must be set correctly for the function to work.
-     */
-    public void eraseAllData(String safetyCheck) {
-        if (!safetyCheck.equals("yes, I actually want to delete all data from firebase")) {
-            throw new RuntimeException("if you really want to delete everything, look at the source of Firebase.eraseAllData. WARNING: Alex will probably kill you if you delete everything");
-        }
-
-        database.removeValue();
-    }
-
-    /**
      * Displays the entire contents of the Firebase database. Not guaranteed to print
      * values in a sensible order (i.e. folder hierarchies may not be printed in order).
      */
