@@ -105,7 +105,7 @@ public class DirectMessageFragment extends Fragment {
         userInterfaceManager.getUiState().getValue().enterNewFragment(false);
         // Username of person you're messaging, found through the toolbar title (set by previous fragment)
         messageRecipient = userInterfaceManager.getUiState().getValue().getToolbarTitle().getValue();
-        generateAllDirectMessageBubble(getActivity(), false);
+        generateAllDirectMessageBubble(getActivity());
 
         // Adding QOL for if you press enter in the message entry field
         binding.directMessageInputText.setOnKeyListener((view1, keyCode, keyEvent) -> {
