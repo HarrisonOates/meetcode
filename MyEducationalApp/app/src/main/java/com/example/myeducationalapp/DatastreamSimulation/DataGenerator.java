@@ -1,6 +1,7 @@
 package com.example.myeducationalapp.DatastreamSimulation;
 
 import com.example.myeducationalapp.DirectMessageThread;
+import com.example.myeducationalapp.Person;
 
 import java.util.Random;
 
@@ -42,6 +43,48 @@ public class DataGenerator {
 
         // TODO - set up the files to read from and iterate at least 2500 times.
         // TODO -  implement three second delay between each loop.
+
+        // We choose a random account to send it from
+        String[] randomUserNames = new String[]{"harrison", "geun", "alex", "jayden", "nikhila"};
+
+        for (int i = 0; i < 2500; i++){
+            int n = r.nextInt(4);
+
+            switch (n){
+                case 0 -> {
+                    // directMessageThread
+                    int userNameIndex = r.nextInt(4);
+                    DirectMessageThread dms = new DirectMessageThread(randomUserNames[userNameIndex]);
+                    dms.runWhenReady((ignored) -> {
+                        dms.postMessage("");
+                        return null;
+                    });
+
+
+                }
+                case 1 -> {
+                    // directMessage with a code block
+
+                }
+                case 2 -> {
+                    // questionMessageThread
+
+                }
+                case 3 -> {
+                    // questionMessage with a code block
+                }
+                case 4 -> {
+                    // Like a random message
+                }
+                default -> {
+                    continue;
+                }
+            }
+
+
+
+        }
+
 
     }
 }
