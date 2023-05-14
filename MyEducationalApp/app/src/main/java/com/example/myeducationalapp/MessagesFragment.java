@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -100,52 +101,20 @@ public class MessagesFragment extends Fragment {
         UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
         userInterfaceManager.getUiState().getValue().enterNewFragment(toolbarTitle, false);
 
+        // sending new DM to user through the search bar
         binding.directMessageSendButton.setOnClickListener(view1 -> {
+            initializeNewDirectMessage();
+        });
 
-            String usernameToDirectMessage = binding.messagesSendNewMessageInputText.getText().toString();
+        // sending new DM to user by pressing enter on the input text field for it
+        binding.messagesSendNewMessageInputText.setOnKeyListener((view1, keyCode, keyEvent) -> {
 
-
-            // Just some validation so we aren't wasting time querying Firebase with noting
-            if (!usernameToDirectMessage.isBlank() && !usernameToDirectMessage.isEmpty()) {
-                // Querying Firebase to see if the username is in there
-                Firebase.getInstance().readAllUsernamesAsync().then((obj) -> {
-                    List<String> usernames = (List<String>) obj;
-
-                    // Does the username exist?
-                    if (usernames.contains(binding.messagesSendNewMessageInputText.getText().toString())) {
-                        userInterfaceManager.getUiState().getValue().setToolbarTitle(usernameToDirectMessage);
-
-                        // If user is already someone we have messaged then we don't have to worry about setting up new local data
-                        // to support their DM, as it already exists
-                        boolean isUserInLocalDirectMessages = userInterfaceManager.getCurrentDirectMessages().getValue().get(usernameToDirectMessage) != null;
-
-                        if (!isUserInLocalDirectMessages) {
-                            // creating local DirectMessageThread
-                            DirectMessageThread dms = new DirectMessageThread(usernameToDirectMessage);
-
-                            // adding new user to our ViewModel data
-                            MessageListCard template = new MessageListCard(R.drawable.user_profile_default, usernameToDirectMessage, "", dms);
-                            userInterfaceManager.getCurrentDirectMessages().getValue().put(usernameToDirectMessage, template);
-                            userInterfaceManager.getCurrentDirectMessages().getValue().get(template.headingText).isNotification = false;
-                        }
-
-                        binding.messagesSendNewMessageInputText.getText().clear();
-
-                        // Going to the direct message fragment
-                        NavHostFragment.findNavController(MessagesFragment.this).navigate(R.id.action_messagesFragment_to_directMessageFragment);
-                    } else {
-                        Toast toast = Toast.makeText(getActivity().getApplicationContext(), "This user does not exist, is their name spelt correctly?", Toast.LENGTH_LONG);
-                        toast.show();
-                    }
-
-                    return null;
-                });
-            } else {
-                Toast toast = Toast.makeText(getActivity().getApplicationContext(), "This user does not exist, is their name spelt correctly?", Toast.LENGTH_LONG);
-                toast.show();
+            if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                initializeNewDirectMessage();
+                return true;
             }
 
-
+            return false;
         });
 
         // If we don't have any direct message threads currently, we need to fetch them from firebase
@@ -159,6 +128,51 @@ public class MessagesFragment extends Fragment {
         } else {
             // Otherwise just render what we have stored currently
             generateAllMessageListCards();
+        }
+    }
+
+    private void initializeNewDirectMessage() {
+        UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
+        String usernameToDirectMessage = binding.messagesSendNewMessageInputText.getText().toString();
+
+        // Just some validation so we aren't wasting time querying Firebase with noting
+        if (!usernameToDirectMessage.isBlank() && !usernameToDirectMessage.isEmpty()) {
+            // Querying Firebase to see if the username is in there
+            Firebase.getInstance().readAllUsernamesAsync().then((obj) -> {
+                List<String> usernames = (List<String>) obj;
+
+                // Does the username exist?
+                if (usernames.contains(binding.messagesSendNewMessageInputText.getText().toString())) {
+                    userInterfaceManager.getUiState().getValue().setToolbarTitle(usernameToDirectMessage);
+
+                    // If user is already someone we have messaged then we don't have to worry about setting up new local data
+                    // to support their DM, as it already exists
+                    boolean isUserInLocalDirectMessages = userInterfaceManager.getCurrentDirectMessages().getValue().get(usernameToDirectMessage) != null;
+
+                    if (!isUserInLocalDirectMessages) {
+                        // creating local DirectMessageThread
+                        DirectMessageThread dms = new DirectMessageThread(usernameToDirectMessage);
+
+                        // adding new user to our ViewModel data
+                        MessageListCard template = new MessageListCard(R.drawable.user_profile_default, usernameToDirectMessage, "", dms);
+                        userInterfaceManager.getCurrentDirectMessages().getValue().put(usernameToDirectMessage, template);
+                        userInterfaceManager.getCurrentDirectMessages().getValue().get(template.headingText).isNotification = false;
+                    }
+
+                    binding.messagesSendNewMessageInputText.getText().clear();
+
+                    // Going to the direct message fragment
+                    NavHostFragment.findNavController(MessagesFragment.this).navigate(R.id.action_messagesFragment_to_directMessageFragment);
+                } else {
+                    Toast toast = Toast.makeText(getActivity().getApplicationContext(), "This user does not exist, is their name spelt correctly?", Toast.LENGTH_LONG);
+                    toast.show();
+                }
+
+                return null;
+            });
+        } else {
+            Toast toast = Toast.makeText(getActivity().getApplicationContext(), "This user does not exist, is their name spelt correctly?", Toast.LENGTH_LONG);
+            toast.show();
         }
     }
 
