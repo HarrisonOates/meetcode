@@ -22,4 +22,7 @@
     <string name="categories">카테고리</string>
     <string name="daily_challenge">일일 과제</string>
     <string name="logout">로그아웃</string>
+    <string name="earn_x_stars">Earn %1$d stars</string>
+    <string name="completed">Completed!</string>
+    <string name="earn_1_star">Earn 1 star</string>
 </resources>

@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
+import java.util.SortedMap;
+import java.util.TreeMap;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -15,22 +17,17 @@ public class QuestionSet {
     public enum Category {Algorithm, ControlFlow, DataStructure, Miscellaneous, Recursion}
 
     // <Question ID, String[]{Question, answer} pair
-    public HashMap<String, String[]> usedQuestionSets;
-    public final char[] categoryRotation = new char[]{'0', '1', '2', '3', '4'};
-    public int categoryIndex = 0;
-    public HashMap<Category, Character> categoryCharacter;
+    // MUST BE SORTED - otherwise the challenge of the day will be inconsistent
+    public SortedMap<String, Question> usedQuestionSets;
+
     private QuestionSet() {
-        usedQuestionSets = new HashMap<>();
-        categoryCharacter = new HashMap<>();
-        categoryCharacter.put(Category.Algorithm, '0');
-        categoryCharacter.put(Category.ControlFlow, '1');
-        categoryCharacter.put(Category.DataStructure, '2');
-        categoryCharacter.put(Category.Miscellaneous, '3');
-        categoryCharacter.put(Category.Recursion, '4');
+        usedQuestionSets = new TreeMap<>();
 
         addDataStructure();
         addRecursion();
         addMiscellaneous();
+        addAlgorithms();
+        addControlFlow();
     }
 
     static private QuestionSet instance;
@@ -43,7 +40,7 @@ public class QuestionSet {
     }
 
     public List<String> getQuestionIDsInCategory(Category category) {
-        return usedQuestionSets.keySet().stream().filter((x) -> x.charAt(0) == categoryCharacter.get(category)).collect(Collectors.toList());
+        return usedQuestionSets.keySet().stream().filter((x) -> usedQuestionSets.get(x).getCategory() == category).collect(Collectors.toList());
     }
 
     public Set<String> getQuestionIDs() {
@@ -52,39 +49,47 @@ public class QuestionSet {
 
     // Type 0: Algo, 1: ControlFlow, 2: DataStructure, 3: Misc, 4: Recursion | difficulty: 1 ~ 5
     // difficulty is in String so that category + difficulty does not give sum of ascii values of characters
-    public void addQuestion(String question, String answer, Category category, String difficulty) {
-        String uniqueID = categoryCharacter.get(category) + difficulty + question.hashCode();
-        usedQuestionSets.put(uniqueID, new String[]{question, answer});
+    public void addQuestion(Question question) {
+        usedQuestionSets.put(question.getID(), question);
     }
 
     /**
      * Gets the question of the day where the category rotates every day.
      */
-    public String[] getQuestionOfTheDay() {
-        /*
-         * This needs to be consistent, and so we should seed the random number generator
-         * before calling it. For it to change each day, we need the seed to change each
-         * day. The easiest way of doing that is just using the day itself.
-         */
+    public Question getQuestionOfTheDay() {
         long millisSince1970 = System.currentTimeMillis();
-        long day = millisSince1970 / (1000 * 60 * 60 * 24);
-        Random rng = new Random(day);
-
-        categoryIndex = (int) (day % 5);
-        String uniqueID;
-        do {
-            List<String> keys = new ArrayList<>(usedQuestionSets.keySet());
-            Collections.shuffle(keys, rng);
-            uniqueID = keys.get(0);
-        } while (uniqueID.charAt(0) != categoryRotation[categoryIndex]);
-        String[] question = usedQuestionSets.get(uniqueID);
-        return question;
-
+        int day = (int) (millisSince1970 / (1000 * 60 * 60 * 24));
+        List<String> possibleQuestions = getQuestionIDsInCategory(Category.values()[(day % 5)]);
+        System.out.printf("day %% 5 = %d\n", day % 5);
+        System.out.printf("category = %s\n", Category.values()[day % 5]);
+        System.out.printf("possible qs = %d\n", possibleQuestions.size());
+        return usedQuestionSets.get(possibleQuestions.get((day / 5) % possibleQuestions.size()));
     }
+
+    public void addAlgorithms() {
+        addQuestion(new Question(
+                "PLEASE WRITE ME",
+                "Please write this!",
+                "Please write this!",
+                Category.Algorithm,
+                1
+        ));
+    }
+
+    public void addControlFlow() {
+        addQuestion(new Question(
+                "PLEASE WRITE ME",
+                "Please write this!",
+                "Please write this!",
+                Category.ControlFlow,
+                1
+        ));
+    }
+
     // I think we can just call one of these questions once a day?
     public void addDataStructure() {
         // Question about HashMap
-        addQuestion(DetectCodeBlock.parseCodeBlocks(
+        addQuestion(new Question("UNNAMED", DetectCodeBlock.parseCodeBlocks(
                 "What will be the output of map.get(2) after the execution of the codes below?\n\n"+
                         "```Map<Integer, String> map = new HashMap<Integer, String>();\n"+
                         "map.put(1, \"2\");\n"+
@@ -92,10 +97,10 @@ public class QuestionSet {
                         "map.put(2, \"-1\");\n"+
                         "map.put(-1, \"6\");```\n\n" +
                         "A) 1, B) 2, C) 5, D) -1, E) 6"),
-                "D", Category.DataStructure, "1");
+                "D", Category.DataStructure, 1));
 
         // Question about LinkedList
-        addQuestion(DetectCodeBlock.parseCodeBlocks(
+        addQuestion(new Question("UNNAMED", DetectCodeBlock.parseCodeBlocks(
                 "What is the time complexity of the `reverse()` method in the `LinkedList`?\n\n" +
                         "```public void reverse() {\n" +
                         "        Node<T> prev = null;\n" +
@@ -109,10 +114,10 @@ public class QuestionSet {
                         "        head = prev;\n" +
                         "    }```\n\n" +
                         "A) O(1), B) O(n), C) O(n^2), D) O(log n), E) O(n log n)"),
-                "B", QuestionSet.Category.DataStructure, "2");
+                "B", QuestionSet.Category.DataStructure, 2));
 
         // Question about BinaryTree
-        addQuestion(DetectCodeBlock.parseCodeBlocks(
+        addQuestion(new Question("UNNAMED", DetectCodeBlock.parseCodeBlocks(
                 "What will be the output of the following code?\n\n" +
                         "```BinaryTree tree = new BinaryTree(1);\n" +
                         "tree.left = new BinaryTree(2);\n" +
@@ -128,10 +133,10 @@ public class QuestionSet {
                         "C) [4, 5, 2, 6, 7, 3, 1]\n" +
                         "D) [1, 2, 3, 4, 5, 6, 7]\n" +
                         "E) [7, 6, 3, 5, 4, 2, 1]"),
-                "A", QuestionSet.Category.DataStructure, "3");
+                "A", QuestionSet.Category.DataStructure, 3));
 
         // Question about stack
-        addQuestion(DetectCodeBlock.parseCodeBlocks(
+        addQuestion(new Question("UNNAMED", DetectCodeBlock.parseCodeBlocks(
                 "What is the result of weirdCalculator(\"234*+5+\")?\n\n " +
                         "```public static int weirdCalculator(String expression) {\n" +
                         "   Stack<Integer> stack = new Stack<>();\n" +
@@ -163,10 +168,10 @@ public class QuestionSet {
                         "   return stack.pop();\n" +
                         "}```\n\n") +
                         "A) 10, B) 11, C) 12, D) 15, E) 19",
-                "E", QuestionSet.Category.DataStructure, "4");
+                "E", QuestionSet.Category.DataStructure, 4));
 
         // Question about BST
-        addQuestion(
+        addQuestion(new Question("UNNAMED",
                 "Given an integer n, what is the number (G(n)) of structurally unique BST's " +
                         "which has exactly n nodes of unique values from 1 to n?\n" +
                         "Initial State: G(0) = 1 G(1) = 1\n\n" +
@@ -175,18 +180,18 @@ public class QuestionSet {
                         "C) G(n) = SUM(G(i) * G(n - i)) over i = 1, ..., n\n" +
                         "D) G(n) = SUM(G(i - 1) * G(n - 1)) over i = 1, ..., n - 1\n" +
                         "E) G(n) = SUM(G(i) * G(n - i)) over i = 1, ..., n - 1",
-                "B" ,QuestionSet.Category.DataStructure, "5");
+                "B" ,QuestionSet.Category.DataStructure, 5));
     }
 
     public void addMiscellaneous() {
         // Octal literals
-        addQuestion(DetectCodeBlock.parseCodeBlocks(
+        addQuestion(new Question("UNNAMED", DetectCodeBlock.parseCodeBlocks(
                 "What is the output of this line of code?" +
                         "```    System.out.printf(\"%03X%03X\", 050, 100);```")
-        , "028064", Category.Miscellaneous, "3");
+        , "028064", Category.Miscellaneous, 3));
 
         // XOR swapping
-        addQuestion(DetectCodeBlock.parseCodeBlocks(
+        addQuestion(new Question("UNNAMED", DetectCodeBlock.parseCodeBlocks(
                 "What is the output of this section of code?" +
                         "``` int a = 30;" +
                         "    int b = 45;" +
@@ -194,10 +199,10 @@ public class QuestionSet {
                         "    b ^= a;" +
                         "    a ^= b;" +
                         "    System.out.printf(\"%d, %d\", a, b);```")
-                , "45, 30", Category.Miscellaneous, "3");
+                , "45, 30", Category.Miscellaneous, 3));
 
         // XOR swapping gone wrong
-        addQuestion(DetectCodeBlock.parseCodeBlocks(
+        addQuestion(new Question("UNNAMED", DetectCodeBlock.parseCodeBlocks(
                 "What is the output of this section of code?" +
                         "``` int a = 45;" +
                         "    int b = 45;" +
@@ -205,17 +210,17 @@ public class QuestionSet {
                         "    b ^= a;" +
                         "    a ^= b;" +
                         "    System.out.printf(\"%d, %d\", a, b);```")
-                , "0, 0", Category.Miscellaneous, "2");
+                , "0, 0", Category.Miscellaneous, 2));
 
         // Weirdo bitwise manipulation
-        addQuestion(DetectCodeBlock.parseCodeBlocks(
+        addQuestion(new Question("UNNAMED", DetectCodeBlock.parseCodeBlocks(
                 "What is the value of y?" +
                         "``` int x = 1" +
                         "    int y = ((x & (-2)) ^ (-1)) + 1;```")
-        , "0", Category.Miscellaneous, "4");
+        , "0", Category.Miscellaneous, 4));
 
         // Labels
-        addQuestion(DetectCodeBlock.parseCodeBlocks(
+        addQuestion(new Question("UNNAMED", DetectCodeBlock.parseCodeBlocks(
                 // THIS QUESTION NEEDS SYNTAX HIGHLIGHTING DISABLED FOR IT TO WORK PROPERLY
                 "Will this of piece of Java code compile (assuming it is placed within a valid class)?" +
                         "```public void method() {                  // line 1" +
@@ -231,7 +236,7 @@ public class QuestionSet {
                         "D) No, the first error occurs on line 4" +
                         "E) No, the first error occurs on line 5" +
                         "F) No, the first error occurs on line 6")
-                , "D", Category.Miscellaneous, "5");
+                , "D", Category.Miscellaneous, 5));
 
     }
 
@@ -239,16 +244,16 @@ public class QuestionSet {
 
 
     public void addRecursion() {
-        addQuestion(
+        addQuestion(new Question("UNNAMED",
                 "What is the output of adder(0)" +
                         "public static int adder(int i) { "+
                         "    if (i==5) return i;" +
                         "    else return 1 + adder(i+1);" +
                         "}"
-                , "10", Category.Recursion, "1");
+                , "10", Category.Recursion, 1));
 
 
-        addQuestion(
+        addQuestion(new Question("UNNAMED",
                 "What is the output of recursion(0)" +
                         "static int[] numbers = new int[]{11,5,89,2,7,8,12,4,5,37};" +
                         "public static int recursion(int i) {" +
@@ -256,10 +261,10 @@ public class QuestionSet {
                         "    if (numbers[i] % 2 == 0) return i + recursion(i + 1);" +
                         "    else return recursion(i + 1);" +
                         "}"
-                , "21", Category.Recursion, "2");
+                , "21", Category.Recursion, 2));
 
 
-        addQuestion(
+        addQuestion(new Question("UNNAMED",
                 "What is the contents of ints after calling list(0)" +
                         "static int[] ints = new int[] {17,5,7,3,9,1,11,15,13};" +
                         "public static void list(int i) {" +
@@ -277,11 +282,11 @@ public class QuestionSet {
                         "C) [17,15,13,11,9,7,5,3,1]\n" +
                         "D) [5,7,3,9,1,11,15,13,17]\n" +
                         "E) [5,7,3,1,9,11,13,15,17]"
-                , "D", Category.Recursion, "3");
+                , "D", Category.Recursion, 3));
 
 
 
-        addQuestion(
+        addQuestion(new Question("UNNAMED",
                 "What is the result of an in-order traversal on the tree generated by treeRecursion(root, 1)" +
                         "public static void treeRecursion(Node node, int i) {" +
                         "    if (i > 10) return;" +
@@ -300,14 +305,14 @@ public class QuestionSet {
                         "C) [1,1.5,2.25,3.375,5.0625,7.59375,11.390625]\n" +
                         "D) [1.5,2.25,3.375,11.390625,7.59375,5.0625,1]\n" +
                         "E) [12,8,3,2,1,5]"
-                , "A", Category.Recursion, "5");
+                , "A", Category.Recursion, 5));
 
 
 
 
     }
 
-    public HashMap<String, String[]> getUsedQuestionSets() {
+    public SortedMap<String, Question> getUsedQuestionSets() {
         return usedQuestionSets;
     }
 }

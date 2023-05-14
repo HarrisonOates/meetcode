@@ -27,6 +27,10 @@ import com.example.myeducationalapp.userInterface.Generation.HomeCategoryCard;
 import com.example.myeducationalapp.userInterface.UserInterfaceManagerViewModel;
 import com.example.myeducationalapp.databinding.FragmentHomeBinding;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link HomeFragment#newInstance} factory method to
@@ -106,6 +110,29 @@ public class HomeFragment extends Fragment {
         binding.homeHeroContainer.setOnClickListener(view1 -> {
             NavHostFragment.findNavController(HomeFragment.this).navigate(R.id.action_HomeFragment_to_questionFragment);
         });
+
+        LocalDateTime date = LocalDateTime.now();
+        binding.homeHeroSubheadingText.setText(date.format(DateTimeFormatter.ofPattern("d MMMM")));
+
+        Question qotd = QuestionSet.getInstance().getQuestionOfTheDay();
+        binding.homeHeroBodyText.setText(qotd.getName());
+
+
+        boolean success = UserLocalData.getInstance().hasQuestionBeenAnsweredCorrectly(qotd.getID());
+        if (success) {
+            binding.homeHeroSecondaryCallToActionText.setText(getString(R.string.completed));
+        } else {
+            int maxStars = qotd.getDifficulty();
+            int failedAttempts = UserLocalData.getInstance().getNumberOfFailedAttempts(qotd.getID());
+            if (failedAttempts == 1) {
+                maxStars = 1;
+            } else if (failedAttempts > 0) {
+                maxStars = 0;
+            }
+
+            binding.homeHeroSecondaryCallToActionText.setText(getString(maxStars == 1 ? R.string.earn_1_star : R.string.earn_x_stars, maxStars));
+        }
+
     }
 
     private void generateHomeCategoryCard(HomeCategoryCard template, Context context) {

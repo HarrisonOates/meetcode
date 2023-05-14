@@ -13,6 +13,6 @@ public class QuestionSetTest {
 
         List<String> questions = qs.getQuestionIDsInCategory(QuestionSet.Category.Miscellaneous);
         assertEquals(questions.size(), 5);
-        assertEquals(qs.getUsedQuestionSets().get(questions.get(2))[1], "028064");
+        assertEquals(qs.getUsedQuestionSets().get(questions.get(2)).getAnswer(), "028064");
     }
 }
