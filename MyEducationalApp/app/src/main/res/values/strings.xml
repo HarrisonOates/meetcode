@@ -32,4 +32,7 @@
     <string name="earn_x_stars">Earn %1$d stars</string>
     <string name="completed">Completed!</string>
     <string name="earn_1_star">Earn 1 star</string>
+    <string name="question">Question</string>
+    <string name="topic">Topic</string>
+    <string name="user">User</string>
 </resources>

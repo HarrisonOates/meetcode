@@ -50,11 +50,15 @@ u7468248, Alex Boxall: I contributed 20% of the code. Here are my contributions:
 
 
 u7469758, Geun Yun: I contributed 20% of the code. Here are my contributions:
-* All of MyEducationalApp/app/src/main/java/com/example/myeducationalapp/AVLTree.java
-  * All of MyEducationalApp/app/src/test/java/com/example/myeducationalapp/AVLTreeTest.java
-* Most of MyEducationalApp/app/src/main/java/com/example/myeducationalapp/UserLogin.java 
-  * Most of MyEducationalApp/app/src/androidTest/java/com/example/myeducationalapp/UserLoginTest.java
-* All of MyEducationalApp/app/src/main/java/com/example/myeducationalapp/LanguageSetting.java
+* All of [AVLTree.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/AVLTree.java)
+  * All of [AVLTreeTest.java](./../MyEducationalApp/app/src/test/java/com/example/myeducationalapp/AVLTreeTest.java)
+* Most of [UserLogin.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/UserLogin.java) 
+  * Most of [UserLoginTest.java](./../MyEducationalApp/app/src/androidTest/java/com/example/myeducationalapp/UserLoginTest.java)
+* Most of [QuestionSet.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/QuestionSet.java)
+* Search bar UI part of 
+  * [HomeFragment.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/HomeFragment.java)
+  * [fragment_home.xml](./../MyEducationalApp/app/src/main/res/layout/fragment_home.xml)
+* All of [LanguageSetting.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/LanguageSetting.java)
   * Most of
     MyEducationalApp/app/src/main/res/values-pt-rBR/strings.xml
     MyEducationalApp/app/src/main/res/values-zh-rCN/strings.xml
@@ -162,13 +166,10 @@ We used the following data structures in our project:
 
    * Reasons:
 
-     * It is more efficient than Arraylist for insertion with a time complexity O(1)
+     * Having the property of self-balancing along with the binary search tree guarantees the performance of O(logN) in the worst case for insertion, deletion and searching.
+     * Although HashMap may seem more plausible with better time complexity, the AVL Tree can get data in order via inOrderTraversal().
 
-     * We don't need to access the item by index for this feature
-
-2. Having the property of self-balancing along with the binary search tree guarantees the performance of O(logN) in the worst case for insertion, deletion and searching.
-
-3. Unlike the most operation in the AVL Tree, the deletion was not covered in the lecture, so its implementation will be briefly outlined.
+2. Unlike the most operation in the AVL Tree, the deletion was not covered in the lecture, so its implementation will be briefly outlined.
    * The node that is to be deleted first gets searched, similar to the initial search fro the insertion.
    * It then gets deleted accordingly preserving the BST properties depending on the number of children node/s it has.
    * The tree now identifies node/s that violate/s the balance factor rule.
