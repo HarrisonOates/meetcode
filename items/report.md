@@ -126,9 +126,9 @@ The following conflict resolution protocol was decided on in our first meeting.
 *List all the use cases in text descriptions or create use case diagrams. Please refer to https://www.visual-paradigm.com/guide/uml-unified-modeling-language/what-is-use-case-diagram/ for use case diagram.*
 
 ## Application UML
+The below UML diagram does not include any of the user interface classes.
 
-![ClassDiagramExample](./images/ClassDiagramExample.png) <br>
-*[Replace the above with a class diagram. You can look at how we have linked an image here as an example of how you can do it too.]*
+![ClassDiagram](./images/ClassDiagram.png) <br>
 
 ## Application Design and Decisions
 
