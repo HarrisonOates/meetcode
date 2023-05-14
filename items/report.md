@@ -21,7 +21,7 @@
 | u7469758         |      Geun Yun      |     Data Structures, Authorisation and Localisation |
 | u7468212         |   Harrison Oates   | Syntax Highlighting Design and Parser, Data Streams |
 | u7146309         |  Jayden Skidmore   |                    Search Grammar Design and Parser |
-| u7300256         | Nikhila Gurusinghe |            User Interface Design and Implementation |
+| u7300256         | Nikhila Gurusinghe | User Experience & Interface Design, and Implementation |
 
 ## Summary of Individual Contributions
 
@@ -98,7 +98,35 @@ u7146309, Jayden Skidmore: I contributed 20% of the code. Here are my contributi
 
 
 u7300256, Nikhila Gurusinghe: I contributed 20% of the code. Here are my contributions:
-* A.class
+* All of [LoginActivity.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/LoginActivity.java)
+* All of [MainActivity.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/MainActivity.java)
+* All of [AccountFragment.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/AccountFragment.java)
+* All of [CategoriesListFragment.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/CategoriesListFragment.java)
+* Most of [DirectMessageFragment.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/DirectMessageFragment.java)
+  * Alex added scrolling the LinearLayout to the bottom and suggested long clicking to like direct messages
+* All of [MessagesFragment.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/MessagesFragment.java)
+* All of [QuestionFragment.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/QuestionFragment.java)
+* All of [UserInterfaceManager.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/userInterface/UserInterfaceManager.java)
+* All of [UserInterfaceManagerViewModel.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/userInterface/UserInterfaceManagerViewModel.java)
+* All of [CategoryListCard.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/userInterface/Generation/CategoryListCard.java)
+* All of [CategoryQuestionCard.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/userInterface/Generation/CategoryQuestionCard.java)
+* All of [DiscussionElement.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/userInterface/Generation/DiscussionElement.java)
+* All of [HomeCategoryCard.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/userInterface/Generation/HomeCategoryCard.java)
+* All of [MessagesListCard.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/userInterface/Generation/MessagesListCard.java)
+* All of [QuestionCategoriesCard.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/userInterface/Generation/QuestionCategoriesCard.java)
+* All of [GeneratedUserInterfaceViewModel.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/userInterface/Generation/GeneratedUserInterfaceViewModel.java.java)
+* Most of [drawable](./../MyEducationalApp/app/src/main/res/drawable) resource folder
+* All of [font](./../MyEducationalApp/app/src/main/res/font), [navigation](./../MyEducationalApp/app/src/main/res/navigation), [values](./../MyEducationalApp/app/src/main/res/values) and [anim](./../MyEducationalApp/app/src/main/res/anim) resource folders
+* Most of [layout](./../MyEducationalApp/app/src/main/res/layout) resource folder including:
+  * All of [activity_login.xml](./../MyEducationalApp/app/src/main/res/layout/activity_login.xml) (aside from localisation)
+  * All of [activity_main.xml](./../MyEducationalApp/app/src/main/res/layout/activity_main.xml) (aside from localisation)
+  * All of [fragment_account.xml](./../MyEducationalApp/app/src/main/res/layout/fragment_account.xml) (aside from localisation)
+  * All of [fragment_categories_list.xml](./../MyEducationalApp/app/src/main/res/layout/fragment_categories_list.xml) (aside from localisation)
+  * All of [fragment_category.xml](./../MyEducationalApp/app/src/main/res/layout/fragment_category.xml) (aside from localisation)
+  * All of [fragment_direct_message.xml](./../MyEducationalApp/app/src/main/res/layout/fragment_direct_message.xml) (aside from localisation)
+  * Most of [fragment_home.xml](./../MyEducationalApp/app/src/main/res/layout/fragment_home.xml) (aside from localisation and search UI implementation which was done by Geun)
+  * All of [fragment_messages.xml](./../MyEducationalApp/app/src/main/res/layout/fragment_messages.xml) (aside from localisation)
+  * All of [fragment_question.xml](./../MyEducationalApp/app/src/main/res/layout/fragment_question.xml) (aside from localisation)
 * B.class: function1(), function2(), ...
 * What design patterns, data structures, did the involved member propose?
 * Specify what design did the involved member propose? What tools were used for the design?
