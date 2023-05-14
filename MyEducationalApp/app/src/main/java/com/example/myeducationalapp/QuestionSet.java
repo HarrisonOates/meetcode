@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import java.util.UUID;
-import java.util.function.Function;
 
 public class QuestionSet {
     public enum Category {Algorithm, ControlFlow, DataStructure, Miscellaneous, Recursion}

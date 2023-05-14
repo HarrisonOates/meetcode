@@ -15,13 +15,13 @@
 
 ## Team Members and Roles
 
-| UID              |        Name        |                                                            Role |
-|:-----------------|:------------------:|----------------------------------------------------------------:|
-| u7468248         |    Alex Boxall     |                           Firebase and Messaging Implementation |
-| u7469758         |      Geun Yun      |  Data Structures, Authorisation and Localisation Implementation |
-| u7468212         |   Harrison Oates   |            Syntax Highlighting Design and Parser Implementation |
-| u7146309         |  Jayden Skidmore   |                 Search Grammar Design and Parser Implementation |
-| u7300256         | Nikhila Gurusinghe |                        User Interface Design and Implementation |
+| UID              |        Name        |                                                              Role |
+|:-----------------|:------------------:|------------------------------------------------------------------:|
+| u7468248         |    Alex Boxall     |                                            Firebase and Messaging |
+| u7469758         |      Geun Yun      |                   Data Structures, Authorisation and Localisation |
+| u7468212         |   Harrison Oates   |                Syntax Highlighting Design and Parser, Data Stream |
+| u7146309         |  Jayden Skidmore   |                                  Search Grammar Design and Parser |
+| u7300256         | Nikhila Gurusinghe |                                         User Interface Design and |
 
 ## Summary of Individual Contributions
 
@@ -232,8 +232,7 @@ Two tokenizers and parses were built...
 *[Where do you use tokenisers and parsers? How are they built? What are the advantages of the designs?]*
 
 **Surprise Item**
-
-*[If you implement the surprise item, explain how your solution addresses the surprise task. What decisions do your team make in addressing the problem?]*
+The suprise item was not implemented.
 
 **Other**
 

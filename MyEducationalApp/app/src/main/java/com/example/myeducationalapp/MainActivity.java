@@ -46,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
         binding.setViewModel(userInterfaceManager);
         binding.setLifecycleOwner(this);
 
-
         //setContentView(binding.getRoot());
 
         setSupportActionBar(binding.toolbar);
