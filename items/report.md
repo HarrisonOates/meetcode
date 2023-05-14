@@ -103,7 +103,7 @@ u7300256, Nikhila Gurusinghe: I contributed 20% of the code. Here are my contrib
 * All of [AccountFragment.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/AccountFragment.java)
 * All of [CategoriesListFragment.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/CategoriesListFragment.java)
 * Most of [DirectMessageFragment.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/DirectMessageFragment.java)
-  * Alex added scrolling the LinearLayout to the bottom and suggested long clicking to like direct messages
+  * Alex added scrolling the LinearLayout to the bottom and suggested and implemented long clicking to like direct messages
 * Most of [HomeFragment.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/HomeFragment.java)
   * Geun implemented all the search bar UI and functionality
 * All of [MessagesFragment.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/MessagesFragment.java)
