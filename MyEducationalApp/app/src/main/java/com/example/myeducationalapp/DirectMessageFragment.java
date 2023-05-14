@@ -152,6 +152,7 @@ public class DirectMessageFragment extends Fragment {
                 // l-> false: we need to check lastRenderedMessageOrientation
                 //     l-> SINGLE: we need to update this SINGLE to a TOP and add new BOTTOM
                 //     l-> BOTTOM: we need to make this a MIDDLE and add a new BOTTOM
+                //     l-> null:   we have a brand new message thread and we need to render a SINGLE
                 //
                 // remember to update wasLastRenderedMessageFromRecipient and lastRenderedMessageOrientation
 
@@ -233,6 +234,10 @@ public class DirectMessageFragment extends Fragment {
     }
 
     private void generateAllDirectMessageBubble(Context context) {
+
+        // TODO only render ~30 messages, then when user scrolls to the top of the scrollviewer
+        // add another 30 messages onto the layout
+        // https://stackoverflow.com/questions/38029423/check-if-a-scrollview-has-reached-the-top-of-the-layout
 
         UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
         MessageListCard messageListCard = userInterfaceManager.getCurrentDirectMessages().getValue().get(messageRecipient);
