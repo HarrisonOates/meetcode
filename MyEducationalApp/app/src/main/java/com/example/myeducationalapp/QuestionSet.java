@@ -18,7 +18,7 @@ public class QuestionSet {
 
     // <Question ID, String[]{Question, answer} pair
     // MUST BE SORTED - otherwise the challenge of the day will be inconsistent
-    public SortedMap<String, Question> usedQuestionSets;
+    private SortedMap<String, Question> usedQuestionSets;
 
     private QuestionSet() {
         usedQuestionSets = new TreeMap<>();
@@ -66,7 +66,7 @@ public class QuestionSet {
         return usedQuestionSets.get(possibleQuestions.get((day / 5) % possibleQuestions.size()));
     }
 
-    public void addAlgorithms() {
+    private void addAlgorithms() {
         addQuestion(new Question(
                 "PLEASE WRITE ME",
                 "Please write this!",
@@ -76,7 +76,7 @@ public class QuestionSet {
         ));
     }
 
-    public void addControlFlow() {
+    private void addControlFlow() {
         addQuestion(new Question(
                 "PLEASE WRITE ME",
                 "Please write this!",
@@ -87,7 +87,7 @@ public class QuestionSet {
     }
 
     // I think we can just call one of these questions once a day?
-    public void addDataStructure() {
+    private void addDataStructure() {
         // Question about HashMap
         addQuestion(new Question("UNNAMED", DetectCodeBlock.parseCodeBlocks(
                 "What will be the output of map.get(2) after the execution of the codes below?\n\n"+
@@ -183,7 +183,7 @@ public class QuestionSet {
                 "B" ,QuestionSet.Category.DataStructure, 5));
     }
 
-    public void addMiscellaneous() {
+    private void addMiscellaneous() {
         // Octal literals
         addQuestion(new Question("UNNAMED", DetectCodeBlock.parseCodeBlocks(
                 "What is the output of this line of code?" +
@@ -243,7 +243,7 @@ public class QuestionSet {
 
 
 
-    public void addRecursion() {
+    private void addRecursion() {
         addQuestion(new Question("UNNAMED",
                 "What is the output of adder(0)" +
                         "public static int adder(int i) { "+

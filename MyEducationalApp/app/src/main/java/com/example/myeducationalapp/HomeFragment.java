@@ -132,7 +132,6 @@ public class HomeFragment extends Fragment {
 
             binding.homeHeroSecondaryCallToActionText.setText(getString(maxStars == 1 ? R.string.earn_1_star : R.string.earn_x_stars, maxStars));
         }
-
     }
 
     private void generateHomeCategoryCard(HomeCategoryCard template, Context context) {
