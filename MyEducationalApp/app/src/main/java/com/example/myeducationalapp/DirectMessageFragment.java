@@ -178,7 +178,8 @@ public class DirectMessageFragment extends Fragment {
                 } else {
                     if (lastRenderedMessageOrientation == MessageBubbleOrientation.SINGLE) {
                         // last message being turned into a TOP
-                        binding.directMessageLinearLayout.getChildAt(binding.directMessageLinearLayout.getChildCount() - 1).setBackground(ContextCompat.getDrawable(getActivity(), MessageBubbleOrientation.TOP.drawableID));
+                        ((ConstraintLayout) binding.directMessageLinearLayout.getChildAt(binding.directMessageLinearLayout.getChildCount() - 1)).getChildAt(0).
+                                setBackground(ContextCompat.getDrawable(getActivity(), MessageBubbleOrientation.TOP.drawableID));
 
                         // render new BOTTOM
                         Message messageToRender = messages.get(messages.size() - 1);
@@ -194,8 +195,8 @@ public class DirectMessageFragment extends Fragment {
                         lastRenderedMessageOrientation = MessageBubbleOrientation.BOTTOM;
                     } else if (lastRenderedMessageOrientation == MessageBubbleOrientation.BOTTOM) {
                         // last message being turned into a MIDDLE
-                        binding.directMessageLinearLayout.getChildAt(binding.directMessageLinearLayout.getChildCount() - 1).setBackground(ContextCompat.getDrawable(getActivity(), MessageBubbleOrientation.MIDDLE.drawableID));
-
+                        ((ConstraintLayout) binding.directMessageLinearLayout.getChildAt(binding.directMessageLinearLayout.getChildCount() - 1)).getChildAt(0).
+                                setBackground(ContextCompat.getDrawable(getActivity(), MessageBubbleOrientation.MIDDLE.drawableID));
                         // render new BOTTOM
                         Message messageToRender = messages.get(messages.size() - 1);
                         boolean isRecipient = false;
@@ -365,8 +366,8 @@ public class DirectMessageFragment extends Fragment {
 
         messageContainerConstraintLayout.addView(messageText, 0);
         likeContainerConstraintLayout.addView(likeText, 0);
-        constraintLayout.addView(messageContainerConstraintLayout);
-        constraintLayout.addView(likeContainerConstraintLayout);
+        constraintLayout.addView(messageContainerConstraintLayout, 0);
+        constraintLayout.addView(likeContainerConstraintLayout, 1);
 
         likeTextConstraintSet.clone(likeContainerConstraintLayout);
         likeTextConstraintSet.connect(likeText.getId(), ConstraintSet.BOTTOM, likeContainerConstraintLayout.getId(), ConstraintSet.BOTTOM);
