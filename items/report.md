@@ -58,8 +58,12 @@ u7469758, Geun Yun: I contributed 20% of the code. Here are my contributions:
 
 
 u7468212, Harrison Oates: I contributed 20% of the code. Here are my contributions:
-* A.class
-* B.class: function1(), function2(), ...
+* All of SyntaxHighlighting.DetectCodeBlock.Class
+* All of SyntaxHighlighting.Parser.Class
+* All of SyntaxHighlighting.Token.Class
+* All of SyntaxHighlighting.Tokenizer.Class
+* All of SyntaxHighlightingTest
+* All of SyntaxHighlightingParsingTest
 * What design patterns, data structures, did the involved member propose?
 * Specify what design did the involved member propose? What tools were used for the design?
 * Which part of the report did the involved member write?
