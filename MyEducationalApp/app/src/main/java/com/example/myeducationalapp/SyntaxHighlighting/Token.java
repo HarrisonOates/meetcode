@@ -4,7 +4,7 @@ import java.util.Objects;
 
 /**
  * A class to save extracted tokens
- * @author Harrison Oates
+ * @author u7468212 Harrison Oates
  */
 public class Token {
     // Defines the various types of tokens, as discussed in the lecture

@@ -4,7 +4,7 @@ package com.example.myeducationalapp.SyntaxHighlighting;
  * Detects when a user has entered a code block by using three backticks in a row.
  * Will scan until three backticks are again entered, or the end of the string,
  * whichever is shorter.
- * @author Harrison Oates
+ * @author u7468212 Harrison Oates
  */
 
 public class DetectCodeBlock {

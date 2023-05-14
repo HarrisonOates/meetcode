@@ -7,7 +7,7 @@ import java.util.Set;
 /**
  * Tokenizer class to convert a file of java code into tokens
  * At present, tokenizer does not check for correctness.
- * @author Harrison Oates
+ * @author u7468212 Harrison Oates
  */
 public class Tokenizer {
     // General structure of tokenizer taken from lab 5.

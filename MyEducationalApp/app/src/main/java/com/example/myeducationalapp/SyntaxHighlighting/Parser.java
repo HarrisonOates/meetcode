@@ -17,7 +17,7 @@ import java.util.Set;
 /**
  * Takes a block of Java code and transforms it into a HTML string.
  * Only one colour scheme for the moment.
- * @author Harrison Oates
+ * @author u7468212 Harrison Oates
  */
 public class Parser {
     /**

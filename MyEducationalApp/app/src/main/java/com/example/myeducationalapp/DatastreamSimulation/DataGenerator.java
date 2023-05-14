@@ -6,7 +6,7 @@ import java.util.Random;
 
 /**
  * Simulates a data stream to satisfy the basic features of the app.
- * @author Harrison
+ * @author u7468212 Harrison Oates
  */
 public class DataGenerator {
 
