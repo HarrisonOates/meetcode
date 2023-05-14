@@ -347,6 +347,33 @@ public class Firebase {
         return usernames;
     }
 
+    public FirebaseResult readAllUsernamesAsync() {
+        /*
+         * Get the content from Firebase and wait for completion.
+         */
+        return readLoginDetails().then((data_) -> {
+            String data = (String) data_;
+            List<String> usernames = new ArrayList<>();
+
+            if (!data.isEmpty()) {
+                /*
+                 * Iterate through each of the usernames.
+                 */
+                String[] userLoginInfos = data.split("\n");
+                for (String userInfo : userLoginInfos) {
+                    /*
+                     * The password and salt is also stored, so just add the username to the result.
+                     */
+                    usernames.add(userInfo.split(",")[0]);
+                }
+            }
+
+            return usernames;
+        });
+
+
+    }
+
     /**
      * Clears the direct message history between two users.
      *
