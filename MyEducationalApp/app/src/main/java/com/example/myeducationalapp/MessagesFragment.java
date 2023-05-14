@@ -98,6 +98,16 @@ public class MessagesFragment extends Fragment {
         UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
         userInterfaceManager.getUiState().getValue().enterNewFragment(toolbarTitle, false);
 
+        binding.directMessageSendButton.setOnClickListener(view1 -> {
+
+            userInterfaceManager.getUiState().getValue().setToolbarTitle(binding.messagesSendNewMessageInputText.getText().toString());
+
+            // TODO start new conversation with person in text box
+
+            NavHostFragment.findNavController(MessagesFragment.this).navigate(R.id.action_messagesFragment_to_directMessageFragment);
+
+        });
+
         if (userInterfaceManager.getCurrentDirectMessages().getValue().size() == 0) {
             Firebase.getInstance().getAllUsersYouHaveMessaged(dms -> {
 

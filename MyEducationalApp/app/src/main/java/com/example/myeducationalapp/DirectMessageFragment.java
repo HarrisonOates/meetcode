@@ -121,6 +121,8 @@ public class DirectMessageFragment extends Fragment {
             }
         });
 
+
+
     }
 
     private void sendMessage() {
@@ -164,11 +166,13 @@ public class DirectMessageFragment extends Fragment {
             // making sure that there is a next message
             if ((i + 1) < messagesSize) {
 
-                if (messages.get(i + 1).getPoster().equals(currentPoster)) {
+                if (messages.get(i + 1).getPoster().equals(currentPoster) || (i + 1 == messagesSize - 1) && isImmediate) {
                     // We have multiple messages from the same poster
                     ArrayList<Message> currentPosterMessages = new ArrayList<>();
 
                     currentPosterMessages.add(firstMessage);
+                    // TODO when it gets to this line using the OR condition
+                    // the following might not belong to the same author
                     currentPosterMessages.add(messages.get(i + 1));
 
                     // loop until we reach a message from the next poster
@@ -200,6 +204,10 @@ public class DirectMessageFragment extends Fragment {
 
                     if (isImmediate && (i == (messagesSize - 1))) {
                         isRecipient = false;
+                    }
+
+                    if ((i + 1 == messagesSize - 1) && isImmediate) {
+                        i += 1;
                     }
 
                     generateDirectMessageBubble(currentPosterMessages.get(currentPosterMessages.size() - 1), isRecipient, MessageBubbleOrientation.BOTTOM, false, currentMessageIndex, getActivity());

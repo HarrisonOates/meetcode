@@ -37,7 +37,7 @@
 
         <!-- Search text entry field -->
         <EditText
-            android:id="@+id/direct_message_input_text"
+            android:id="@+id/messages_send_new_message_input_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="14dp"
@@ -51,6 +51,39 @@
             app:layout_constraintEnd_toStartOf="@+id/direct_message_end_guide"
             app:layout_constraintStart_toEndOf="@+id/home_search_magnifying_glass_icon"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Filter button container widget -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/direct_message_send_button"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/shapes_button_circle"
+            android:clipToOutline="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toStartOf="@+id/direct_message_end_guide"
+            app:layout_constraintStart_toStartOf="@+id/direct_message_end_guide"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <!-- send icon -->
+            <View
+                android:id="@+id/direct_message_send_arrow_icon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/icon_right_send_arrow"
+                android:clipToOutline="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.55"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/direct_message_start_guide"
