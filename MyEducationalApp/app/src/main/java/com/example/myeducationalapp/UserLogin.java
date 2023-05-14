@@ -160,6 +160,7 @@ public class UserLogin {
     }
 
     public boolean isUserLoggedIn(String username) {
+        System.out.printf("USER COMPARE: %s, %s\n", username, getCurrentUsername());
         return loggedInUsername != null && getCurrentUsername().equals(username);
     }
 
@@ -180,6 +181,8 @@ public class UserLogin {
             }
             loggedInUsername = username;
 
+            System.out.printf("Authorised user: %s\n", username);
+
             UserLocalData.getInstance().loadFromDisk();
         }
 
@@ -188,6 +191,7 @@ public class UserLogin {
 
     public void logout() {
         UserLocalData.getInstance().logout();
+        System.out.printf("LOG OUT!\n");
         loggedInUsername = null;
     }
 

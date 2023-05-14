@@ -89,6 +89,13 @@ public class UserLocalData {
         return Firebase.getInstance().readPerUserSettings(UserLogin.getInstance().getCurrentUsername()).then((obj) -> {
             String data = (String) obj;
 
+            if (data == null) {
+                /*
+                 * New user, so no data.
+                 */
+                return null;
+            }
+
             String[] parts = data.split(";", -1);
             String blockedUserStr = unescapeString(parts[0]);
             String successfulAnswer = unescapeString(parts[1]);
