@@ -156,7 +156,7 @@ MeetCode is a disruptive new breed of app asking the question: what if a social 
 
 MeetCode allow users to learn programming in bite-sized chunks, via daily questions, and do so together, via direct messaging each other or commenting on questions.
 
-MeetCode is proud to support for Korean, Japanese, and Chinese learners through our app localisation allowing for you to truly program together.
+MeetCode is proud to support Korean, Japanese, and Chinese learners through our app localisation allowing for you to truly program together.
 
 **Application Use Cases and or Examples**
 
