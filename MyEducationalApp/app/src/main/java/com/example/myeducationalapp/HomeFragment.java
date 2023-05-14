@@ -20,6 +20,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -35,7 +36,10 @@ import com.example.myeducationalapp.Search.SearchResults.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -141,9 +145,15 @@ public class HomeFragment extends Fragment {
             binding.homeHeroSecondaryCallToActionText.setText(getString(maxStars == 1 ? R.string.earn_1_star : R.string.earn_x_stars, maxStars));
         }
 
-        // Make the filter visible/invisible by clicking the filter icon.
-        // It is initially invisible.
+        // Question is set as the default type of search
+        binding.questionSearch.setChecked(true);
+
+        // Search filter and results should only be visible when they are explicitly used
+        binding.searchResults.setVisibility(View.INVISIBLE);
         binding.searchFilter.setVisibility(View.INVISIBLE);
+        binding.hideSearchResults.setVisibility(View.INVISIBLE);
+
+        // Make the filter visible/invisible by clicking the filter icon.
         binding.filterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -155,10 +165,23 @@ public class HomeFragment extends Fragment {
                     isFilterOpen = true;
                 }
             }
-        }
-        );
+        });
+
+        // Make the search results invisible by clicking the hide button.
+        binding.hideSearchResults.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                binding.searchResults.setVisibility(View.INVISIBLE);
+                binding.hideSearchResults.setVisibility(View.INVISIBLE);
+            }
+        });
+
+
         // Searches the given query by pressing enter on the input text field for it
         binding.searchInputText.setOnKeyListener((view1, keyCode, keyEvent) -> {
+            // close the filter view so that the search results become visible.
+            binding.searchFilter.setVisibility(View.INVISIBLE);
+            isFilterOpen = false;
 
             if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
                 initializeSearch();
@@ -170,17 +193,36 @@ public class HomeFragment extends Fragment {
     }
 
     private void initializeSearch() {
-        String searchQuery = binding.searchInputText.getText().toString();
+        binding.searchResults.setVisibility(View.VISIBLE);
+        binding.hideSearchResults.setVisibility(View.VISIBLE);
+
+        List<String> searchQuery = Arrays.asList(binding.searchInputText.getText().toString().split(" "));
         System.out.println("Searching: " + searchQuery);
 
         if (binding.questionSearch.isChecked()) {
-            QuestionResults searchType = new QuestionResults();
+            QuestionResults search = new QuestionResults();
+            List<SearchResult> results = search.looseResults(searchQuery);
+            visualizeSearchResults(results);
         } else if (binding.topicSearch.isChecked()) {
-            TopicResults searchType = new TopicResults();
+            TopicResults search = new TopicResults();
+            List<SearchResult> results = search.looseResults(searchQuery);
+            visualizeSearchResults(results);
         } else if (binding.userSearch.isChecked()) {
-            UserResults searchType = new UserResults();
+            UserResults search = new UserResults();
+            List<SearchResult> results = search.looseResults(searchQuery);
+            visualizeSearchResults(results);
         }
     }
+
+    private void visualizeSearchResults(List<SearchResult> results) {
+        List<String> resultStrings = new ArrayList<>();
+        results.forEach(res -> resultStrings.add(res.getStringResult()));
+        System.out.println(Arrays.toString(resultStrings.toArray()));
+
+        ArrayAdapter<String> resultsAdapter = new ArrayAdapter<>(this.getContext(), android.R.layout.simple_list_item_1, resultStrings);
+        binding.searchResults.setAdapter(resultsAdapter);
+    }
+
     private void generateHomeCategoryCard(HomeCategoryCard template, Context context) {
         // making ui elements within parent
         ImageView image = new ImageView(context);
