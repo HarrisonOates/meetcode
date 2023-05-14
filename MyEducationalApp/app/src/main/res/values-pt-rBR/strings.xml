@@ -1,3 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="question">Question</string>
+    <string name="topic">Topic</string>
+    <string name="user">User</string>
 </resources>

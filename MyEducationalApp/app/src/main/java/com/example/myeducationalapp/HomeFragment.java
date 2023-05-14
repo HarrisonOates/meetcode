@@ -1,6 +1,7 @@
 package com.example.myeducationalapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 
@@ -15,10 +16,13 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.example.myeducationalapp.Firebase.Firebase;
@@ -26,6 +30,8 @@ import com.example.myeducationalapp.userInterface.Generation.GeneratedUserInterf
 import com.example.myeducationalapp.userInterface.Generation.HomeCategoryCard;
 import com.example.myeducationalapp.userInterface.UserInterfaceManagerViewModel;
 import com.example.myeducationalapp.databinding.FragmentHomeBinding;
+
+import com.example.myeducationalapp.Search.SearchResults.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -50,6 +56,8 @@ public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
     private final String toolbarTitle = "Home";
 
+    // Indicates whether the search filter is open or not to decide whether to close it or open it
+    private boolean isFilterOpen = false;
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -132,8 +140,47 @@ public class HomeFragment extends Fragment {
 
             binding.homeHeroSecondaryCallToActionText.setText(getString(maxStars == 1 ? R.string.earn_1_star : R.string.earn_x_stars, maxStars));
         }
+
+        // Make the filter visible/invisible by clicking the filter icon.
+        // It is initially invisible.
+        binding.searchFilter.setVisibility(View.INVISIBLE);
+        binding.filterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (isFilterOpen) {
+                    binding.searchFilter.setVisibility(View.INVISIBLE);
+                    isFilterOpen = false;
+                } else {
+                    binding.searchFilter.setVisibility(View.VISIBLE);
+                    isFilterOpen = true;
+                }
+            }
+        }
+        );
+        // Searches the given query by pressing enter on the input text field for it
+        binding.searchInputText.setOnKeyListener((view1, keyCode, keyEvent) -> {
+
+            if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                initializeSearch();
+                return true;
+            }
+
+            return false;
+        });
     }
 
+    private void initializeSearch() {
+        String searchQuery = binding.searchInputText.getText().toString();
+        System.out.println("Searching: " + searchQuery);
+
+        if (binding.questionSearch.isChecked()) {
+            QuestionResults searchType = new QuestionResults();
+        } else if (binding.topicSearch.isChecked()) {
+            TopicResults searchType = new TopicResults();
+        } else if (binding.userSearch.isChecked()) {
+            UserResults searchType = new UserResults();
+        }
+    }
     private void generateHomeCategoryCard(HomeCategoryCard template, Context context) {
         // making ui elements within parent
         ImageView image = new ImageView(context);
