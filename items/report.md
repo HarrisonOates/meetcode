@@ -150,9 +150,13 @@ The following conflict resolution protocol was decided on in our first meeting.
 
 *[What is your application, what does it do? Include photos or diagrams if necessary]*
 
-*Here is a pet specific application example*
+MeetCode: Program Together
 
-*PetBook is a social media application specifically targetting pet owners... it provides... certified practitioners, such as veterians are indicated by a label next to their profile...*
+MeetCode is a disruptive new breed of app asking the question: what if a social media application was also about learning programming? 
+
+MeetCode allow users to learn programming in bite-sized chunks, via daily questions, and do so together, via direct messaging each other or commenting on questions.
+
+MeetCode is proud to support for Korean, Japanese, and Chinese learners through our app localisation allowing for you to truly program together.
 
 **Application Use Cases and or Examples**
 
