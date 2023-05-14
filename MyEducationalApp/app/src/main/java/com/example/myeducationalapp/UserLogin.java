@@ -44,13 +44,37 @@ public class UserLogin {
                 String[] userLoginInfos = data.split("\n");
                 for (String userInfo : userLoginInfos) {
                     String[] pair = userInfo.split(",");
-                    if (containsAScaryCharacter(pair[0])) {
-                        continue;
-                    }
+
+                    //if (containsAScaryCharacter(pair[0])) {
+                    //    continue;
+                    //}
+
                     userLogins.put(pair[0], new String[]{pair[1], pair[2]});
                 }
             }
+/*
+            {
+                byte[] salt = generateSalt();
+                String hashedPassword = hashPassword("12345678", salt);
+                userLogins.put("alex", new String[]{hashedPassword, bytesToHex(salt)});
+                userLogins.put("geun", new String[]{hashedPassword, bytesToHex(salt)});
+                userLogins.put("harrison", new String[]{hashedPassword, bytesToHex(salt)});
+                userLogins.put("jayden", new String[]{hashedPassword, bytesToHex(salt)});
+                userLogins.put("nikhila", new String[]{hashedPassword, bytesToHex(salt)});
+            }
 
+            {
+                byte[] salt = generateSalt();
+                String hashedPassword = hashPassword("comp2100", salt);
+                userLogins.put("comp2100@anu.au", new String[]{hashedPassword, bytesToHex(salt)});
+            }
+
+            {
+                byte[] salt = generateSalt();
+                String hashedPassword = hashPassword("comp6442", salt);
+                userLogins.put("comp6442@anu.au", new String[]{hashedPassword, bytesToHex(salt)});
+            }
+*/
             return null;
         });
     }
@@ -136,6 +160,7 @@ public class UserLogin {
     }
 
     public boolean isUserLoggedIn(String username) {
+        System.out.printf("USER COMPARE: %s, %s\n", username, getCurrentUsername());
         return loggedInUsername != null && getCurrentUsername().equals(username);
     }
 
@@ -156,6 +181,8 @@ public class UserLogin {
             }
             loggedInUsername = username;
 
+            System.out.printf("Authorised user: %s\n", username);
+
             UserLocalData.getInstance().loadFromDisk();
         }
 
@@ -164,6 +191,7 @@ public class UserLogin {
 
     public void logout() {
         UserLocalData.getInstance().logout();
+        System.out.printf("LOG OUT!\n");
         loggedInUsername = null;
     }
 

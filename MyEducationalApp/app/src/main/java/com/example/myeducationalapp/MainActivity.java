@@ -2,6 +2,7 @@ package com.example.myeducationalapp;
 
 import android.os.Bundle;
 
+import com.example.myeducationalapp.Firebase.Firebase;
 import com.example.myeducationalapp.userInterface.UserInterfaceManagerViewModel;
 
 import androidx.activity.OnBackPressedCallback;
@@ -44,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         binding.setViewModel(userInterfaceManager);
         binding.setLifecycleOwner(this);
-
 
         //setContentView(binding.getRoot());
 
@@ -117,6 +117,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Firebase.getInstance().dump();
+        //UserLogin.getInstance().addUser("test", "123456789");
     }
 
     @Override

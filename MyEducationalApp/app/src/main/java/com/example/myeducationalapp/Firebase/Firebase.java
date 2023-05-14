@@ -343,8 +343,34 @@ public class Firebase {
                 usernames.add(userInfo.split(",")[0]);
             }
         }
-
         return usernames;
+    }
+
+    public FirebaseResult readAllUsernamesAsync() {
+        /*
+         * Get the content from Firebase and wait for completion.
+         */
+        return readLoginDetails().then((data_) -> {
+            String data = (String) data_;
+            List<String> usernames = new ArrayList<>();
+
+            if (!data.isEmpty()) {
+                /*
+                 * Iterate through each of the usernames.
+                 */
+                String[] userLoginInfos = data.split("\n");
+                for (String userInfo : userLoginInfos) {
+                    /*
+                     * The password and salt is also stored, so just add the username to the result.
+                     */
+                    usernames.add(userInfo.split(",")[0]);
+                }
+            }
+
+            return usernames;
+        });
+
+
     }
 
     /**
@@ -444,18 +470,6 @@ public class Firebase {
         });
 
         root.get();
-    }
-
-    /**
-     * Please don't call this. Deletes absolutely everything from Firebase.
-     * @param safetyCheck This value must be set correctly for the function to work.
-     */
-    public void eraseAllData(String safetyCheck) {
-        if (!safetyCheck.equals("yes, I actually want to delete all data from firebase")) {
-            throw new RuntimeException("if you really want to delete everything, look at the source of Firebase.eraseAllData. WARNING: Alex will probably kill you if you delete everything");
-        }
-
-        database.removeValue();
     }
 
     /**

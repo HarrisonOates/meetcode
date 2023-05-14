@@ -10,6 +10,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.myeducationalapp.Firebase.Firebase;
 import com.example.myeducationalapp.databinding.ActivityLoginBinding;
 import com.example.myeducationalapp.databinding.ActivityMainBinding;
 
@@ -48,6 +49,8 @@ public class LoginActivity extends AppCompatActivity {
             return false;
         });
 
+        //Firebase.getInstance().dump();
+        //UserLogin.getInstance().addUser("comp2100@anu.au", "comp2100");
     }
 
     private void onLoginButtonPress() {

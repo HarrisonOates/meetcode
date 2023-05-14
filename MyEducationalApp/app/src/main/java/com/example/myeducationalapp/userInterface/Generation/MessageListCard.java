@@ -14,9 +14,6 @@ public class MessageListCard {
     public int profileImage;
     public String headingText;
     public String subHeadingText;
-
-    // TODO remove this
-    public ConstraintLayout parent;
     public boolean isNotification;
     public DirectMessageThread directMessageThread;
 

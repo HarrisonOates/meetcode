@@ -1,19 +1,21 @@
 package com.example.myeducationalapp;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -30,6 +32,7 @@ import com.example.myeducationalapp.userInterface.Generation.MessageListCard;
 import com.example.myeducationalapp.userInterface.UserInterfaceManagerViewModel;
 import com.google.android.material.divider.MaterialDivider;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -98,43 +101,122 @@ public class MessagesFragment extends Fragment {
         UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
         userInterfaceManager.getUiState().getValue().enterNewFragment(toolbarTitle, false);
 
+        // sending new DM to user through the search bar
+        binding.directMessageSendButton.setOnClickListener(view1 -> {
+            initializeNewDirectMessage();
+        });
+
+        // sending new DM to user by pressing enter on the input text field for it
+        binding.messagesSendNewMessageInputText.setOnKeyListener((view1, keyCode, keyEvent) -> {
+
+            if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                initializeNewDirectMessage();
+                return true;
+            }
+
+            return false;
+        });
+
+        // If we don't have any direct message threads currently, we need to fetch them from firebase
         if (userInterfaceManager.getCurrentDirectMessages().getValue().size() == 0) {
             Firebase.getInstance().getAllUsersYouHaveMessaged(dms -> {
-
-                String directMessageRecipient = dms.getUsername();
-
-                MessageListCard template = new MessageListCard(R.drawable.user_profile_default, directMessageRecipient, "", dms);
-
-                if (dms.getMessages().size() > 0) {
-                    Message lastDirectMessage = dms.getMessages().get(dms.getMessages().size() - 1);
-
-                    if (Objects.equals(lastDirectMessage.getPoster().getUsername(), UserLogin.getInstance().getCurrentUsername())) {
-                        template = new MessageListCard(R.drawable.user_profile_default, directMessageRecipient, "You: " + lastDirectMessage.getContent(), dms);
-                    } else {
-                        template = new MessageListCard(R.drawable.user_profile_default, directMessageRecipient, lastDirectMessage.getContent(), dms);
-                    }
-                }
-
-                userInterfaceManager.getCurrentDirectMessages().getValue().put(directMessageRecipient, template);
-
-                generateMessageListCard(template, getActivity(), template.isNotification);
+                storeAllMessageThreads(dms);
 
                 return null;
             });
 
         } else {
-            drawAllMessageListCards();
+            // Otherwise just render what we have stored currently
+            generateAllMessageListCards();
         }
+    }
+
+    private void initializeNewDirectMessage() {
+        UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
+        String usernameToDirectMessage = binding.messagesSendNewMessageInputText.getText().toString();
+
+        // Just some validation so we aren't wasting time querying Firebase with noting
+        if (!usernameToDirectMessage.isBlank() && !usernameToDirectMessage.isEmpty()) {
+            // Querying Firebase to see if the username is in there
+            Firebase.getInstance().readAllUsernamesAsync().then((obj) -> {
+                List<String> usernames = (List<String>) obj;
+
+                // Does the username exist?
+                if (usernames.contains(binding.messagesSendNewMessageInputText.getText().toString())) {
+                    userInterfaceManager.getUiState().getValue().setToolbarTitle(usernameToDirectMessage);
+
+                    // If user is already someone we have messaged then we don't have to worry about setting up new local data
+                    // to support their DM, as it already exists
+                    boolean isUserInLocalDirectMessages = userInterfaceManager.getCurrentDirectMessages().getValue().get(usernameToDirectMessage) != null;
+
+                    if (!isUserInLocalDirectMessages) {
+                        // creating local DirectMessageThread
+                        DirectMessageThread dms = new DirectMessageThread(usernameToDirectMessage);
+
+                        // adding new user to our ViewModel data
+                        MessageListCard template = new MessageListCard(R.drawable.user_profile_default, usernameToDirectMessage, "", dms);
+                        userInterfaceManager.getCurrentDirectMessages().getValue().put(usernameToDirectMessage, template);
+                        userInterfaceManager.getCurrentDirectMessages().getValue().get(template.headingText).isNotification = false;
+                    }
+
+                    binding.messagesSendNewMessageInputText.getText().clear();
+
+                    // Going to the direct message fragment
+                    NavHostFragment.findNavController(MessagesFragment.this).navigate(R.id.action_messagesFragment_to_directMessageFragment);
+                } else {
+                    Toast toast = Toast.makeText(getActivity().getApplicationContext(), "This user does not exist, is their name spelt correctly?", Toast.LENGTH_LONG);
+                    toast.show();
+                }
+
+                return null;
+            });
+        } else {
+            Toast toast = Toast.makeText(getActivity().getApplicationContext(), "This user does not exist, is their name spelt correctly?", Toast.LENGTH_LONG);
+            toast.show();
+        }
+    }
+
+    private void storeAllMessageThreads(DirectMessageThread dms) {
+        UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
+        String directMessageRecipient = dms.getUsername();
+
+        MessageListCard template = new MessageListCard(R.drawable.user_profile_default, directMessageRecipient, "", dms);
+
+        if (dms.getMessages().size() > 0) {
+            Message lastDirectMessage = dms.getMessages().get(dms.getMessages().size() - 1);
+
+            if (Objects.equals(lastDirectMessage.getPoster().getUsername(), UserLogin.getInstance().getCurrentUsername())) {
+                template = new MessageListCard(R.drawable.user_profile_default, directMessageRecipient, "You: " + lastDirectMessage.getContent(), dms);
+            } else {
+                template = new MessageListCard(R.drawable.user_profile_default, directMessageRecipient, lastDirectMessage.getContent(), dms);
+            }
+        }
+
+        userInterfaceManager.getCurrentDirectMessages().getValue().put(directMessageRecipient, template);
+
+        generateMessageListCard(template, getActivity(), template.isNotification);
     }
 
     public void getAllUsersYouHaveMessagedCallback(DirectMessageThread directMessageThread) {
 
     }
 
-    private void drawAllMessageListCards() {
+    private void generateAllMessageListCards() {
         UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
         userInterfaceManager.getCurrentDirectMessages().getValue().values().forEach(messageListCard -> {
-            generateMessageListCard(messageListCard, getActivity(), messageListCard.isNotification);
+
+            // Updating the subheading of the message card before rendering
+            // first checking if there are any messages
+            if (messageListCard.directMessageThread.getMessages().size() > 0) {
+                messageListCard.subHeadingText = messageListCard.directMessageThread.getMessages().
+                        get(messageListCard.directMessageThread.getMessages().size() - 1).getContent();
+            }
+
+            // "" is default set for when a new DM is made, so we don't want to show if a new DM was made
+            // and a message was never sent in that newly made DM
+            if (!Objects.equals(messageListCard.subHeadingText, "")) {
+                generateMessageListCard(messageListCard, getActivity(), messageListCard.isNotification);
+            }
         });
     }
 

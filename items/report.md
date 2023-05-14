@@ -15,26 +15,38 @@
 
 ## Team Members and Roles
 
-| UID              |        Name        |                                                            Role |
-|:-----------------|:------------------:|----------------------------------------------------------------:|
-| u7468248         |    Alex Boxall     |                           Firebase and Messaging Implementation |
-| u7469758         |      Geun Yun      |  Data Structures, Authorisation and Localisation Implementation |
-| u7468212         |   Harrison Oates   |            Syntax Highlighting Design and Parser Implementation |
-| u7146309         |  Jayden Skidmore   |                 Search Grammar Design and Parser Implementation |
-| u7300256         | Nikhila Gurusinghe |                        User Interface Design and Implementation |
+| UID              |        Name        |                                                Role |
+|:-----------------|:------------------:|----------------------------------------------------:|
+| u7468248         |    Alex Boxall     |                              Firebase and Messaging |
+| u7469758         |      Geun Yun      |     Data Structures, Authorisation and Localisation |
+| u7468212         |   Harrison Oates   | Syntax Highlighting Design and Parser, Data Streams |
+| u7146309         |  Jayden Skidmore   |                    Search Grammar Design and Parser |
+| u7300256         | Nikhila Gurusinghe |            User Interface Design and Implementation |
 
 ## Summary of Individual Contributions
 
 **you should ALSO provide links to the specified classes and/or functions**
 
 u7468248, Alex Boxall: I contributed 20% of the code. Here are my contributions:
-* A.class
-* B.class: function1(), function2(), ...
+* All of [Firebase/Firebase.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Firebase/Firebase.java)
+* All of [Firebase/FirebaseObserver.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Firebase/FirebaseObserver.java)
+* All of [Firebase/FirebaseRequest.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Firebase/FirebaseRequest.java)
+* All of [Firebase/FirebaseResult.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Firebase/FirebaseResult.java)
+* All of [Asynchronous.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Asynchronous.java)
+* All of [DirectMessageThread.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/DirectMessageThread.java)
+* All of [Message.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Message.java)
+* All of [MessageThread.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/MessageThread.java)
+* All of [Person.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Person.java)
+* All of [Question.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Question.java)
+* All of [QuestionMessageThread.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/QuestionMessageThread.java)
+* All of [UserLocalData.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/UserLocalData.java)
+  * All of [UserLocalDataTest.java](./../MyEducationalApp/app/src/androidTest/java/com/example/myeducationalapp/UserLocalDataTest.java)
+* Some changes to [QuestionSet.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/QuestionSet.java)
 * What design patterns, data structures, did the involved member propose?
 * Specify what design did the involved member propose? What tools were used for the design?
 * Which part of the report did the involved member write?
 * Were you responsible for the slides?
-* You are welcome to provide anything that you consider as a contribution to the project or team.
+* I also created the UML diagrams for the project
 
 
 u7469758, Geun Yun: I contributed 20% of the code. Here are my contributions:
@@ -130,9 +142,9 @@ The following conflict resolution protocol was decided on in our first meeting.
 *List all the use cases in text descriptions or create use case diagrams. Please refer to https://www.visual-paradigm.com/guide/uml-unified-modeling-language/what-is-use-case-diagram/ for use case diagram.*
 
 ## Application UML
+The below UML diagram does not include any of the user interface classes.
 
-![ClassDiagramExample](./images/ClassDiagramExample.png) <br>
-*[Replace the above with a class diagram. You can look at how we have linked an image here as an example of how you can do it too.]*
+![ClassDiagram](./images/ClassDiagram.png) <br>
 
 ## Application Design and Decisions
 
@@ -170,17 +182,15 @@ We used the following design patterns in our project:
 
 1. Singleton
 
-* Objective: It is used for storing xxxx for xxx feature.
+* Objective: Used for various classes that require only one instance (or 'global' classes). For example, there is one object for managing user logins, the current user's settings, and the Firebase connection.
 
 * Locations: line xxx in XXX.java, ..., etc.
 
 * Reasons:
+  *
+  * 
 
-   * It is more efficient than Arraylist for insertion with a time complexity O(1)
-
-   * We don't need to access the item by index for this feature
-
-2. State
+2. Facade
 
 3. Observer
 
@@ -236,8 +246,7 @@ Two tokenizers and parses were built...
 *[Where do you use tokenisers and parsers? How are they built? What are the advantages of the designs?]*
 
 **Surprise Item**
-
-*[If you implement the surprise item, explain how your solution addresses the surprise task. What decisions do your team make in addressing the problem?]*
+The surprise item was not implemented.
 
 **Other**
 
@@ -336,12 +345,10 @@ Feature Category: Syntax Highlighting (custom, approved as per [here](https://wa
 
 *Here is an example (you could start numbering your meetings from 1):*
 
-- *[Team Meeting 1](./meeting1.md)*
-- *[Team Meeting 2](./meeting2.md)*
-- *[Team Meeting 3](./meeting3.md)*
-- *[Team Meeting 4](./meeting4.md)*
+- *[Team Meeting 1](./meeting1.md)* (1/4)
+- *[Team Meeting 2](./meeting2.md)* (20/4)
+- *[Team Meeting 3](./meeting3.md)* (27/4)
+- *[Team Meeting 4](./meeting4.md)* (7/5)
+- *[Team Meeting 5](./meeting5.md)* (14/5)
 
-* Link to the minutes of your meetings as above. There must be at least 4 team meetings. 
-Note that you must commit your minute meetings shortly after your meeting has taken place (e.g., within 24h), otherwise your meeting minute will not be accepted.
-Your meetings (and each member's commits) should also have a reasonable date span across Week 6 to 11.*
  

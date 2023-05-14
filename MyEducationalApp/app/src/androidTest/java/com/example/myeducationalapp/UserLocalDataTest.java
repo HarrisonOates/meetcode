@@ -7,15 +7,26 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import java.util.Random;
+
 
 public class UserLocalDataTest {
+    static Random rng = new Random();
+
+    private String generateRandomUsername() {
+        return "test_user_" + rng.nextInt() + "_" + rng.nextInt();
+    }
+
+
     @Test
     public void testToString() {
         UserLocalData localData = UserLocalData.getInstance();
+        UserLocalData.getInstance().noDiskReload = true;
 
+        String username = generateRandomUsername();
         UserLogin login = UserLogin.getInstance();
-        login.addUser("aabc1231", "12345678");
-        login.authoriseUser("aabc1231", "12345678");
+        login.addUser(username, "12345678");
+        login.authoriseUser(username, "12345678");
 
         assertEquals(";;;0", localData.toString());
 
@@ -26,33 +37,36 @@ public class UserLocalDataTest {
         assertEquals(";;123@456,null,888@999;0", localData.toString());
 
         localData.toggleBlockUser("lol i'm blocked;;");
-        assertEquals("lol i'm blocked\\;\\;;;123@456,null,888@999;0", localData.toString());
+        assertEquals("lol i'm blocked\\a\\a;;123@456,null,888@999;0", localData.toString());
 
         localData.submitCorrectAnswer("Q1");
-        assertEquals("lol i'm blocked\\;\\;;Q1;123@456,null,888@999;3", localData.toString());
+        assertEquals("lol i'm blocked\\a\\a;Q1;123@456,null,888@999;3", localData.toString());
 
         localData.submitIncorrectAnswer("Q2", "WRONG");
-        assertEquals("lol i'm blocked\\;\\;;Q1;123@456,null,888@999;3;Q2;1;WRONG", localData.toString());
+        assertEquals("lol i'm blocked\\a\\a;Q1;123@456,null,888@999;3;Q2;1;WRONG", localData.toString());
 
         localData.submitIncorrectAnswer("Q2", "WRONG AGAIN");
-        assertEquals("lol i'm blocked\\;\\;;Q1;123@456,null,888@999;3;Q2;2;WRONG;WRONG AGAIN", localData.toString());
+        assertEquals("lol i'm blocked\\a\\a;Q1;123@456,null,888@999;3;Q2;2;WRONG;WRONG AGAIN", localData.toString());
 
         localData.submitCorrectAnswer("Q2");
-        assertEquals("lol i'm blocked\\;\\;;Q1,null,Q2;123@456,null,888@999;3;Q2;2;WRONG;WRONG AGAIN", localData.toString());
+        assertEquals("lol i'm blocked\\a\\a;Q1,null,Q2;123@456,null,888@999;3;Q2;2;WRONG;WRONG AGAIN", localData.toString());
 
         localData.submitIncorrectAnswer("Q3", "WRONGO");
-        assertEquals("lol i'm blocked\\;\\;;Q1,null,Q2;123@456,null,888@999;3;Q2;2;WRONG;WRONG AGAIN;Q3;1;WRONGO", localData.toString());
+        assertEquals("lol i'm blocked\\a\\a;Q1,null,Q2;123@456,null,888@999;3;Q2;2;WRONG;WRONG AGAIN;Q3;1;WRONGO", localData.toString());
 
         login.logout();
+        UserLocalData.getInstance().noDiskReload = false;
     }
 
     @Test
     public void testBlockingUsers() {
         UserLocalData localData = UserLocalData.getInstance();
+        UserLocalData.getInstance().noDiskReload = true;
 
+        String username = generateRandomUsername();
         UserLogin login = UserLogin.getInstance();
-        login.addUser("aabc1234", "12345678");
-        login.authoriseUser("aabc1234", "12345678");
+        login.addUser(username, "12345678");
+        login.authoriseUser(username, "12345678");
 
         assertFalse(localData.isUserBlocked("abc"));
         localData.toggleBlockUser("abc");
@@ -65,15 +79,18 @@ public class UserLocalDataTest {
         assertTrue(localData.isUserBlocked("def"));
 
         login.logout();
+        UserLocalData.getInstance().noDiskReload = false;
     }
 
     @Test
     public void testLikingMessages() {
         UserLocalData localData = UserLocalData.getInstance();
+        UserLocalData.getInstance().noDiskReload = true;
 
+        String username = generateRandomUsername();
         UserLogin login = UserLogin.getInstance();
-        login.addUser("aabc12335", "12345678");
-        login.authoriseUser("aabc12335", "12345678");
+        login.addUser(username, "12345678");
+        login.authoriseUser(username, "12345678");
 
         assertFalse(localData.isMessageLiked(1, 1));
         assertFalse(localData.isMessageLiked(1, 2));
@@ -96,15 +113,18 @@ public class UserLocalDataTest {
         assertFalse(localData.isMessageLiked(2, 2));
 
         login.logout();
+        UserLocalData.getInstance().noDiskReload = false;
     }
 
     @Test
     public void testSubmittingAnswers() {
         UserLocalData localData = UserLocalData.getInstance();
+        UserLocalData.getInstance().noDiskReload = true;
 
+        String username = generateRandomUsername();
         UserLogin login = UserLogin.getInstance();
-        login.addUser("aabc1235", "12345678");
-        login.authoriseUser("aabc1235", "12345678");
+        login.addUser(username, "12345678");
+        login.authoriseUser(username, "12345678");
 
         assertEquals(localData.getIncorrectAnswers("Q").size(), 0);
         assertFalse(localData.hasQuestionBeenAnsweredCorrectly("Q"));
@@ -138,30 +158,36 @@ public class UserLocalDataTest {
         assertTrue(localData.hasQuestionBeenAnsweredCorrectly("Q"));
 
         login.logout();
+        UserLocalData.getInstance().noDiskReload = false;
     }
 
     @Test
     public void testPointsForFirstCorrect() {
         UserLocalData localData = UserLocalData.getInstance();
+        UserLocalData.getInstance().noDiskReload = true;
 
+        String username = generateRandomUsername();
         UserLogin login = UserLogin.getInstance();
-        login.addUser("aabc1236", "12345678");
-        login.authoriseUser("aabc1236", "12345678");
+        login.addUser(username, "12345678");
+        login.authoriseUser(username, "12345678");
 
         assertEquals(localData.getPoints(), 0);
         localData.submitCorrectAnswer("Q");
         assertEquals(localData.getPoints(), 3);
 
         login.logout();
+        UserLocalData.getInstance().noDiskReload = false;
     }
 
     @Test
     public void testPointsForSecondCorrect() {
         UserLocalData localData = UserLocalData.getInstance();
+        UserLocalData.getInstance().noDiskReload = true;
 
+        String username = generateRandomUsername();
         UserLogin login = UserLogin.getInstance();
-        login.addUser("aabc1237", "12345678");
-        login.authoriseUser("aabc1237", "12345678");
+        login.addUser(username, "12345678");
+        login.authoriseUser(username, "12345678");
 
         assertEquals(localData.getPoints(), 0);
         localData.submitIncorrectAnswer("Q", "A");
@@ -170,15 +196,18 @@ public class UserLocalDataTest {
         assertEquals(localData.getPoints(), 1);
 
         login.logout();
+        UserLocalData.getInstance().noDiskReload = false;
     }
 
     @Test
     public void testPointsForThirdCorrect() {
         UserLocalData localData = UserLocalData.getInstance();
+        UserLocalData.getInstance().noDiskReload = true;
 
+        String username = generateRandomUsername();
         UserLogin login = UserLogin.getInstance();
-        login.addUser("aabc1238", "12345678");
-        login.authoriseUser("aabc1238", "12345678");
+        login.addUser(username, "12345678");
+        login.authoriseUser(username, "12345678");
 
         assertEquals(localData.getPoints(), 0);
         localData.submitIncorrectAnswer("Q", "A");
@@ -189,5 +218,6 @@ public class UserLocalDataTest {
         assertEquals(localData.getPoints(), 0);
 
         login.logout();
+        UserLocalData.getInstance().noDiskReload = false;
     }
 }

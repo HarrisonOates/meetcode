@@ -14,11 +14,11 @@ public class FirebaseRequest {
      */
     private static String escapeUsername(String username) {
         return username.replace("!", "!!")
-                .replace(".", "!.")
-                .replace("#", "!#")
-                .replace("$", "!$")
-                .replace("[", "![")
-                .replace("]", "!]");
+                .replace(".", "!a")
+                .replace("#", "!b")
+                .replace("$", "!c")
+                .replace("[", "!d")
+                .replace("]", "!e");
     }
 
     static DatabaseReference traversePath(DatabaseReference current, List<String> path) {

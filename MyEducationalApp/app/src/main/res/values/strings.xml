@@ -29,4 +29,7 @@
     <string name="categories">Categories</string>
     <string name="daily_challenge">Daily Challenge</string>
     <string name="logout">Logout</string>
+    <string name="earn_x_stars">Earn %1$d stars</string>
+    <string name="completed">Completed!</string>
+    <string name="earn_1_star">Earn 1 star</string>
 </resources>
