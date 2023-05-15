@@ -15,20 +15,18 @@
 
 ## Team Members and Roles
 
-| UID              |        Name        |                                                Role |
-|:-----------------|:------------------:|----------------------------------------------------:|
-| u7468248         |    Alex Boxall     |                              Firebase and Messaging |
-| u7469758         |      Geun Yun      |     Data Structures, Authorisation and Localisation |
-| u7468212         |   Harrison Oates   | Syntax Highlighting Design and Parser, Data Streams |
-| u7146309         |  Jayden Skidmore   |                    Search Grammar Design and Parser |
+| UID              |        Name        |                                                   Role |
+|:-----------------|:------------------:|-------------------------------------------------------:|
+| u7468248         |    Alex Boxall     |                                 Firebase and Messaging |
+| u7469758         |      Geun Yun      |        Data Structures, Authorisation and Localisation |
+| u7468212         |   Harrison Oates   |    Syntax Highlighting Design and Parser, Data Streams |
+| u7146309         |  Jayden Skidmore   |        Search Grammar Design and Parser, Blocked Users |
 | u7300256         | Nikhila Gurusinghe | User Experience & Interface Design, and Implementation |
 
 ## Summary of Individual Contributions
 
-**you should ALSO provide links to the specified classes and/or functions**
-
 u7468248, Alex Boxall: I contributed 20% of the code. Here are my contributions:
-* All of [Firebase/Firebase.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Firebase/Firebase.java), except ```writeDirectMessagesDatastream```
+* All of [Firebase/Firebase.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Firebase/Firebase.java), except ```writeDirectMessagesDatastream```, which was written by Harrison
 * All of [Firebase/FirebaseObserver.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Firebase/FirebaseObserver.java)
 * All of [Firebase/FirebaseRequest.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Firebase/FirebaseRequest.java)
 * All of [Firebase/FirebaseResult.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Firebase/FirebaseResult.java)
@@ -42,11 +40,22 @@ u7468248, Alex Boxall: I contributed 20% of the code. Here are my contributions:
 * All of [UserLocalData.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/UserLocalData.java)
   * All of [UserLocalDataTest.java](./../MyEducationalApp/app/src/androidTest/java/com/example/myeducationalapp/UserLocalDataTest.java)
 * Some changes to [QuestionSet.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/QuestionSet.java)
+  * Geun wrote the initial version and I refactored it, including making Question its own class
+* Summary of contributions:
+  * I designed and implemented the code related to Firebase and messaging. This included creating the format of storing the objects on Firebase (which uses a filesystem like-structure with "paths", explained later in the section on features implemented), and away of reading and writing data from it. 
+  * I also wrote helper functions for interacting with these low-level objects, such as methods to get the list of all users. 
+  * I also wrote classes that could interact with Firebase, such as the Message and DirectMessageThread classes. The allow for messages to be posted, or liked, abstracting the Firebase details away.
+  * A difficulty with Firebase is that it is asynchronous, so I also needed to implement a method of running callbacks once the data loaded, as well as callbacks for when an object (such as a DirectMessageThread) had loaded. These include the FirebaseResult class, and its ```.then()``` method, as well as the Asynchronous class with its ```.runWhenReady()``` method
+  * I implemented the UserLocalData class, which is responsible for storing data local to a user (e.g. their blocked user list, submitted answers), and ensuring this got synchronised to Firebase (e.g. for when they logout, or use a different device). This also included the need to write serialisation and deserialisation methods so it can be stored on Firebase.
+  * I refactored the QuestionSet class and created Question as its own class, as it was previously stored in a string array, and it was a lot cleaner to convert it to its own object
+  * I wrote the code for downloading the current messages, adding to them and reuploading them, and the same for liking messages
 * What design patterns, data structures, did the involved member propose?
-* Specify what design did the involved member propose? What tools were used for the design?
-* Which part of the report did the involved member write?
-* Were you responsible for the slides?
+  * I proposed and implemented a number of singleton classes, such as Firebase.Firebase and UserLocalData
+  * I also proposed and implemented an observer so the user interface would be able to update itself when something changed on Firebase (e.g. a message was sent between users)
 * I also created the UML diagrams for the project
+* Which part of the report did the involved member write?
+  * This section
+  * [FB-Syn] and [P2P-DM] in the 'features implemented' section
 
 
 u7469758, Geun Yun: I contributed 20% of the code. Here are my contributions:
@@ -129,7 +138,6 @@ u7300256, Nikhila Gurusinghe: I contributed 20% of the code. Here are my contrib
   * Most of [fragment_home.xml](./../MyEducationalApp/app/src/main/res/layout/fragment_home.xml) (aside from localisation and search UI implementation which was done by Geun)
   * All of [fragment_messages.xml](./../MyEducationalApp/app/src/main/res/layout/fragment_messages.xml) (aside from localisation)
   * All of [fragment_question.xml](./../MyEducationalApp/app/src/main/res/layout/fragment_question.xml) (aside from localisation)
-* B.class: function1(), function2(), ...
 * What design patterns, data structures, did the involved member propose?
 * Specify what design did the involved member propose? What tools were used for the design?
 * Which part of the report did the involved member write?
@@ -228,6 +236,11 @@ We used the following design patterns in our project:
 2. Facade
 
 3. Observer
+* Objective:
+* Locations:
+* Reasons:
+  * ...
+  * ...
 
 **Grammar(s)**
 
@@ -337,12 +350,14 @@ Feature Category: Data Structures <br>
 
 Feature Category: Firebase Integration <br>
 2. [FB-Persist] Use Firebase to persist all data used in your app. (medium)
-   * Class Firebase.Firebase: methods A, B, C, lines of code: whole file
-   * Class Firebase.FirebaseRequest:
-   * Class Firebase.FirebaseResult:
-   * Class UserLocalData:
-   * Class Asynchronous:
-   * Additional description: ...
+   * Class Firebase.Firebase: whole file
+   * Class Firebase.FirebaseRequest: whole file
+   * Class Firebase.FirebaseResult: whole file
+   * Class UserLocalData: whole file
+   * Class Asynchronous: whole file
+   * Additional description:
+     * The entire state of the app is stored on Firebase. This was done to allow for messages to be sent between users and persist. It also allows for messages to be liked, for different users to be search for, etc. The Firebase package is used to provide an asynchronous interface between the rest of the app and the Firebase database. Internally, the app treats Firebase like a filesystem - each object has a value, name (filename) and child objects (folders). The Firebase.FirebaseRequest file is used to abstract away the low level details of resolving these filepath-like paths into a Firebase API object. Firebase.FirebaseResult provides a clean asynchronous interface that allow callbacks to be chained with ```.then()```, or waited on with ```.await()```. Finally, Firebase.Firebase acts as a singleton and a facade, allowing the rest of the program use core functionality such as getting lists of users, notifications when data changes, and messages stored on the server. Additionally, the Asynchronous class is used to allow the other classes in the program act asynchronously, and allow them to wait on each other to receive data before running a callback.
+     * Data is local to particular users, such as messages they've liked, their blocked user list, and any answers they've submitted is stored in the UserLocalData class. However, to handle users logging out of the app and back in again, this is also synchronised to Firebase whenever this data changes. This means the user can log in from any device and their data will still be there.
 <br>
 3. [FB-Syn] Using Firebase or another remote database to store user information and having the app
    updated as the remote database is updated without restarting the application. (hard)
@@ -363,10 +378,11 @@ Feature Category: Peer-to-peer messaging <br>
    * Additional description: ...
 <br>
 5. [P2P-DM] Provide users with the ability to message each other directly in private. (hard)
-   * Class Message: methods A, B, C, lines of code: whole file
-   * Class DirectMessageThread: ...
-   * Class ??? (probably some UI stuff): ...
-   * Additional description: ...
+   * Class Message: whole file
+   * Class DirectMessageThread: whole file
+   * Class MessageThread: whole file
+   * Additional description:
+     * Users are able to direct message each other. This is possible due to the state of the program being stored on Firebase. For each pair of users, there exists a Firebase object that contains all of the messages that they've sent to each other. This gets loaded into the DirectMessageThread class, which inherits from MessageThread (this is done so messages posted under questions can be handled in the same way). Messages can be sent between the users by adding a new message to the list and re-uploading it to Firebase.
 
 Feature Category: Syntax Highlighting (custom, approved as per [here](https://wattlecourses.anu.edu.au/mod/forum/discuss.php?d=870859)) <br>
 6. [Custom-Syntax-Highlighting]. Description: The user interface will be able to display snippets of code to the user, with dynamically generated syntax highlighting applied. The syntax of the code will be Java-like. (hard)
