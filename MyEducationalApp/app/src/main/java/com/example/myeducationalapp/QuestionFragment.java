@@ -102,11 +102,13 @@ public class QuestionFragment extends Fragment {
 
         QuestionCard currentQuestion = userInterfaceManager.getCurrentlyDisplayedQuestion().getValue();
 
+        // Setting question details to UI
         binding.questionBodyHeadingText.setText(currentQuestion.getHeading());
         binding.questionBodySubheadingText.setText(currentQuestion.getSubheading());
         binding.questionBodyCategoryText.setText(currentQuestion.getCategory());
         binding.questionBodyDifficultyText.setText(currentQuestion.getDifficulty());
 
+        // Code block related UI code
         if (currentQuestion.doesQuestionHaveCodeBlock()) {
             binding.questionCodeBlockText.setText(currentQuestion.getCodeBlock());
         } else {
@@ -115,7 +117,7 @@ public class QuestionFragment extends Fragment {
                     ((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20, getResources().getDisplayMetrics())));
         }
 
-
+        // Multiple choice related UI code
         if (currentQuestion.isQuestionMultiChoice()) {
             //binding.questionAnswerEntryConstraintLayout.setVisibility(View.GONE);
 
@@ -125,7 +127,11 @@ public class QuestionFragment extends Fragment {
                 Log.d("QuestionFragment", questionContent);
             });
         } else {
+            // Single choice UI should be ready for first attempt by default
             binding.questionAnswerEntryConstraintLayout.setVisibility(View.VISIBLE);
+
+            
+
         }
 
 

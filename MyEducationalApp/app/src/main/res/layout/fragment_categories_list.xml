@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center|top"
         android:orientation="vertical"
-        android:paddingBottom="20dp">
+        android:paddingBottom="120dp">
 
         <!-- Card container -->
         <androidx.constraintlayout.widget.ConstraintLayout

@@ -89,7 +89,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center|top"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="120dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/account_menu_category_constraint_layout"

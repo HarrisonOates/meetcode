@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="80dp">
+        android:paddingBottom="120dp">
 
         <!-- Search Widget -->
         <androidx.constraintlayout.widget.ConstraintLayout
