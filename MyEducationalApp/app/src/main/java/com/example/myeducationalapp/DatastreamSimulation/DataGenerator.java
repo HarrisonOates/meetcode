@@ -1,12 +1,19 @@
 package com.example.myeducationalapp.DatastreamSimulation;
 
 import com.example.myeducationalapp.DirectMessageThread;
+import com.example.myeducationalapp.MessageThread;
 import com.example.myeducationalapp.Person;
+import com.example.myeducationalapp.QuestionMessageThread;
+import com.example.myeducationalapp.UserLogin;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Random;
+import java.util.Scanner;
 
 /**
  * Simulates a data stream to satisfy the basic features of the app.
+ * As we're using a client-server model, this is a workaround for the purposes of the assignment.
  * @author u7468212 Harrison Oates
  */
 public class DataGenerator {
@@ -15,7 +22,7 @@ public class DataGenerator {
     /**
      * Generates the data for the app to read from.
      */
-    public static void generateData(){
+    public static void generateData() throws FileNotFoundException, InterruptedException {
         // TODO - remove after implementation
 
         // This is how to send direct messages to firebase.
@@ -44,19 +51,23 @@ public class DataGenerator {
         // TODO - set up the files to read from and iterate at least 2500 times.
         // TODO -  implement three second delay between each loop.
 
+        // We're simulating real conversations between people.
+        File beeMovie = new File("beemovie.txt");
+        Scanner sc = new Scanner(beeMovie);
+
         // We choose a random account to send it from
         String[] randomUserNames = new String[]{"harrison", "geun", "alex", "jayden", "nikhila"};
-
         for (int i = 0; i < 2500; i++){
             int n = r.nextInt(4);
-
+            int userNameIndex = r.nextInt(4);
             switch (n){
                 case 0 -> {
                     // directMessageThread
-                    int userNameIndex = r.nextInt(4);
+
+
                     DirectMessageThread dms = new DirectMessageThread(randomUserNames[userNameIndex]);
                     dms.runWhenReady((ignored) -> {
-                        dms.postMessage("");
+                        dms.postMessage(sc.nextLine());
                         return null;
                     });
 
@@ -64,24 +75,39 @@ public class DataGenerator {
                 }
                 case 1 -> {
                     // directMessage with a code block
+                    // Will work this out later
 
                 }
                 case 2 -> {
                     // questionMessageThread
-
+                    QuestionMessageThread qms = new QuestionMessageThread(randomUserNames[userNameIndex]);
+                    qms.runWhenReady((ignored) -> {
+                        qms.postMessage(sc.nextLine());
+                        return null;
+                    });
                 }
                 case 3 -> {
                     // questionMessage with a code block
+                    // Work this out later
                 }
                 case 4 -> {
-                    // Like a random message
+                    // Like / unlike a random message
+                    DirectMessageThread dms = new DirectMessageThread(randomUserNames[userNameIndex]);
+                    int indexToLike = r.nextInt(dms.getMessages().size() - 1);
+                    dms.runWhenReady((ignored) -> {
+                        dms.getMessages().get(indexToLike).runWhenReady((ignored2) -> {
+                            dms.getMessages().get(indexToLike).toggleLikedByCurrentUser();
+                            return null;
+                        });
+                        return null;
+                    });
                 }
                 default -> {
                     continue;
                 }
             }
 
-
+            Thread.sleep(3000);
 
         }
 
