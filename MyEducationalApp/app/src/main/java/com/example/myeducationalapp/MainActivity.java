@@ -2,6 +2,7 @@ package com.example.myeducationalapp;
 
 import android.os.Bundle;
 
+import com.example.myeducationalapp.DatastreamSimulation.DataGenerator;
 import com.example.myeducationalapp.Firebase.Firebase;
 import com.example.myeducationalapp.userInterface.UserInterfaceManagerViewModel;
 
@@ -27,6 +28,7 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Objects;
 
@@ -119,6 +121,15 @@ public class MainActivity extends AppCompatActivity {
 
         Firebase.getInstance().dump();
         //UserLogin.getInstance().addUser("test", "123456789");
+
+       if (UserLogin.getInstance().getCurrentUsername().equals("comp2100@anu.au")){
+            try {
+               DataGenerator.generateData(getApplicationContext());
+           } catch (FileNotFoundException | InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
+       }
     }
 
     @Override
