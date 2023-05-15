@@ -48,7 +48,7 @@ public class QuestionMessageThreadDatastream extends MessageThreadDatastream {
 
     @Override
     FirebaseResult uploadChangesDatastream() {
-        return downloadMessages();
+        return Firebase.getInstance().writeQuestionComments(questionID, this);
     }
 
 }
