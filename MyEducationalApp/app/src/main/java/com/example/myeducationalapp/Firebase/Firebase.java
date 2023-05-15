@@ -84,6 +84,7 @@ public class Firebase {
                         observer.update();
                     }
 
+                    fbObject.removeEventListener(this);
                     fbObject.addValueEventListener(this);
                 }
 
