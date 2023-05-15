@@ -3,12 +3,14 @@ package com.example.myeducationalapp.Firebase;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.example.myeducationalapp.DirectMessageThread;
 import com.example.myeducationalapp.MessageThread;
 import com.example.myeducationalapp.Person;
 import com.example.myeducationalapp.UserLogin;
 import com.example.myeducationalapp.UserLocalData;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -71,15 +73,15 @@ public class Firebase {
         List<FirebaseObserver> list;
 
         if (!directMessageObservers.containsKey(path)) {
-            fbObject.addValueEventListener(new ValueEventListener() {
+            ValueEventListener listener = new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (!directMessageObservers.containsKey(path) || directMessageObservers.get(path) == null) {
+                    if (!directMessageObservers.containsKey(path.toString()) || directMessageObservers.get(path.toString()) == null) {
                         return;
                     }
 
-                    for (FirebaseObserver observer: directMessageObservers.get(path)) {
-                        observer.notify();
+                    for (FirebaseObserver observer: directMessageObservers.get(path.toString())) {
+                        observer.update();
                     }
                 }
 
@@ -87,11 +89,13 @@ public class Firebase {
                 public void onCancelled(@NonNull DatabaseError error) {
 
                 }
-            });
+            };
+
+            fbObject.addValueEventListener(listener);
 
             list = new ArrayList<>();
         } else {
-            list = directMessageObservers.get(path);
+            list = directMessageObservers.get(path.toString());
         }
 
         list.add(observer);
