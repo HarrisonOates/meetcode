@@ -1,14 +1,15 @@
 package com.example.myeducationalapp;
 
-import android.util.Log;
-
 import androidx.annotation.Nullable;
 
 import com.example.myeducationalapp.Firebase.Firebase;
-import com.example.myeducationalapp.Firebase.FirebaseResult;
-import com.example.myeducationalapp.userInterface.Generation.MessageListCard;
-
 import java.util.Objects;
+
+/**
+ * Represents a user of the app.
+ *
+ * @author u7468248 Alex Boxall
+ */
 
 public class Person extends Asynchronous {
     private String username;
@@ -19,7 +20,6 @@ public class Person extends Asynchronous {
 
     @Override
     public String toString() {
-        // TODO: do whatever is needed to save a Person object
         return username;
     }
 
@@ -28,13 +28,11 @@ public class Person extends Asynchronous {
         this.username = username;
 
         addWaitRequirement(Firebase.getInstance().readUserProfile(username).then((obj) -> {
-            String data = (String) obj;
-
-            // TODO: do whatever is needed to load a Person object
-
-            this.username = username;
-
-            return obj;
+            /*
+             * This handler is no longer required, we need to add a wait requirement so that
+             * .runWhenReady() can be called on us.
+             */
+            return null;
         }));
     }
 

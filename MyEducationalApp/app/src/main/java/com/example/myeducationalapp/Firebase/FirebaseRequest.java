@@ -4,6 +4,13 @@ import com.google.firebase.database.DatabaseReference;
 
 import java.util.List;
 
+/**
+ * Helper functions for reading and writing to Firebase. Abstracts away details such as special
+ * characters, and the way object hierarchies are done.
+ *
+ * @author u7468248 Alex Boxall
+ */
+
 public class FirebaseRequest {
 
     /**

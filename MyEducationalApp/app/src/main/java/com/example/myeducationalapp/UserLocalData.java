@@ -10,6 +10,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Used to store two integers in a way that implements the Comparable interface (so it can
+ * be added to an AVL tree).
+ *
+ * @author u7468248 Alex Boxall
+ */
 class ComparablePair<T extends Comparable> implements Comparable<ComparablePair<T>> {
     public T first;
     public T second;
@@ -35,6 +41,12 @@ class ComparablePair<T extends Comparable> implements Comparable<ComparablePair<
     }
 }
 
+/**
+ * Stores all data that is local to a given user (e.g. posts they've liked, their answers to
+ * questions, blocked user list, etc.).
+ *
+ * @author u7468248 Alex Boxall
+ */
 public class UserLocalData {
 
     static private UserLocalData instance;
@@ -195,9 +207,8 @@ public class UserLocalData {
 
             int failedAttempts = getNumberOfFailedAttempts(questionID);
             if (failedAttempts == 0) {
-                points += 3;
-//              Use this later as it rewards points based on the difficulty
-//              points += Character.getNumericValue(questionID.charAt(1));
+                points += QuestionSet.getInstance().getUsedQuestionSets().get(questionID).getDifficulty();
+
             } else if (failedAttempts == 1) {
                 points += 1;
             }

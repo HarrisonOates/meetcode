@@ -29,11 +29,6 @@ public class UserLogin {
      */
     private String loggedInUsername;
 
-    private boolean containsAScaryCharacter(String username) {
-        return username.contains(".") || username.contains("[") || username.contains("]") ||
-                username.contains("#") || username.contains("$");
-    }
-
     private UserLogin() {
         this.userLogins = new HashMap<>();
 
@@ -45,54 +40,25 @@ public class UserLogin {
                 for (String userInfo : userLoginInfos) {
                     String[] pair = userInfo.split(",");
 
-                    //if (containsAScaryCharacter(pair[0])) {
-                    //    continue;
-                    //}
-
                     userLogins.put(pair[0], new String[]{pair[1], pair[2]});
                 }
             }
-/*
-            {
-                byte[] salt = generateSalt();
-                String hashedPassword = hashPassword("12345678", salt);
-                userLogins.put("alex", new String[]{hashedPassword, bytesToHex(salt)});
-                userLogins.put("geun", new String[]{hashedPassword, bytesToHex(salt)});
-                userLogins.put("harrison", new String[]{hashedPassword, bytesToHex(salt)});
-                userLogins.put("jayden", new String[]{hashedPassword, bytesToHex(salt)});
-                userLogins.put("nikhila", new String[]{hashedPassword, bytesToHex(salt)});
-            }
 
-            {
-                byte[] salt = generateSalt();
-                String hashedPassword = hashPassword("comp2100", salt);
-                userLogins.put("comp2100@anu.au", new String[]{hashedPassword, bytesToHex(salt)});
-            }
-
-            {
-                byte[] salt = generateSalt();
-                String hashedPassword = hashPassword("comp6442", salt);
-                userLogins.put("comp6442@anu.au", new String[]{hashedPassword, bytesToHex(salt)});
-            }
-*/
             return null;
         });
     }
 
-    public void loadUsers() {
-        // just initialising the singleton is enough to load users.
-        // hence by calling this, we know it must have already loaded the users
-    }
-
     public void addUser(String username, String password) {
-        // No duplicate username allowed
+        // No duplicate usernames allowed
         if (userLogins.containsKey(username)) {
             throw new IllegalArgumentException("This username already exists!");
         }
+
         // Can adjust the minimum strength of the password later
         if (password.length() < 8) {
             throw new IllegalArgumentException("Password must be at least 8 characters long!");
         }
+
         byte[] salt = generateSalt();
         String hashedPassword = hashPassword(password, salt);
         userLogins.put(username, new String[]{hashedPassword, bytesToHex(salt)});
@@ -112,6 +78,7 @@ public class UserLogin {
             md.update(salt);
             byte[] hashed = md.digest(password.getBytes());
             return bytesToHex(hashed);
+
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
             return null;
@@ -181,8 +148,6 @@ public class UserLogin {
             }
             loggedInUsername = username;
 
-            System.out.printf("Authorised user: %s\n", username);
-
             UserLocalData.getInstance().loadFromDisk();
         }
 
@@ -191,7 +156,6 @@ public class UserLogin {
 
     public void logout() {
         UserLocalData.getInstance().logout();
-        System.out.printf("LOG OUT!\n");
         loggedInUsername = null;
     }
 

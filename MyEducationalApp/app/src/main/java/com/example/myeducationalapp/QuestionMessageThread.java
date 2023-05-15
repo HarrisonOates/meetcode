@@ -1,12 +1,16 @@
 package com.example.myeducationalapp;
 
-import android.util.Log;
-
 import com.example.myeducationalapp.Firebase.Firebase;
 import com.example.myeducationalapp.Firebase.FirebaseResult;
 
 import java.util.Arrays;
 import java.util.List;
+
+/**
+ * Contains all of the messages posted under a given question.
+ *
+ * @author u7468248 Alex Boxall
+ */
 
 public class QuestionMessageThread extends MessageThread {
     private String questionID;

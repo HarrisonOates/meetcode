@@ -35,7 +35,6 @@ public class DirectMessageThreadDatastream extends MessageThreadDatastream {
         this.originatingUsername = originatingUsername;
         this.originatingUser = new Person(originatingUsername);
 
-        addWaitRequirement(this.withUser.getWaitRequirement());
         addWaitRequirement(downloadMessages());
     }
 

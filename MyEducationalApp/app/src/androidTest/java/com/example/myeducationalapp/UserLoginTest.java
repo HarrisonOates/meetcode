@@ -34,8 +34,6 @@ public class UserLoginTest {
         // Wrong password should not authorise the user
         login.addUser("geun2", "123456789");
         assertFalse(login.authoriseUser("geun2", "12345678"));
-
-        System.out.println(login);
     }
 
     @Test (expected = Exception.class)

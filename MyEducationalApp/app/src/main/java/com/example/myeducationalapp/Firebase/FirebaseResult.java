@@ -16,8 +16,12 @@ import java.util.function.Function;
 
 
 /**
- * FirebaseResult.java
+ * Stores the result of a database request. Used to get asynchronous results. The result is not
+ * immediately returned, instead callbacks can be chained using the then() method to read the data.
+ *
+ * @author u7468248 Alex Boxall
  */
+
 public class FirebaseResult {
     private Object result;
 
@@ -27,6 +31,14 @@ public class FirebaseResult {
 
     private List<Function<Object, Object>> callbacks = new ArrayList<>();
 
+    /**
+     *
+     * @param listener A callback that gets called when the data loads. The Object argument is the
+     *                 result from Firebase. The return value of the callback becomes the new value
+     *                 of the object.
+     * @return A new FirebaseResult which can be used to chain .then() calls. The return value from
+     * the callback will be used in the value for the next one.
+     */
     public FirebaseResult then(Function<Object, Object> listener) {
         if (gotResult.getCount() == 0) {
             if (callbacks.size() != 0) {
@@ -53,6 +65,12 @@ public class FirebaseResult {
         this(Direction.READ, ref, null);
     }
 
+    /**
+     * Waits for the data to be ready and then returns it. This needs to be called from a
+     * separate thread otherwise Firebase will not return any results.
+     *
+     * @return The object from firebase
+     */
     public Object await() {
         try {
             gotResult.await();

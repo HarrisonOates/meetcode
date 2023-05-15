@@ -32,7 +32,7 @@ import java.util.function.Function;
  * Abstracts away the low-level details of interacting with Firebase. Implements the
  * singleton, and facade design patterns.
  *
- * @author Alex Boxall (main app) and Harrison Oates (datastream-specific methods)
+ * @author u7468248 Alex Boxall (main app) and Harrison Oates (datastream-specific methods)
  */
 public class Firebase {
     /**
@@ -63,45 +63,6 @@ public class Firebase {
      * A pointer to the internal Firebase object (i.e. the Android Firebase API).
      */
     private DatabaseReference database;
-
-    private HashMap<String, List<FirebaseObserver>> directMessageObservers = new HashMap<>();
-
-    public void addObserverToDirectMessageHistory(String username1, String username2, FirebaseObserver observer) {
-        List<String> path = getDirectMessageFilepath(username1, username2);
-        DatabaseReference fbObject = FirebaseRequest.traversePath(database, path);
-
-        List<FirebaseObserver> list;
-
-        if (!directMessageObservers.containsKey(path)) {
-            ValueEventListener listener = new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    System.out.printf("YO\n");
-                    if (!directMessageObservers.containsKey(path.toString()) || directMessageObservers.get(path.toString()) == null) {
-                        return;
-                    }
-
-                    for (FirebaseObserver observer: directMessageObservers.get(path.toString())) {
-                        observer.update();
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            };
-
-            fbObject.addValueEventListener(listener);
-
-            list = new ArrayList<>();
-        } else {
-            list = directMessageObservers.get(path.toString());
-        }
-
-        list.add(observer);
-        directMessageObservers.put(path.toString(), list);
-    }
 
     /**
      * Private constructor that cannot usually be called (as this is a singleton). Should only
@@ -149,9 +110,9 @@ public class Firebase {
      * Internally used to notify all of the observers that something has changed on the backend.
      * Should only be called when this happens.
      */
-    protected void notifyObservers(/*...*/) {
+    protected void notifyObservers() {
         for (FirebaseObserver observer: observers) {
-            observer.update(/*...*/);
+            observer.update();
         }
     }
 
@@ -374,8 +335,6 @@ public class Firebase {
 
             return usernames;
         });
-
-
     }
 
     /**

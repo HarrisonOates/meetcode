@@ -13,7 +13,7 @@ public class QuestionSet {
     // Categories MUST follow the naming convention such as ControlFlow
     // where the first letter of the word is capital and then the starting letters of subsequent
     // categories is also a capital letter
-    public enum Category {Algorithm, ControlFlow, DataStructure, Miscellaneous, Recursion}
+    public enum Category {Algorithm, ControlFlow, DataStructure, Miscellaneous, Recursion, TestQuestion}
 
     // global maximum number of multiple choice options
     // This should probably be less than there are letters in the alphabet :)
@@ -31,6 +31,22 @@ public class QuestionSet {
         addMiscellaneous();
         addAlgorithms();
         addControlFlow();
+
+        /*
+         * Required for certain unit tests.
+         */
+        addTestQuestion("Q");
+        addTestQuestion("Q1");
+        addTestQuestion("Q2");
+        addTestQuestion("Q3");
+        addTestQuestion("R");
+
+    }
+
+    private void addTestQuestion(String id) {
+        Question testQuestion = new Question("Q", "Q", "Q", Category.TestQuestion, 3);
+        testQuestion.setID(id);
+        addQuestion(testQuestion);
     }
 
     static private QuestionSet instance;
@@ -71,7 +87,7 @@ public class QuestionSet {
 
     private void addAlgorithms() {
         addQuestion(new Question(
-                "PLEASE WRITE ME",
+                "(A) PLEASE WRITE ME",
                 "Please write this!",
                 "Please write this!",
                 Category.Algorithm,
@@ -81,7 +97,7 @@ public class QuestionSet {
 
     private void addControlFlow() {
         addQuestion(new Question(
-                "PLEASE WRITE ME",
+                "(B) PLEASE WRITE ME",
                 "Please write this!",
                 "Please write this!",
                 Category.ControlFlow,
@@ -92,7 +108,7 @@ public class QuestionSet {
     // I think we can just call one of these questions once a day?
     private void addDataStructure() {
         // Question about HashMap
-        addQuestion(new Question("UNNAMED",
+        addQuestion(new Question("Hash maps",
                 "What will be the output of map.get(2) after the execution of the codes below?\n\n"+
                         "```Map<Integer, String> map = new HashMap<Integer, String>();\n"+
                         "map.put(1, \"2\");\n"+
@@ -103,7 +119,7 @@ public class QuestionSet {
                 "D", Category.DataStructure, 1));
 
         // Question about LinkedList
-        addQuestion(new Question("UNNAMED",
+        addQuestion(new Question("Linked list reversal",
                 "What is the time complexity of the `reverse()` method in the `LinkedList`?\n\n" +
                         "```public void reverse() {\n" +
                         "        Node<T> prev = null;\n" +
@@ -120,7 +136,7 @@ public class QuestionSet {
                 "B", QuestionSet.Category.DataStructure, 2));
 
         // Question about BinaryTree
-        addQuestion(new Question("UNNAMED",
+        addQuestion(new Question("Binary tree traversal",
                 "What will be the output of the following code?\n\n" +
                         "```BinaryTree tree = new BinaryTree(1);\n" +
                         "tree.left = new BinaryTree(2);\n" +
@@ -139,7 +155,7 @@ public class QuestionSet {
                 "A", QuestionSet.Category.DataStructure, 3));
 
         // Question about stack
-        addQuestion(new Question("UNNAMED",
+        addQuestion(new Question("Stack",
                 "What is the result of weirdCalculator(\"234*+5+\")?\n\n " +
                         "```public static int weirdCalculator(String expression) {\n" +
                         "   Stack<Integer> stack = new Stack<>();\n" +
@@ -174,7 +190,7 @@ public class QuestionSet {
                 "E", QuestionSet.Category.DataStructure, 4));
 
         // Question about BST
-        addQuestion(new Question("UNNAMED",
+        addQuestion(new Question("Binary search trees",
                 "Given an integer n, what is the number (G(n)) of structurally unique BST's " +
                         "which has exactly n nodes of unique values from 1 to n?\n" +
                         "Initial State: G(0) = 1 G(1) = 1\n\n" +
@@ -188,13 +204,13 @@ public class QuestionSet {
 
     private void addMiscellaneous() {
         // Octal literals
-        addQuestion(new Question("UNNAMED",
+        addQuestion(new Question("Integer literals and formatting",
                 "What is the output of this line of code?" +
                         "```    System.out.printf(\"%03X%03X\", 050, 100);```"
         , "028064", Category.Miscellaneous, 3));
 
         // XOR swapping
-        addQuestion(new Question("UNNAMED",
+        addQuestion(new Question("Funny XORs",
                 "What is the output of this section of code?" +
                         "``` int a = 30;" +
                         "    int b = 45;" +
@@ -205,7 +221,7 @@ public class QuestionSet {
                 , "45, 30", Category.Miscellaneous, 3));
 
         // XOR swapping gone wrong
-        addQuestion(new Question("UNNAMED",
+        addQuestion(new Question("Funnier XORs",
                 "What is the output of this section of code?" +
                         "``` int a = 45;" +
                         "    int b = 45;" +
@@ -216,14 +232,14 @@ public class QuestionSet {
                 , "0, 0", Category.Miscellaneous, 2));
 
         // Weirdo bitwise manipulation
-        addQuestion(new Question("UNNAMED",
+        addQuestion(new Question("Bitwise operations",
                 "What is the value of y?" +
                         "``` int x = 1" +
                         "    int y = ((x & (-2)) ^ (-1)) + 1;```"
         , "0", Category.Miscellaneous, 4));
 
         // Labels
-        addQuestion(new Question("UNNAMED",
+        addQuestion(new Question("The web of lies",
                 // THIS QUESTION NEEDS SYNTAX HIGHLIGHTING DISABLED FOR IT TO WORK PROPERLY
                 "Will this of piece of Java code compile (assuming it is placed within a valid class)?" +
                         "```public void method() {                  // line 1" +
@@ -247,7 +263,7 @@ public class QuestionSet {
 
 
     private void addRecursion() {
-        addQuestion(new Question("UNNAMED",
+        addQuestion(new Question("Basic recursion",
                 "What is the output of adder(0)" +
                         "public static int adder(int i) { "+
                         "    if (i==5) return i;" +
@@ -256,7 +272,7 @@ public class QuestionSet {
                 , "10", Category.Recursion, 1));
 
 
-        addQuestion(new Question("UNNAMED",
+        addQuestion(new Question("Recursion multiple branches",
                 "What is the output of recursion(0)" +
                         "static int[] numbers = new int[]{11,5,89,2,7,8,12,4,5,37};" +
                         "public static int recursion(int i) {" +
@@ -267,7 +283,7 @@ public class QuestionSet {
                 , "21", Category.Recursion, 2));
 
 
-        addQuestion(new Question("UNNAMED",
+        addQuestion(new Question("Recursion over a list",
                 "What is the contents of ints after calling list(0)" +
                         "static int[] ints = new int[] {17,5,7,3,9,1,11,15,13};" +
                         "public static void list(int i) {" +
@@ -289,7 +305,7 @@ public class QuestionSet {
 
 
 
-        addQuestion(new Question("UNNAMED",
+        addQuestion(new Question("Recursion over a tree",
                 "What is the result of an in-order traversal on the tree generated by treeRecursion(root, 1)" +
                         "public static void treeRecursion(Node node, int i) {" +
                         "    if (i > 10) return;" +
