@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.TypedValue;
@@ -101,8 +102,12 @@ public class MessagesFragment extends Fragment {
         UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
         userInterfaceManager.getUiState().getValue().enterNewFragment(toolbarTitle, false);
 
+        // resetting previous error states
+        GradientDrawable incorrectTextBox = (GradientDrawable) binding.messagesTextContainer.getBackground();
+        incorrectTextBox.setStroke(0, Color.parseColor("#FFFF102D"));
+
         // sending new DM to user through the search bar
-        binding.directMessageSendButton.setOnClickListener(view1 -> {
+        binding.messagesSendButton.setOnClickListener(view1 -> {
             initializeNewDirectMessage();
         });
 
@@ -160,12 +165,20 @@ public class MessagesFragment extends Fragment {
                     }
 
                     binding.messagesSendNewMessageInputText.getText().clear();
+                    // Error state: thickened borders around text entry box
+                    GradientDrawable incorrectTextBox = (GradientDrawable) binding.messagesTextContainer.getBackground();
+                    incorrectTextBox.setStroke(0, Color.parseColor("#FFFF102D"));
 
                     // Going to the direct message fragment
                     NavHostFragment.findNavController(MessagesFragment.this).navigate(R.id.action_messagesFragment_to_directMessageFragment);
                 } else {
                     Toast toast = Toast.makeText(getActivity().getApplicationContext(), "This user does not exist, is their name spelt correctly?", Toast.LENGTH_LONG);
                     toast.show();
+
+                    // Error state: thickened borders around text entry box
+                    GradientDrawable incorrectTextBox = (GradientDrawable) binding.messagesTextContainer.getBackground();
+                    incorrectTextBox.setStroke(((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2, getResources().getDisplayMetrics())),
+                            Color.parseColor("#FFFF102D"));
                 }
 
                 return null;
@@ -173,6 +186,11 @@ public class MessagesFragment extends Fragment {
         } else {
             Toast toast = Toast.makeText(getActivity().getApplicationContext(), "This user does not exist, is their name spelt correctly?", Toast.LENGTH_LONG);
             toast.show();
+
+            // Error state: thickened borders around text entry box
+            GradientDrawable incorrectTextBox = (GradientDrawable) binding.messagesTextContainer.getBackground();
+            incorrectTextBox.setStroke(((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2, getResources().getDisplayMetrics())),
+                    Color.parseColor("#FFFF102D"));
         }
     }
 

@@ -41,7 +41,7 @@ public class QuestionCard {
         //questionMessageThread = new QuestionMessageThread(newQuestion.getID());
     }
 
-    public String getMessageID() {
+    public String getQuestionID() {
         return question.getID();
     }
 

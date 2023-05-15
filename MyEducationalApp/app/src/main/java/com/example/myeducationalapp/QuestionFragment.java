@@ -1,5 +1,7 @@
 package com.example.myeducationalapp;
 
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -118,8 +120,9 @@ public class QuestionFragment extends Fragment {
         }
 
         // Multiple choice related UI code
-        if (currentQuestion.isQuestionMultiChoice()) {
-            //binding.questionAnswerEntryConstraintLayout.setVisibility(View.GONE);
+//        if (currentQuestion.isQuestionMultiChoice()) {
+        if (false) {
+            binding.questionAnswerEntryConstraintLayout.setVisibility(View.GONE);
 
             List<String> listOfMultiChoiceOptions = currentQuestion.multiChoiceOptions;
 
@@ -130,7 +133,43 @@ public class QuestionFragment extends Fragment {
             // Single choice UI should be ready for first attempt by default
             binding.questionAnswerEntryConstraintLayout.setVisibility(View.VISIBLE);
 
-            
+
+            int numberOfQuestionAttempts = 1; //UserLocalData.getInstance().getNumberOfFailedAttempts(currentQuestion.getQuestionID());
+
+
+
+            // Checking to see if user has answered question before
+            if (numberOfQuestionAttempts != 0) {
+                // If we've answered the question once, then we also need to check that we haven't
+                // answered it correctly
+                if (numberOfQuestionAttempts == 1 && !UserLocalData.getInstance().hasQuestionBeenAnsweredCorrectly(currentQuestion.getQuestionID())) {
+                    // making "fake" ui elements disappear
+                    binding.questionAnswerEntryBoxConstraintLayout1stFake.setVisibility(View.GONE);
+                    binding.questionAnswerSubmitOuterButtonConstraintLayout.setVisibility(View.GONE);
+
+                    // making relevent ui elements appear
+                    binding.questionAnswerEntry2ndQuestionText.setVisibility(View.VISIBLE);
+                    binding.questionAnswerEntryBoxConstraintLayout2nd.setVisibility(View.VISIBLE);
+                    binding.questionAnswerSubmitInnerButtonConstraintLayout.setVisibility(View.VISIBLE);
+                    binding.questionAnswerEntryCarpetContraintLayout.setVisibility(View.VISIBLE);
+                    binding.questionAnswerEntryIncorrectIcon1st.setVisibility(View.VISIBLE);
+
+                    // updating first textbox
+
+                    binding.questionAnswerEntryBoxConstraintLayout1st.setEnabled(false);
+                    GradientDrawable incorrectTextBox = (GradientDrawable) binding.questionAnswerEntryBoxConstraintLayout1st.getBackground();
+                    incorrectTextBox.setStroke(((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2, getResources().getDisplayMetrics())),
+                            Color.parseColor("#FFFF102D"));
+
+
+
+                } else if (numberOfQuestionAttempts == 2) {
+
+                }
+            } else {
+                // if numberOfQuestionAttempts == 0
+            }
+
 
         }
 
