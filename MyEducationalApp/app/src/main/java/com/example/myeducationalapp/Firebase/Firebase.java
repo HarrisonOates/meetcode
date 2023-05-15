@@ -83,6 +83,8 @@ public class Firebase {
                     for (FirebaseObserver observer: directMessageObservers.get(path.toString())) {
                         observer.update();
                     }
+
+                    fbObject.addValueEventListener(this);
                 }
 
                 @Override
