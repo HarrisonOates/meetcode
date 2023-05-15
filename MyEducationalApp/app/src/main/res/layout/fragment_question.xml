@@ -37,6 +37,21 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                tools:text="A name for a question, this is a long name for a question" />
+
+            <TextView
+                android:id="@+id/question_body_subheading_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="@font/ibm_plex_sans"
+                android:textColor="@color/white"
+                android:textSize="19sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/question_body_heading_text"
                 tools:text="What will be the output of map.get(2) after the execution of the codes below?" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -47,8 +62,8 @@
                 android:background="@drawable/categories_list_secondary_star_container"
                 android:paddingHorizontal="15dp"
                 android:paddingVertical="8dp"
-                app:layout_constraintStart_toStartOf="@+id/question_body_heading_text"
-                app:layout_constraintTop_toBottomOf="@+id/question_body_heading_text">
+                app:layout_constraintStart_toStartOf="@+id/question_body_subheading_text"
+                app:layout_constraintTop_toBottomOf="@+id/question_body_subheading_text">
 
                 <TextView
                     android:id="@+id/question_body_likes_text"
@@ -69,12 +84,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="15dp"
                 android:background="@drawable/categories_list_secondary_star_container"
                 android:paddingHorizontal="15dp"
                 android:paddingVertical="8dp"
                 app:layout_constraintStart_toEndOf="@+id/question_body_like_container_constraint_layout"
-                app:layout_constraintTop_toBottomOf="@+id/question_body_heading_text">
+                app:layout_constraintTop_toTopOf="@+id/question_body_like_container_constraint_layout">
 
                 <TextView
                     android:id="@+id/question_body_category_text"
@@ -218,6 +232,32 @@
                         app:layout_constraintStart_toStartOf="@+id/question_answer_entry_box_start_guide_1st"
                         app:layout_constraintTop_toTopOf="parent" />
 
+                    <View
+                        android:id="@+id/question_answer_entry_incorrect_icon_1st"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:background="@drawable/icon_cross_circle"
+                        android:clipToOutline="true"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/question_answer_entry_box_end_guide_1st"
+                        app:layout_constraintStart_toStartOf="@+id/question_answer_entry_box_end_guide_1st"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/question_answer_entry_correct_icon_1st"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:background="@drawable/icon_check_mark_circle"
+                        android:clipToOutline="true"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/question_answer_entry_box_end_guide_1st"
+                        app:layout_constraintStart_toStartOf="@+id/question_answer_entry_box_end_guide_1st"
+                        app:layout_constraintTop_toTopOf="parent" />
+
 
                     <androidx.constraintlayout.widget.Guideline
                         android:id="@+id/question_answer_entry_box_start_guide_1st"
@@ -279,6 +319,31 @@
                         app:layout_constraintStart_toStartOf="@+id/question_answer_entry_box_start_guide_2nd"
                         app:layout_constraintTop_toTopOf="parent" />
 
+                    <View
+                        android:id="@+id/question_answer_entry_incorrect_icon_2nd"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:background="@drawable/icon_cross_circle"
+                        android:clipToOutline="true"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/question_answer_entry_box_end_guide_2nd"
+                        app:layout_constraintStart_toStartOf="@+id/question_answer_entry_box_end_guide_2nd"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/question_answer_entry_correct_icon_2nd"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:background="@drawable/icon_check_mark_circle"
+                        android:clipToOutline="true"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/question_answer_entry_box_end_guide_2nd"
+                        app:layout_constraintStart_toStartOf="@+id/question_answer_entry_box_end_guide_2nd"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <androidx.constraintlayout.widget.Guideline
                         android:id="@+id/question_answer_entry_box_start_guide_2nd"
