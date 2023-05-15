@@ -109,7 +109,7 @@ public class AVLTreeTest {
         // Test whether stringToTree restores the non-empty original tree
         if (tree.size() != 0) {
             AVLTree<Integer> treeFromString = new AVLTree<>();
-            treeFromString = treeFromString.stringToTree(tree.toString());
+            treeFromString = treeFromString.stringToTree(tree.toString(), false);
             System.out.println(treeFromString.visualize());
             areTreesSame(tree.root, treeFromString.root);
         }

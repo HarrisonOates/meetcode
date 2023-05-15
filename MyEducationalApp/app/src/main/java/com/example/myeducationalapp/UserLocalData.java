@@ -115,13 +115,13 @@ public class UserLocalData {
             points = Integer.parseInt(parts[3]);
 
             blockedUserList = new AVLTree<>();
-            blockedUserList.stringToTree(blockedUserStr);
+            blockedUserList.stringToTree(blockedUserStr, false);
 
             successfullyAnsweredQuestions = new AVLTree<>();
-            successfullyAnsweredQuestions.stringToTree(successfulAnswer);
+            successfullyAnsweredQuestions.stringToTree(successfulAnswer, false);
 
             likedMessages = new AVLTree<>();
-            likedMessages.stringToTree(likedMessageStr);
+            likedMessages.stringToTree(likedMessageStr, true);
 
             HashMap<String, List<String>> newMap = new HashMap<>();
 

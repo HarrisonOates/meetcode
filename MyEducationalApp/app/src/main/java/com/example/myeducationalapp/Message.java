@@ -64,7 +64,7 @@ public class Message extends Asynchronous {
         likedBy = new AVLTree<>();
 
         if (str.length() != 0) {
-            likedBy = likedBy.stringToTree(str);
+            likedBy = likedBy.stringToTree(str, false);
         }
     }
 

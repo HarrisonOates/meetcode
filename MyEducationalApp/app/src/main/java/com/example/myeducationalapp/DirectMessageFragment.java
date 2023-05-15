@@ -148,7 +148,7 @@ public class DirectMessageFragment extends Fragment {
 
         dms.runWhenReady((obj) -> {
 
-            dms.postMessage(binding.directMessageInputText.getText().toString().replace("@", "at"));
+            dms.postMessage(binding.directMessageInputText.getText().toString());
 
             // TODO make this better
             binding.directMessageLinearLayout.post(() -> {

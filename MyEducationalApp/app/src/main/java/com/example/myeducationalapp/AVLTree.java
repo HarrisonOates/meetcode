@@ -360,9 +360,10 @@ public class AVLTree<T extends Comparable<T>> {
      * treeFromString.visualize() should print the same structure with same values as tree.visualize().
      * @param levelOrderTraversal consisting of all the values in the tree in a level order
      *                            such that the structure is preserved
+     * @param useAtSignToSplit    should be set when a T is of type ComparablePair
      * @return the AVLTree consisting of given values
      */
-    public AVLTree<T> stringToTree(String levelOrderTraversal) {
+    public AVLTree<T> stringToTree(String levelOrderTraversal, boolean useAtSignToSplit) {
         AVLTree<T> tree = new AVLTree<>();
         String[] values = levelOrderTraversal.split(",");
         ArrayList<String> valuesList = new ArrayList<>(Arrays.asList(values));
@@ -371,7 +372,7 @@ public class AVLTree<T extends Comparable<T>> {
         valuesList.removeAll(strNull);
         for (String value : valuesList) {
             System.out.println(value);
-            if (value.contains("@")) {
+            if (value.contains("@") && useAtSignToSplit) {
                 tree.insert((T) new ComparablePair<>(
                         Integer.parseInt(value.split("@")[0]),
                         Integer.parseInt(value.split("@")[1])
