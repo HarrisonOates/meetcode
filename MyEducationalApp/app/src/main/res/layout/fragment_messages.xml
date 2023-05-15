@@ -1,93 +1,205 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".MessagesFragment"
-    android:fillViewport="true">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!-- horizontal scroll view wrapper -->
+    <!-- Search Widget -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/messages_text_container"
+        android:layout_width="350dp"
+        android:layout_height="63dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/messages_message_new_person_container"
+        android:elevation="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.523"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <!-- Linear layout with message cards -->
-    <!-- use android:layout_marginTop="10dp" for subsequent cards -->
-    <LinearLayout
-        android:id="@+id/messages_card_linear_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center|top"
-        android:paddingBottom="20dp"
-        android:orientation="vertical">
+        <!-- Magnifying glass icon -->
+        <View
+            android:id="@+id/messages_magnifying_glass_icon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/icon_magnifying_glass"
+            android:clipToOutline="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/messages_start_guide"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/messages_start_guide"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Card container -->
+        <!-- Search text entry field -->
+        <EditText
+            android:id="@+id/messages_send_new_message_input_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginEnd="5dp"
+            android:background="@null"
+            android:ems="10"
+            android:fontFamily="@font/ibm_plex_sans_medium"
+            android:hint="Message someone..."
+            android:inputType="textAutoComplete|text"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/messages_send_button"
+            app:layout_constraintStart_toEndOf="@+id/messages_magnifying_glass_icon"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Filter button container widget -->
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/messages_card_1"
-            android:layout_width="350dp"
-            android:layout_gravity="center|top"
-            android:layout_marginTop="20dp"
-            android:layout_height="100dp">
+            android:id="@+id/messages_send_button"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/shapes_button_circle"
+            android:clipToOutline="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toStartOf="@+id/messages_end_guide"
+            app:layout_constraintStart_toStartOf="@+id/messages_end_guide"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <!-- User profile image -->
-            <ImageView
-                android:id="@+id/messages_card_1_profile_image"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:contentDescription="TODO"
-                android:src="@drawable/user_profile_default"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <!-- Profile name text -->
-            <TextView
-                android:id="@+id/messages_card_1_profile_name_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:fontFamily="@font/ibm_plex_sans_bold"
-                android:text="Firstname Lastname"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                app:layout_constraintStart_toEndOf="@+id/messages_card_1_profile_image"
-                app:layout_constraintTop_toTopOf="@+id/messages_card_1_profile_image" />
-
-            <!-- Message snippet text -->
-            <TextView
-                android:id="@+id/messages_card_1_message_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:fontFamily="@font/ibm_plex_sans"
-                android:text="TextView"
-                android:textSize="15sp"
-                app:layout_constraintStart_toStartOf="@+id/messages_card_1_profile_name_text"
-                app:layout_constraintTop_toBottomOf="@+id/messages_card_1_profile_name_text" />
-
-            <!-- Message notification dot -->
+            <!-- send icon -->
             <View
-                android:id="@+id/messages_card_1_notification_dot"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:layout_marginEnd="15dp"
-                android:background="@drawable/icon_notification_dot"
+                android:id="@+id/messages_send_arrow_icon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/icon_right_send_arrow"
+                android:clipToOutline="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.55"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <!-- Card divider element -->
-            <com.google.android.material.divider.MaterialDivider
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:dividerColor="#A6000000"
-                app:dividerThickness="2dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </LinearLayout>
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/messages_start_guide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.09" />
 
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/messages_end_guide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.91" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-</ScrollView>
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="90dp"
+        android:fillViewport="true"
+        android:scrollbars="none"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/messages_text_container"
+        tools:context=".MessagesFragment">
+
+        <!-- horizontal scroll view wrapper -->
+
+        <!-- Linear layout with message cards -->
+        <!-- use android:layout_marginTop="10dp" for subsequent cards -->
+        <LinearLayout
+            android:id="@+id/messages_card_linear_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|top"
+            android:orientation="vertical"
+            android:paddingBottom="20dp"
+            android:layout_marginTop="10dp">
+
+
+            <!--            &lt;!&ndash; Card container &ndash;&gt;-->
+            <!--            <androidx.constraintlayout.widget.ConstraintLayout-->
+            <!--                android:id="@+id/messages_card_1"-->
+            <!--                android:layout_width="350dp"-->
+            <!--                android:layout_height="100dp"-->
+            <!--                android:layout_gravity="center|top"-->
+            <!--                android:layout_marginTop="20dp">-->
+
+            <!--                &lt;!&ndash; User profile image &ndash;&gt;-->
+            <!--                <ImageView-->
+            <!--                    android:id="@+id/messages_card_1_profile_image"-->
+            <!--                    android:layout_width="60dp"-->
+            <!--                    android:layout_height="60dp"-->
+            <!--                    android:contentDescription="TODO"-->
+            <!--                    android:src="@drawable/user_profile_default"-->
+            <!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--                    app:layout_constraintTop_toTopOf="parent" />-->
+
+            <!--                &lt;!&ndash; Profile name text &ndash;&gt;-->
+            <!--                <TextView-->
+            <!--                    android:id="@+id/messages_card_1_profile_name_text"-->
+            <!--                    android:layout_width="0dp"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:layout_marginStart="15dp"-->
+            <!--                    android:layout_marginEnd="25dp"-->
+            <!--                    android:fontFamily="@font/ibm_plex_sans_bold"-->
+            <!--                    android:text="Firstname Lastname"-->
+            <!--                    android:textColor="@color/black"-->
+            <!--                    android:textSize="18sp"-->
+            <!--                    app:layout_constraintEnd_toStartOf="@+id/messages_card_1_notification_dot"-->
+            <!--                    app:layout_constraintStart_toEndOf="@+id/messages_card_1_profile_image"-->
+            <!--                    app:layout_constraintTop_toTopOf="@+id/messages_card_1_profile_image" />-->
+
+            <!--                &lt;!&ndash; Message snippet text &ndash;&gt;-->
+            <!--                <TextView-->
+            <!--                    android:id="@+id/messages_card_1_message_text"-->
+            <!--                    android:layout_width="0dp"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:layout_marginTop="4dp"-->
+            <!--                    android:fontFamily="@font/ibm_plex_sans"-->
+            <!--                    android:text="TextView"-->
+            <!--                    android:textSize="15sp"-->
+            <!--                    app:layout_constraintEnd_toEndOf="@+id/messages_card_1_profile_name_text"-->
+            <!--                    app:layout_constraintStart_toStartOf="@+id/messages_card_1_profile_name_text"-->
+            <!--                    app:layout_constraintTop_toBottomOf="@+id/messages_card_1_profile_name_text" />-->
+
+            <!--                &lt;!&ndash; Message notification dot &ndash;&gt;-->
+            <!--                <View-->
+            <!--                    android:id="@+id/messages_card_1_notification_dot"-->
+            <!--                    android:layout_width="15dp"-->
+            <!--                    android:layout_height="15dp"-->
+            <!--                    android:layout_marginEnd="15dp"-->
+            <!--                    android:background="@drawable/icon_notification_dot"-->
+            <!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--                    app:layout_constraintEnd_toEndOf="parent"-->
+            <!--                    app:layout_constraintTop_toTopOf="parent" />-->
+
+            <!--                &lt;!&ndash; Card divider element &ndash;&gt;-->
+            <!--                <com.google.android.material.divider.MaterialDivider-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    app:dividerColor="#A6000000"-->
+            <!--                    app:dividerThickness="2dp"-->
+            <!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--                    app:layout_constraintEnd_toEndOf="parent"-->
+            <!--                    app:layout_constraintStart_toStartOf="parent" />-->
+
+            <!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+        </LinearLayout>
+
+
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

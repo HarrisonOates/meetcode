@@ -35,4 +35,6 @@ public class SearchResult {
     public List<String> getWords() {
         return words;
     }
+
+    public String getStringResult() {return String.join(" ", words);}
 }

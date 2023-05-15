@@ -181,4 +181,31 @@ public class Message extends Asynchronous {
     public Person getPoster() {
         return sentBy;
     }
+
+    /**
+     * Below this point is a number of adjustments to functions that are required to simulate the datastream
+     * for the assignment. These would be deleted before releasing for production.
+     * These are NOT to be used outside of this very specific purpose.
+     * @author Harrison Oates u7468212
+     */
+
+    /**
+     * Creates a new message, specified by user.
+     *
+     * @param parentThread
+     * @param index
+     * @param content
+     * @param replyingTo
+     * @param sentBy - to change who appears to send the message
+     *
+     */
+    protected Message(MessageThread parentThread, int index, String content, int replyingTo, String sentBy) {
+        this.thread = parentThread;
+        this.likedBy = new AVLTree<>();
+        this.indexWithinThread = index;
+        this.replyingTo = replyingTo;
+        this.content = content;
+        this.sentBy = new Person(sentBy);
+        addWaitRequirement(this.sentBy.getWaitRequirement());
+    }
 }

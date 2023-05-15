@@ -17,7 +17,7 @@ import java.util.Set;
 /**
  * Takes a block of Java code and transforms it into a HTML string.
  * Only one colour scheme for the moment.
- * @author Harrison Oates
+ * @author u7468212 Harrison Oates
  */
 public class Parser {
     /**
@@ -94,7 +94,17 @@ public class Parser {
             }
             else if (t.getType() == PUNCTUATOR){
                 highlightedBlock.append("<font color = \"purple\">");
-                highlightedBlock.append(t.getToken());
+
+                // < and > are reserved entities in HTML, so we need to use special characters
+                if (t.getToken().equals("<")){
+                    highlightedBlock.append("&lt;");
+                }
+                else if (t.getToken().equals(">")){
+                    highlightedBlock.append("&gt;");
+                }
+                else {
+                    highlightedBlock.append(t.getToken());
+                }
                 highlightedBlock.append("</font>");
             }
             else {

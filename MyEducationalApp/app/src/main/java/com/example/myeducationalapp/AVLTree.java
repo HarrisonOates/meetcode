@@ -316,6 +316,24 @@ public class AVLTree<T extends Comparable<T>> {
         }
     }
 
+    /**
+     * @return All the nodes in the AVLTree in orderas an array list
+     */
+    public ArrayList<Node<T>> inOrderTraversal(){
+        ArrayList<Node<T>> nodes = new ArrayList<>();
+        inOrderHelper(this.root, nodes);
+        return nodes;
+    }
+
+    private void inOrderHelper(Node<T> curr, ArrayList<Node<T>> nodes) {
+        if (curr != null && curr.value != null) {
+            inOrderHelper(curr.left, nodes);
+            nodes.add(curr);
+            inOrderHelper(curr.right, nodes);
+        }
+    }
+
+
     public ArrayList<T> levelOrderTraversal(){
         ArrayList<T> nodes = new ArrayList<>();
         int height = getHeight(root);
@@ -353,16 +371,25 @@ public class AVLTree<T extends Comparable<T>> {
         valuesList.removeAll(strNull);
         for (String value : valuesList) {
             System.out.println(value);
-            try {
-                Integer valueInt = Integer.valueOf(value);
+            if (value.contains("@")) {
+                tree.insert((T) new ComparablePair<>(
+                        Integer.parseInt(value.split("@")[0]),
+                        Integer.parseInt(value.split("@")[1])
+                ));
 
-                // Checks whether T is Integer, which should be the case for most of the time.
-                tree.insert((T) valueInt);
-            } catch (Exception e) {
-                // This is if we decide to store keys of QuestionIDs as AVLTree.
-                tree.insert((T) value);
+            } else {
+                try {
+                    Integer valueInt = Integer.valueOf(value);
+
+                    // Checks whether T is Integer, which should be the case for most of the time.
+                    tree.insert((T) valueInt);
+                } catch (Exception e) {
+                    // This is if we decide to store keys of QuestionIDs as AVLTree.
+                    tree.insert((T) value);
+                }
+                // T can only be Integer or String in our app.
             }
-            // T can only be Integer or String in our app.
+
         }
         return tree;
     }

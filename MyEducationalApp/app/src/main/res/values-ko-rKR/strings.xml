@@ -17,9 +17,15 @@
     <string name="enter_your_password">비밀번호를 적으세요</string>
     <string name="password">비밀번호</string>
     <string name="log_in">로그인 ➜</string>
-    <string name="you_ve_achieved_x_stars">X 개 별을 모았어요</string>
+    <string name="you_ve_achieved_x_stars">%1$d 개 별을 모았어요</string>
     <string name="current_username">현재 계정 이름</string>
     <string name="categories">카테고리</string>
     <string name="daily_challenge">일일 과제</string>
     <string name="logout">로그아웃</string>
+    <string name="earn_x_stars">Earn %1$d stars</string>
+    <string name="completed">Completed!</string>
+    <string name="earn_1_star">Earn 1 star</string>
+    <string name="question">Question</string>
+    <string name="topic">Topic</string>
+    <string name="user">User</string>
 </resources>

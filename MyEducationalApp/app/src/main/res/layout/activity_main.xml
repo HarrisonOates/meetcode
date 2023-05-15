@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
         <import type="android.view.View"/>
@@ -9,8 +11,6 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".MainActivity">
@@ -59,7 +59,7 @@
                     app:layout_constraintHorizontal_chainStyle="packed"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:visibility="@{viewModel.getUiState().getIsActionBarInBackState() ? View.GONE : View.VISIBLE}">
+                    android:visibility="@{viewModel.getUiState().getIsActionBarInBackState() ? View.INVISIBLE : View.VISIBLE}">
 
                     <!-- Number of Stars -->
                     <TextView
@@ -107,16 +107,20 @@
                 <!-- Toolbar title -->
                 <TextView
                     android:id="@+id/toolbar_title"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:ellipsize="end"
                     android:fontFamily="@font/ibm_plex_sans_bold"
+                    android:maxLines="1"
                     android:text="@{viewModel.getUiState().getToolbarTitle()}"
                     android:textAlignment="center"
                     android:textColor="@color/black"
                     android:textSize="24sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/toolbar_profile_icon"
+                    app:layout_constraintStart_toEndOf="@+id/toolbar_star_container"
                     app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -158,7 +162,8 @@
             android:background="@drawable/nav_menu"
             app:layout_constraintBottom_toBottomOf="@+id/include"
             app:layout_constraintEnd_toEndOf="@+id/include"
-            app:layout_constraintStart_toStartOf="@+id/include">
+            app:layout_constraintStart_toStartOf="@+id/include"
+            android:visibility="@{viewModel.getUiState().getNavigationMenuVisibility() ? View.VISIBLE : View.GONE}">
 
             <!-- Home icon -->
             <View

@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".CategoriesListFragment"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    android:scrollbars="none">
 
     <!-- horizontal scroll view wrapper -->
 
@@ -16,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center|top"
         android:orientation="vertical"
-        android:paddingBottom="20dp">
+        android:paddingBottom="120dp">
 
         <!-- Card container -->
         <androidx.constraintlayout.widget.ConstraintLayout

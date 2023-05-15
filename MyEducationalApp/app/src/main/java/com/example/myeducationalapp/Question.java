@@ -1,23 +1,43 @@
 package com.example.myeducationalapp;
 
-import com.example.myeducationalapp.Firebase.Firebase;
-
 public class Question {
-    String id;
-    public Question(String questionID) {
-        id = questionID;
-        Firebase.getInstance().readQuestion(id).then((obj) -> {
-            // TODO: do any loading needed
+    private String name;
+    private String content;
+    private String answer;
+    private int difficulty;
+    private QuestionSet.Category category;
+    private String id;
 
-            return null;
-        });
+    Question(String name, String content, String answer, QuestionSet.Category category, int difficulty) {
+        this.name = name;
+        this.content = content;
+        this.answer = answer;
+        this.difficulty = difficulty;
+        this.category = category;
+        this.id = category + "_" + difficulty + "_" + content.hashCode() + name.hashCode() + answer.hashCode();
     }
+
     public String getID() {
         return id;
     }
 
-    @Override
-    public String toString() {
-        return "";
+    public String getName() {
+        return name;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public String getAnswer() {
+        return answer;
+    }
+
+    public int getDifficulty() {
+        return difficulty;
+    }
+
+    public QuestionSet.Category getCategory() {
+        return category;
     }
 }

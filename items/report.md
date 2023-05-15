@@ -15,34 +15,50 @@
 
 ## Team Members and Roles
 
-| UID              |        Name        |                                                            Role |
-|:-----------------|:------------------:|----------------------------------------------------------------:|
-| u7468248         |    Alex Boxall     |                           Firebase and Messaging Implementation |
-| u7469758         |      Geun Yun      |  Data Structures, Authorisation and Localisation Implementation |
-| u7468212         |   Harrison Oates   |            Syntax Highlighting Design and Parser Implementation |
-| u7146309         |  Jayden Skidmore   |                 Search Grammar Design and Parser Implementation |
-| u7300256         | Nikhila Gurusinghe |                        User Interface Design and Implementation |
+| UID              |        Name        |                                                Role |
+|:-----------------|:------------------:|----------------------------------------------------:|
+| u7468248         |    Alex Boxall     |                              Firebase and Messaging |
+| u7469758         |      Geun Yun      |     Data Structures, Authorisation and Localisation |
+| u7468212         |   Harrison Oates   | Syntax Highlighting Design and Parser, Data Streams |
+| u7146309         |  Jayden Skidmore   |                    Search Grammar Design and Parser |
+| u7300256         | Nikhila Gurusinghe | User Experience & Interface Design, and Implementation |
 
 ## Summary of Individual Contributions
 
 **you should ALSO provide links to the specified classes and/or functions**
 
 u7468248, Alex Boxall: I contributed 20% of the code. Here are my contributions:
-* A.class
-* B.class: function1(), function2(), ...
+* All of [Firebase/Firebase.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Firebase/Firebase.java)
+* All of [Firebase/FirebaseObserver.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Firebase/FirebaseObserver.java)
+* All of [Firebase/FirebaseRequest.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Firebase/FirebaseRequest.java)
+* All of [Firebase/FirebaseResult.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Firebase/FirebaseResult.java)
+* All of [Asynchronous.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Asynchronous.java)
+* All of [DirectMessageThread.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/DirectMessageThread.java)
+* All of [Message.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Message.java)
+* All of [MessageThread.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/MessageThread.java)
+* All of [Person.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Person.java)
+* All of [Question.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Question.java)
+* All of [QuestionMessageThread.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/QuestionMessageThread.java)
+* All of [UserLocalData.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/UserLocalData.java)
+  * All of [UserLocalDataTest.java](./../MyEducationalApp/app/src/androidTest/java/com/example/myeducationalapp/UserLocalDataTest.java)
+* Some changes to [QuestionSet.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/QuestionSet.java)
 * What design patterns, data structures, did the involved member propose?
 * Specify what design did the involved member propose? What tools were used for the design?
 * Which part of the report did the involved member write?
 * Were you responsible for the slides?
-* You are welcome to provide anything that you consider as a contribution to the project or team.
+* I also created the UML diagrams for the project
 
 
 u7469758, Geun Yun: I contributed 20% of the code. Here are my contributions:
-* All of MyEducationalApp/app/src/main/java/com/example/myeducationalapp/AVLTree.java
-  * All of MyEducationalApp/app/src/test/java/com/example/myeducationalapp/AVLTreeTest.java
-* Most of MyEducationalApp/app/src/main/java/com/example/myeducationalapp/UserLogin.java 
-  * Most of MyEducationalApp/app/src/androidTest/java/com/example/myeducationalapp/UserLoginTest.java
-* All of MyEducationalApp/app/src/main/java/com/example/myeducationalapp/LanguageSetting.java
+* All of [AVLTree.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/AVLTree.java)
+  * All of [AVLTreeTest.java](./../MyEducationalApp/app/src/test/java/com/example/myeducationalapp/AVLTreeTest.java)
+* Most of [UserLogin.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/UserLogin.java) 
+  * Most of [UserLoginTest.java](./../MyEducationalApp/app/src/androidTest/java/com/example/myeducationalapp/UserLoginTest.java)
+* Most of [QuestionSet.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/QuestionSet.java)
+* Search bar UI part of 
+  * [HomeFragment.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/HomeFragment.java)
+  * [fragment_home.xml](./../MyEducationalApp/app/src/main/res/layout/fragment_home.xml)
+* All of [LanguageSetting.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/LanguageSetting.java)
   * Most of
     MyEducationalApp/app/src/main/res/values-pt-rBR/strings.xml
     MyEducationalApp/app/src/main/res/values-zh-rCN/strings.xml
@@ -58,8 +74,12 @@ u7469758, Geun Yun: I contributed 20% of the code. Here are my contributions:
 
 
 u7468212, Harrison Oates: I contributed 20% of the code. Here are my contributions:
-* A.class
-* B.class: function1(), function2(), ...
+* All of SyntaxHighlighting.DetectCodeBlock.Class
+* All of SyntaxHighlighting.Parser.Class
+* All of SyntaxHighlighting.Token.Class
+* All of SyntaxHighlighting.Tokenizer.Class
+* All of SyntaxHighlightingTest
+* All of SyntaxHighlightingParsingTest
 * What design patterns, data structures, did the involved member propose?
 * Specify what design did the involved member propose? What tools were used for the design?
 * Which part of the report did the involved member write?
@@ -78,7 +98,37 @@ u7146309, Jayden Skidmore: I contributed 20% of the code. Here are my contributi
 
 
 u7300256, Nikhila Gurusinghe: I contributed 20% of the code. Here are my contributions:
-* A.class
+* All of [LoginActivity.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/LoginActivity.java)
+* All of [MainActivity.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/MainActivity.java)
+* All of [AccountFragment.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/AccountFragment.java)
+* All of [CategoriesListFragment.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/CategoriesListFragment.java)
+* Most of [DirectMessageFragment.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/DirectMessageFragment.java)
+  * Alex added scrolling the LinearLayout to the bottom and suggested and implemented long clicking to like direct messages
+* Most of [HomeFragment.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/HomeFragment.java)
+  * Geun implemented all the search bar UI and functionality
+* All of [MessagesFragment.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/MessagesFragment.java)
+* All of [QuestionFragment.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/QuestionFragment.java)
+* All of [UserInterfaceManager.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/userInterface/UserInterfaceManager.java)
+* All of [UserInterfaceManagerViewModel.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/userInterface/UserInterfaceManagerViewModel.java)
+* All of [CategoryListCard.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/userInterface/Generation/CategoryListCard.java)
+* All of [CategoryQuestionCard.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/userInterface/Generation/CategoryQuestionCard.java)
+* All of [DiscussionElement.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/userInterface/Generation/DiscussionElement.java)
+* All of [HomeCategoryCard.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/userInterface/Generation/HomeCategoryCard.java)
+* All of [MessagesListCard.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/userInterface/Generation/MessagesListCard.java)
+* All of [QuestionCategoriesCard.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/userInterface/Generation/QuestionCategoriesCard.java)
+* All of [GeneratedUserInterfaceViewModel.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/userInterface/Generation/GeneratedUserInterfaceViewModel.java.java)
+* Most of [drawable](./../MyEducationalApp/app/src/main/res/drawable) resource folder
+* All of [font](./../MyEducationalApp/app/src/main/res/font), [navigation](./../MyEducationalApp/app/src/main/res/navigation), [values](./../MyEducationalApp/app/src/main/res/values) and [anim](./../MyEducationalApp/app/src/main/res/anim) resource folders
+* Most of [layout](./../MyEducationalApp/app/src/main/res/layout) resource folder including:
+  * All of [activity_login.xml](./../MyEducationalApp/app/src/main/res/layout/activity_login.xml) (aside from localisation)
+  * All of [activity_main.xml](./../MyEducationalApp/app/src/main/res/layout/activity_main.xml) (aside from localisation)
+  * All of [fragment_account.xml](./../MyEducationalApp/app/src/main/res/layout/fragment_account.xml) (aside from localisation)
+  * All of [fragment_categories_list.xml](./../MyEducationalApp/app/src/main/res/layout/fragment_categories_list.xml) (aside from localisation)
+  * All of [fragment_category.xml](./../MyEducationalApp/app/src/main/res/layout/fragment_category.xml) (aside from localisation)
+  * All of [fragment_direct_message.xml](./../MyEducationalApp/app/src/main/res/layout/fragment_direct_message.xml) (aside from localisation)
+  * Most of [fragment_home.xml](./../MyEducationalApp/app/src/main/res/layout/fragment_home.xml) (aside from localisation and search UI implementation which was done by Geun)
+  * All of [fragment_messages.xml](./../MyEducationalApp/app/src/main/res/layout/fragment_messages.xml) (aside from localisation)
+  * All of [fragment_question.xml](./../MyEducationalApp/app/src/main/res/layout/fragment_question.xml) (aside from localisation)
 * B.class: function1(), function2(), ...
 * What design patterns, data structures, did the involved member propose?
 * Specify what design did the involved member propose? What tools were used for the design?
@@ -100,9 +150,13 @@ The following conflict resolution protocol was decided on in our first meeting.
 
 *[What is your application, what does it do? Include photos or diagrams if necessary]*
 
-*Here is a pet specific application example*
+MeetCode: Program Together
 
-*PetBook is a social media application specifically targetting pet owners... it provides... certified practitioners, such as veterians are indicated by a label next to their profile...*
+MeetCode is a disruptive new breed of app asking the question: what if a social media application was also about learning programming? 
+
+MeetCode allow users to learn programming in bite-sized chunks, via daily questions, and do so together, via direct messaging each other or commenting on questions.
+
+MeetCode supports Korean, Japanese, and Chinese learners through our app localisation which allows you to truly program together like never before.
 
 **Application Use Cases and or Examples**
 
@@ -126,9 +180,9 @@ The following conflict resolution protocol was decided on in our first meeting.
 *List all the use cases in text descriptions or create use case diagrams. Please refer to https://www.visual-paradigm.com/guide/uml-unified-modeling-language/what-is-use-case-diagram/ for use case diagram.*
 
 ## Application UML
+The below UML diagram does not include any of the user interface classes.
 
-![ClassDiagramExample](./images/ClassDiagramExample.png) <br>
-*[Replace the above with a class diagram. You can look at how we have linked an image here as an example of how you can do it too.]*
+![ClassDiagram](./images/ClassDiagram.png) <br>
 
 ## Application Design and Decisions
 
@@ -146,13 +200,10 @@ We used the following data structures in our project:
 
    * Reasons:
 
-     * It is more efficient than Arraylist for insertion with a time complexity O(1)
+     * Having the property of self-balancing along with the binary search tree guarantees the performance of O(logN) in the worst case for insertion, deletion and searching.
+     * Although HashMap may seem more plausible with better time complexity, the AVL Tree can get data in order via inOrderTraversal().
 
-     * We don't need to access the item by index for this feature
-
-2. Having the property of self-balancing along with the binary search tree guarantees the performance of O(logN) in the worst case for insertion, deletion and searching.
-
-3. Unlike the most operation in the AVL Tree, the deletion was not covered in the lecture, so its implementation will be briefly outlined.
+2. Unlike the most operation in the AVL Tree, the deletion was not covered in the lecture, so its implementation will be briefly outlined.
    * The node that is to be deleted first gets searched, similar to the initial search fro the insertion.
    * It then gets deleted accordingly preserving the BST properties depending on the number of children node/s it has.
    * The tree now identifies node/s that violate/s the balance factor rule.
@@ -166,17 +217,15 @@ We used the following design patterns in our project:
 
 1. Singleton
 
-* Objective: It is used for storing xxxx for xxx feature.
+* Objective: Used for various classes that require only one instance (or 'global' classes). For example, there is one object for managing user logins, the current user's settings, and the Firebase connection.
 
 * Locations: line xxx in XXX.java, ..., etc.
 
 * Reasons:
+  *
+  * 
 
-   * It is more efficient than Arraylist for insertion with a time complexity O(1)
-
-   * We don't need to access the item by index for this feature
-
-2. State
+2. Facade
 
 3. Observer
 
@@ -232,8 +281,7 @@ Two tokenizers and parses were built...
 *[Where do you use tokenisers and parsers? How are they built? What are the advantages of the designs?]*
 
 **Surprise Item**
-
-*[If you implement the surprise item, explain how your solution addresses the surprise task. What decisions do your team make in addressing the problem?]*
+The surprise item was not implemented.
 
 **Other**
 
@@ -332,12 +380,10 @@ Feature Category: Syntax Highlighting (custom, approved as per [here](https://wa
 
 *Here is an example (you could start numbering your meetings from 1):*
 
-- *[Team Meeting 1](./meeting1.md)*
-- *[Team Meeting 2](./meeting2.md)*
-- *[Team Meeting 3](./meeting3.md)*
-- *[Team Meeting 4](./meeting4.md)*
+- *[Team Meeting 1](./meeting1.md)* (1/4)
+- *[Team Meeting 2](./meeting2.md)* (20/4)
+- *[Team Meeting 3](./meeting3.md)* (27/4)
+- *[Team Meeting 4](./meeting4.md)* (7/5)
+- *[Team Meeting 5](./meeting5.md)* (14/5)
 
-* Link to the minutes of your meetings as above. There must be at least 4 team meetings. 
-Note that you must commit your minute meetings shortly after your meeting has taken place (e.g., within 24h), otherwise your meeting minute will not be accepted.
-Your meetings (and each member's commits) should also have a reasonable date span across Week 6 to 11.*
  

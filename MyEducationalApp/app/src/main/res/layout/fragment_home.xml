@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/se"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".HomeFragment">
+    tools:context=".HomeFragment"
+    android:scrollbars="none">
 
-<androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="80dp">
+        android:paddingBottom="120dp">
 
         <!-- Search Widget -->
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -43,23 +44,23 @@
 
             <!-- Search text entry field -->
             <EditText
-                android:id="@+id/direct_message_input_text"
+                android:id="@+id/search_input_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="14dp"
+                android:background="@null"
                 android:ems="10"
                 android:fontFamily="@font/ibm_plex_sans_medium"
-                android:inputType="textAutoComplete|text"
                 android:hint="Search"
+                android:inputType="textAutoComplete|text"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/home_search_magnifying_glass_icon"
-                app:layout_constraintTop_toTopOf="parent"
-                android:background="@null" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <!-- Filter button container widget -->
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/direct_message_send_button"
+                android:id="@+id/filter_button"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:layout_alignParentStart="true"
@@ -141,9 +142,9 @@
                     android:background="@drawable/shape_placeholder_square"
                     android:elevation="5dp"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintDimensionRatio="1:1"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintDimensionRatio="1:1"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <!-- Hero Heading text -->
                 <TextView
@@ -318,7 +319,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:fontFamily="@font/ibm_plex_sans_semibold"
-                            android:text="Earn 3 stars"
+                            android:text="@string/earn_x_stars"
                             android:textColor="@color/black"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -407,6 +408,7 @@
 
         <!-- Categories carousel outer constraint layout wrapper -->
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
             android:layout_width="350dp"
             android:layout_height="224dp"
             android:layout_marginTop="15dp"
@@ -415,11 +417,11 @@
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout3">
 
             <!-- Categories carousel scrollable wrapper -->
+
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:fillViewport="true"
-                >
+                android:fillViewport="true">
 
                 <!-- Categories carousel inner wrapper -->
                 <LinearLayout
@@ -502,12 +504,65 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
                 </LinearLayout>
 
             </HorizontalScrollView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <RadioGroup
+            android:id="@+id/search_filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
+            android:background="#FFEB3B"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/direct_message_text_container"
+            tools:visibility="invisible">
+
+            <RadioButton
+                android:id="@+id/question_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/question"
+                tools:visibility="visible" />
+
+            <RadioButton
+                android:id="@+id/topic_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/topic" />
+
+            <RadioButton
+                android:id="@+id/user_search"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/user" />
+        </RadioGroup>
+
+        <ListView
+            android:id="@+id/search_results"
+            android:layout_width="409dp"
+            android:layout_height="200dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="1dp"
+            android:background="#FFEB3B"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/direct_message_text_container"
+            tools:visibility="invisible" >
+        </ListView>
+
+        <Button
+            android:id="@+id/hide_search_results"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="Hide"
+            app:layout_constraintBottom_toBottomOf="@+id/home_hero_container"
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

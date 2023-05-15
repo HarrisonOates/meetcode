@@ -2,12 +2,15 @@ package com.example.myeducationalapp;
 
 import android.os.Bundle;
 
+import com.example.myeducationalapp.DatastreamSimulation.DataGenerator;
+import com.example.myeducationalapp.Firebase.Firebase;
 import com.example.myeducationalapp.userInterface.UserInterfaceManagerViewModel;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.activity.OnBackPressedDispatcher;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.util.Log;
 import android.view.View;
 
 import androidx.databinding.DataBindingUtil;
@@ -25,10 +28,11 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.FileNotFoundException;
+import java.util.HashMap;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
-
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
 
@@ -38,11 +42,11 @@ public class MainActivity extends AppCompatActivity {
 
         UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(this).get(UserInterfaceManagerViewModel.class);
 
+
         //binding = ActivityMainBinding.inflate(getLayoutInflater());
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         binding.setViewModel(userInterfaceManager);
         binding.setLifecycleOwner(this);
-
 
         //setContentView(binding.getRoot());
 
@@ -57,8 +61,6 @@ public class MainActivity extends AppCompatActivity {
             getSupportActionBar().hide();
         }
 
-
-
         // Dynamic elements
         View toolbarBackwardsArrow = (View) findViewById(R.id.toolbar_left_arrow_icon);
         View navMenuMailNotificationDot = (View) findViewById(R.id.nav_menu_mail_notification_dot);
@@ -70,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         TextView toolbarTitle = (TextView) findViewById(R.id.toolbar_title);
         ImageView toolbarProfileIcon = (ImageView) findViewById(R.id.toolbar_profile_icon);
         TextView toolbarStarContainerText = (TextView) findViewById(R.id.toolbar_star_container_number);
-
+        toolbarStarContainerText.setText(String.valueOf(UserLocalData.getInstance().getPoints()));
 
         // Setting initial states of dynamic elements
 
@@ -117,7 +119,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Firebase.getInstance().dump();
+        //UserLogin.getInstance().addUser("test", "123456789");
 
+       if (UserLogin.getInstance().getCurrentUsername().equals("comp2100@anu.au")){
+            try {
+               DataGenerator.generateData(getApplicationContext());
+           } catch (FileNotFoundException | InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
+       }
     }
 
     @Override
@@ -150,6 +162,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void updateMenuUI() {
+        TextView toolbarStarContainerText = (TextView) findViewById(R.id.toolbar_star_container_number);
+        toolbarStarContainerText.setText(String.valueOf(UserLocalData.getInstance().getPoints()));
 
     }
 }

@@ -17,16 +17,87 @@
         app:layout_constraintBottom_toTopOf="@+id/direct_message_text_container"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:scrollbars="none"
+        android:focusable="false"
+        android:focusableInTouchMode="false">
 
         <!-- Message view -->
         <LinearLayout
             android:id="@+id/direct_message_linear_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:gravity="bottom"
+            android:paddingBottom="10dp"
+            android:paddingHorizontal="30dp"
+            android:focusable="false"
+            android:focusableInTouchMode="false">
 
             <!-- Messages go here -->
+
+<!--            <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="end">-->
+
+<!--                <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                    android:id="@+id/constraintLayout"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent"-->
+<!--                    android:background="@drawable/direct_message_bubble_single">-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/textView2"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:maxWidth="250dp"-->
+<!--                        android:paddingHorizontal="15dp"-->
+<!--                        android:paddingTop="13dp"-->
+<!--                        android:paddingBottom="13dp"-->
+<!--                        android:text="This is some text asd asdasd How are you doing Blah"-->
+<!--                        android:textAlignment="textStart"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textSize="18sp"-->
+<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                        app:layout_constraintEnd_toEndOf="parent"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--                </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+
+<!--                <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                    android:id="@+id/constraintLayout4"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="10dp"-->
+<!--                    android:layout_marginTop="-10dp"-->
+<!--                    android:background="@drawable/direct_message_like_bubble"-->
+<!--                    app:layout_constraintStart_toStartOf="@+id/constraintLayout"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout">-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:fontFamily="@font/ibm_plex_sans_semibold"-->
+<!--                        android:maxLines="1"-->
+<!--                        android:text="❤️  2"-->
+<!--                        android:paddingVertical="5dp"-->
+<!--                        android:paddingHorizontal="7dp"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textSize="15sp"-->
+<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                        app:layout_constraintEnd_toEndOf="parent"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--                </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
 
         </LinearLayout>
 
@@ -58,7 +129,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
             android:background="@null"
-            android:ems="10"
+            android:maxLines="4"
             android:fontFamily="@font/ibm_plex_sans_medium"
             android:hint="Message..."
             android:inputType="text|textMultiLine|textAutoComplete|textAutoCorrect|textLongMessage"

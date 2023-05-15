@@ -1,25 +1,562 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".QuestionFragment"
-    android:fillViewport="true">
-
-    <!-- TODO: Update blank fragment layout -->
+    android:fillViewport="true"
+    android:scrollbars="none">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingBottom="120dp">
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
+            android:id="@+id/question_body_constraint_layout"
+            android:layout_width="350dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/home_category_carousel_container">
+            android:layout_marginTop="25dp"
+            android:layout_gravity="center|top"
+            android:background="@drawable/home_category_carousel_container"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
+            <TextView
+                android:id="@+id/question_body_heading_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="@font/ibm_plex_sans_bold"
+                android:textColor="@color/white"
+                android:textSize="22sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="A name for a question, this is a long name for a question" />
+
+            <TextView
+                android:id="@+id/question_body_subheading_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="@font/ibm_plex_sans"
+                android:textColor="@color/white"
+                android:textSize="19sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/question_body_heading_text"
+                tools:text="What will be the output of map.get(2) after the execution of the codes below?" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/question_body_difficulty_container_constraint_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/categories_list_secondary_star_container"
+                android:paddingHorizontal="15dp"
+                android:paddingVertical="8dp"
+                app:layout_constraintStart_toStartOf="@+id/question_body_category_container_constraint_layout"
+                app:layout_constraintTop_toBottomOf="@+id/question_body_category_container_constraint_layout">
+
+                <TextView
+                    android:id="@+id/question_body_difficulty_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/ibm_plex_sans_bold"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Algorithm Aficionado" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/question_body_category_container_constraint_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/categories_list_secondary_star_container"
+                android:paddingHorizontal="15dp"
+                android:paddingVertical="8dp"
+                app:layout_constraintStart_toStartOf="@+id/question_body_subheading_text"
+                app:layout_constraintTop_toBottomOf="@+id/question_body_subheading_text">
+
+                <TextView
+                    android:id="@+id/question_body_category_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/ibm_plex_sans_bold"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Basic Algorithms" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/question_body_stars_container_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/categories_list_secondary_star_container"
+                android:paddingHorizontal="15dp"
+                android:paddingVertical="8dp"
+                app:layout_constraintStart_toStartOf="@+id/question_body_difficulty_container_constraint_layout"
+                app:layout_constraintTop_toBottomOf="@+id/question_body_difficulty_container_constraint_layout">
+
+                <TextView
+                    android:id="@+id/question_body_stars_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/ibm_plex_sans_bold"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:text="Earn 3 stars"
+                    tools:text="Earn 3 stars" />
+
+                <!-- Star icon -->
+                <View
+                    android:id="@+id/question_body_stars_icon"
+                    android:layout_width="21.99dp"
+                    android:layout_height="21.3dp"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/icon_star"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/question_body_stars_text"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/question_code_block_constraint_layout"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:background="@drawable/question_primary_code_block"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/question_body_stars_container_text">
+
+                <HorizontalScrollView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:padding="5dp"
+                    android:scrollbars="none">
+                    <TextView
+                        android:id="@+id/question_code_block_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="18dp"
+                        android:layout_marginTop="23dp"
+                        android:layout_marginEnd="18dp"
+                        android:layout_marginBottom="23dp"
+                        android:fontFamily="@font/ibm_plex_mono"
+                        android:textSize="18sp"/>
+                </HorizontalScrollView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/question_answer_entry_constraint_layout"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/home_category_carousel_container"
+            android:layout_gravity="center|top"
+            android:layout_marginTop="30dp">
+
+            <TextView
+                android:id="@+id/question_answer_entry_1st_question_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/ibm_plex_sans_bold"
+                android:text="Your First Attempt"
+                android:textColor="@color/white"
+                android:textSize="22sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/question_answer_entry_box_constraint_layout_1st_fake"
+                android:layout_width="310dp"
+                android:layout_height="63dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/question_answer_container"
+                android:clipToPadding="false"
+                android:elevation="10dp"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/question_answer_entry_1st_question_text"
+                tools:visibility="gone">
+
+                <!-- text entry field -->
+                <EditText
+                    android:id="@+id/question_answer_entry_text_1st_fake"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:ems="10"
+                    android:fontFamily="@font/ibm_plex_sans_medium"
+                    android:hint="Enter your answer..."
+                    android:inputType="textAutoComplete|text"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/question_answer_entry_box_end_guide_1st_fake"
+                    app:layout_constraintStart_toStartOf="@+id/question_answer_entry_box_start_guide_1st_fake"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/question_answer_entry_incorrect_icon_1st_fake"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:background="@drawable/icon_cross_circle"
+                    android:clipToOutline="true"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/question_answer_entry_box_end_guide_1st_fake"
+                    app:layout_constraintStart_toStartOf="@+id/question_answer_entry_box_end_guide_1st_fake"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/question_answer_entry_correct_icon_1st_fake"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:background="@drawable/icon_check_mark_circle"
+                    android:clipToOutline="true"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/question_answer_entry_box_end_guide_1st_fake"
+                    app:layout_constraintStart_toStartOf="@+id/question_answer_entry_box_end_guide_1st_fake"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/question_answer_entry_box_start_guide_1st_fake"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.09" />
+
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/question_answer_entry_box_end_guide_1st_fake"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.91" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/question_answer_entry_carpet_contraint_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/categories_list_secondary_star_container"
+                android:clipToPadding="false"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/question_answer_entry_1st_question_text"
+                app:layout_constraintVertical_bias="0.0"
+                tools:visibility="visible">
+
+                <!-- Text entry Widget -->
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/question_answer_entry_box_constraint_layout_1st"
+                    android:layout_width="310dp"
+                    android:layout_height="63dp"
+                    android:layout_alignParentTop="true"
+                    android:background="@drawable/question_answer_container"
+                    android:clipToPadding="false"
+                    android:elevation="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <!-- text entry field -->
+                    <EditText
+                        android:id="@+id/question_answer_entry_text_1st"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:ems="10"
+                        android:fontFamily="@font/ibm_plex_sans_medium"
+                        android:hint="Enter your answer..."
+                        android:inputType="textAutoComplete|text"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/question_answer_entry_box_end_guide_1st"
+                        app:layout_constraintStart_toStartOf="@+id/question_answer_entry_box_start_guide_1st"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/question_answer_entry_incorrect_icon_1st"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:background="@drawable/icon_cross_circle"
+                        android:clipToOutline="true"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/question_answer_entry_box_end_guide_1st"
+                        app:layout_constraintStart_toStartOf="@+id/question_answer_entry_box_end_guide_1st"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/question_answer_entry_correct_icon_1st"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:background="@drawable/icon_check_mark_circle"
+                        android:clipToOutline="true"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/question_answer_entry_box_end_guide_1st"
+                        app:layout_constraintStart_toStartOf="@+id/question_answer_entry_box_end_guide_1st"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/question_answer_entry_box_start_guide_1st"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.09" />
+
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/question_answer_entry_box_end_guide_1st"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.91" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/question_answer_entry_2nd_question_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="@font/ibm_plex_sans_bold"
+                    android:text="Your Second Attempt"
+                    android:textColor="@color/white"
+                    android:textSize="22sp"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/question_answer_entry_box_constraint_layout_1st"
+                    tools:visibility="visible" />
+
+                <!-- Text entry Widget -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/question_answer_entry_box_constraint_layout_2nd"
+                    android:layout_width="310dp"
+                    android:layout_height="63dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/question_answer_container"
+                    android:elevation="10dp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.523"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/question_answer_entry_2nd_question_text"
+                    tools:visibility="visible">
+
+                    <!-- text entry field -->
+                    <EditText
+                        android:id="@+id/question_answer_entry_text_2nd"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:ems="10"
+                        android:fontFamily="@font/ibm_plex_sans_medium"
+                        android:hint="Enter your answer..."
+                        android:inputType="textAutoComplete|text"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/question_answer_entry_box_end_guide_2nd"
+                        app:layout_constraintStart_toStartOf="@+id/question_answer_entry_box_start_guide_2nd"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/question_answer_entry_incorrect_icon_2nd"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:background="@drawable/icon_cross_circle"
+                        android:clipToOutline="true"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/question_answer_entry_box_end_guide_2nd"
+                        app:layout_constraintStart_toStartOf="@+id/question_answer_entry_box_end_guide_2nd"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/question_answer_entry_correct_icon_2nd"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:background="@drawable/icon_check_mark_circle"
+                        android:clipToOutline="true"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/question_answer_entry_box_end_guide_2nd"
+                        app:layout_constraintStart_toStartOf="@+id/question_answer_entry_box_end_guide_2nd"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/question_answer_entry_box_start_guide_2nd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.09" />
+
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/question_answer_entry_box_end_guide_2nd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.91" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/question_answer_result_correct_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="20dp"
+                    android:fontFamily="@font/ibm_plex_sans_semibold"
+                    android:text="You got it correct, great job!"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/question_answer_entry_box_constraint_layout_2nd"
+                    tools:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/question_answer_result_incorrect_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="20dp"
+                    android:fontFamily="@font/ibm_plex_sans_semibold"
+                    android:text="Oh no, better luck next time."
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/question_answer_entry_box_constraint_layout_2nd" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/question_answer_submit_inner_button_constraint_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/login_submit_button"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="10dp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/question_answer_entry_box_constraint_layout_2nd"
+                    app:layout_constraintTop_toBottomOf="@+id/question_answer_entry_box_constraint_layout_2nd"
+                    tools:visibility="visible">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/ibm_plex_sans_semibold"
+                        android:text="Submit"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/question_answer_submit_outer_button_constraint_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/login_submit_button"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/question_answer_entry_box_constraint_layout_1st_fake"
+                app:layout_constraintTop_toBottomOf="@+id/question_answer_entry_box_constraint_layout_1st_fake"
+                tools:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/ibm_plex_sans_semibold"
+                    android:text="Submit"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
 
     </LinearLayout>
 

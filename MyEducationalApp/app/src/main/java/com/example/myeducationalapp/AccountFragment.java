@@ -1,5 +1,6 @@
 package com.example.myeducationalapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -10,6 +11,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.myeducationalapp.databinding.FragmentAccountBinding;
 import com.example.myeducationalapp.databinding.FragmentHomeBinding;
@@ -64,7 +66,6 @@ public class AccountFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
     }
 
     @Override
@@ -86,6 +87,21 @@ public class AccountFragment extends Fragment {
             NavHostFragment.findNavController(AccountFragment.this).navigate(R.id.action_accountFragment_to_loginActivity);
         });
 
+        binding.accountMenuMessageDevConstraintLayout.setOnClickListener(view1 -> {
+            Intent demoMessagingIntent = new Intent(getContext(), MessagingDemoActivity.class);
+            startActivity(demoMessagingIntent);
+        });
+
+        binding.accountMenuLanguageMenuConstraintLayout.setOnClickListener(view1 -> {
+            Intent languageIntent = new Intent(getContext(), LanguageSetting.class);
+            startActivity(languageIntent);
+        });
+
+        //category_question_car_heading_text
+        String formattedStars = getString(R.string.you_ve_achieved_x_stars, UserLocalData.getInstance().getPoints());
+
+        binding.textView.setText(UserLogin.getInstance().getCurrentUsername());
+        binding.categoryQuestionCarHeadingText.setText(formattedStars);
     }
 
         @Override

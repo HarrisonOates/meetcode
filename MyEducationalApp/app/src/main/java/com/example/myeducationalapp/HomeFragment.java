@@ -1,6 +1,7 @@
 package com.example.myeducationalapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 
@@ -15,16 +16,30 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.example.myeducationalapp.Firebase.Firebase;
 import com.example.myeducationalapp.userInterface.Generation.GeneratedUserInterfaceViewModel;
 import com.example.myeducationalapp.userInterface.Generation.HomeCategoryCard;
 import com.example.myeducationalapp.userInterface.UserInterfaceManagerViewModel;
 import com.example.myeducationalapp.databinding.FragmentHomeBinding;
+
+import com.example.myeducationalapp.Search.SearchResults.*;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -45,6 +60,8 @@ public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
     private final String toolbarTitle = "Home";
 
+    // Indicates whether the search filter is open or not to decide whether to close it or open it
+    private boolean isFilterOpen = false;
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -75,8 +92,10 @@ public class HomeFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-        GeneratedUserInterfaceViewModel genUserInterfaceManager = new ViewModelProvider(this).get(GeneratedUserInterfaceViewModel.class);
+        GeneratedUserInterfaceViewModel<HomeCategoryCard> genUserInterfaceManager = new ViewModelProvider(this).get(GeneratedUserInterfaceViewModel.class);
         genUserInterfaceManager.addToListOfElements(new HomeCategoryCard(null, null, "hiasdasdsadsasdasdsa", "hasadsi"));
+
+        Firebase.getInstance().dump();
     }
 
     @Override
@@ -89,7 +108,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 
-        GeneratedUserInterfaceViewModel genUserInterfaceManager = new ViewModelProvider(this).get(GeneratedUserInterfaceViewModel.class);
+        GeneratedUserInterfaceViewModel<HomeCategoryCard> genUserInterfaceManager = new ViewModelProvider(this).get(GeneratedUserInterfaceViewModel.class);
         Log.w("Fragment Home", String.valueOf(genUserInterfaceManager.listOfElements.size()));
         generateHomeCategoryCard((HomeCategoryCard) genUserInterfaceManager.listOfElements.get(0), getActivity());
 
@@ -104,12 +123,107 @@ public class HomeFragment extends Fragment {
             NavHostFragment.findNavController(HomeFragment.this).navigate(R.id.action_HomeFragment_to_questionFragment);
         });
 
+        LocalDateTime date = LocalDateTime.now();
+        binding.homeHeroSubheadingText.setText(date.format(DateTimeFormatter.ofPattern("d MMMM")));
+
+        Question qotd = QuestionSet.getInstance().getQuestionOfTheDay();
+        binding.homeHeroBodyText.setText(qotd.getName());
 
 
+        boolean success = UserLocalData.getInstance().hasQuestionBeenAnsweredCorrectly(qotd.getID());
+        if (success) {
+            binding.homeHeroSecondaryCallToActionText.setText(getString(R.string.completed));
+        } else {
+            int maxStars = qotd.getDifficulty();
+            int failedAttempts = UserLocalData.getInstance().getNumberOfFailedAttempts(qotd.getID());
+            if (failedAttempts == 1) {
+                maxStars = 1;
+            } else if (failedAttempts > 0) {
+                maxStars = 0;
+            }
 
+            binding.homeHeroSecondaryCallToActionText.setText(getString(maxStars == 1 ? R.string.earn_1_star : R.string.earn_x_stars, maxStars));
+        }
+
+        // Question is set as the default type of search
+        binding.questionSearch.setChecked(true);
+
+        // Search filter and results should only be visible when they are explicitly used
+        binding.searchResults.setVisibility(View.INVISIBLE);
+        binding.searchFilter.setVisibility(View.INVISIBLE);
+        binding.hideSearchResults.setVisibility(View.INVISIBLE);
+
+        // Make the filter visible/invisible by clicking the filter icon.
+        binding.filterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (isFilterOpen) {
+                    binding.searchFilter.setVisibility(View.INVISIBLE);
+                    isFilterOpen = false;
+                } else {
+                    binding.searchFilter.setVisibility(View.VISIBLE);
+                    isFilterOpen = true;
+                }
+            }
+        });
+
+        // Make the search results invisible by clicking the hide button.
+        binding.hideSearchResults.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                binding.searchResults.setVisibility(View.INVISIBLE);
+                binding.hideSearchResults.setVisibility(View.INVISIBLE);
+            }
+        });
+
+
+        // Searches the given query by pressing enter on the input text field for it
+        binding.searchInputText.setOnKeyListener((view1, keyCode, keyEvent) -> {
+            // close the filter view so that the search results become visible.
+            binding.searchFilter.setVisibility(View.INVISIBLE);
+            isFilterOpen = false;
+
+            if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                initializeSearch();
+                return true;
+            }
+
+            return false;
+        });
     }
 
-    public void generateHomeCategoryCard(HomeCategoryCard template, Context context) {
+    private void initializeSearch() {
+        binding.searchResults.setVisibility(View.VISIBLE);
+        binding.hideSearchResults.setVisibility(View.VISIBLE);
+
+        List<String> searchQuery = Arrays.asList(binding.searchInputText.getText().toString().split(" "));
+        System.out.println("Searching: " + searchQuery);
+
+        if (binding.questionSearch.isChecked()) {
+            QuestionResults search = new QuestionResults();
+            List<SearchResult> results = search.looseResults(searchQuery);
+            visualizeSearchResults(results);
+        } else if (binding.topicSearch.isChecked()) {
+            TopicResults search = new TopicResults();
+            List<SearchResult> results = search.looseResults(searchQuery);
+            visualizeSearchResults(results);
+        } else if (binding.userSearch.isChecked()) {
+            UserResults search = new UserResults();
+            List<SearchResult> results = search.looseResults(searchQuery);
+            visualizeSearchResults(results);
+        }
+    }
+
+    private void visualizeSearchResults(List<SearchResult> results) {
+        List<String> resultStrings = new ArrayList<>();
+        results.forEach(res -> resultStrings.add(res.getStringResult()));
+        System.out.println(Arrays.toString(resultStrings.toArray()));
+
+        ArrayAdapter<String> resultsAdapter = new ArrayAdapter<>(this.getContext(), android.R.layout.simple_list_item_1, resultStrings);
+        binding.searchResults.setAdapter(resultsAdapter);
+    }
+
+    private void generateHomeCategoryCard(HomeCategoryCard template, Context context) {
         // making ui elements within parent
         ImageView image = new ImageView(context);
         TextView heading = new TextView(context);
@@ -171,7 +285,7 @@ public class HomeFragment extends Fragment {
         constraintLayout.setLayoutParams(constraintLayoutParams);
 
         ViewGroup.LayoutParams imageLayoutParams = image.getLayoutParams();
-        imageLayoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 84, getResources().getDisplayMetrics());;
+        imageLayoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 84, getResources().getDisplayMetrics());
         imageLayoutParams.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, getResources().getDisplayMetrics());
         image.setLayoutParams(imageLayoutParams);
 

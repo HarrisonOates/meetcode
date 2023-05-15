@@ -80,30 +80,70 @@ public class UserLocalData {
         Firebase.getInstance().writePerUserSettings(UserLogin.getInstance().getCurrentUsername(), this);
     }
 
+    public boolean noDiskReload = false;
     public FirebaseResult loadFromDisk() {
+        if (noDiskReload) {
+            return null;
+        }
+
         return Firebase.getInstance().readPerUserSettings(UserLogin.getInstance().getCurrentUsername()).then((obj) -> {
             String data = (String) obj;
 
-            // TODO: reverse the effects of toString()
-            System.out.println("data: " + data);
+            if (data == null) {
+                /*
+                 * New user, so no data.
+                 */
+                return null;
+            }
 
+            String[] parts = data.split(";", -1);
+            String blockedUserStr = unescapeString(parts[0]);
+            String successfulAnswer = unescapeString(parts[1]);
+            String likedMessageStr = unescapeString(parts[2]);
+            points = Integer.parseInt(parts[3]);
+
+            blockedUserList = new AVLTree<>();
+            blockedUserList.stringToTree(blockedUserStr);
+
+            successfullyAnsweredQuestions = new AVLTree<>();
+            successfullyAnsweredQuestions.stringToTree(successfulAnswer);
+
+            likedMessages = new AVLTree<>();
+            likedMessages.stringToTree(likedMessageStr);
+
+            HashMap<String, List<String>> newMap = new HashMap<>();
+
+            for (int a = 0; a < parts.length; ++a) {
+                System.out.printf("%d: '%s'\n", a, parts[a]);
+            }
+            int i = 4;
+            while (i < parts.length) {
+                String key = parts[i++];
+                int valueCount = Integer.parseInt(parts[i++]);
+                List<String> values = new ArrayList<>();
+
+                for (int j = 0; j < valueCount; ++j) {
+                    values.add(parts[i++]);
+                }
+
+                newMap.put(key, values);
+            }
+            yourAnswers = newMap;
             return null;
         });
     }
 
     private String escapeString(String str) {
-        return str.replace("\\", "\\\\").replace("\n", "\\n").replace(";", "\\;");
+        return str.replace("\\", "\\\\").replace("\n", "\\n").replace(";", "\\a");
     }
 
     private String unescapeString(String str) {
-        return str.replace("\\;", ";").replace("\\n", "\n").replace("\\\\", "\\");
+        return str.replace("\\a", ";").replace("\\n", "\n").replace("\\\\", "\\");
     }
 
     @SuppressLint("DefaultLocale")
     @Override
     public String toString() {
-        // FIXME: VERY UNTESTED
-
         String blockedUserStr = escapeString(blockedUserList.toString());
         String successfulAnswerStr = escapeString(successfullyAnsweredQuestions.toString());
         String likedMessageStr = escapeString(likedMessages.toString());
