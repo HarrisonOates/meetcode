@@ -25,6 +25,8 @@ public class Person extends Asynchronous {
 
 
     public Person(String username) {
+        this.username = username;
+
         addWaitRequirement(Firebase.getInstance().readUserProfile(username).then((obj) -> {
             String data = (String) obj;
 

@@ -58,7 +58,7 @@ public class DataGenerator {
                     int n = r.nextInt(4);
                     int userNameIndex = r.nextInt(4);
                     switch (n){
-                        case 0 -> {
+                        case 0:{
 
                             DirectMessageThreadDatastream dms = new DirectMessageThreadDatastream(UserLogin.getInstance().getCurrentUsername(), randomUserNames[userNameIndex]);
                             Scanner finalSc = sc;
@@ -67,14 +67,14 @@ public class DataGenerator {
                                 return null;
                             });
 
-
+                            break;
                         }
                         //case 1 -> {
                         // directMessage with a code block
                         // Will work this out later
 
                         // }
-                        case 2 -> {
+                        case 2:{
                             // questionMessageThread
                             // Need to get the question message thread ID
                             QuestionMessageThreadDatastream qms = new QuestionMessageThreadDatastream(randomUserNames[userNameIndex]);
@@ -83,12 +83,13 @@ public class DataGenerator {
                                 qms.postMessage(finalSc1.nextLine());
                                 return null;
                             });
+                            break;
                         }
                         //case 3 -> {
                         // questionMessage with a code block
                         // Work this out later
                         // }
-                        case 4 -> {
+                        case 4:{
                             // Like / unlike a random message
                             DirectMessageThreadDatastream dms = new DirectMessageThreadDatastream(UserLogin.getInstance().getCurrentUsername(), randomUserNames[userNameIndex]);
                             int indexToLike = r.nextInt(dms.getMessages().size() - 1);
@@ -99,9 +100,10 @@ public class DataGenerator {
                                 });
                                 return null;
                             });
+                            break;
                         }
-                        default -> {
-                            continue;
+                        default: {
+                            break;
                         }
                     }
 
