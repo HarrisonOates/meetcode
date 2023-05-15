@@ -3,8 +3,11 @@ package com.example.myeducationalapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -20,6 +23,8 @@ public class LoginActivity extends AppCompatActivity {
 
     // Instance of the UserLogin class for handling authentication
     UserLogin authenticator;
+
+    private boolean isError = false;
 
 
     @Override
@@ -55,10 +60,16 @@ public class LoginActivity extends AppCompatActivity {
 
     private void onLoginButtonPress() {
 
-        // Passing values of the username and password inputs into the authenticator instance
-        boolean isAuthenticated = authenticator.authoriseUser(
-                String.valueOf(binding.usernameInputText.getText())
-                , String.valueOf(binding.passwordInputText.getText()));
+        boolean isAuthenticated = false;
+
+        // Checking for blank inputs
+        if (!binding.usernameInputText.getText().toString().isBlank() && !binding.usernameInputText.getText().toString().isEmpty()
+                && !binding.passwordInputText.getText().toString().isBlank() && !binding.passwordInputText.getText().toString().isEmpty()) {
+            // Passing values of the username and password inputs into the authenticator instance
+            isAuthenticated = authenticator.authoriseUser(
+                    String.valueOf(binding.usernameInputText.getText())
+                    , String.valueOf(binding.passwordInputText.getText()));
+        }
 
         if (isAuthenticated) {
             // User is authenticated
@@ -67,11 +78,31 @@ public class LoginActivity extends AppCompatActivity {
 
             Intent mainActivityIntent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(mainActivityIntent);
+
+            // Error state: thickened borders around text entry box
+            toggleUIErrorState(View.GONE, 0,  Color.parseColor("#FFFF102D"));
         } else {
-            // User is not authenticated display error message
+            // User is not authenticated display error message and error UI
             Toast toast = Toast.makeText(getApplicationContext(), "Incorrect username or password, please try again", Toast.LENGTH_LONG);
             toast.show();
+
+            // Error state: thickened borders around text entry box
+            toggleUIErrorState(View.VISIBLE, ((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2, getResources().getDisplayMetrics())),
+                    Color.parseColor("#FFFF102D"));
         }
+    }
+
+    private void toggleUIErrorState(int visibility, int strokeThickness, int color) {
+        // Error state: thickened borders around text entry box
+        binding.usernameIncorrectIcon.setVisibility(visibility);
+        binding.passwordIncorrectIcon.setVisibility(visibility);
+
+        GradientDrawable incorrectUsernameTextBox = (GradientDrawable) binding.usernameTextContainer.getBackground();
+        incorrectUsernameTextBox.setStroke(strokeThickness, color);
+
+        GradientDrawable incorrectPasswordTextBox = (GradientDrawable) binding.passwordTextContainer.getBackground();
+        incorrectPasswordTextBox.setStroke(strokeThickness, color);
+
     }
 
 

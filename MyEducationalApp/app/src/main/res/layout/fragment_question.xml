@@ -204,13 +204,14 @@
                 android:layout_height="63dp"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/home_search_container"
+                android:background="@drawable/question_answer_container"
                 android:clipToPadding="false"
                 android:elevation="10dp"
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/question_answer_entry_1st_question_text">
+                app:layout_constraintTop_toBottomOf="@+id/question_answer_entry_1st_question_text"
+                tools:visibility="gone">
 
                 <!-- text entry field -->
                 <EditText
@@ -282,13 +283,14 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/categories_list_secondary_star_container"
+                android:clipToPadding="false"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/question_answer_entry_1st_question_text"
                 app:layout_constraintVertical_bias="0.0"
-                android:clipToPadding="false"
-                android:visibility="gone">
+                tools:visibility="visible">
 
                 <!-- Text entry Widget -->
 
@@ -297,13 +299,13 @@
                     android:layout_width="310dp"
                     android:layout_height="63dp"
                     android:layout_alignParentTop="true"
-                    android:background="@drawable/home_search_container"
+                    android:background="@drawable/question_answer_container"
+                    android:clipToPadding="false"
                     android:elevation="10dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:clipToPadding="false">
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <!-- text entry field -->
                     <EditText
@@ -329,11 +331,11 @@
                         android:layout_alignParentTop="true"
                         android:background="@drawable/icon_cross_circle"
                         android:clipToOutline="true"
+                        android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/question_answer_entry_box_end_guide_1st"
                         app:layout_constraintStart_toStartOf="@+id/question_answer_entry_box_end_guide_1st"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:visibility="gone" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <View
                         android:id="@+id/question_answer_entry_correct_icon_1st"
@@ -343,11 +345,11 @@
                         android:layout_alignParentTop="true"
                         android:background="@drawable/icon_check_mark_circle"
                         android:clipToOutline="true"
+                        android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/question_answer_entry_box_end_guide_1st"
                         app:layout_constraintStart_toStartOf="@+id/question_answer_entry_box_end_guide_1st"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:visibility="gone" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
 
                     <androidx.constraintlayout.widget.Guideline
@@ -379,7 +381,8 @@
                     android:textSize="22sp"
                     android:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/question_answer_entry_box_constraint_layout_1st" />
+                    app:layout_constraintTop_toBottomOf="@+id/question_answer_entry_box_constraint_layout_1st"
+                    tools:visibility="visible" />
 
                 <!-- Text entry Widget -->
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -388,13 +391,14 @@
                     android:layout_height="63dp"
                     android:layout_alignParentTop="true"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/home_search_container"
+                    android:background="@drawable/question_answer_container"
                     android:elevation="10dp"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.523"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/question_answer_entry_2nd_question_text"
-                    android:visibility="gone">
+                    tools:visibility="visible">
 
                     <!-- text entry field -->
                     <EditText
@@ -420,11 +424,11 @@
                         android:layout_alignParentTop="true"
                         android:background="@drawable/icon_cross_circle"
                         android:clipToOutline="true"
+                        android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/question_answer_entry_box_end_guide_2nd"
                         app:layout_constraintStart_toStartOf="@+id/question_answer_entry_box_end_guide_2nd"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:visibility="gone" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <View
                         android:id="@+id/question_answer_entry_correct_icon_2nd"
@@ -434,11 +438,11 @@
                         android:layout_alignParentTop="true"
                         android:background="@drawable/icon_check_mark_circle"
                         android:clipToOutline="true"
+                        android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/question_answer_entry_box_end_guide_2nd"
                         app:layout_constraintStart_toStartOf="@+id/question_answer_entry_box_end_guide_2nd"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:visibility="gone" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <androidx.constraintlayout.widget.Guideline
                         android:id="@+id/question_answer_entry_box_start_guide_2nd"
@@ -495,14 +499,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_marginBottom="20dp"
                     android:background="@drawable/login_submit_button"
                     android:paddingHorizontal="20dp"
                     android:paddingVertical="10dp"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/question_answer_entry_box_constraint_layout_2nd"
                     app:layout_constraintTop_toBottomOf="@+id/question_answer_entry_box_constraint_layout_2nd"
-                    android:visibility="gone">
+                    tools:visibility="visible">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -530,7 +536,8 @@
                 android:paddingVertical="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/question_answer_entry_box_constraint_layout_1st_fake"
-                app:layout_constraintTop_toBottomOf="@+id/question_answer_entry_box_constraint_layout_1st_fake">
+                app:layout_constraintTop_toBottomOf="@+id/question_answer_entry_box_constraint_layout_1st_fake"
+                tools:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
