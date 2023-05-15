@@ -6,6 +6,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
+/**
+ * A base class for all Firebase related things that you need to be able to wait on.
+ * Provides basic methods for waiting on the object, and adding thing that need to be
+ * waited on.
+ *
+ * @author u7468248 Alex Boxall
+ */
+
 public class Asynchronous {
     private List<FirebaseResult> requirements = new ArrayList<>();
 

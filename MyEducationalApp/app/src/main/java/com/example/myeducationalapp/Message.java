@@ -5,6 +5,12 @@ import android.util.Log;
 
 import com.example.myeducationalapp.Firebase.FirebaseResult;
 
+/**
+ * Contains a message/comment, either a direct message or one that is underneath a question.
+ *
+ * @author u7468248 Alex Boxall
+ */
+
 public class Message extends Asynchronous {
     private String content;
 

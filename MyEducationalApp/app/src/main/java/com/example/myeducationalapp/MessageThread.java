@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.function.Function;
 
 /**
- * MessageThread.java
- *
  * A chain of messages, either direct messages or messages posted on a question.
+ *
+ * @author u7468248 Alex Boxall
  */
 
 public abstract class MessageThread extends Asynchronous {

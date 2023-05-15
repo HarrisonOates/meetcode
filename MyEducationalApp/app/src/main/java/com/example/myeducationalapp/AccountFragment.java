@@ -87,11 +87,6 @@ public class AccountFragment extends Fragment {
             NavHostFragment.findNavController(AccountFragment.this).navigate(R.id.action_accountFragment_to_loginActivity);
         });
 
-        binding.accountMenuMessageDevConstraintLayout.setOnClickListener(view1 -> {
-            Intent demoMessagingIntent = new Intent(getContext(), MessagingDemoActivity.class);
-            startActivity(demoMessagingIntent);
-        });
-
         binding.accountMenuLanguageMenuConstraintLayout.setOnClickListener(view1 -> {
             Intent languageIntent = new Intent(getContext(), LanguageSetting.class);
             startActivity(languageIntent);

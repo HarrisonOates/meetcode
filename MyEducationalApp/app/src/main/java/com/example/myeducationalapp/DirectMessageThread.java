@@ -5,6 +5,12 @@ import com.example.myeducationalapp.Firebase.FirebaseResult;
 
 import java.nio.file.AccessDeniedException;
 
+/**
+ * Contains all of the messages sent between two users, and allows new messages to be added.
+ *
+ * @author u7468248 Alex Boxall
+ */
+
 public class DirectMessageThread extends MessageThread {
     private String withUsername;
     private Person withUser;
@@ -38,13 +44,6 @@ public class DirectMessageThread extends MessageThread {
             return Firebase.getInstance().readDirectMessages(UserLogin.getInstance().getCurrentUsername(), withUsername).then((obj) -> {
                 String str = (String) obj;
 
-                /*
-                 * This is slightly 'yikes' as it is very possible to have clashes, but
-                 * let's not bother with that.
-                 *
-                 * TODO: fix this so it's just an incrementing value stored on the server
-                 *       somewhere
-                 */
                 threadID = getThreadID();
 
                 if (str != null && !str.isEmpty()) {
