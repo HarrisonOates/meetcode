@@ -6,15 +6,21 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.util.Log;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.text.Html;
+import android.widget.LinearLayout;
 
 import com.example.myeducationalapp.SyntaxHighlighting.DetectCodeBlock;
-import com.example.myeducationalapp.databinding.FragmentMessagesBinding;
 import com.example.myeducationalapp.databinding.FragmentQuestionBinding;
+import com.example.myeducationalapp.userInterface.Generation.QuestionCard;
 import com.example.myeducationalapp.userInterface.UserInterfaceManagerViewModel;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -72,6 +78,9 @@ public class QuestionFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentQuestionBinding.inflate(inflater, container, false);
+
+        UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(this).get(UserInterfaceManagerViewModel.class);
+
         return binding.getRoot();
     }
 
@@ -82,12 +91,42 @@ public class QuestionFragment extends Fragment {
         UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
         userInterfaceManager.getUiState().getValue().enterNewFragment(toolbarTitle);
 
+        Question testQuestion = QuestionSet.getInstance().getQuestionOfTheDay();
+        userInterfaceManager.getCurrentlyDisplayedQuestion().getValue().setQuestion(testQuestion);
 
-        binding.questionCodeBlockText.setText(Html.fromHtml(DetectCodeBlock.parseCodeBlocks("```Map<Integer, String> map = new HashMap<Integer, String>();\n"+
-                "map.put(1, \"2\");\n"+
-                "map.put(2, \"5\");\n"+
-                "map.put(2, \"-1\");\n"+
-                "map.put(-1, \"6\");```")));
+        initializeLayoutOnEnter();
+    }
+
+    private void initializeLayoutOnEnter() {
+        UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
+
+        QuestionCard currentQuestion = userInterfaceManager.getCurrentlyDisplayedQuestion().getValue();
+
+        binding.questionBodyHeadingText.setText(currentQuestion.getHeading());
+        binding.questionBodySubheadingText.setText(currentQuestion.getSubheading());
+        binding.questionBodyCategoryText.setText(currentQuestion.getCategory());
+        binding.questionBodyDifficultyText.setText(currentQuestion.getDifficulty());
+
+        if (currentQuestion.doesQuestionHaveCodeBlock()) {
+            binding.questionCodeBlockText.setText(currentQuestion.getCodeBlock());
+        } else {
+            binding.questionCodeBlockConstraintLayout.setVisibility(View.GONE);
+            binding.questionBodyConstraintLayout.setPadding(0, 0, 0,
+                    ((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20, getResources().getDisplayMetrics())));
+        }
+
+
+        if (currentQuestion.isQuestionMultiChoice()) {
+            //binding.questionAnswerEntryConstraintLayout.setVisibility(View.GONE);
+
+            List<String> listOfMultiChoiceOptions = currentQuestion.multiChoiceOptions;
+
+            listOfMultiChoiceOptions.forEach(questionContent -> {
+                Log.d("QuestionFragment", questionContent);
+            });
+        } else {
+            binding.questionAnswerEntryConstraintLayout.setVisibility(View.VISIBLE);
+        }
 
 
     }

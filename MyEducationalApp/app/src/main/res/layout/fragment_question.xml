@@ -55,18 +55,18 @@
                 tools:text="What will be the output of map.get(2) after the execution of the codes below?" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/question_body_like_container_constraint_layout"
+                android:id="@+id/question_body_difficulty_container_constraint_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/categories_list_secondary_star_container"
                 android:paddingHorizontal="15dp"
                 android:paddingVertical="8dp"
-                app:layout_constraintStart_toStartOf="@+id/question_body_subheading_text"
-                app:layout_constraintTop_toBottomOf="@+id/question_body_subheading_text">
+                app:layout_constraintStart_toStartOf="@+id/question_body_category_container_constraint_layout"
+                app:layout_constraintTop_toBottomOf="@+id/question_body_category_container_constraint_layout">
 
                 <TextView
-                    android:id="@+id/question_body_likes_text"
+                    android:id="@+id/question_body_difficulty_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/ibm_plex_sans_bold"
@@ -75,7 +75,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:text="10 ❤️" />
+                    tools:text="Algorithm Aficionado" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -83,12 +83,12 @@
                 android:id="@+id/question_body_category_container_constraint_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
+                android:layout_marginTop="15dp"
                 android:background="@drawable/categories_list_secondary_star_container"
                 android:paddingHorizontal="15dp"
                 android:paddingVertical="8dp"
-                app:layout_constraintStart_toEndOf="@+id/question_body_like_container_constraint_layout"
-                app:layout_constraintTop_toTopOf="@+id/question_body_like_container_constraint_layout">
+                app:layout_constraintStart_toStartOf="@+id/question_body_subheading_text"
+                app:layout_constraintTop_toBottomOf="@+id/question_body_subheading_text">
 
                 <TextView
                     android:id="@+id/question_body_category_text"
@@ -112,8 +112,8 @@
                 android:background="@drawable/categories_list_secondary_star_container"
                 android:paddingHorizontal="15dp"
                 android:paddingVertical="8dp"
-                app:layout_constraintStart_toStartOf="@+id/question_body_like_container_constraint_layout"
-                app:layout_constraintTop_toBottomOf="@+id/question_body_like_container_constraint_layout">
+                app:layout_constraintStart_toStartOf="@+id/question_body_difficulty_container_constraint_layout"
+                app:layout_constraintTop_toBottomOf="@+id/question_body_difficulty_container_constraint_layout">
 
                 <TextView
                     android:id="@+id/question_body_stars_text"
@@ -124,6 +124,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
+                    android:text="Earn 3 stars"
                     tools:text="Earn 3 stars" />
 
                 <!-- Star icon -->
@@ -150,20 +151,26 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/question_body_stars_container_text">
 
-                <TextView
-                    android:id="@+id/question_code_block_text"
-                    android:layout_width="0dp"
+                <HorizontalScrollView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="18dp"
-                    android:layout_marginTop="23dp"
-                    android:layout_marginEnd="18dp"
-                    android:layout_marginBottom="23dp"
-                    android:fontFamily="@font/ibm_plex_mono"
-                    android:textSize="19sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:padding="5dp"
+                    android:scrollbars="none">
+                    <TextView
+                        android:id="@+id/question_code_block_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="18dp"
+                        android:layout_marginTop="23dp"
+                        android:layout_marginEnd="18dp"
+                        android:layout_marginBottom="23dp"
+                        android:fontFamily="@font/ibm_plex_mono"
+                        android:textSize="18sp"/>
+                </HorizontalScrollView>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -286,6 +293,7 @@
                     android:text="Your Second Attempt"
                     android:textColor="@color/white"
                     android:textSize="22sp"
+                    android:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/question_answer_entry_box_constraint_layout_1st" />
 
@@ -301,7 +309,8 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.523"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/question_answer_entry_2nd_question_text">
+                    app:layout_constraintTop_toBottomOf="@+id/question_answer_entry_2nd_question_text"
+                    tools:visibility="gone">
 
                     <!-- text entry field -->
                     <EditText
@@ -388,6 +397,7 @@
                     android:text="Oh no, better luck next time."
                     android:textColor="@color/white"
                     android:textSize="20sp"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -404,7 +414,8 @@
                     android:paddingVertical="10dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/question_answer_entry_box_constraint_layout_2nd"
-                    app:layout_constraintTop_toBottomOf="@+id/question_answer_entry_box_constraint_layout_2nd">
+                    app:layout_constraintTop_toBottomOf="@+id/question_answer_entry_box_constraint_layout_2nd"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="wrap_content"

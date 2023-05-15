@@ -7,6 +7,7 @@ import android.text.Spanned;
 
 import com.example.myeducationalapp.Question;
 import com.example.myeducationalapp.QuestionMessageThread;
+import com.example.myeducationalapp.QuestionSet;
 import com.example.myeducationalapp.SyntaxHighlighting.DetectCodeBlock;
 
 import java.util.ArrayList;
@@ -14,20 +15,34 @@ import java.util.List;
 
 public class QuestionCard {
 
-    public Question question;
+    private Question question;
 
-    public QuestionMessageThread questionMessageThread;
+    private QuestionMessageThread questionMessageThread;
+
+    public List<String> multiChoiceOptions;
 
     public String getHeading() {
         return question.getName();
     }
 
     public String getSubheading() {
-        return question.getContent().split("```")[0];
+        return question.getContent().split("```")[0].replace("\n", "");
     }
 
     public boolean doesQuestionHaveCodeBlock() {
         return question.getContent().contains("```");
+    }
+
+    public void setQuestion(Question question) {
+        this.question = question;
+        if (isQuestionMultiChoice()) {
+            multiChoiceOptions = getQuestionMultiChoiceOptions();
+        }
+        //questionMessageThread = new QuestionMessageThread(newQuestion.getID());
+    }
+
+    public String getMessageID() {
+        return question.getID();
     }
 
     public Spanned getCodeBlock() {
@@ -36,7 +51,10 @@ public class QuestionCard {
     }
 
     public String getCategory() {
-        return question.getCategory().name();
+
+        // Replace all capital letters with " <capital letter>" then take the substring starting at
+        // index 1 to avoid space added to start of category name
+        return question.getCategory().name().replaceAll("([A-Z])", " $1").substring(1);
     }
 
     public boolean isQuestionMultiChoice() {
@@ -49,7 +67,7 @@ public class QuestionCard {
      *         of this list is not guaranteed to be anything and if isQuestionMultiChoice() is false
      *         then it will return a list of length 0
      */
-    public List<String> getQuestionMultiChoiceOptions() {
+    private List<String> getQuestionMultiChoiceOptions() {
 
         List<String> multiChoiceOptions = new ArrayList<>();
         String questionContent = question.getContent();
@@ -67,12 +85,12 @@ public class QuestionCard {
             }
 
             // This will find the index of the next question start - 1;
-            int indexOfEndOfQuestion = questionContent.indexOf(String.valueOf((char) (i + 1)) + ")") - 1;
+            int indexOfEndOfQuestion = questionContent.indexOf(String.valueOf((char) (i + 1)) + ")");
 
             // if .indexOf returns -1 here that means we're at the end of the string
             // hence the end of the question will be the end of the string
             if (indexOfEndOfQuestion == -1) {
-                indexOfEndOfQuestion = questionContent.length() - 1;
+                indexOfEndOfQuestion = questionContent.length();
             }
 
             String multiChoiceContent = questionContent.substring(indexOfQuestionLetter + 2,
@@ -82,6 +100,28 @@ public class QuestionCard {
         }
 
         return multiChoiceOptions;
+    }
+
+    public boolean isAnswerCorrect(String potentialAnswer) {
+        String answer = question.getAnswer();
+
+        // If it is multiple choice users will be pressing a button with corresponding TextView
+        // such that TextView.getText() == potentialAnswer
+        if (isQuestionMultiChoice()) {
+            // if question is multiple choice then answer will be a single capital
+            // character such as "E"
+            char answerAsCharacter = answer.charAt(0);
+            int indexInMultiChoiceOptionsList = answerAsCharacter - 'A';
+
+            answer = multiChoiceOptions.get(indexInMultiChoiceOptionsList);
+
+            return potentialAnswer.equals(answer);
+        } else {
+            // if question is not multiple choice then answer will be the actual answer we need
+            // to compare against
+
+            return potentialAnswer.equals(answer);
+        }
     }
 
     public String getAnswer() {

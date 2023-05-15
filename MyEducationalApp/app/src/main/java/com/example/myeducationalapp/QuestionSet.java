@@ -9,6 +9,10 @@ import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 public class QuestionSet {
+
+    // Categories MUST follow the naming convention such as ControlFlow
+    // where the first letter of the word is capital and then the starting letters of subsequent
+    // categories is also a capital letter
     public enum Category {Algorithm, ControlFlow, DataStructure, Miscellaneous, Recursion}
 
     // global maximum number of multiple choice options
