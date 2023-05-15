@@ -1,4 +1,4 @@
-package com.example.myeducationalapp.Search;
+package com.example.myeducationalapp.Search.SearchParsing;
 
 import java.util.List;
 
@@ -34,6 +34,11 @@ public class StatementExp extends Exp{
     //TODO
     @Override
     public List<String> decomposition() {
+        return null;
+    }
+
+    @Override
+    public List<Exp> expressions() {
         return null;
     }
 }

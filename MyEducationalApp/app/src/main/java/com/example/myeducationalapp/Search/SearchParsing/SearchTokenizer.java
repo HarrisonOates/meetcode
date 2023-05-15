@@ -1,4 +1,4 @@
-package com.example.myeducationalapp.Search;
+package com.example.myeducationalapp.Search.SearchParsing;
 
 /**
  * Class for tokenizing search strings based upon different queries

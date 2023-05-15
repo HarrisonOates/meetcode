@@ -1,4 +1,4 @@
-package com.example.myeducationalapp.Search;
+package com.example.myeducationalapp.Search.SearchParsing;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -34,7 +34,7 @@ public class SearchParser {
 
     /**
      * For testing, outputs the parsed version of a given string
-     * Will be removed later
+     * Will be removed later //TODO: Remove
      * @param args
      */
     public static void main(String[] args) {

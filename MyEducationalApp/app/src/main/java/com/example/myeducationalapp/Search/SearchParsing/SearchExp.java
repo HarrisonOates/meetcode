@@ -1,5 +1,6 @@
-package com.example.myeducationalapp.Search;
+package com.example.myeducationalapp.Search.SearchParsing;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -48,5 +49,14 @@ public class SearchExp extends Exp{
     @Override
     public List<String> decomposition() {
         return null;
+    }
+
+
+    public List<Exp> expressions() {
+        var list = new ArrayList<Exp>();
+
+        list.add(expression);
+        if (nextExpression != null) list.addAll(nextExpression.expressions());;
+        return list;
     }
 }
