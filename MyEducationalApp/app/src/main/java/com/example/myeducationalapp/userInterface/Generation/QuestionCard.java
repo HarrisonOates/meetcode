@@ -2,8 +2,12 @@ package com.example.myeducationalapp.userInterface.Generation;
 
 import static com.example.myeducationalapp.QuestionSet.MAXIMUM_NUMBER_OF_MULTI_CHOICE_OPTIONS;
 
+import android.text.Html;
+import android.text.Spanned;
+
 import com.example.myeducationalapp.Question;
 import com.example.myeducationalapp.QuestionMessageThread;
+import com.example.myeducationalapp.SyntaxHighlighting.DetectCodeBlock;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,9 +26,13 @@ public class QuestionCard {
         return question.getContent().split("```")[0];
     }
 
-    public String getCodeBlock() {
+    public boolean doesQuestionHaveCodeBlock() {
+        return question.getContent().contains("```");
+    }
+
+    public Spanned getCodeBlock() {
         // need to re-surround code block text in backticks
-        return "```" + question.getContent().split("```")[1] + "```";
+        return Html.fromHtml(DetectCodeBlock.parseCodeBlocks("```" + question.getContent().split("```")[1] + "```")) ;
     }
 
     public String getCategory() {
@@ -80,9 +88,6 @@ public class QuestionCard {
         return question.getAnswer();
     }
 
-    public boolean doesQuestionHaveCodeBlock() {
-        return question.getContent().contains("```");
-    }
 
     public String getDifficulty() {
 
