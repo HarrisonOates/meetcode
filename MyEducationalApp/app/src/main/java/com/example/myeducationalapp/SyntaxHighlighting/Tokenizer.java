@@ -73,7 +73,7 @@ public class Tokenizer {
         else if (Character.isAlphabetic(firstChar)){
             StringBuilder s = new StringBuilder();
             int pointer = 0;
-            while (pointer < buffer.length() && Character.isAlphabetic(buffer.charAt(pointer))){
+            while (pointer < buffer.length() && Character.isLetterOrDigit(buffer.charAt(pointer))){
                 s.append(buffer.charAt(pointer));
                 pointer++;
             }
