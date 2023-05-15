@@ -7,11 +7,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public class PostResults extends Results{
     private ArrayList<SearchResult> searchResults = new ArrayList<>();
-    Character[] topics = new Character[]{'0', '1', '2', '3', '4'};
+    HashMap<Character, Double> topics = new HashMap<>(Map.of('0',1.0,'1',1.0,'2',1.0,'3',1.0,'4',1.0));
 
     @Override
     public List<SearchResult> results(List<String> search) {
@@ -32,7 +33,9 @@ public class PostResults extends Results{
             }
         }
 
-        searchResult.setConfidence(confidence);
+            var multiplier = topics.get(searchResult.getId().charAt(0));
+
+            searchResult.setConfidence(multiplier * confidence);
     });
 
         return searchResults;
@@ -51,7 +54,7 @@ public class PostResults extends Results{
         var entrySet = questions.keySet();
         for (String entry : entrySet) {
             //TODO: Filter
-            if (Arrays.stream(topics).noneMatch(x -> x == entry.charAt(0))) continue;
+            if (!topics.containsKey(entry.charAt(0))) continue;
 
 
             var comments = (String)Firebase.getInstance().readQuestionComments(entry).await();
@@ -68,5 +71,9 @@ public class PostResults extends Results{
                 index++;
             }
         }
+    }
+
+    public void setTopics(HashMap<Character, Double> topics) {
+        this.topics = topics;
     }
 }

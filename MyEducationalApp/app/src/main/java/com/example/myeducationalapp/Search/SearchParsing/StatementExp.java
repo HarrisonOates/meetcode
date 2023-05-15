@@ -34,7 +34,8 @@ public class StatementExp extends Exp{
     //TODO
     @Override
     public List<String> decomposition() {
-        return null;
+
+        return statement;
     }
 
     @Override

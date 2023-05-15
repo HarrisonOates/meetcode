@@ -35,7 +35,7 @@ public class QuestionResults extends Results{
                 }
             }
 
-            var multiplier =
+            var multiplier = topics.get(searchResult.getId().charAt(0));
 
             searchResult.setConfidence(multiplier * confidence);
         });
