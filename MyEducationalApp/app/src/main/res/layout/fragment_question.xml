@@ -218,6 +218,32 @@
                         app:layout_constraintStart_toStartOf="@+id/question_answer_entry_box_start_guide_1st"
                         app:layout_constraintTop_toTopOf="parent" />
 
+                    <View
+                        android:id="@+id/question_answer_entry_incorrect_icon_1st"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:background="@drawable/icon_cross_circle"
+                        android:clipToOutline="true"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/question_answer_entry_box_end_guide_1st"
+                        app:layout_constraintStart_toStartOf="@+id/question_answer_entry_box_end_guide_1st"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/question_answer_entry_correct_icon_1st"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:background="@drawable/icon_check_mark_circle"
+                        android:clipToOutline="true"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/question_answer_entry_box_end_guide_1st"
+                        app:layout_constraintStart_toStartOf="@+id/question_answer_entry_box_end_guide_1st"
+                        app:layout_constraintTop_toTopOf="parent" />
+
 
                     <androidx.constraintlayout.widget.Guideline
                         android:id="@+id/question_answer_entry_box_start_guide_1st"
@@ -279,6 +305,31 @@
                         app:layout_constraintStart_toStartOf="@+id/question_answer_entry_box_start_guide_2nd"
                         app:layout_constraintTop_toTopOf="parent" />
 
+                    <View
+                        android:id="@+id/question_answer_entry_incorrect_icon_2nd"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:background="@drawable/icon_cross_circle"
+                        android:clipToOutline="true"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/question_answer_entry_box_end_guide_2nd"
+                        app:layout_constraintStart_toStartOf="@+id/question_answer_entry_box_end_guide_2nd"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/question_answer_entry_correct_icon_2nd"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:background="@drawable/icon_check_mark_circle"
+                        android:clipToOutline="true"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/question_answer_entry_box_end_guide_2nd"
+                        app:layout_constraintStart_toStartOf="@+id/question_answer_entry_box_end_guide_2nd"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <androidx.constraintlayout.widget.Guideline
                         android:id="@+id/question_answer_entry_box_start_guide_2nd"

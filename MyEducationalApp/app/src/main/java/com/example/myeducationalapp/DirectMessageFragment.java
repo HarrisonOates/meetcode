@@ -271,7 +271,6 @@ public class DirectMessageFragment extends Fragment {
 
             boolean isRecipient = !Objects.equals(currentUsername, currentPoster.getUsername());
 
-            // TODO the following may not always be true
             // making sure that there is a next message
             if ((i + 1) < messagesSize) {
 
