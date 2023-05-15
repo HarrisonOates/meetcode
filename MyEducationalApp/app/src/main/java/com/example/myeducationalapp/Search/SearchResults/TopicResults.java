@@ -1,7 +1,6 @@
 package com.example.myeducationalapp.Search.SearchResults;
 
-import com.example.myeducationalapp.Firebase.Firebase;
-import com.example.myeducationalapp.Search.SearchToken;
+import com.example.myeducationalapp.Search.SearchParsing.SearchToken;
 
 import java.util.ArrayList;
 import java.util.Collections;

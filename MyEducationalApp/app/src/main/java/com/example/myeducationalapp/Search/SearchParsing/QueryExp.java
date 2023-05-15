@@ -1,4 +1,4 @@
-package com.example.myeducationalapp.Search;
+package com.example.myeducationalapp.Search.SearchParsing;
 
 import java.util.List;
 
@@ -38,6 +38,19 @@ public class QueryExp extends Exp{
     //TODO
     @Override
     public List<String> decomposition() {
+        return statement.decomposition();
+    }
+
+    @Override
+    public List<Exp> expressions() {
         return null;
+    }
+
+    public SearchToken.Query getQueryType() {
+        return queryType;
+    }
+
+    public StatementExp getStatement() {
+        return statement;
     }
 }

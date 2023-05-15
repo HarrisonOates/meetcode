@@ -1,4 +1,4 @@
-package com.example.myeducationalapp.Search;
+package com.example.myeducationalapp.Search.SearchParsing;
 
 import java.util.List;
 
@@ -11,5 +11,7 @@ public abstract class Exp {
     public abstract String show();
     //Decomposes the expression into a list of words
     public abstract List<String> decomposition();
+
+    public abstract List<Exp> expressions();
 }
 
