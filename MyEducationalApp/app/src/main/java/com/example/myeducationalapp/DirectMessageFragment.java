@@ -95,7 +95,8 @@ public class DirectMessageFragment extends Fragment {
         UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
         userInterfaceManager.getCurrentDirectMessages().getValue().forEach((username, messageListCard) -> {
 
-            Firebase.getInstance().addObserverToDirectMessageHistory(username, messageListCard.directMessageThread.getUsername(), new DirectMessagesObserver(username));
+            Firebase.getInstance().attachObserver(new DirectMessagesObserver(username));
+            //Firebase.getInstance().addObserverToDirectMessageHistory(username, messageListCard.directMessageThread.getUsername(), new DirectMessagesObserver(username));
 
         });
         //Firebase.getInstance().addObserverToDirectMessageHistory("nikhila", "geun", new DirectMessagesObserver());

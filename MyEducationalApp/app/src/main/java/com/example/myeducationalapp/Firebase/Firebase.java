@@ -76,6 +76,7 @@ public class Firebase {
             ValueEventListener listener = new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    System.out.printf("YO\n");
                     if (!directMessageObservers.containsKey(path.toString()) || directMessageObservers.get(path.toString()) == null) {
                         return;
                     }
@@ -83,9 +84,6 @@ public class Firebase {
                     for (FirebaseObserver observer: directMessageObservers.get(path.toString())) {
                         observer.update();
                     }
-
-                    fbObject.removeEventListener(this);
-                    fbObject.addValueEventListener(this);
                 }
 
                 @Override
@@ -151,7 +149,7 @@ public class Firebase {
      * Internally used to notify all of the observers that something has changed on the backend.
      * Should only be called when this happens.
      */
-    private void notifyObservers(/*...*/) {
+    protected void notifyObservers(/*...*/) {
         for (FirebaseObserver observer: observers) {
             observer.update(/*...*/);
         }

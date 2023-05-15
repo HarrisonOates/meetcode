@@ -71,6 +71,8 @@ public class FirebaseResult {
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Firebase.getInstance().notifyObservers();
+
                 gotResult.countDown();
                 result = snapshot.getValue();
                 while (!callbacks.isEmpty()) {
