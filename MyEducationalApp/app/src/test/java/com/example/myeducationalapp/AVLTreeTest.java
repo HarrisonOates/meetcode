@@ -12,6 +12,11 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 
+/**
+ * @author u7469758 Geun Yun
+ */
+
+
 @RunWith(Parameterized.class)
 public class AVLTreeTest {
     @Parameterized.Parameters

@@ -4,6 +4,10 @@ import androidx.lifecycle.ViewModel;
 
 import java.util.ArrayList;
 
+/**
+ * @author u7300256 Nikhila Gurusinghe
+ */
+
 public class GeneratedUserInterfaceViewModel<T> extends ViewModel implements IterableCollection {
 
     private ArrayList<T> listOfGeneratables = new ArrayList<>();

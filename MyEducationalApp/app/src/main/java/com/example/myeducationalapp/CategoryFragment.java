@@ -29,6 +29,8 @@ import com.example.myeducationalapp.userInterface.UserInterfaceManagerViewModel;
  * A simple {@link Fragment} subclass.
  * Use the {@link CategoryFragment#newInstance} factory method to
  * create an instance of this fragment.
+ *
+ * @author u7300256 Nikhila Gurusinghe
  */
 public class CategoryFragment extends Fragment {
 

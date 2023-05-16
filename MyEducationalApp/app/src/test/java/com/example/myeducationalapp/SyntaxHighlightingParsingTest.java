@@ -6,6 +6,9 @@ import com.example.myeducationalapp.SyntaxHighlighting.DetectCodeBlock;
 
 import org.junit.Test;
 
+/**
+ * @author u7468212 Harrison Oates
+ */
 public class SyntaxHighlightingParsingTest {
     @Test (timeout = 1000)
     public void wholeParagraphTest(){

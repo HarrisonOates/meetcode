@@ -5,6 +5,10 @@ import androidx.annotation.NonNull;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * @author u7469758 Geun Yun
+ */
+
 // The AVLTree data structure will be implemented for each of these data sets:
 // - Past questions' ID
 // - Liked message ID

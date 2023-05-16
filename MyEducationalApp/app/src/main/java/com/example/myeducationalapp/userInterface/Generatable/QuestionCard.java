@@ -12,6 +12,9 @@ import com.example.myeducationalapp.SyntaxHighlighting.DetectCodeBlock;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author u7300256 Nikhila Gurusinghe
+ */
 public class QuestionCard {
 
     private Question question;

@@ -17,6 +17,10 @@ import com.example.myeducationalapp.Firebase.Firebase;
 import com.example.myeducationalapp.databinding.ActivityLoginBinding;
 import com.example.myeducationalapp.databinding.ActivityMainBinding;
 
+/**
+ * @author u7300256 Nikhila Gurusinghe
+ */
+
 public class LoginActivity extends AppCompatActivity {
 
     private ActivityLoginBinding binding;

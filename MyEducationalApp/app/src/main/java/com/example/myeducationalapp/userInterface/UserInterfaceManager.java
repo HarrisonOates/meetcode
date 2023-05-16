@@ -10,6 +10,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * @author u7300256 Nikhila Gurusinghe
+ */
 public class UserInterfaceManager {
 
     MutableLiveData<Boolean> isActionBarInBackState = new MutableLiveData<>();

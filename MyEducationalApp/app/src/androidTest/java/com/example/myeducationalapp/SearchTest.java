@@ -12,6 +12,9 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * @author u7146309 Jayden Skidmore
+ */
 public class SearchTest {
     @Test
     public void topicTest(){

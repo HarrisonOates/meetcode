@@ -17,6 +17,10 @@ import android.widget.RadioGroup;
 
 import java.util.Locale;
 
+/**
+ * @author u7469758 Geun Yun
+ */
+
 public class LanguageSetting extends AppCompatActivity {
      RadioGroup languages;
      RadioButton english, korean, japanese, portuguese, chinese;

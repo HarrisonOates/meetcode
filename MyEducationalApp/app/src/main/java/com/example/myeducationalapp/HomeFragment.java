@@ -45,6 +45,9 @@ import java.util.TimerTask;
  * A simple {@link Fragment} subclass.
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
+ *
+ * @author u7300256 Nikhila Gurusinghe (main code)
+ * @author u7469758 Geun Yun (search bar UI)
  */
 public class HomeFragment extends Fragment {
 

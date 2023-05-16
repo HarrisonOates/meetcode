@@ -11,6 +11,10 @@ import android.util.Log;
 import org.junit.Test;
 
 /**
+ * @author u7469758 Geun Yun
+ */
+
+/**
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 public class UserLoginTest {

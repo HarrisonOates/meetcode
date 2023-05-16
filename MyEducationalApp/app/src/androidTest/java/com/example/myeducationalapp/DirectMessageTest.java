@@ -6,6 +6,10 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+/**
+ * @author u7468248 Alex Boxall
+ */
+
 public class DirectMessageTest {
     @Test
     public void testReadingDirectMessage() {

@@ -39,6 +39,8 @@ import java.util.Objects;
  * A simple {@link Fragment} subclass.
  * Use the {@link MessagesFragment#newInstance} factory method to
  * create an instance of this fragment.
+ *
+ * @author u7300256 Nikhila Gurusinghe
  */
 public class MessagesFragment extends Fragment {
 

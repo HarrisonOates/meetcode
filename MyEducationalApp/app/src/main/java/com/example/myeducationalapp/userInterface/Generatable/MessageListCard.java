@@ -6,6 +6,9 @@ import com.example.myeducationalapp.DirectMessageThread;
 
 import java.util.Objects;
 
+/**
+ * @author u7300256 Nikhila Gurusinghe
+ */
 public class MessageListCard {
 
     public int profileImage;

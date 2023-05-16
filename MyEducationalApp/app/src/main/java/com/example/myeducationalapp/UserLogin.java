@@ -12,6 +12,10 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
+/**
+ * @author u7469758 Geun Yun (main code)
+ * @author u7468248 Alex Boxall (some helper functions)
+ */
 public class UserLogin {
     private static UserLogin instance;
     public static UserLogin getInstance() {

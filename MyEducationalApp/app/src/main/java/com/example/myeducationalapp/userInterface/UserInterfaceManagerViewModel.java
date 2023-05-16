@@ -13,6 +13,10 @@ import com.example.myeducationalapp.userInterface.Generatable.QuestionCard;
 
 import java.util.LinkedHashMap;
 
+/**
+ * @author u7300256 Nikhila Gurusinghe
+ */
+
 // https://developer.android.com/topic/libraries/architecture/viewmodel
 public class UserInterfaceManagerViewModel extends ViewModel {
 
