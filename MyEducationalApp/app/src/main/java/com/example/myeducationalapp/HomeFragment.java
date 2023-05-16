@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.example.myeducationalapp.Firebase.Firebase;
 import com.example.myeducationalapp.Search.Search;
+import com.example.myeducationalapp.Search.SearchParsing.SearchToken;
 import com.example.myeducationalapp.userInterface.Generatable.GeneratedUserInterfaceViewModel;
 import com.example.myeducationalapp.userInterface.Generatable.HomeCategoryCard;
 import com.example.myeducationalapp.userInterface.Generatable.Iterator;
@@ -44,6 +45,9 @@ import java.util.TimerTask;
  * A simple {@link Fragment} subclass.
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
+ *
+ * @author u7300256 Nikhila Gurusinghe (main code)
+ * @author u7469758 Geun Yun (search bar UI)
  */
 public class HomeFragment extends Fragment {
 
@@ -200,27 +204,19 @@ public class HomeFragment extends Fragment {
 
 
     private void initializeSearch() {
-        List<String> searchQuery = Arrays.asList(binding.searchInputText.getText().toString().split(" "));
-        System.out.println("Searching: " + searchQuery);
 
         new Thread(() -> {
-            List<SearchResult> searchResults;
+            List<SearchResult> searchResults = Search.getInstance().search(binding.searchInputText.getText().toString());
+            if (!binding.allSearch.isChecked()) {
+                SearchToken.Query searchType;
+                if (binding.questionSearch.isChecked()) {searchType = SearchToken.Query.Question;}
+                else if (binding.postSearch.isChecked()) {searchType = SearchToken.Query.Discussion;}
+                else if (binding.topicSearch.isChecked()) {searchType = SearchToken.Query.Topic;}
+                else if (binding.userSearch.isChecked()) {searchType = SearchToken.Query.User;}
+                else {throw new NullPointerException("No search filter selected, which should never happen");}
 
-            if (binding.questionSearch.isChecked()) {
-                QuestionResults search = new QuestionResults();
-                searchResults = search.looseResults(searchQuery);
-
-            } else if (binding.topicSearch.isChecked()) {
-                TopicResults search = new TopicResults();
-                searchResults = search.looseResults(searchQuery);
-
-            } else if (binding.userSearch.isChecked()) {
-                UserResults search = new UserResults();
-                searchResults = search.looseResults(searchQuery);
-
-            } else {
-                Search search = new Search();
-                searchResults = search.search(binding.searchInputText.getText().toString());
+                // Remove all the results that are not in the selected search type
+                searchResults.removeIf(result -> result.getType() != searchType);
             }
 
             this.getActivity().runOnUiThread(() -> visualizeSearchResults(searchResults));

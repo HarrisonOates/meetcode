@@ -10,6 +10,10 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
+/**
+ * @author u7469758 Geun Yun
+ * @author u7468248 Alex Boxall
+ */
 public class QuestionSet {
 
 

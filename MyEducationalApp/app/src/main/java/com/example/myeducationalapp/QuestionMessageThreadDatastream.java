@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * @author u7468212 Harrison Oates
+ */
 public class QuestionMessageThreadDatastream extends MessageThreadDatastream {
     private String questionID;
 

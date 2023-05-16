@@ -5,6 +5,9 @@ import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+/**
+ * @author u7469758 Geun Yun
+ */
 public class NestedListView extends ListView {
 
     public NestedListView(Context context, AttributeSet attributeSet) {

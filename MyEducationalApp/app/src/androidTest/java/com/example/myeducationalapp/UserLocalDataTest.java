@@ -9,7 +9,9 @@ import org.junit.Test;
 
 import java.util.Random;
 
-
+/**
+ * @author u7468248 Alex Boxall
+ */
 public class UserLocalDataTest {
     static Random rng = new Random();
 

@@ -15,6 +15,10 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * @author u7468212 Harrison Oates
+ */
+
 @RunWith(Parameterized.class)
 public class SyntaxHighlightingTest {
 

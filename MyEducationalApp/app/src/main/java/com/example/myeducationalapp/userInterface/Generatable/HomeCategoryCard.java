@@ -5,6 +5,10 @@ import android.graphics.Color;
 import com.example.myeducationalapp.QuestionSet;
 import com.example.myeducationalapp.R;
 
+/**
+ * @author u7300256 Nikhila Gurusinghe
+ */
+
 public class HomeCategoryCard {
 
     QuestionSet.Category category;

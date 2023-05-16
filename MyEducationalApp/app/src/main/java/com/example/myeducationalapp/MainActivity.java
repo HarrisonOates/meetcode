@@ -32,6 +32,10 @@ import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Objects;
 
+/**
+ * @author u7300256 Nikhila Gurusinghe
+ */
+
 public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
@@ -119,17 +123,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Firebase.getInstance().dump();
-        //UserLogin.getInstance().addUser("test", "123456789");
-
-       if (UserLogin.getInstance().getCurrentUsername().equals("comp2100@anu.au")){
+        if (UserLogin.getInstance().getCurrentUsername().equals("comp2100@anu.au")){
             try {
-               DataGenerator.generateData(getApplicationContext());
-           } catch (FileNotFoundException | InterruptedException e) {
+                DataGenerator.generateData(getApplicationContext());
+            } catch (FileNotFoundException | InterruptedException e) {
                 throw new RuntimeException(e);
             }
-
-       }
+        }
     }
 
     @Override

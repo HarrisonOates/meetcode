@@ -3,6 +3,10 @@ package com.example.myeducationalapp.userInterface.Generatable;
 import com.example.myeducationalapp.QuestionSet;
 import com.example.myeducationalapp.UserLocalData;
 
+/**
+ * @author u7300256 Nikhila Gurusinghe
+ */
+
 public class CategoryListCard extends HomeCategoryCard {
 
     public CategoryListCard(QuestionSet.Category category) {
