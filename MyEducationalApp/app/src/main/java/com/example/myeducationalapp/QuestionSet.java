@@ -25,8 +25,8 @@ public class QuestionSet {
                 Color.parseColor("#FFF25260"),
                 Color.parseColor("#FFB0C5FF"),
                 Color.parseColor("#FF7549D2"),
+                Color.parseColor("#FF00BFAF"),
                 Color.parseColor("#FFFF598F"),
-                Color.parseColor("#FF00BFAF")
 
         };
 
@@ -34,8 +34,8 @@ public class QuestionSet {
                 Color.parseColor("#FFFD99A2"),
                 Color.parseColor("#FF7896E8"),
                 Color.parseColor("#FF9767FE"),
+                Color.parseColor("#FF108A80"),
                 Color.parseColor("#FFFF92B6"),
-                Color.parseColor("#FF108A80")
 
         };
 
