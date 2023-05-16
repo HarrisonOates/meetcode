@@ -77,11 +77,7 @@ public class Firebase {
         ValueEventListener postListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                /*
-                 * Tell all the observers about the data change.
-                 * TODO: work out what to tell them, and when (i.e. only notify if needed)
-                 */
-                notifyObservers();
+                System.out.printf("WAIT WHAT?!?!?!?!");
             }
 
             @Override
@@ -102,17 +98,24 @@ public class Firebase {
      * changes are made to the Firebase database.
      * @param observer The observer object to add.
      */
-    public void attachObserver(FirebaseObserver observer) {
+    public void attachObserver(FirebaseObserver observer, List<String> path) {
+        observer.path = path;
         observers.add(observer);
+    }
+
+    public void attachDirectMessageObserver(FirebaseObserver observer, String username1, String username2) {
+        attachObserver(observer, getDirectMessageFilepath(username1, username2));
     }
 
     /**
      * Internally used to notify all of the observers that something has changed on the backend.
      * Should only be called when this happens.
      */
-    protected void notifyObservers() {
+    protected void notifyObservers(List<String> firebasePath) {
         for (FirebaseObserver observer: observers) {
-            observer.update();
+            if (observer.path.equals(firebasePath)) {
+                observer.update();
+            }
         }
     }
 
@@ -124,7 +127,7 @@ public class Firebase {
      * @param username2 One of the two usernames (the order doesn't matter)
      * @return A list containing the 'subdirectories' to enter on the Firebase database
      */
-    private List<String> getDirectMessageFilepath(String username1, String username2) {
+    List<String> getDirectMessageFilepath(String username1, String username2) {
         /*
          * We want to make sure the order is consistent, as it doesn't matter which username
          * gets passed in first.
