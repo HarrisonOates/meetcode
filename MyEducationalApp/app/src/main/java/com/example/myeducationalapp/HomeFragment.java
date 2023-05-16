@@ -208,19 +208,18 @@ public class HomeFragment extends Fragment {
     private void initializeSearch() {
 
         new Thread(() -> {
-            List<SearchResult> searchResults = Search.getInstance().search(binding.searchInputText.getText().toString());
+            String adder = "";
             if (!binding.allSearch.isChecked()) {
-                SearchToken.Query searchType;
-                if (binding.questionSearch.isChecked()) {searchType = SearchToken.Query.Question;}
-                else if (binding.postSearch.isChecked()) {searchType = SearchToken.Query.Discussion;}
-                else if (binding.topicSearch.isChecked()) {searchType = SearchToken.Query.Topic;}
-                else if (binding.userSearch.isChecked()) {searchType = SearchToken.Query.User;}
+                if (binding.questionSearch.isChecked()) {adder += "?";}//searchType = SearchToken.Query.Question;}
+                else if (binding.postSearch.isChecked()) {adder += "#";}//searchType = SearchToken.Query.Discussion;}
+                else if (binding.topicSearch.isChecked()) {adder += "!";}//searchType = SearchToken.Query.Topic;}
+                else if (binding.userSearch.isChecked()) {adder += "@";}//searchType = SearchToken.Query.User;}
                 else {throw new NullPointerException("No search filter selected, which should never happen");}
 
                 // Remove all the results that are not in the selected search type
-                searchResults.removeIf(result -> result.getType() != searchType);
+                //searchResults.removeIf(result -> result.getType() != searchType);
             }
-
+            List<SearchResult> searchResults = Search.getInstance().search(adder + binding.searchInputText.getText().toString());
             this.getActivity().runOnUiThread(() -> visualizeSearchResults(searchResults));
 
         }).start();

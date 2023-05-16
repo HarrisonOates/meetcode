@@ -51,7 +51,7 @@ public class UserResults extends Results{
             //then count the number of matches vs word length
 
 
-            var currentResult = new SearchResult(user/*TODO: UserID*/, SearchToken.Query.User, Collections.singletonList(user));
+            var currentResult = new SearchResult(user, SearchToken.Query.User, Collections.singletonList(user));
             currentResult.setConfidence(score);
             results.add(currentResult);
         }
@@ -73,7 +73,7 @@ public class UserResults extends Results{
             sum -= Math.abs(num);
         }
 
-        return sum / (Math.abs(word.length() - length)*0.2 + 1);
+        return sum * Math.abs(word.length() - length)*0.6;
     }
 
 
