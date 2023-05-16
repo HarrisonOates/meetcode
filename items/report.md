@@ -32,6 +32,7 @@ u7468248, Alex Boxall: I contributed 20% of the code. Here are my contributions:
 * All of [Firebase/FirebaseResult.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Firebase/FirebaseResult.java)
 * All of [Asynchronous.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Asynchronous.java)
 * All of [DirectMessageThread.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/DirectMessageThread.java)
+    * All of [DirectMessageTest.java](./../MyEducationalApp/app/src/androidTest/java/com/example/myeducationalapp/DirectMessageTest.java)
 * All of [Message.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Message.java)
 * All of [MessageThread.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/MessageThread.java)
 * All of [Person.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Person.java)
@@ -215,6 +216,7 @@ We used the following data structures in our project:
 
      * Having the property of self-balancing along with the binary search tree guarantees the performance of O(logN) in the worst case for insertion, deletion and searching.
      * Although HashMap may seem more plausible with better time complexity, the AVL Tree can get data in order via inOrderTraversal().
+     * The AVL tree is also useful as we can easily store in Firebase, and then reload directly into a tree at a later time. This reduces the time taken to reload it back into a tree structure.
 
 2. Unlike the most operation in the AVL Tree, the deletion was not covered in the lecture, so its implementation will be briefly outlined.
    * The node that is to be deleted first gets searched, similar to the initial search fro the insertion.
@@ -350,7 +352,9 @@ Many types of test were created:
   - answers to questions can be submitted
   - the correct number of points is given after answering a question, on the first or second attempts
 - Tests for direct messaging (```DirectMessageTest```) - this tests the following:
-  - ...
+  - downloading messages from a direct message thread
+  - reading messages downloaded
+  - checking whether messages have been liked
 
 Android Studio does not provide code coverage for instrumented tests, and thus the exact code coverage is not known.
 However, by manually inspecting the code, we find that the user login tests gets 100% line coverage of ```Firebase.FirebaseRequest```, approximately 76% of both ```Firebase.FirebaseResult```, and ```UserLogin```. Additionally, 100% of ```UserLocalData``` is tested, split across ```UserLocalDataTest``` (for most methods), and ```DirecteMessageTest``` (for ```loadFromDisk```).
