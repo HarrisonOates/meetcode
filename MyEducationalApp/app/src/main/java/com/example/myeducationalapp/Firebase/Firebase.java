@@ -113,7 +113,8 @@ public class Firebase {
      */
     protected void notifyObservers(List<String> firebasePath) {
         for (FirebaseObserver observer: observers) {
-            if (observer.path.equals(firebasePath)) {
+            if (observer.path.equals(firebasePath) && observer.isEnabled()) {
+                observer.disable();
                 observer.update();
             }
         }

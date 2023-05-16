@@ -553,8 +553,13 @@ class DirectMessagesObserver extends FirebaseObserver {
 
         //Firebase.getInstance().getAllUsersYouHaveMessaged(dms -> {return null;});
 
+        FirebaseObserver observer = this;
+
         try {
-            Firebase.getInstance().readDirectMessages(UserLogin.getInstance().getCurrentUsername(),  "geun");
+            Firebase.getInstance().readDirectMessages(UserLogin.getInstance().getCurrentUsername(),  "geun").then((result) -> {
+                observer.enable();
+                return null;
+            });
         } catch (AccessDeniedException e) {
             throw new RuntimeException(e);
         }
