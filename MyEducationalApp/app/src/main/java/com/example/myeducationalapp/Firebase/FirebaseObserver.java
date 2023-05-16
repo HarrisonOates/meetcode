@@ -9,7 +9,7 @@ import java.util.List;
  */
 
 public abstract class FirebaseObserver {
-    abstract void update();
+    public abstract void update();
 
     /*
      * Don't touch this - Firebase.Firebase.java will set this for you.

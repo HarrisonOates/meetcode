@@ -28,6 +28,8 @@ public class UserInterfaceManagerViewModel extends ViewModel {
 
     private final MutableLiveData<CategoryListCard> currentlyDisplayedCategory = new MutableLiveData<>();
 
+    public boolean hasObserverBeenAttached = false;
+
     public LiveData<LinkedHashMap<String, MessageListCard>> getCurrentDirectMessages() {
         return currentDirectMessages;
     }

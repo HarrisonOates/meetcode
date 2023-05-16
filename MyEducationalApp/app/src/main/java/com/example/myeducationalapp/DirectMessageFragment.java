@@ -29,6 +29,7 @@ import com.example.myeducationalapp.databinding.FragmentDirectMessageBinding;
 import com.example.myeducationalapp.userInterface.Generatable.MessageListCard;
 import com.example.myeducationalapp.userInterface.UserInterfaceManagerViewModel;
 
+import java.nio.file.AccessDeniedException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -90,11 +91,14 @@ public class DirectMessageFragment extends Fragment {
         // Attaching observers
 
         UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
-        userInterfaceManager.getCurrentDirectMessages().getValue().forEach((username, messageListCard) -> {
 
-            Firebase.getInstance().attachObserver(new DirectMessagesObserver(username));
+        if (!userInterfaceManager.hasObserverBeenAttached) {
 
-        });
+            Firebase.getInstance().attachDirectMessageObserver(new DirectMessagesObserver(), UserLogin.getInstance().getCurrentUsername(), "geun");
+
+
+            userInterfaceManager.hasObserverBeenAttached = true;
+        }
     }
 
     @Override
@@ -134,7 +138,6 @@ public class DirectMessageFragment extends Fragment {
                 sendMessage();
             }
         });
-
     }
 
 
@@ -512,6 +515,8 @@ public class DirectMessageFragment extends Fragment {
         });
     }
 
+
+
     private enum MessageBubbleOrientation {
         BOTTOM(R.drawable.direct_message_bubble_combo_bottom),
         BOTTOM_RECIPIENT(R.drawable.direct_message_recipient_bubble_combo_bottom),
@@ -542,16 +547,20 @@ public class DirectMessageFragment extends Fragment {
     }
 }
 
-class DirectMessagesObserver implements FirebaseObserver {
+class DirectMessagesObserver extends FirebaseObserver {
 
-    String recipientUsername;
-
-    public DirectMessagesObserver(String recipientUsername) {
-        this.recipientUsername = recipientUsername;
-    }
-
-    @Override
     public void update() {
-        Log.d("DirectMessageObserver", "UPDATE!" + recipientUsername);
+
+        //Firebase.getInstance().getAllUsersYouHaveMessaged(dms -> {return null;});
+
+        try {
+            Firebase.getInstance().readDirectMessages(UserLogin.getInstance().getCurrentUsername(),  "geun");
+        } catch (AccessDeniedException e) {
+            throw new RuntimeException(e);
+        }
+
+
+        Log.d("DirectMessageObserver", "UPDATE!");
     }
 }
+

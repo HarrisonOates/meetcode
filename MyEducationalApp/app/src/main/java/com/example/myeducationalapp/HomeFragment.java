@@ -127,11 +127,6 @@ public class HomeFragment extends Fragment {
             NavHostFragment.findNavController(HomeFragment.this).navigate(R.id.action_HomeFragment_to_categoriesListFragment);
         });
 
-        // Adding button to the "Question of the Day" section
-        binding.homeHeroContainer.setOnClickListener(view1 -> {
-            NavHostFragment.findNavController(HomeFragment.this).navigate(R.id.action_HomeFragment_to_questionFragment);
-        });
-
         // Updating "Question of the Day" subheading and body with with relevant stuff
         LocalDateTime date = LocalDateTime.now();
         binding.homeHeroSubheadingText.setText(date.format(DateTimeFormatter.ofPattern("d MMMM")));
@@ -139,7 +134,6 @@ public class HomeFragment extends Fragment {
         Question qotd = QuestionSet.getInstance().getQuestionOfTheDay();
         binding.homeHeroBodyText.setText(qotd.getName());
 
-        // 
         boolean success = UserLocalData.getInstance().hasQuestionBeenAnsweredCorrectly(qotd.getID());
         if (success) {
             binding.homeHeroSecondaryCallToActionText.setText(getString(R.string.completed));
@@ -154,6 +148,14 @@ public class HomeFragment extends Fragment {
 
             binding.homeHeroSecondaryCallToActionText.setText(getString(maxStars == 1 ? R.string.earn_1_star : R.string.earn_x_stars, maxStars));
         }
+
+        // Adding button to the "Question of the Day" section
+        binding.homeHeroContainer.setOnClickListener(view1 -> {
+            // Updating the view model so Question fragment will update when it is created
+            userInterfaceManager.setCurrentlyDisplayedQuestion(qotd);
+
+            NavHostFragment.findNavController(HomeFragment.this).navigate(R.id.action_HomeFragment_to_questionFragment);
+        });
 
         // Question is set as the default type of search
         binding.allSearch.setChecked(true);
