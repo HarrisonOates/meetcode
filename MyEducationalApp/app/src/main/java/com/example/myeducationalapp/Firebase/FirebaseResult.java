@@ -3,7 +3,9 @@ package com.example.myeducationalapp.Firebase;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -86,7 +88,7 @@ public class FirebaseResult {
     }
 
     private FirebaseResult(Direction dir, DatabaseReference ref, Object value) {
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+        ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 {
@@ -105,10 +107,8 @@ public class FirebaseResult {
                         System.out.printf("THE UPDATE CAME FROM %s\n", dmPath);
 
                         Firebase.getInstance().notifyObservers(dmPath);
-
                     }
                 }
-
 
                 gotResult.countDown();
                 result = snapshot.getValue();

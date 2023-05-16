@@ -15,4 +15,18 @@ public abstract class FirebaseObserver {
      * Don't touch this - Firebase.Firebase.java will set this for you.
      */
     List<String> path;
+
+    private boolean enabled = true;
+
+    boolean isEnabled() {
+        return enabled;
+    }
+
+    public void enable() {
+        enabled = true;
+    }
+
+    void disable() {
+        enabled = false;
+    }
 }
