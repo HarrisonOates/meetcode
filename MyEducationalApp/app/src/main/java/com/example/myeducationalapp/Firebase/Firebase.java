@@ -94,7 +94,7 @@ public class Firebase {
             }
         };
 
-        database.addValueEventListener(postListener);
+        database.addListenerForSingleValueEvent(postListener);
     }
 
     /**
