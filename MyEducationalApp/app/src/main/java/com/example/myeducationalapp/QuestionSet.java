@@ -12,18 +12,16 @@ import java.util.stream.Collectors;
 
 public class QuestionSet {
 
-    // Categories MUST follow the naming convention such as ControlFlow
-    // where the first letter of the word is capital and then the starting letters of subsequent
-    // categories is also a capital letter
+
     public enum Category {
         Algorithm, ControlFlow, DataStructure, Miscellaneous, Recursion, TestQuestion;
 
         private int[] primaryCategoryColorList = new int[] {
                 Color.parseColor("#FFF25260"),
-                Color.parseColor("#FFC3D3FF"),
+                Color.parseColor("#FFB0C5FF"),
                 Color.parseColor("#FF7549D2"),
-                Color.parseColor("#FF5368A6"),
-                Color.parseColor("#FFFFFFFF"), // TODO
+                Color.parseColor("#FFFF598F"),
+                Color.parseColor("#FF00BFAF")
 
         };
 
@@ -31,8 +29,8 @@ public class QuestionSet {
                 Color.parseColor("#FFFD99A2"),
                 Color.parseColor("#FF7896E8"),
                 Color.parseColor("#FF9767FE"),
-                Color.parseColor("#FFA2B5EE"),
-                Color.parseColor("#FFFFFFFF"), // TODO
+                Color.parseColor("#FFFF92B6"),
+                Color.parseColor("#FF108A80")
 
         };
 
@@ -49,13 +47,13 @@ public class QuestionSet {
         public int getSecondaryCategoryColor() {
             assert this != TestQuestion;
 
-            return 0;
+            return secondaryCategoryColorList[this.ordinal()];
         }
 
         public int getTertiaryCategoryColor() {
             assert this != TestQuestion;
 
-            return 0;
+            return tertiaryCategoryColorList[this.ordinal()];
         }
 
         public int getCategoryImageDrawableID() {
@@ -144,6 +142,10 @@ public class QuestionSet {
 
     public int getNumberOfQuestionsInCategory(Category category) {
         return getQuestionIDsInCategory(category).size();
+    }
+
+    public Question getQuestionFromID(String id) {
+        return usedQuestionSets.get(id);
     }
 
     public Set<String> getQuestionIDs() {

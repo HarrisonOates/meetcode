@@ -86,7 +86,7 @@ public class QuestionFragment extends Fragment {
 
 
         UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
-        userInterfaceManager.getUiState().getValue().enterNewFragment(toolbarTitle);
+        userInterfaceManager.getUiState().getValue().enterNewFragment(userInterfaceManager.getCurrentlyDisplayedQuestion().getValue().getHeading());
 
         // Testing
         Question testQuestion = QuestionSet.getInstance().getQuestionOfTheDay();

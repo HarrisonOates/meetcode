@@ -64,6 +64,7 @@
 
         <!-- Secondary star container -->
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/category_star_wrapper"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginTop="7dp"
@@ -135,44 +136,44 @@
             android:orientation="vertical"
             android:paddingBottom="120dp">
 
-            <!-- Question cards -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/category_question_card_1"
-                android:layout_width="350dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center|top"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/categories_list_secondary_star_container"
-                android:paddingHorizontal="15dp"
-                android:paddingVertical="10dp">
+<!--            &lt;!&ndash; Question cards &ndash;&gt;-->
+<!--            <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                android:id="@+id/category_question_card_1"-->
+<!--                android:layout_width="350dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="center|top"-->
+<!--                android:layout_marginTop="20dp"-->
+<!--                android:background="@drawable/categories_list_secondary_star_container"-->
+<!--                android:paddingHorizontal="15dp"-->
+<!--                android:paddingVertical="10dp">-->
 
-                <!-- Question card heading -->
-                <TextView
-                    android:id="@+id/category_question_car_heading_text"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
-                    android:fontFamily="@font/ibm_plex_sans_semibold"
-                    android:text="1. What does this code do?"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/category_question_card_star_icon"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+<!--                &lt;!&ndash; Question card heading &ndash;&gt;-->
+<!--                <TextView-->
+<!--                    android:id="@+id/category_question_car_heading_text"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginEnd="10dp"-->
+<!--                    android:fontFamily="@font/ibm_plex_sans_semibold"-->
+<!--                    android:text="1. What does this code do?"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:textSize="18sp"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    app:layout_constraintEnd_toStartOf="@+id/category_question_card_star_icon"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent" />-->
 
-                <!-- Star icon -->
-                <View
-                    android:id="@+id/category_question_card_star_icon"
-                    android:layout_width="21.99dp"
-                    android:layout_height="21.3dp"
-                    android:background="@drawable/icon_star_hollow"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+<!--                &lt;!&ndash; Star icon &ndash;&gt;-->
+<!--                <View-->
+<!--                    android:id="@+id/category_question_card_star_icon"-->
+<!--                    android:layout_width="21.99dp"-->
+<!--                    android:layout_height="21.3dp"-->
+<!--                    android:background="@drawable/icon_star_hollow"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent" />-->
 
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+<!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
 
 
         </LinearLayout>

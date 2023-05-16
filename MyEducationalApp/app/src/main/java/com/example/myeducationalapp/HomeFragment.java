@@ -270,7 +270,7 @@ public class HomeFragment extends Fragment {
 
         headingText.setText(template.getHeading());
         subheadingText.setText(template.getSubheading());
-        // TODO set categoryImage and background of parent to different colour
+        // TODO uncomment this line
         //categoryImage.setImageResource(template.getCardImage());
         homeCategoryCard.getBackground().setColorFilter(new BlendModeColorFilter(template.getCardColor(), BlendMode.SRC_ATOP));
 
@@ -286,9 +286,11 @@ public class HomeFragment extends Fragment {
         binding.homeCategoryCarouselScrollable.addView(homeCategoryCard);
 
         homeCategoryCard.setOnClickListener(view -> {
-            // Link to relevant category page
+            // Updating the view model so Categories fragment will update when it is created
             UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
             userInterfaceManager.setCurrentlyDisplayedCategory(template.getCategory());
+            // Navigating to the Categories fragment
+            NavHostFragment.findNavController(HomeFragment.this).navigate(R.id.action_HomeFragment_to_categoryFragment);
         });
 
 

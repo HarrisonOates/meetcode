@@ -1,16 +1,28 @@
 package com.example.myeducationalapp;
 
 import android.content.Context;
+import android.graphics.BlendMode;
+import android.graphics.BlendModeColorFilter;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
 
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.example.myeducationalapp.databinding.FragmentCategoryBinding;
+import com.example.myeducationalapp.userInterface.Generatable.CategoryListCard;
+import com.example.myeducationalapp.userInterface.Generatable.HomeCategoryCard;
 import com.example.myeducationalapp.userInterface.UserInterfaceManagerViewModel;
 
 /**
@@ -28,6 +40,8 @@ public class CategoryFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private FragmentCategoryBinding binding;
 
     private final String toolbarTitle = "CategoryName";
 
@@ -70,8 +84,9 @@ public class CategoryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_category, container, false);
 
+        binding = FragmentCategoryBinding.inflate(inflater, container, false);
+        return binding.getRoot();
     }
 
     @Override
@@ -80,22 +95,88 @@ public class CategoryFragment extends Fragment {
 
         UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
         userInterfaceManager.getUiState().getValue().enterNewFragment(
-                userInterfaceManager.getcurrentlyDisplayedCategory().getValue().toString());
+                userInterfaceManager.getCurrentlyDisplayedCategory().getValue().getHeading());
 
+
+        generateAllCards(getActivity());
 
 
 
     }
 
     private void generateAllCards(Context context) {
+        UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
+        CategoryListCard categoryListCard = userInterfaceManager.getCurrentlyDisplayedCategory().getValue();
 
+        // Initialize fields in the static category card at the top of this fragment
+        generateCategoryCard(categoryListCard, context);
+
+        int questionCounter = 1;
+
+        // Loop through all the questions in this question and generate the UI
+        for (String questionId : QuestionSet.getInstance().getQuestionIDsInCategory(categoryListCard.getCategory())) {
+            generateCategoryQuestionCard(questionCounter, questionId, categoryListCard, getActivity());
+            questionCounter++;
+        }
     }
     
-    private void generateCategoryCard(Context context) {
+    private void generateCategoryCard(CategoryListCard categoryListCard, Context context) {
+        UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
 
+        // Setting category card's heading and subheading as well as the star container area
+        binding.categoryCardHeadingText.setText(categoryListCard.getHeading());
+        binding.categoryCardSubheadingText.setText(categoryListCard.getSubheading());
+        binding.categoryCardSecondaryStarHeadingText.setText(categoryListCard.getStarProgress());
+        // TODO
+        //binding.categoryCardImage.setImageResource(categoryCard.getCardImage());
+        binding.categoryCard1.getBackground().setColorFilter(new BlendModeColorFilter(categoryListCard.getCardColor(), BlendMode.SRC_ATOP));
+        binding.categoryStarWrapper.getBackground().setColorFilter(new BlendModeColorFilter(categoryListCard.getSecondaryCardColor(), BlendMode.SRC_ATOP));
     }
     
-    private void generateCategoryQuestionCard(Context context) {
+    private void generateCategoryQuestionCard(int questionCount, String questionID, CategoryListCard categoryListCard, Context context) {
+        // inflating XML into an object we can use
+        ConstraintLayout categoryQuestionCard = (ConstraintLayout) LayoutInflater.from(context).
+                inflate(R.layout.category_question_card, null);
+
+        // Setting background of parent view
+        categoryQuestionCard.getBackground().setColorFilter(new BlendModeColorFilter(categoryListCard.getSecondaryCardColor(), BlendMode.SRC_ATOP));
+
+        // Setting layout parameters relative to the parent as this is not set from the inflated file
+        LinearLayout.LayoutParams categoryQuestionCardLayoutParams = new LinearLayout.LayoutParams(
+                ((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 350, getResources().getDisplayMetrics())),
+                LinearLayout.LayoutParams.WRAP_CONTENT
+        );
+        categoryQuestionCardLayoutParams.topMargin = (((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20, getResources().getDisplayMetrics())));
+        categoryQuestionCardLayoutParams.gravity = Gravity.CENTER | Gravity.TOP;
+        categoryQuestionCard.setLayoutParams(categoryQuestionCardLayoutParams);
+
+        // Getting data to set UI element
+        boolean isQuestionAnsweredCorrectly = UserLocalData.getInstance().hasQuestionBeenAnsweredCorrectly(questionID);
+        String questionTitle = QuestionSet.getInstance().getQuestionFromID(questionID).getName();
+
+        // Setting data to UI elements
+        // The indices for these are determined from the above inflated XML hierarchy
+        TextView headingText = (TextView) categoryQuestionCard.getChildAt(0);
+        View starIcon = (View) categoryQuestionCard.getChildAt(1);
+
+        headingText.setText(questionCount + ". " + questionTitle);
+        if (isQuestionAnsweredCorrectly) {
+            starIcon.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.icon_star));
+        }
+
+        // Adding the final parent to the LinearLayout nested within the ScrollView
+        binding.categoryLinearLayout.addView(categoryQuestionCard);
+
+        // Setting on click listener on the entire view which should transition
+        // to the relevant question when clicked
+        categoryQuestionCard.setOnClickListener(view -> {
+            // Updating the view model so Question fragment will update when it is created
+            UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
+            userInterfaceManager.setCurrentlyDisplayedQuestion(QuestionSet.getInstance().getQuestionFromID(questionID));
+
+            // Navigating to the Question fragment
+            NavHostFragment.findNavController(CategoryFragment.this).navigate(R.id.action_categoryFragment_to_questionFragment);
+        });
 
     }
 }
