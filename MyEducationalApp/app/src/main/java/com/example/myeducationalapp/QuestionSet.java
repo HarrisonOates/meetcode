@@ -189,7 +189,6 @@ public class QuestionSet {
         ));
     }
 
-    // I think we can just call one of these questions once a day?
     private void addDataStructure() {
         // Question about HashMap
         addQuestion(new Question("Hash maps",

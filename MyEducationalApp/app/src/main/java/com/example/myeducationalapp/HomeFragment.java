@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.myeducationalapp.Firebase.Firebase;
 import com.example.myeducationalapp.userInterface.Generatable.GeneratedUserInterfaceViewModel;
@@ -194,9 +195,6 @@ public class HomeFragment extends Fragment {
     }
 
     private void initializeSearch() {
-        binding.searchResults.setVisibility(View.VISIBLE);
-        binding.hideSearchResults.setVisibility(View.VISIBLE);
-
         List<String> searchQuery = Arrays.asList(binding.searchInputText.getText().toString().split(" "));
         System.out.println("Searching: " + searchQuery);
 
@@ -216,12 +214,20 @@ public class HomeFragment extends Fragment {
     }
 
     private void visualizeSearchResults(List<SearchResult> results) {
-        List<String> resultStrings = new ArrayList<>();
-        results.forEach(res -> resultStrings.add(res.getStringResult()));
-        System.out.println(Arrays.toString(resultStrings.toArray()));
+        if (results.size() == 0) {
+            Toast toast = Toast.makeText(getContext(), "No relevant result found", Toast.LENGTH_SHORT);
+            toast.show();
+        } else {
+            List<String> resultStrings = new ArrayList<>();
+            results.forEach(res -> resultStrings.add(res.getStringResult()));
+            System.out.println(Arrays.toString(resultStrings.toArray()));
 
-        ArrayAdapter<String> resultsAdapter = new ArrayAdapter<>(this.getContext(), android.R.layout.simple_list_item_1, resultStrings);
-        binding.searchResults.setAdapter(resultsAdapter);
+            ArrayAdapter<String> resultsAdapter = new ArrayAdapter<>(this.getContext(), android.R.layout.simple_list_item_1, resultStrings);
+            binding.searchResults.setAdapter(resultsAdapter);
+
+            binding.searchResults.setVisibility(View.VISIBLE);
+            binding.hideSearchResults.setVisibility(View.VISIBLE);
+        }
     }
 
     private void generateAllHomeCategoryCards(Context context) {

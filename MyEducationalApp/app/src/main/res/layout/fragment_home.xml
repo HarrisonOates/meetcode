@@ -517,7 +517,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="15dp"
-            android:background="#FFEB3B"
+            android:background="@drawable/nav_menu"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/direct_message_text_container"
             tools:visibility="invisible">
@@ -526,20 +526,34 @@
                 android:id="@+id/question_search"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/ibm_plex_sans_bold"
                 android:text="@string/question"
+                android:textColor="#000000"
                 tools:visibility="visible" />
+
+            <RadioButton
+                android:id="@+id/post_search"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/ibm_plex_sans_bold"
+                android:text="@string/post"
+                android:textColor="#000000" />
 
             <RadioButton
                 android:id="@+id/topic_search"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/topic" />
+                android:fontFamily="@font/ibm_plex_sans_bold"
+                android:text="@string/topic"
+                android:textColor="#000000" />
 
             <RadioButton
                 android:id="@+id/user_search"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/user" />
+                android:fontFamily="@font/ibm_plex_sans_bold"
+                android:text="@string/user"
+                android:textColor="#000000" />
         </RadioGroup>
 
         <ListView
@@ -549,21 +563,24 @@
             android:layout_marginStart="1dp"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="1dp"
-            android:background="#FFEB3B"
+            android:background="@drawable/nav_menu"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/direct_message_text_container"
-            tools:visibility="invisible" >
-        </ListView>
+            tools:visibility="invisible"></ListView>
 
         <Button
             android:id="@+id/hide_search_results"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
+            android:background="@drawable/home_hero_container"
+            android:fontFamily="@font/ibm_plex_sans_bold"
             android:text="Hide"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/home_hero_container"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:visibility="invisible" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

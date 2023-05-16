@@ -35,4 +35,5 @@
     <string name="question">Question</string>
     <string name="topic">Topic</string>
     <string name="user">User</string>
+    <string name="post">Post</string>
 </resources>
