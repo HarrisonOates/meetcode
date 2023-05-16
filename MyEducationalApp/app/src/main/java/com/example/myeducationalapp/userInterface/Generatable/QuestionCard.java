@@ -37,7 +37,7 @@ public class QuestionCard {
         if (isQuestionMultiChoice()) {
             multiChoiceOptions = getQuestionMultiChoiceOptions();
         }
-        questionMessageThread = new QuestionMessageThread(question.getID());
+        //questionMessageThread = new QuestionMessageThread(question.getID());
     }
 
     public String getQuestionID() {

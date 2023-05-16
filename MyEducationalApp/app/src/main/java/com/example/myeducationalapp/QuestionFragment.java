@@ -86,11 +86,13 @@ public class QuestionFragment extends Fragment {
 
 
         UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
-        userInterfaceManager.getUiState().getValue().enterNewFragment(userInterfaceManager.getCurrentlyDisplayedQuestion().getValue().getHeading());
 
         // Testing
         Question testQuestion = QuestionSet.getInstance().getQuestionOfTheDay();
         userInterfaceManager.getCurrentlyDisplayedQuestion().getValue().setQuestion(testQuestion);
+
+        // Setting title bar to name of question
+        userInterfaceManager.getUiState().getValue().enterNewFragment(userInterfaceManager.getCurrentlyDisplayedQuestion().getValue().getHeading());
 
         initializeLayoutOnEnter();
     }
