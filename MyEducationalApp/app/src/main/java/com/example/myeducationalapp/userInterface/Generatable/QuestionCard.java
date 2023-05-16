@@ -49,7 +49,7 @@ public class QuestionCard {
 
     public Spanned getCodeBlock() {
         // need to re-surround code block text in backticks
-        return Html.fromHtml(DetectCodeBlock.parseCodeBlocks("```" + question.getContent().split("```")[1] + "```")) ;
+        return Html.fromHtml(DetectCodeBlock.parseCodeBlocks("```" + question.getContent().split("```")[1] + "```"));
     }
 
     public String getCategory() {
