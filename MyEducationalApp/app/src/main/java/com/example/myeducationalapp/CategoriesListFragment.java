@@ -132,7 +132,7 @@ public class CategoriesListFragment extends Fragment {
         constraintLayout.setBackground(ContextCompat.getDrawable(context, R.drawable.home_category_carousel_container));
         constraintLayout.setId(View.generateViewId());
 
-        categoryImage.setImageResource(category.categoryToIconDrawableID());
+        //categoryImage.setImageResource(category.getCategoryImageDrawableID());
         categoryImage.setId(View.generateViewId());
 
         heading.setSingleLine();
@@ -178,7 +178,7 @@ public class CategoriesListFragment extends Fragment {
 
         // Adding constraint to the various constraint layouts
         categoryImageConstraintSet.clone(constraintLayout);
-        categoryImageConstraintSet.connect(categoryImage.getId(), ConstraintSet.END, );
+        //categoryImageConstraintSet.connect(categoryImage.getId(), ConstraintSet.END, );
 
 
 
