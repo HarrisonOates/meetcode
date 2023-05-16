@@ -582,13 +582,14 @@
             android:id="@+id/hide_search_results"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
             android:layout_marginEnd="16dp"
             android:background="@drawable/home_hero_container"
             android:fontFamily="@font/ibm_plex_sans_bold"
             android:text="Hide"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/home_hero_container"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/direct_message_text_container"
             tools:visibility="invisible" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
