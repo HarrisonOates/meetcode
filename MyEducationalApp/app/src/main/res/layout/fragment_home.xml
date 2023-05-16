@@ -523,13 +523,21 @@
             tools:visibility="invisible">
 
             <RadioButton
+                android:id="@+id/all_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/ibm_plex_sans_bold"
+                android:text="@string/all"
+                android:textColor="#000000"
+                tools:visibility="visible" />
+
+            <RadioButton
                 android:id="@+id/question_search"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/ibm_plex_sans_bold"
                 android:text="@string/question"
-                android:textColor="#000000"
-                tools:visibility="visible" />
+                android:textColor="#000000" />
 
             <RadioButton
                 android:id="@+id/post_search"

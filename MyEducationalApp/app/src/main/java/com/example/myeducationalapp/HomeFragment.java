@@ -1,5 +1,6 @@
 package com.example.myeducationalapp;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.BlendMode;
 import android.graphics.BlendModeColorFilter;
@@ -22,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myeducationalapp.Firebase.Firebase;
+import com.example.myeducationalapp.Search.Search;
 import com.example.myeducationalapp.userInterface.Generatable.GeneratedUserInterfaceViewModel;
 import com.example.myeducationalapp.userInterface.Generatable.HomeCategoryCard;
 import com.example.myeducationalapp.userInterface.Generatable.Iterator;
@@ -35,6 +37,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -148,7 +152,7 @@ public class HomeFragment extends Fragment {
         }
 
         // Question is set as the default type of search
-        binding.questionSearch.setChecked(true);
+        binding.allSearch.setChecked(true);
 
         // Search filter and results should only be visible when they are explicitly used
         binding.searchResults.setVisibility(View.INVISIBLE);
@@ -194,23 +198,34 @@ public class HomeFragment extends Fragment {
         });
     }
 
+
     private void initializeSearch() {
         List<String> searchQuery = Arrays.asList(binding.searchInputText.getText().toString().split(" "));
         System.out.println("Searching: " + searchQuery);
 
-        if (binding.questionSearch.isChecked()) {
-            QuestionResults search = new QuestionResults();
-            List<SearchResult> results = search.looseResults(searchQuery);
-            visualizeSearchResults(results);
-        } else if (binding.topicSearch.isChecked()) {
-            TopicResults search = new TopicResults();
-            List<SearchResult> results = search.looseResults(searchQuery);
-            visualizeSearchResults(results);
-        } else if (binding.userSearch.isChecked()) {
-            UserResults search = new UserResults();
-            List<SearchResult> results = search.looseResults(searchQuery);
-            visualizeSearchResults(results);
-        }
+        new Thread(() -> {
+            List<SearchResult> searchResults;
+
+            if (binding.questionSearch.isChecked()) {
+                QuestionResults search = new QuestionResults();
+                searchResults = search.looseResults(searchQuery);
+
+            } else if (binding.topicSearch.isChecked()) {
+                TopicResults search = new TopicResults();
+                searchResults = search.looseResults(searchQuery);
+
+            } else if (binding.userSearch.isChecked()) {
+                UserResults search = new UserResults();
+                searchResults = search.looseResults(searchQuery);
+
+            } else {
+                Search search = new Search();
+                searchResults = search.search(binding.searchInputText.getText().toString());
+            }
+
+            this.getActivity().runOnUiThread(() -> visualizeSearchResults(searchResults));
+
+        }).start();
     }
 
     private void visualizeSearchResults(List<SearchResult> results) {
