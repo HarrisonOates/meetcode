@@ -140,7 +140,10 @@ public class CategoriesListFragment extends Fragment {
         ImageView categoryImage = (ImageView) homeCategoryCard.getChildAt(0);
         TextView headingText = (TextView) homeCategoryCard.getChildAt(1);
         TextView subheadingText = (TextView) homeCategoryCard.getChildAt(2);
-        TextView starHeadingText = (TextView) ((ConstraintLayout) homeCategoryCard.getChildAt(3)).getChildAt(0);
+        ConstraintLayout starWrapper = (ConstraintLayout) homeCategoryCard.getChildAt(3);
+        TextView starHeadingText = (TextView) (starWrapper).getChildAt(0);
+
+        starWrapper.getBackground().setColorFilter(new BlendModeColorFilter(categoryListCard.getSecondaryCardColor(), BlendMode.SRC_ATOP));
 
         // Setting UI elements with relevant data
         // TODO uncomment this
