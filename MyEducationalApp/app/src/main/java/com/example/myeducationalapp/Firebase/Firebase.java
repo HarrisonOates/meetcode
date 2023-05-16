@@ -187,22 +187,6 @@ public class Firebase {
     }
 
     /**
-     * Given a user profile, update it on the Firebase backend.
-     *
-     * @param person The user profile to update on the backend.
-     * @return An asynchronous result that can be used to determine when the request has been
-     * completed.
-     * @throws AccessDeniedException Thrown if the user that is being updated is not currently
-     * logged in to this device.
-     */
-    public FirebaseResult writeUserProfile(Person person) throws AccessDeniedException {
-        if (!UserLogin.getInstance().isUserLoggedIn(person.getUsername())) {
-            throw new AccessDeniedException("cannot write to another user's profile");
-        }
-        return FirebaseRequest.write(database, Arrays.asList("user", person.getUsername()), person.toString());
-    }
-
-    /**
      * Given a direct message conversation between two users, update it on the Firebase backend.
      *
      * @param username1 One of the two people. The order doesn't matter.
