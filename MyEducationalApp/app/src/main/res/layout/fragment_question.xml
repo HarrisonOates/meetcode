@@ -177,13 +177,56 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <!-- Multi choice question block -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/question_multi_constraint_layout"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|top"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/home_category_carousel_container">
+
+            <TextView
+                android:id="@+id/question_multi_question_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/ibm_plex_sans_bold"
+                android:text="Your First Attempt"
+                android:textColor="@color/white"
+                android:textSize="22sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/categories_list_secondary_star_container"
+                android:clipToPadding="false"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/question_multi_question_text"
+                app:layout_constraintVertical_bias="0.0"
+                tools:visibility="visible">
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <!-- Text entry question block -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/question_answer_entry_constraint_layout"
             android:layout_width="350dp"
             android:layout_height="wrap_content"
             android:background="@drawable/home_category_carousel_container"
             android:layout_gravity="center|top"
-            android:layout_marginTop="30dp">
+            android:layout_marginTop="25dp">
 
             <TextView
                 android:id="@+id/question_answer_entry_1st_question_text"
@@ -204,7 +247,7 @@
                 android:layout_height="63dp"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/question_answer_container"
+                android:background="@drawable/question_answer_1_container"
                 android:clipToPadding="false"
                 android:elevation="10dp"
                 android:visibility="visible"
@@ -299,7 +342,7 @@
                     android:layout_width="310dp"
                     android:layout_height="63dp"
                     android:layout_alignParentTop="true"
-                    android:background="@drawable/question_answer_container"
+                    android:background="@drawable/question_answer_1_container"
                     android:clipToPadding="false"
                     android:elevation="10dp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -391,7 +434,7 @@
                     android:layout_height="63dp"
                     android:layout_alignParentTop="true"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/question_answer_container"
+                    android:background="@drawable/question_answer_2_container"
                     android:elevation="10dp"
                     android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"

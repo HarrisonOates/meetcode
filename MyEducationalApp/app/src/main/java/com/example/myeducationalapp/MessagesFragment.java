@@ -164,7 +164,7 @@ public class MessagesFragment extends Fragment {
                     }
 
                     binding.messagesSendNewMessageInputText.getText().clear();
-                    // Error state: thickened borders around text entry box
+                    // Removing error state
                     GradientDrawable incorrectTextBox = (GradientDrawable) binding.messagesTextContainer.getBackground();
                     incorrectTextBox.setStroke(0, Color.parseColor("#FFFF102D"));
 

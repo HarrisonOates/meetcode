@@ -189,6 +189,21 @@ public class UserLocalData {
         }
     }
 
+    public int getNumberOfAnsweredQuestionsInCategory(QuestionSet.Category category) {
+        List<String> questionsInCategory = QuestionSet.getInstance().getQuestionIDsInCategory(category);
+
+        int numberOfAnsweredQuestionsInCategory = 0;
+
+        for (String questionIDInCategory : questionsInCategory) {
+            if (getInstance().hasQuestionBeenAnsweredCorrectly(questionIDInCategory)) {
+                numberOfAnsweredQuestionsInCategory += 1;
+            }
+        }
+
+        return numberOfAnsweredQuestionsInCategory;
+    }
+
+
     int getNumberOfFailedAttempts(String questionID) {
         return getIncorrectAnswers(questionID).size();
     }

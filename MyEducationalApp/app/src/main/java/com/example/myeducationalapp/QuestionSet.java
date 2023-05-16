@@ -142,6 +142,10 @@ public class QuestionSet {
         return usedQuestionSets.keySet().stream().filter((x) -> usedQuestionSets.get(x).getCategory() == category).collect(Collectors.toList());
     }
 
+    public int getNumberOfQuestionsInCategory(Category category) {
+        return getQuestionIDsInCategory(category).size();
+    }
+
     public Set<String> getQuestionIDs() {
         return usedQuestionSets.keySet();
     }

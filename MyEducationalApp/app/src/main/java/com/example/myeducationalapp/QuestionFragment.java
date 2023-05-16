@@ -1,6 +1,7 @@
 package com.example.myeducationalapp;
 
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 
@@ -77,8 +78,6 @@ public class QuestionFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentQuestionBinding.inflate(inflater, container, false);
 
-        UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(this).get(UserInterfaceManagerViewModel.class);
-
         return binding.getRoot();
     }
 
@@ -89,6 +88,7 @@ public class QuestionFragment extends Fragment {
         UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
         userInterfaceManager.getUiState().getValue().enterNewFragment(toolbarTitle);
 
+        // Testing
         Question testQuestion = QuestionSet.getInstance().getQuestionOfTheDay();
         userInterfaceManager.getCurrentlyDisplayedQuestion().getValue().setQuestion(testQuestion);
 
@@ -130,45 +130,119 @@ public class QuestionFragment extends Fragment {
             binding.questionAnswerEntryConstraintLayout.setVisibility(View.VISIBLE);
 
 
-            int numberOfQuestionAttempts = 1; //UserLocalData.getInstance().getNumberOfFailedAttempts(currentQuestion.getQuestionID());
-
-
+            int numberOfQuestionAttempts = UserLocalData.getInstance().getNumberOfFailedAttempts(currentQuestion.getQuestionID());
+            boolean hasQuestionBeenAnsweredCorrectly = UserLocalData.getInstance().hasQuestionBeenAnsweredCorrectly(currentQuestion.getQuestionID());
 
             // Checking to see if user has answered question before
             if (numberOfQuestionAttempts != 0) {
                 // If we've answered the question once, then we also need to check that we haven't
                 // answered it correctly
-                if (numberOfQuestionAttempts == 1 && !UserLocalData.getInstance().hasQuestionBeenAnsweredCorrectly(currentQuestion.getQuestionID())) {
-                    // making "fake" ui elements disappear
-                    binding.questionAnswerEntryBoxConstraintLayout1stFake.setVisibility(View.GONE);
-                    binding.questionAnswerSubmitOuterButtonConstraintLayout.setVisibility(View.GONE);
+                if (numberOfQuestionAttempts == 1) {
+                    // Checking if the user has answered this question correctly
+                    if (hasQuestionBeenAnsweredCorrectly) {
 
-                    // making relevent ui elements appear
-                    binding.questionAnswerEntry2ndQuestionText.setVisibility(View.VISIBLE);
-                    binding.questionAnswerEntryBoxConstraintLayout2nd.setVisibility(View.VISIBLE);
-                    binding.questionAnswerSubmitInnerButtonConstraintLayout.setVisibility(View.VISIBLE);
-                    binding.questionAnswerEntryCarpetContraintLayout.setVisibility(View.VISIBLE);
-                    binding.questionAnswerEntryIncorrectIcon1st.setVisibility(View.VISIBLE);
+                        // making "fake" ui elements disappear
+                        binding.questionAnswerEntryBoxConstraintLayout1stFake.setVisibility(View.GONE);
+                        binding.questionAnswerSubmitOuterButtonConstraintLayout.setVisibility(View.GONE);
 
-                    // updating first textbox
+                        binding.questionAnswerEntryCarpetContraintLayout.setVisibility(View.VISIBLE);
+                        binding.questionAnswerResultCorrectText.setVisibility(View.VISIBLE);
 
-                    binding.questionAnswerEntryBoxConstraintLayout1st.setEnabled(false);
-                    GradientDrawable incorrectTextBox = (GradientDrawable) binding.questionAnswerEntryBoxConstraintLayout1st.getBackground();
-                    incorrectTextBox.setStroke(((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2, getResources().getDisplayMetrics())),
-                            Color.parseColor("#FFFF102D"));
+                        binding.questionAnswerEntryCorrectIcon1st.setVisibility(View.VISIBLE);
+                        binding.questionAnswerEntryText1st.setEnabled(false);
+                        //binding.questionAnswerEntryText1st.setText(UserLocalData.getInstance().getYourAnswers(currentQuestion.getQuestionID()).get(0));
+                        binding.questionAnswerEntryText1st.setTextColor(Color.parseColor("#FF00D408"));
+                        binding.questionAnswerEntryText1st.setHint("");
+                        GradientDrawable incorrectTextBox = (GradientDrawable) binding.questionAnswerEntryBoxConstraintLayout1st.getBackground();
+                        incorrectTextBox.setStroke(((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2, getResources().getDisplayMetrics())),
+                                Color.parseColor("#FF00D408"));
 
 
+                    } else {
 
+                        // updating first textbox
+                        // making it red, strikethrough, and red border
+                        setErrorStateFirstEntryBox();
+
+                        // Setting button up to process 2nd attempt
+                        binding.questionAnswerSubmitInnerButtonConstraintLayout.setOnClickListener(view -> {
+
+                        });
+                    }
                 } else if (numberOfQuestionAttempts == 2) {
 
+                    // Hiding submit button
+                    binding.questionAnswerSubmitInnerButtonConstraintLayout.setVisibility(View.GONE);
+
+                    // updating first and second textboxes
+                    setErrorStateFirstEntryBox();
+
+                    if (hasQuestionBeenAnsweredCorrectly) {
+                        binding.questionAnswerSubmitInnerButtonConstraintLayout.setVisibility(View.GONE);
+
+                        binding.questionAnswerResultCorrectText.setVisibility(View.VISIBLE);
+
+                        // making second entry box green, green border with correct icon
+                        binding.questionAnswerEntryCorrectIcon2nd.setVisibility(View.VISIBLE);
+                        binding.questionAnswerEntryText2nd.setEnabled(false);
+                        //binding.questionAnswerEntryText1st.setText(UserLocalData.getInstance().getYourAnswers(currentQuestion.getQuestionID()).get(1));
+                        binding.questionAnswerEntryText2nd.setTextColor(Color.parseColor("#FF00D408"));
+                        binding.questionAnswerEntryText2nd.setHint("");
+                        GradientDrawable incorrectTextBox = (GradientDrawable) binding.questionAnswerEntryBoxConstraintLayout2nd.getBackground();
+                        incorrectTextBox.setStroke(((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2, getResources().getDisplayMetrics())),
+                                Color.parseColor("#FF00D408"));
+                    } else {
+                        binding.questionAnswerSubmitInnerButtonConstraintLayout.setVisibility(View.GONE);
+
+                        binding.questionAnswerResultIncorrectText.setVisibility(View.VISIBLE);
+
+                        // making first entry box red, strikethrough, and red border
+                        binding.questionAnswerEntryIncorrectIcon2nd.setVisibility(View.VISIBLE);
+                        binding.questionAnswerEntryText2nd.setEnabled(false);
+                        //binding.questionAnswerEntryText2nd.setText(UserLocalData.getInstance().getYourAnswers(currentQuestion.getQuestionID()).get(1));
+                        binding.questionAnswerEntryText2nd.setTextColor(Color.parseColor("#FFFF102D"));
+                        binding.questionAnswerEntryText2nd.setHint("");
+                        binding.questionAnswerEntryText2nd.setPaintFlags(binding.questionAnswerEntryText2nd.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                        GradientDrawable incorrectTextBox = (GradientDrawable) binding.questionAnswerEntryBoxConstraintLayout2nd.getBackground();
+                        incorrectTextBox.setStroke(((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2, getResources().getDisplayMetrics())),
+                                Color.parseColor("#FFFF102D"));
+                    }
                 }
             } else {
                 // if numberOfQuestionAttempts == 0
+
+                // For when user submits their first answer
+                binding.questionAnswerSubmitOuterButtonConstraintLayout.setOnClickListener(view1 -> {
+
+                });
             }
 
 
         }
 
 
+    }
+
+    private void setErrorStateFirstEntryBox() {
+        // making "fake" ui elements disappear
+        binding.questionAnswerEntryBoxConstraintLayout1stFake.setVisibility(View.GONE);
+        binding.questionAnswerSubmitOuterButtonConstraintLayout.setVisibility(View.GONE);
+
+        // making relevant ui elements appear
+        binding.questionAnswerEntry2ndQuestionText.setVisibility(View.VISIBLE);
+        binding.questionAnswerEntryBoxConstraintLayout2nd.setVisibility(View.VISIBLE);
+        binding.questionAnswerSubmitInnerButtonConstraintLayout.setVisibility(View.VISIBLE);
+        binding.questionAnswerEntryCarpetContraintLayout.setVisibility(View.VISIBLE);
+        binding.questionAnswerEntryIncorrectIcon1st.setVisibility(View.VISIBLE);
+
+        // making first entry box red, strikethrough, and red border
+        binding.questionAnswerEntryText1st.setEnabled(false);
+        //binding.questionAnswerEntryText1st.setText(UserLocalData.getInstance().getYourAnswers(currentQuestion.getQuestionID()).get(0));
+        binding.questionAnswerEntryText1st.setTextColor(Color.parseColor("#FFFF102D"));
+        binding.questionAnswerEntryText1st.setHint("");
+        binding.questionAnswerEntryText1st.setPaintFlags(binding.questionAnswerEntryText1st.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        GradientDrawable incorrectTextBox = (GradientDrawable) binding.questionAnswerEntryBoxConstraintLayout1st.getBackground();
+        incorrectTextBox.setStroke(((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2, getResources().getDisplayMetrics())),
+                Color.parseColor("#FFFF102D"));
     }
 }

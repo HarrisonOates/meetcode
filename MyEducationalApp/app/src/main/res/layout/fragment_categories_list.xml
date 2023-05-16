@@ -26,10 +26,7 @@
             android:layout_height="150dp"
             android:layout_gravity="center|top"
             android:layout_marginTop="20dp"
-            android:background="@drawable/home_category_carousel_container"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:background="@drawable/home_category_carousel_container">
 
             <!-- Image for category -->
             <ImageView
@@ -51,26 +48,30 @@
             <!-- Heading text -->
             <TextView
                 android:id="@+id/categories_list_card_heading_text"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="23dp"
+                android:layout_marginEnd="10dp"
                 android:fontFamily="@font/ibm_plex_sans_semibold"
                 android:text="Basic Algorithms"
                 android:textColor="@color/white"
                 android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/categories_list_card_guide"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <!-- Subheading text -->
             <TextView
                 android:id="@+id/categories_list_card_subheading_text"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
+                android:layout_marginEnd="10dp"
                 android:fontFamily="@font/ibm_plex_sans"
                 android:text="3 Questions"
                 android:textColor="@color/white"
                 android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/categories_list_card_heading_text"
                 app:layout_constraintTop_toBottomOf="@+id/categories_list_card_heading_text" />
 

@@ -63,8 +63,10 @@ public class LoginActivity extends AppCompatActivity {
         boolean isAuthenticated = false;
 
         // Checking for blank inputs
-        if (!binding.usernameInputText.getText().toString().isBlank() && !binding.usernameInputText.getText().toString().isEmpty()
-                && !binding.passwordInputText.getText().toString().isBlank() && !binding.passwordInputText.getText().toString().isEmpty()) {
+        if (!binding.usernameInputText.getText().toString().isBlank()
+                && !binding.usernameInputText.getText().toString().isEmpty()
+                && !binding.passwordInputText.getText().toString().isBlank()
+                && !binding.passwordInputText.getText().toString().isEmpty()) {
             // Passing values of the username and password inputs into the authenticator instance
             isAuthenticated = authenticator.authoriseUser(
                     String.valueOf(binding.usernameInputText.getText())
