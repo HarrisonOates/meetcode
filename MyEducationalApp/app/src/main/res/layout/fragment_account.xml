@@ -248,7 +248,7 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="15dp"
                     android:fontFamily="@font/ibm_plex_sans_bold"
-                    android:text="LANGUAGE TEST"
+                    android:text="@string/language_test"
                     android:textSize="24sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
