@@ -1,4 +1,4 @@
-package com.example.myeducationalapp.userInterface.Generation;
+package com.example.myeducationalapp.userInterface.Generatable;
 
 import static com.example.myeducationalapp.QuestionSet.MAXIMUM_NUMBER_OF_MULTI_CHOICE_OPTIONS;
 
@@ -7,7 +7,6 @@ import android.text.Spanned;
 
 import com.example.myeducationalapp.Question;
 import com.example.myeducationalapp.QuestionMessageThread;
-import com.example.myeducationalapp.QuestionSet;
 import com.example.myeducationalapp.SyntaxHighlighting.DetectCodeBlock;
 
 import java.util.ArrayList;

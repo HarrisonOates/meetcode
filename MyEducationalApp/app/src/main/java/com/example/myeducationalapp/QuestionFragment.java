@@ -10,16 +10,12 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.util.Log;
 import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.text.Html;
-import android.widget.LinearLayout;
 
-import com.example.myeducationalapp.SyntaxHighlighting.DetectCodeBlock;
 import com.example.myeducationalapp.databinding.FragmentQuestionBinding;
-import com.example.myeducationalapp.userInterface.Generation.QuestionCard;
+import com.example.myeducationalapp.userInterface.Generatable.QuestionCard;
 import com.example.myeducationalapp.userInterface.UserInterfaceManagerViewModel;
 
 import java.util.List;

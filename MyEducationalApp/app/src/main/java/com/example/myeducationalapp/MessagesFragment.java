@@ -1,6 +1,5 @@
 package com.example.myeducationalapp;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -29,7 +28,7 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.myeducationalapp.Firebase.Firebase;
 import com.example.myeducationalapp.databinding.FragmentMessagesBinding;
-import com.example.myeducationalapp.userInterface.Generation.MessageListCard;
+import com.example.myeducationalapp.userInterface.Generatable.MessageListCard;
 import com.example.myeducationalapp.userInterface.UserInterfaceManagerViewModel;
 import com.google.android.material.divider.MaterialDivider;
 

@@ -430,78 +430,78 @@
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
 
-                    <!-- Categories carousel element container -->
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/home_category_carousel_1"
-                        android:layout_width="190dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="20dp"
-                        android:background="@drawable/home_category_carousel_container"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+<!--                    &lt;!&ndash; Categories carousel element container &ndash;&gt;-->
+<!--                    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                        android:id="@+id/home_category_carousel_1"-->
+<!--                        android:layout_width="190dp"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:layout_marginRight="20dp"-->
+<!--                        android:background="@drawable/home_category_carousel_container"-->
+<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                        app:layout_constraintEnd_toEndOf="parent"-->
+<!--                        app:layout_constraintTop_toTopOf="parent">-->
 
-                        <!-- Wrapper for carousel element image -->
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/home_category_carousel_1_image"
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:elevation="5dp"
-                            app:layout_constraintBottom_toBottomOf="@+id/home_category_carousel_guide"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent">
+<!--                        &lt;!&ndash; Wrapper for carousel element image &ndash;&gt;-->
+<!--                        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                            android:id="@+id/home_category_carousel_1_image"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="0dp"-->
+<!--                            android:elevation="5dp"-->
+<!--                            app:layout_constraintBottom_toBottomOf="@+id/home_category_carousel_guide"-->
+<!--                            app:layout_constraintEnd_toEndOf="parent"-->
+<!--                            app:layout_constraintStart_toStartOf="parent"-->
+<!--                            app:layout_constraintTop_toTopOf="parent">-->
 
-                            <!-- Image for carousel element -->
-                            <ImageView
-                                android:id="@+id/home_category_carousel_image"
-                                android:layout_width="84dp"
-                                android:layout_height="100dp"
-                                android:contentDescription="TODO"
-                                android:src="@drawable/shape_placeholder_square"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintVertical_bias="0.65" />
+<!--                            &lt;!&ndash; Image for carousel element &ndash;&gt;-->
+<!--                            <ImageView-->
+<!--                                android:id="@+id/home_category_carousel_image"-->
+<!--                                android:layout_width="84dp"-->
+<!--                                android:layout_height="100dp"-->
+<!--                                android:contentDescription="TODO"-->
+<!--                                android:src="@drawable/shape_placeholder_square"-->
+<!--                                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                                app:layout_constraintStart_toStartOf="parent"-->
+<!--                                app:layout_constraintTop_toTopOf="parent"-->
+<!--                                app:layout_constraintVertical_bias="0.65" />-->
 
 
-                        </androidx.constraintlayout.widget.ConstraintLayout>
+<!--                        </androidx.constraintlayout.widget.ConstraintLayout>-->
 
-                        <!-- Carousel heading text -->
-                        <TextView
-                            android:id="@+id/home_category_carousel_heading_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="15dp"
-                            android:fontFamily="@font/ibm_plex_sans_semibold"
-                            android:text="Basic Algorithms"
-                            android:textColor="@color/white"
-                            android:textSize="20sp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/home_category_carousel_1_image" />
+<!--                        &lt;!&ndash; Carousel heading text &ndash;&gt;-->
+<!--                        <TextView-->
+<!--                            android:id="@+id/home_category_carousel_heading_text"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginStart="15dp"-->
+<!--                            android:fontFamily="@font/ibm_plex_sans_semibold"-->
+<!--                            android:text="Basic Algorithms"-->
+<!--                            android:textColor="@color/white"-->
+<!--                            android:textSize="20sp"-->
+<!--                            app:layout_constraintStart_toStartOf="parent"-->
+<!--                            app:layout_constraintTop_toBottomOf="@+id/home_category_carousel_1_image" />-->
 
-                        <!-- Carousel subheading text -->
-                        <TextView
-                            android:id="@+id/home_category_carousel_subheading_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="2dp"
-                            android:fontFamily="@font/ibm_plex_sans"
-                            android:text="3 Questions"
-                            android:textColor="@color/white"
-                            android:textSize="18sp"
-                            app:layout_constraintStart_toStartOf="@+id/home_category_carousel_heading_text"
-                            app:layout_constraintTop_toBottomOf="@+id/home_category_carousel_heading_text" />
+<!--                        &lt;!&ndash; Carousel subheading text &ndash;&gt;-->
+<!--                        <TextView-->
+<!--                            android:id="@+id/home_category_carousel_subheading_text"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginTop="2dp"-->
+<!--                            android:fontFamily="@font/ibm_plex_sans"-->
+<!--                            android:text="3 Questions"-->
+<!--                            android:textColor="@color/white"-->
+<!--                            android:textSize="18sp"-->
+<!--                            app:layout_constraintStart_toStartOf="@+id/home_category_carousel_heading_text"-->
+<!--                            app:layout_constraintTop_toBottomOf="@+id/home_category_carousel_heading_text" />-->
 
-                        <androidx.constraintlayout.widget.Guideline
-                            android:id="@+id/home_category_carousel_guide"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            app:layout_constraintGuide_percent="0.64" />
+<!--                        <androidx.constraintlayout.widget.Guideline-->
+<!--                            android:id="@+id/home_category_carousel_guide"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:orientation="horizontal"-->
+<!--                            app:layout_constraintGuide_percent="0.64" />-->
 
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+<!--                    </androidx.constraintlayout.widget.ConstraintLayout>-->
 
 
                 </LinearLayout>

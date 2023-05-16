@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.myeducationalapp.userInterface.Generation.MessageListCard;
-import com.example.myeducationalapp.userInterface.Generation.QuestionCard;
+import com.example.myeducationalapp.userInterface.Generatable.MessageListCard;
+import com.example.myeducationalapp.userInterface.Generatable.QuestionCard;
 
 import java.util.LinkedHashMap;
 

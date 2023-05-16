@@ -1,9 +1,6 @@
-package com.example.myeducationalapp.userInterface.Generation;
-
-import android.graphics.drawable.Drawable;
+package com.example.myeducationalapp.userInterface.Generatable;
 
 import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.myeducationalapp.DirectMessageThread;
 
