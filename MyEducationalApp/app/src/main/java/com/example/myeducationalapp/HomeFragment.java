@@ -263,15 +263,7 @@ public class HomeFragment extends Fragment {
         ConstraintLayout homeCategoryCard = (ConstraintLayout) LayoutInflater.from(context).
                 inflate(R.layout.home_category_card, null);
 
-        // These indices correspond to what's in the inflated XML file
-        ImageView categoryImage = (ImageView) ((ConstraintLayout) homeCategoryCard.getChildAt(0)).getChildAt(0);
-        TextView headingText = (TextView) homeCategoryCard.getChildAt(1);
-        TextView subheadingText = (TextView) homeCategoryCard.getChildAt(2);
-
-        headingText.setText(template.getHeading());
-        subheadingText.setText(template.getSubheading());
-        // TODO uncomment this line
-        //categoryImage.setImageResource(template.getCardImage());
+        // Setting background of parent view
         homeCategoryCard.getBackground().setColorFilter(new BlendModeColorFilter(template.getCardColor(), BlendMode.SRC_ATOP));
 
         // Setting layout parameters relative to the parent as this is not set from the inflated file
@@ -282,9 +274,20 @@ public class HomeFragment extends Fragment {
         homeCategoryCardLayoutParams.setMarginEnd(((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20, getResources().getDisplayMetrics())));
         homeCategoryCard.setLayoutParams(homeCategoryCardLayoutParams);
 
+        // These indices correspond to what's in the inflated XML file
+        ImageView categoryImage = (ImageView) ((ConstraintLayout) homeCategoryCard.getChildAt(0)).getChildAt(0);
+        TextView headingText = (TextView) homeCategoryCard.getChildAt(1);
+        TextView subheadingText = (TextView) homeCategoryCard.getChildAt(2);
+
+        headingText.setText(template.getHeading());
+        subheadingText.setText(template.getSubheading());
+        // TODO uncomment this line
+        //categoryImage.setImageResource(template.getCardImage());
+
         // Adding the final parent to the LinearLayout nested within the ScrollView
         binding.homeCategoryCarouselScrollable.addView(homeCategoryCard);
 
+        // Setting on click listener to the entire view
         homeCategoryCard.setOnClickListener(view -> {
             // Updating the view model so Categories fragment will update when it is created
             UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);

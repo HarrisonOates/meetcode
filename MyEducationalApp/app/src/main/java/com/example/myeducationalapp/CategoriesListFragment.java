@@ -1,6 +1,8 @@
 package com.example.myeducationalapp;
 
 import android.content.Context;
+import android.graphics.BlendMode;
+import android.graphics.BlendModeColorFilter;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -14,18 +16,22 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.myeducationalapp.databinding.FragmentCategoriesListBinding;
 import com.example.myeducationalapp.databinding.FragmentQuestionBinding;
+import com.example.myeducationalapp.userInterface.Generatable.CategoryListCard;
 import com.example.myeducationalapp.userInterface.UserInterfaceManagerViewModel;
 
 /**
@@ -98,93 +104,61 @@ public class CategoriesListFragment extends Fragment {
         UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
         userInterfaceManager.getUiState().getValue().enterNewFragment(toolbarTitle);
 
-        //generateCategoryListCard(QuestionSet.Category.TestQuestion, getActivity());
+        generateAllCategoryListCards(getActivity());
 
     }
 
-    private void generateCategoryListCard(QuestionSet.Category category, Context context) {
+    private void generateAllCategoryListCards(Context context) {
+        for (QuestionSet.Category category : QuestionSet.Category.values()) {
+            if (category != QuestionSet.Category.TestQuestion) {
+                generateCategoryListCard(new CategoryListCard(category), context);
+            }
+        }
+    }
 
-        // Setting up UI elements
-        ConstraintLayout constraintLayout = new ConstraintLayout(context);
-        ImageView categoryImage = new ImageView(context);
-        TextView heading = new TextView(context);
-        TextView subheading = new TextView(context);
-        ConstraintLayout starsContainer = new ConstraintLayout(context);
-        TextView headingStarsContainer = new TextView(context);
-        View iconStarsContainer = new View(context);
-        // Constraint layout
-        ConstraintSet categoryImageConstraintSet = new ConstraintSet();
-        ConstraintSet headingConstraintSet = new ConstraintSet();
-        ConstraintSet subheadingConstraintSet = new ConstraintSet();
-        ConstraintSet starsContainerConstraintSet = new ConstraintSet();
-        ConstraintSet headingStarsConConstraintSet = new ConstraintSet();
-        ConstraintSet iconsStarsConConstraintSet = new ConstraintSet();
-        // Guideline
-        Guideline guideline = new Guideline(context);
-        guideline.setId(Guideline.generateViewId());
-        ConstraintLayout.LayoutParams guidelineLayoutParams =
-                new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT,
-                        ConstraintLayout.LayoutParams.WRAP_CONTENT);
-        guidelineLayoutParams.orientation = 1;   // 1 is vertical
-        guidelineLayoutParams.guidePercent = 0.39f;
-        guideline.setLayoutParams(guidelineLayoutParams);
+    private void generateCategoryListCard(CategoryListCard categoryListCard, Context context) {
 
-        constraintLayout.setBackground(ContextCompat.getDrawable(context, R.drawable.home_category_carousel_container));
-        constraintLayout.setId(View.generateViewId());
+        // inflating XML into an object we can use
+        ConstraintLayout homeCategoryCard = (ConstraintLayout) LayoutInflater.from(context).
+                inflate(R.layout.category_list_card, null);
 
-        //categoryImage.setImageResource(category.getCategoryImageDrawableID());
-        categoryImage.setId(View.generateViewId());
+        // Setting background of parent view
+        homeCategoryCard.getBackground().setColorFilter(new BlendModeColorFilter(categoryListCard.getCardColor(), BlendMode.SRC_ATOP));
 
-        heading.setSingleLine();
-        heading.setEllipsize(TextUtils.TruncateAt.MARQUEE);
-        heading.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
-        heading.setText(category.toString());
-        Typeface headingTypeface = ResourcesCompat.getFont(context, R.font.ibm_plex_sans_semibold);
-        heading.setTypeface(headingTypeface);
-        heading.setTextColor(Color.parseColor("#FFFFFF"));
-        heading.setId(View.generateViewId());
+        // Setting layout parameters relative to the parent as this is not set from the inflated file
+        LinearLayout.LayoutParams homeCategoryCardLayoutParams = new LinearLayout.LayoutParams(
+                ((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 350, getResources().getDisplayMetrics())),
+                ((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 150, getResources().getDisplayMetrics()))
+        );
+        homeCategoryCardLayoutParams.topMargin = (((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20, getResources().getDisplayMetrics())));
+        homeCategoryCardLayoutParams.gravity = Gravity.CENTER | Gravity.TOP;
+        homeCategoryCard.setLayoutParams(homeCategoryCardLayoutParams);
 
-        subheading.setSingleLine();
-        subheading.setEllipsize(TextUtils.TruncateAt.MARQUEE);
-        subheading.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
-        int numberOfQuestionsInCategory = QuestionSet.getInstance().getNumberOfQuestionsInCategory(category);
-        subheading.setText(numberOfQuestionsInCategory + " Questions");
-        Typeface subheadingTypeface = ResourcesCompat.getFont(context, R.font.ibm_plex_sans);
-        subheading.setTypeface(subheadingTypeface);
-        subheading.setId(View.generateViewId());
+        // The indices for these are determined from the above inflated XML hierarchy
+        ImageView categoryImage = (ImageView) homeCategoryCard.getChildAt(0);
+        TextView headingText = (TextView) homeCategoryCard.getChildAt(1);
+        TextView subheadingText = (TextView) homeCategoryCard.getChildAt(2);
+        TextView starHeadingText = (TextView) ((ConstraintLayout) homeCategoryCard.getChildAt(3)).getChildAt(0);
 
-        starsContainer.setBackground(ContextCompat.getDrawable(context, R.drawable.categories_list_secondary_star_container));
-        starsContainer.setId(View.generateViewId());
+        // Setting UI elements with relevant data
+        // TODO uncomment this
+        //categoryImage.setImageResource(categoryListCard.getCardImage());
+        headingText.setText(categoryListCard.getHeading());
+        subheadingText.setText(categoryListCard.getSubheading());
+        starHeadingText.setText(categoryListCard.getStarProgress());
 
-        headingStarsContainer.setSingleLine();
-        headingStarsContainer.setEllipsize(TextUtils.TruncateAt.MARQUEE);
-        headingStarsContainer.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
-        int numberOfAnsweredQuestionsInCategory = UserLocalData.getInstance().getNumberOfAnsweredQuestionsInCategory(category);
-        headingStarsContainer.setText("Achieved " + numberOfAnsweredQuestionsInCategory + "/" + numberOfQuestionsInCategory);
-        headingStarsContainer.setTypeface(headingTypeface);
-        headingStarsContainer.setTextColor(Color.parseColor("#FFFFFF"));
-        headingStarsContainer.setId(View.generateViewId());
+        // Adding the final parent to the LinearLayout nested within the ScrollView
+        binding.categoriesListCardLinearLayout.addView(homeCategoryCard);
 
-        iconStarsContainer.setBackground(ContextCompat.getDrawable(context, R.drawable.icon_star));
-        iconStarsContainer.setId(View.generateViewId());
+        // Setting on click listener to the entire view
+        homeCategoryCard.setOnClickListener(view -> {
+            // Updating the view model so Categories fragment will update when it is created
+            UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
+            userInterfaceManager.setCurrentlyDisplayedCategory(categoryListCard.getCategory());
+            // Navigating to the Categories fragment
+            NavHostFragment.findNavController(CategoriesListFragment.this).navigate(R.id.action_categoriesListFragment_to_categoryFragment);
 
-        // Adding views in correct structure to parent constraintLayout
-        starsContainer.addView(headingStarsContainer);
-        starsContainer.addView(iconStarsContainer);
-        constraintLayout.addView(guideline);
-        constraintLayout.addView(heading);
-        constraintLayout.addView(subheading);
-        constraintLayout.addView(starsContainer);
-
-        // Adding constraint to the various constraint layouts
-        categoryImageConstraintSet.clone(constraintLayout);
-        //categoryImageConstraintSet.connect(categoryImage.getId(), ConstraintSet.END, );
-
-
-
-        // Assigning to LinearLayout on page
-        binding.categoriesListCardLinearLayout.addView(constraintLayout);
-
+        });
 
     }
 
