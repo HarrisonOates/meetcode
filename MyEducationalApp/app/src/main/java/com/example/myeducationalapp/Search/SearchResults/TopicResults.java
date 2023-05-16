@@ -9,13 +9,9 @@ import java.util.List;
 
 public class TopicResults extends Results{
     String[] topics = new String[]{"Algorithm", "ControlFlow", "DataStructure", "Miscellaneous", "Recursion"};
-    @Override
-    public List<SearchResult> results(List<String> search) {
-        return null;
-    }
 
     @Override
-    public List<SearchResult> looseResults(List<String> search) {
+    public List<SearchResult> results(List<String> search) {
         List<SearchResult> results = new ArrayList<>();
 
         for (var topic : topics) {
@@ -49,7 +45,6 @@ public class TopicResults extends Results{
 
         return results;
     }
-
 
 
     double wordScore(String word, HashMap<Character, Integer> map, double length) {

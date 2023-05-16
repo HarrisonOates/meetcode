@@ -5,5 +5,4 @@ import java.util.List;
 
 public abstract class Results {
     public abstract List<SearchResult> results(List<String> search);
-    public abstract List<SearchResult> looseResults(List<String> search);
 }

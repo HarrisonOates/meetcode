@@ -15,15 +15,6 @@ public class QuestionResults extends Results{
 
     @Override
     public List<SearchResult> results(List<String> search) {
-        //updateQuestions();
-
-        //TODO
-
-        return searchResults;
-    }
-
-    public List<SearchResult> looseResults(List<String> search) {
-        //updateQuestions();
         if (searchResults == null) updateQuestions();
 
         searchResults.forEach(searchResult -> {

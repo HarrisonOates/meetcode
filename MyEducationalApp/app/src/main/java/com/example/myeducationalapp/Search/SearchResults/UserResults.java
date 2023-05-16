@@ -9,15 +9,10 @@ import java.util.HashMap;
 import java.util.List;
 
 public class UserResults extends Results{
-    @Override
-    public List<SearchResult> results(List<String> search) {
-        return null;
-    }
-
     List<String> users;
 
     @Override
-    public List<SearchResult> looseResults(List<String> search) {
+    public List<SearchResult> results(List<String> search) {
         if (users == null) updateUsers();
 
         List<SearchResult> results = new ArrayList<>();
@@ -87,6 +82,5 @@ public class UserResults extends Results{
 
     public void updateUsers() {
         users = Firebase.getInstance().readAllUsernames();
-        //TODO: observer?
     }
 }

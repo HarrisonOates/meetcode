@@ -16,30 +16,25 @@ public class PostResults extends Results{
 
     @Override
     public List<SearchResult> results(List<String> search) {
-        return null;
-    }
-
-    @Override
-    public List<SearchResult> looseResults(List<String> search) {
-    //updatePosts();
         if (searchResults == null) updatePosts();
 
         searchResults.forEach(searchResult -> {
-        int confidence = 0;
-        for (var searchWord : search) {
-            for (var questionWord : searchResult.getWords()) {
-                if (Objects.equals(searchWord, questionWord)) confidence++;
-                else if (questionWord.contains(searchWord)) confidence += 0.5;
+            int confidence = 0;
+            for (var searchWord : search) {
+                for (var questionWord : searchResult.getWords()) {
+                    if (Objects.equals(searchWord, questionWord)) confidence++;
+                    else if (questionWord.contains(searchWord)) confidence += 0.5;
+                }
             }
-        }
 
             var multiplier = topics.get(searchResult.getId().charAt(0));
 
             searchResult.setConfidence(multiplier * confidence);
-    });
+        });
 
         return searchResults;
     }
+
 
 
     //TODO: When is this updated (as with other sections)

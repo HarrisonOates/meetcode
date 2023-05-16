@@ -62,7 +62,7 @@ public class Search {
 
         for (var exp : expressions) {
             if (exp instanceof QueryExp && ((QueryExp) exp).getQueryType() == SearchToken.Query.Topic) {
-                var queryResults = topicResults.looseResults(words);
+                var queryResults = topicResults.results(words);
                 HashMap<Character, Double> topics = new HashMap<>();
 
                 for (var topic : queryResults) {
@@ -93,19 +93,19 @@ public class Search {
 
                 switch (((QueryExp) exp).getQueryType()) {
                     case User: {
-                        var results = userResults.looseResults(expWords);
+                        var results = userResults.results(expWords);
                         searchResults.addAll(results);
                         }
                     case Discussion: {
-                        var results = postResults.looseResults(expWords);
+                        var results = postResults.results(expWords);
                         searchResults.addAll(results);
                     }
                     case Question: {
-                        var results = questionResults.looseResults(expWords);
+                        var results = questionResults.results(expWords);
                         searchResults.addAll(results);
                     }
                     case Topic: {
-                        var results = topicResults.looseResults(expWords);
+                        var results = topicResults.results(expWords);
                         searchResults.addAll(results);
                     }
                 }
@@ -114,10 +114,10 @@ public class Search {
                 //TODO
                 var expWords = exp.decomposition();
 
-                var users = userResults.looseResults(expWords);
-                var posts = postResults.looseResults(expWords);
-                var questions = questionResults.looseResults(expWords);
-                var topics = topicResults.looseResults(expWords);
+                var users = userResults.results(expWords);
+                var posts = postResults.results(expWords);
+                var questions = questionResults.results(expWords);
+                var topics = topicResults.results(expWords);
 
                 searchResults.addAll(users);
                 searchResults.addAll(posts);
