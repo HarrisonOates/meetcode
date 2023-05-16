@@ -1,5 +1,6 @@
 package com.example.myeducationalapp;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -70,6 +71,7 @@ public class CategoryFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_category, container, false);
+
     }
 
     @Override
@@ -77,8 +79,23 @@ public class CategoryFragment extends Fragment {
 
 
         UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
-        userInterfaceManager.getUiState().getValue().enterNewFragment(toolbarTitle);
+        userInterfaceManager.getUiState().getValue().enterNewFragment(
+                userInterfaceManager.getcurrentlyDisplayedCategory().getValue().toString());
 
+
+
+
+    }
+
+    private void generateAllCards(Context context) {
+
+    }
+    
+    private void generateCategoryCard(Context context) {
+
+    }
+    
+    private void generateCategoryQuestionCard(Context context) {
 
     }
 }

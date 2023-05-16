@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.myeducationalapp.Question;
+import com.example.myeducationalapp.QuestionSet;
 import com.example.myeducationalapp.userInterface.Generatable.MessageListCard;
 import com.example.myeducationalapp.userInterface.Generatable.QuestionCard;
 
@@ -18,6 +20,8 @@ public class UserInterfaceManagerViewModel extends ViewModel {
 
     private final MutableLiveData<QuestionCard> currentlyDisplayedQuestion = new MutableLiveData<>(new QuestionCard());
 
+    private final MutableLiveData<QuestionSet.Category> currentlyDisplayedCategory = new MutableLiveData<>();
+
     public LiveData<LinkedHashMap<String, MessageListCard>> getCurrentDirectMessages() {
         return currentDirectMessages;
     }
@@ -28,6 +32,20 @@ public class UserInterfaceManagerViewModel extends ViewModel {
 
     public LiveData<QuestionCard> getCurrentlyDisplayedQuestion() {
         return currentlyDisplayedQuestion;
+    }
+
+    public void setCurrentlyDisplayedQuestion(Question question) {
+        if (question != null) {
+            currentlyDisplayedQuestion.getValue().setQuestion(question);
+        }
+    }
+
+    public LiveData<QuestionSet.Category> getcurrentlyDisplayedCategory() {
+        return currentlyDisplayedCategory;
+    }
+
+    public void setCurrentlyDisplayedCategory(QuestionSet.Category category) {
+        currentlyDisplayedCategory.setValue(category);
     }
 
 }

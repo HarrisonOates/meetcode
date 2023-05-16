@@ -1,5 +1,7 @@
 package com.example.myeducationalapp;
 
+import android.graphics.Color;
+
 import com.example.myeducationalapp.SyntaxHighlighting.DetectCodeBlock;
 
 import java.util.List;
@@ -16,9 +18,69 @@ public class QuestionSet {
     public enum Category {
         Algorithm, ControlFlow, DataStructure, Miscellaneous, Recursion, TestQuestion;
 
+        private int[] primaryCategoryColorList = new int[] {
+                Color.parseColor("#FFF25260"),
+                Color.parseColor("#FFC3D3FF"),
+                Color.parseColor("#FF7549D2"),
+                Color.parseColor("#FF5368A6"),
+                Color.parseColor("#FFFFFFFF"), // TODO
+
+        };
+
+        private int[] secondaryCategoryColorList = new int[] {
+                Color.parseColor("#FFFD99A2"),
+                Color.parseColor("#FF7896E8"),
+                Color.parseColor("#FF9767FE"),
+                Color.parseColor("#FFA2B5EE"),
+                Color.parseColor("#FFFFFFFF"), // TODO
+
+        };
+
+        private int[] tertiaryCategoryColorList = new int[] {
+            // TODO
+        };
+
+        public int getPrimaryCategoryColor() {
+            assert this != TestQuestion;
+
+            return primaryCategoryColorList[this.ordinal()];
+        }
+
+        public int getSecondaryCategoryColor() {
+            assert this != TestQuestion;
+
+            return 0;
+        }
+
+        public int getTertiaryCategoryColor() {
+            assert this != TestQuestion;
+
+            return 0;
+        }
+
+        public int getCategoryImageDrawableID() {
+            assert this != TestQuestion;
+
+            switch (this.ordinal()) {
+                case 1:
+                    //return R.drawable.category_image_algorithm;
+                case 2:
+                    //return R.drawable.category_image_control_flow;
+                case 3:
+                    //return R.drawable.category_image_data_structure;
+                case 4:
+                    //return R.drawable.category_image_miscellaneous;
+                case 5:
+                    //return R.drawable.category_image_recursion;
+            }
+
+            return 0;
+        }
+
+
+
         @Override
         public String toString() {
-
             switch (this.ordinal()) {
                 case 1:
                     return "Control Flow";

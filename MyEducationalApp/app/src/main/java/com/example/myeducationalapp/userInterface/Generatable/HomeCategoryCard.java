@@ -7,7 +7,7 @@ import com.example.myeducationalapp.R;
 
 public class HomeCategoryCard {
 
-    QuestionSet.Category category;
+    private QuestionSet.Category category;
 
     public HomeCategoryCard(QuestionSet.Category category) {
         this.category = category;
@@ -34,15 +34,15 @@ public class HomeCategoryCard {
 
     public int getCardColor() {
         // TODO
-        return Color.parseColor("#FFF25260");
+        return category.getPrimaryCategoryColor();
     }
 
     public int getCardImage() {
         // TODO
-        return R.drawable.shape_placeholder_square;
+        return category.getCategoryImageDrawableID();
     }
 
-
-
-
+    public QuestionSet.Category getCategory() {
+        return category;
+    }
 }

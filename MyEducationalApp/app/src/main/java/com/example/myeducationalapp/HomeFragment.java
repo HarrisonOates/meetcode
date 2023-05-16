@@ -1,6 +1,8 @@
 package com.example.myeducationalapp;
 
 import android.content.Context;
+import android.graphics.BlendMode;
+import android.graphics.BlendModeColorFilter;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -21,6 +23,7 @@ import android.widget.TextView;
 import com.example.myeducationalapp.Firebase.Firebase;
 import com.example.myeducationalapp.userInterface.Generatable.GeneratedUserInterfaceViewModel;
 import com.example.myeducationalapp.userInterface.Generatable.HomeCategoryCard;
+import com.example.myeducationalapp.userInterface.Generatable.Iterator;
 import com.example.myeducationalapp.userInterface.UserInterfaceManagerViewModel;
 import com.example.myeducationalapp.databinding.FragmentHomeBinding;
 
@@ -83,13 +86,14 @@ public class HomeFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
+        // Adding all categories to the ViewModel that manages this Fragment
         GeneratedUserInterfaceViewModel<HomeCategoryCard> genUserInterfaceManager = new ViewModelProvider(this).get(GeneratedUserInterfaceViewModel.class);
-
         for (QuestionSet.Category category : QuestionSet.Category.values()) {
-            genUserInterfaceManager.addToListOfElements(new HomeCategoryCard(category));
+            // We want to not add the TestQuestion category :)
+            if (category != QuestionSet.Category.TestQuestion) {
+                genUserInterfaceManager.addToListOfElements(new HomeCategoryCard(category));
+            }
         }
-
-        Firebase.getInstance().dump();
     }
 
     @Override
@@ -109,21 +113,24 @@ public class HomeFragment extends Fragment {
         // Updating the categories carousel
         generateAllHomeCategoryCards(getActivity());
 
+        // Adding button to "See more" text for categories
         binding.homeCategorySeeMoreText.setOnClickListener(view1 -> {
             NavHostFragment.findNavController(HomeFragment.this).navigate(R.id.action_HomeFragment_to_categoriesListFragment);
         });
 
+        // Adding button to the "Question of the Day" section
         binding.homeHeroContainer.setOnClickListener(view1 -> {
             NavHostFragment.findNavController(HomeFragment.this).navigate(R.id.action_HomeFragment_to_questionFragment);
         });
 
+        // Updating "Question of the Day" subheading and body with with relevant stuff
         LocalDateTime date = LocalDateTime.now();
         binding.homeHeroSubheadingText.setText(date.format(DateTimeFormatter.ofPattern("d MMMM")));
 
         Question qotd = QuestionSet.getInstance().getQuestionOfTheDay();
         binding.homeHeroBodyText.setText(qotd.getName());
 
-
+        // 
         boolean success = UserLocalData.getInstance().hasQuestionBeenAnsweredCorrectly(qotd.getID());
         if (success) {
             binding.homeHeroSecondaryCallToActionText.setText(getString(R.string.completed));
@@ -220,11 +227,16 @@ public class HomeFragment extends Fragment {
     private void generateAllHomeCategoryCards(Context context) {
 
         GeneratedUserInterfaceViewModel<HomeCategoryCard> genUserInterfaceManager = new ViewModelProvider(this).get(GeneratedUserInterfaceViewModel.class);
-        //genUserInterfaceManager.
+
+        for (Iterator iterator = genUserInterfaceManager.createIterator(); iterator.hasNext();) {
+            HomeCategoryCard homeCategoryCard = (HomeCategoryCard) iterator.next();
+
+            generateHomeCategoryCard(homeCategoryCard, getActivity());
+        }
 
     }
 
-    private void generateHomeCategoryCard(HomeCategoryCard template, Context context) {
+    private void generateHomeCategoryCard(HomeCategoryCard template, Context context){
 
         // inflating XML into an object we can use
         ConstraintLayout homeCategoryCard = (ConstraintLayout) LayoutInflater.from(context).
@@ -238,8 +250,8 @@ public class HomeFragment extends Fragment {
         headingText.setText(template.getHeading());
         subheadingText.setText(template.getSubheading());
         // TODO set categoryImage and background of parent to different colour
-        //categoryImage.setImageResource(template.);
-
+        //categoryImage.setImageResource(template.getCardImage());
+        homeCategoryCard.getBackground().setColorFilter(new BlendModeColorFilter(template.getCardColor(), BlendMode.SRC_ATOP));
 
         // Setting layout parameters relative to the parent as this is not set from the inflated file
         ConstraintLayout.LayoutParams homeCategoryCardLayoutParams = new ConstraintLayout.LayoutParams(
@@ -249,12 +261,15 @@ public class HomeFragment extends Fragment {
         homeCategoryCardLayoutParams.setMarginEnd(((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20, getResources().getDisplayMetrics())));
         homeCategoryCard.setLayoutParams(homeCategoryCardLayoutParams);
 
-
-
-
-
-
+        // Adding the final parent to the LinearLayout nested within the ScrollView
         binding.homeCategoryCarouselScrollable.addView(homeCategoryCard);
+
+        homeCategoryCard.setOnClickListener(view -> {
+            // Link to relevant category page
+            UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
+            userInterfaceManager.setCurrentlyDisplayedCategory(template.getCategory());
+        });
+
 
     }
 }

@@ -28,12 +28,14 @@ public class GeneratedUserInterfaceViewModel<T> extends ViewModel implements Ite
 
         @Override
         public boolean hasNext() {
-
-            return false;
+            return listOfGeneratables != null && index < listOfGeneratables.size();
         }
 
         @Override
-        public Object next() {
+        public T next() {
+            if (this.hasNext()) {
+                return listOfGeneratables.get(index++);
+            }
             return null;
         }
     }
