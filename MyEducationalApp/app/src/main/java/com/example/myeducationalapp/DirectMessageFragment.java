@@ -123,7 +123,7 @@ public class DirectMessageFragment extends Fragment {
 
             if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
                 if (!binding.directMessageInputText.getText().toString().isBlank()) {
-                    sendMessage();
+                    sendMessage(false);
                 }
                 return true;
             }
@@ -134,13 +134,13 @@ public class DirectMessageFragment extends Fragment {
         // This is normal send button associated with the text entry field
         binding.directMessageSendButton.setOnClickListener(view1 -> {
             if (!binding.directMessageInputText.getText().toString().isBlank()) {
-                sendMessage();
+                sendMessage(false);
             }
         });
     }
 
 
-    private void sendMessage() {
+    private void sendMessage(boolean isRecipient) {
 
         UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
         DirectMessageThread dms = userInterfaceManager.getCurrentDirectMessages().getValue().get(messageRecipient).directMessageThread;
@@ -155,6 +155,8 @@ public class DirectMessageFragment extends Fragment {
                 // We know this will always be sent by the current user and will always appear
                 // on the right of the screen in the isRecipient=false state
                 //
+                // We need to do the opposite if isRecipient=true :)
+                //
                 // We also know that it will be the last message that we need to render
                 //
                 // wasLastRenderedMessageFromRecipient
@@ -168,72 +170,9 @@ public class DirectMessageFragment extends Fragment {
 
                 MessageListCard messageListCard = userInterfaceManager.getCurrentDirectMessages().getValue().get(messageRecipient);
                 List<Message> messages = messageListCard.directMessageThread.getMessages();
+                Message messageToRender = messages.get(messages.size() - 1);
 
-                if (wasLastRenderedMessageFromRecipient) {
-                    // Rendering a new SINGLE
-                    Message messageToRender = messages.get(messages.size() - 1);
-                    boolean isRecipient = false;
-                    int currentMessageIndex = binding.directMessageLinearLayout.getChildCount();
-                    generateDirectMessageBubble(messageToRender, isRecipient, MessageBubbleOrientation.SINGLE, true, currentMessageIndex, getActivity());
-
-                    // Remember to scroll to bottom
-                    binding.directMessageScrollView.post(() -> binding.directMessageScrollView.fullScroll(View.FOCUS_DOWN));
-
-                    // Updating these globals
-                    wasLastRenderedMessageFromRecipient = false;
-                    lastRenderedMessageOrientation = MessageBubbleOrientation.SINGLE;
-                } else {
-                    if (lastRenderedMessageOrientation == MessageBubbleOrientation.SINGLE) {
-                        // last message being turned into a TOP
-                        ((ConstraintLayout) binding.directMessageLinearLayout.getChildAt(binding.directMessageLinearLayout.getChildCount() - 1)).getChildAt(0).
-                                setBackground(ContextCompat.getDrawable(getActivity(), MessageBubbleOrientation.TOP.drawableID));
-
-                        // render new BOTTOM
-                        Message messageToRender = messages.get(messages.size() - 1);
-                        boolean isRecipient = false;
-                        int currentMessageIndex = binding.directMessageLinearLayout.getChildCount();
-                        generateDirectMessageBubble(messageToRender, isRecipient, MessageBubbleOrientation.BOTTOM, false, currentMessageIndex, getActivity());
-
-                        // Remember to scroll to bottom
-                        binding.directMessageScrollView.post(() -> binding.directMessageScrollView.fullScroll(View.FOCUS_DOWN));
-
-                        // Updating these globals
-                        wasLastRenderedMessageFromRecipient = false;
-                        lastRenderedMessageOrientation = MessageBubbleOrientation.BOTTOM;
-                    } else if (lastRenderedMessageOrientation == MessageBubbleOrientation.BOTTOM) {
-                        // last message being turned into a MIDDLE
-                        ((ConstraintLayout) binding.directMessageLinearLayout.getChildAt(binding.directMessageLinearLayout.getChildCount() - 1)).getChildAt(0).
-                                setBackground(ContextCompat.getDrawable(getActivity(), MessageBubbleOrientation.MIDDLE.drawableID));
-                        // render new BOTTOM
-                        Message messageToRender = messages.get(messages.size() - 1);
-                        boolean isRecipient = false;
-                        int currentMessageIndex = binding.directMessageLinearLayout.getChildCount();
-                        generateDirectMessageBubble(messageToRender, isRecipient, MessageBubbleOrientation.BOTTOM, false, currentMessageIndex, getActivity());
-
-                        // Remember to scroll to bottom
-                        binding.directMessageScrollView.post(() -> binding.directMessageScrollView.fullScroll(View.FOCUS_DOWN));
-
-                        // Updating these globals
-                        wasLastRenderedMessageFromRecipient = false;
-                        lastRenderedMessageOrientation = MessageBubbleOrientation.BOTTOM;
-                    } else {
-                        // If we are here, this means that this is the first message being sent in the DM
-                        // so just render a new SINGLE
-
-                        // Rendering a new SINGLE
-                        Message messageToRender = messages.get(messages.size() - 1);
-                        boolean isRecipient = false;
-                        int currentMessageIndex = binding.directMessageLinearLayout.getChildCount();
-                        generateDirectMessageBubble(messageToRender, isRecipient, MessageBubbleOrientation.SINGLE, true, currentMessageIndex, getActivity());
-
-                        // Remember to scroll to bottom
-                        binding.directMessageScrollView.post(() -> binding.directMessageScrollView.fullScroll(View.FOCUS_DOWN));
-
-                        // Updating these globals
-                        wasLastRenderedMessageFromRecipient = false;
-                        lastRenderedMessageOrientation = MessageBubbleOrientation.SINGLE;
-                    }
-                }
+                generateIndividualBubble(isRecipient, messageToRender);
             });
 
             // Clearing input text
@@ -241,6 +180,131 @@ public class DirectMessageFragment extends Fragment {
 
             return null;
         });
+    }
+
+    private void generateIndividualBubble(boolean isRecipient, Message messageToRender) {
+        if (wasLastRenderedMessageFromRecipient) {
+            // if this message was not sent by the recipient
+            if (!isRecipient) {
+                // This is from the point of view of the sender
+                // Rendering a new SINGLE
+                int currentMessageIndex = binding.directMessageLinearLayout.getChildCount();
+                generateDirectMessageBubble(messageToRender, false, MessageBubbleOrientation.SINGLE, true, currentMessageIndex, getActivity());
+
+                // Remember to scroll to bottom
+                binding.directMessageScrollView.post(() -> binding.directMessageScrollView.fullScroll(View.FOCUS_DOWN));
+
+                // Updating these globals
+                wasLastRenderedMessageFromRecipient = false;
+                lastRenderedMessageOrientation = MessageBubbleOrientation.SINGLE;
+            } else {
+                // This is from the point of view of the recipient
+                if (lastRenderedMessageOrientation == MessageBubbleOrientation.SINGLE) {
+                    // last message being turned into a TOP
+                    ((ConstraintLayout) binding.directMessageLinearLayout.getChildAt(binding.directMessageLinearLayout.getChildCount() - 1)).getChildAt(0).
+                            setBackground(ContextCompat.getDrawable(getActivity(), MessageBubbleOrientation.TOP_RECIPIENT.drawableID));
+
+                    // render new BOTTOM
+                    int currentMessageIndex = binding.directMessageLinearLayout.getChildCount();
+                    generateDirectMessageBubble(messageToRender, true, MessageBubbleOrientation.BOTTOM_RECIPIENT, false, currentMessageIndex, getActivity());
+
+                    // Remember to scroll to bottom
+                    binding.directMessageScrollView.post(() -> binding.directMessageScrollView.fullScroll(View.FOCUS_DOWN));
+
+                    // Updating these globals
+                    wasLastRenderedMessageFromRecipient = true;
+                    lastRenderedMessageOrientation = MessageBubbleOrientation.BOTTOM;
+                } else if (lastRenderedMessageOrientation == MessageBubbleOrientation.BOTTOM) {
+                    // last message being turned into a MIDDLE
+                    ((ConstraintLayout) binding.directMessageLinearLayout.getChildAt(binding.directMessageLinearLayout.getChildCount() - 1)).getChildAt(0).
+                            setBackground(ContextCompat.getDrawable(getActivity(), MessageBubbleOrientation.MIDDLE_RECIPIENT.drawableID));
+                    // render new BOTTOM
+                    int currentMessageIndex = binding.directMessageLinearLayout.getChildCount();
+                    generateDirectMessageBubble(messageToRender, true, MessageBubbleOrientation.BOTTOM_RECIPIENT, false, currentMessageIndex, getActivity());
+
+                    // Remember to scroll to bottom
+                    binding.directMessageScrollView.post(() -> binding.directMessageScrollView.fullScroll(View.FOCUS_DOWN));
+
+                    // Updating these globals
+                    wasLastRenderedMessageFromRecipient = true;
+                    lastRenderedMessageOrientation = MessageBubbleOrientation.BOTTOM;
+                } else {
+                    // If we are here, this means that this is the first message being sent in the DM
+                    // so just render a new SINGLE
+
+                    // Rendering a new SINGLE
+                    int currentMessageIndex = binding.directMessageLinearLayout.getChildCount();
+                    generateDirectMessageBubble(messageToRender, true, MessageBubbleOrientation.SINGLE, true, currentMessageIndex, getActivity());
+
+                    // Remember to scroll to bottom
+                    binding.directMessageScrollView.post(() -> binding.directMessageScrollView.fullScroll(View.FOCUS_DOWN));
+
+                    // Updating these globals
+                    wasLastRenderedMessageFromRecipient = true;
+                    lastRenderedMessageOrientation = MessageBubbleOrientation.SINGLE;
+                }
+            }
+        } else {
+            if (!isRecipient) {
+                // This is from the point of view of the sender
+                if (lastRenderedMessageOrientation == MessageBubbleOrientation.SINGLE) {
+                    // last message being turned into a TOP
+                    ((ConstraintLayout) binding.directMessageLinearLayout.getChildAt(binding.directMessageLinearLayout.getChildCount() - 1)).getChildAt(0).
+                            setBackground(ContextCompat.getDrawable(getActivity(), MessageBubbleOrientation.TOP.drawableID));
+
+                    // render new BOTTOM
+                    int currentMessageIndex = binding.directMessageLinearLayout.getChildCount();
+                    generateDirectMessageBubble(messageToRender, false, MessageBubbleOrientation.BOTTOM, false, currentMessageIndex, getActivity());
+
+                    // Remember to scroll to bottom
+                    binding.directMessageScrollView.post(() -> binding.directMessageScrollView.fullScroll(View.FOCUS_DOWN));
+
+                    // Updating these globals
+                    wasLastRenderedMessageFromRecipient = false;
+                    lastRenderedMessageOrientation = MessageBubbleOrientation.BOTTOM;
+                } else if (lastRenderedMessageOrientation == MessageBubbleOrientation.BOTTOM) {
+                    // last message being turned into a MIDDLE
+                    ((ConstraintLayout) binding.directMessageLinearLayout.getChildAt(binding.directMessageLinearLayout.getChildCount() - 1)).getChildAt(0).
+                            setBackground(ContextCompat.getDrawable(getActivity(), MessageBubbleOrientation.MIDDLE.drawableID));
+                    // render new BOTTOM
+                    int currentMessageIndex = binding.directMessageLinearLayout.getChildCount();
+                    generateDirectMessageBubble(messageToRender, false, MessageBubbleOrientation.BOTTOM, false, currentMessageIndex, getActivity());
+
+                    // Remember to scroll to bottom
+                    binding.directMessageScrollView.post(() -> binding.directMessageScrollView.fullScroll(View.FOCUS_DOWN));
+
+                    // Updating these globals
+                    wasLastRenderedMessageFromRecipient = false;
+                    lastRenderedMessageOrientation = MessageBubbleOrientation.BOTTOM;
+                } else {
+                    // If we are here, this means that this is the first message being sent in the DM
+                    // so just render a new SINGLE
+
+                    // Rendering a new SINGLE
+                    int currentMessageIndex = binding.directMessageLinearLayout.getChildCount();
+                    generateDirectMessageBubble(messageToRender, false, MessageBubbleOrientation.SINGLE, true, currentMessageIndex, getActivity());
+
+                    // Remember to scroll to bottom
+                    binding.directMessageScrollView.post(() -> binding.directMessageScrollView.fullScroll(View.FOCUS_DOWN));
+
+                    // Updating these globals
+                    wasLastRenderedMessageFromRecipient = false;
+                    lastRenderedMessageOrientation = MessageBubbleOrientation.SINGLE;
+                }
+            } else {
+                // This is from the point of view of the recipient
+                // Rendering a new SINGLE
+                int currentMessageIndex = binding.directMessageLinearLayout.getChildCount();
+                generateDirectMessageBubble(messageToRender, true, MessageBubbleOrientation.SINGLE, true, currentMessageIndex, getActivity());
+
+                // Remember to scroll to bottom
+                binding.directMessageScrollView.post(() -> binding.directMessageScrollView.fullScroll(View.FOCUS_DOWN));
+
+                // Updating these globals
+                wasLastRenderedMessageFromRecipient = true;
+                lastRenderedMessageOrientation = MessageBubbleOrientation.SINGLE;
+            }
+        }
     }
 
     private void generateAllDirectMessageBubble(Context context) {
@@ -537,21 +601,83 @@ public class DirectMessageFragment extends Fragment {
                         getValue().get(messageRecipient).directMessageThread.messages;
                 List<Message> firebaseMessages = dms.getMessages();
 
+
+                // firebase Messages are newer than old ones
                 if (!localMessages.equals(firebaseMessages)) {
+                    // hence we assign the new DirectMessageThread to the view model
                     userInterfaceManager.getCurrentDirectMessages().
                             getValue().get(messageRecipient).directMessageThread = dms;
+
+                    // Updating likes on messages
+                    // Going through previous messages and checking if their likes are different
+                    for (int i = 0; i < firebaseMessages.size(); i++) {
+                        Message firebaseMessage = firebaseMessages.get(i);
+
+                        // if the length of firebaseMessage is greater than the length of the
+                        // localMessages list then we know that firebaseMessage is newer than
+                        // localMessages
+                        // hence, break
+                        if (i >= localMessages.size()) {
+                            // adding new messages to the UI
+                            List<Message> messagesToRender = firebaseMessages.subList
+                                    (localMessages.size(), firebaseMessages.size());
+
+                            messagesToRender.forEach(message -> {
+
+                                Log.d("DirectMessageFragment", message.getContent());
+                                boolean isRecipient = message.getPoster().getUsername().equals(messageRecipient);
+
+                                Log.d("DirectMessageFragment", String.valueOf(isRecipient));
+
+                                generateIndividualBubble(isRecipient, message);
+                            });
+
+
+
+
+                            break;
+                        }
+
+                        // we know that i is a valid index of localMessage now
+                        Message localMessage = localMessages.get(i);
+
+                        if (firebaseMessage.getLikeCount() != localMessage.getLikeCount()) {
+
+                            // we have to update the ui for this element in the UI
+                            ConstraintLayout parent = (ConstraintLayout) binding.directMessageLinearLayout.getChildAt(i);
+                            ConstraintLayout likeContainer = (ConstraintLayout) parent.getChildAt(1);
+                            TextView likeText = (TextView) likeContainer.getChildAt(0);
+
+                            // Override firebase message's like count onto the current UI
+                            switch (firebaseMessage.getLikeCount()) {
+                                case 0:
+                                    // no likes = no like container
+                                    likeContainer.setVisibility(View.GONE);
+                                    break;
+                                case 1:
+                                    likeContainer.setVisibility(View.VISIBLE);
+                                    likeText.setText("❤️");
+                                    break;
+                                default:
+                                    likeContainer.setVisibility(View.VISIBLE);
+                                    likeText.setText("❤️  " + firebaseMessage.getLikeCount());
+                                    break;
+                            }
+
+                        }
+                    }
                 }
 
-                binding.directMessageLinearLayout.removeAllViews();
-                generateAllDirectMessageBubble(getActivity());
+                //binding.directMessageLinearLayout.removeAllViews();
+                //generateAllDirectMessageBubble(getActivity());
+
+
+                
+
 
                 observer.enable();
                 return null;
             });
-
-
-
-            Log.d("DirectMessageObserver", "UPDATE!");
         }
     }
 
