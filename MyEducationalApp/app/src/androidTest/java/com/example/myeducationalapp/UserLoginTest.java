@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.assertTrue;
 
 import android.util.Log;
 
@@ -19,6 +20,8 @@ public class UserLoginTest {
         login.addUser("alex2", "12345678");
         // Correct username and password pair should authorise the user
         login.authoriseUser("alex2", "12345678");
+
+        assertTrue(login.isUserLoggedIn("alex2"));
 
         String loggedInUser = login.getCurrentUsername();
         assertEquals(loggedInUser, "alex2");

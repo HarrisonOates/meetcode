@@ -131,6 +131,11 @@ public class UserLogin {
         return loggedInUsername != null && getCurrentUsername().equals(username);
     }
 
+    protected void performUnitTestLogin() {
+        loggedInUsername = "alex";
+        UserLocalData.getInstance().loadFromDisk();
+    }
+
     public boolean authoriseUser(String username, String password) {
         if (!userLogins.containsKey(username)) {
             return false;

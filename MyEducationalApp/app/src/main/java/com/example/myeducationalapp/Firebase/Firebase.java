@@ -312,6 +312,12 @@ public class Firebase {
         return usernames;
     }
 
+    /**
+     * Asynchronously returns a list of all of the usernames in the system.
+     *
+     * @return An asynchronous result, which when filled, can be cast to a List of Strings
+     * containing the usernames
+     */
     public FirebaseResult readAllUsernamesAsync() {
         /*
          * Get the content from Firebase and wait for completion.

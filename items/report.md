@@ -60,6 +60,7 @@ u7468248, Alex Boxall: I contributed 20% of the code. Here are my contributions:
 * Which part of the report did the involved member write?
   * This section
   * [FB-Syn] and [P2P-DM] in the 'features implemented' section
+  * The section on the instrumented tests
 
 
 u7469758, Geun Yun: I contributed 20% of the code. Here are my contributions:
@@ -333,6 +334,27 @@ The surprise item was not implemented.
 - *Types of tests created: ...*
 
 *Please provide some screenshots of your testing summary, showing the achieved testing coverage. Feel free to provide further details on your tests.*
+
+Much of the application relies on Firebase, and therefore much of the program relies on instrumented tests instead of standard unit tests.
+Many types of test were created:
+- Tests for user logins (```UserLoginTest```) - this tests the following:
+  - being able to log in to different user accounts
+  - only the correct passwords works to log in a user
+  - password salting is working correctly
+  - passwords must be strong enough
+  - newly created user accounts must have a unique username
+  - this in turn also tests various Firebase related functions, including download and uploading data from it
+- Tests for user local data (```UserLocalDataTest```) - this tests the following:
+  - users and be blocked and unblocked
+  - messages can be liked and unliked
+  - answers to questions can be submitted
+  - the correct number of points is given after answering a question, on the first or second attempts
+- Tests for direct messaging (```DirectMessageTest```) - this tests the following:
+  - ...
+
+Android Studio does not provide code coverage for instrumented tests, and thus the exact code coverage is not known.
+However, by manually inspecting the code, we find that the user login tests gets 100% line coverage of ```Firebase.FirebaseRequest```, approximately 76% of both ```Firebase.FirebaseResult```, and ```UserLogin```. Additionally, 100% of ```UserLocalData``` is tested, split across ```UserLocalDataTest``` (for most methods), and ```DirecteMessageTest``` (for ```loadFromDisk```).
+
 
 ## Implemented Features
 

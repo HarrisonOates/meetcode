@@ -28,7 +28,7 @@ public class Message extends Asynchronous {
     /**
      * The chain of messages which this message is a part of.
      */
-    private MessageThread thread;
+    protected MessageThread thread;
 
     /**
      * The index within the chain that this message is. The first message would be 0.
