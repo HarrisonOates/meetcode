@@ -536,7 +536,6 @@ public class DirectMessageFragment extends Fragment {
                 }
             }
             return messageBubbleOrientation;
-
         }
     }
 }

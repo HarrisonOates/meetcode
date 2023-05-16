@@ -119,17 +119,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Firebase.getInstance().dump();
-        //UserLogin.getInstance().addUser("test", "123456789");
-
-       if (UserLogin.getInstance().getCurrentUsername().equals("comp2100@anu.au")){
+        if (UserLogin.getInstance().getCurrentUsername().equals("comp2100@anu.au")){
             try {
-               DataGenerator.generateData(getApplicationContext());
-           } catch (FileNotFoundException | InterruptedException e) {
+                DataGenerator.generateData(getApplicationContext());
+            } catch (FileNotFoundException | InterruptedException e) {
                 throw new RuntimeException(e);
             }
-
-       }
+        }
     }
 
     @Override

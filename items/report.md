@@ -391,14 +391,11 @@ Feature Category: Firebase Integration <br>
 <br>
 3. [FB-Syn] Using Firebase or another remote database to store user information and having the app
    updated as the remote database is updated without restarting the application. (hard)
-   * Class Firebase.FirebaseRequest: methods A, B, C, lines of code: whole file
-   * Class Firebase.FirebaseResult:
-   * Class MessageThread:
-   * Class DirectMessageThread:
-   * Class QuestionMessageThread:
-   * Class Asynchronous:
+   * Class Firebase.FirebaseObserver: whole file
+   * Class Firebase.Firebase: constructor (lines 74-98), methods attachObserver and notifyObservers (lines 100-117)
    * Class <some UI stuff>:
-   * Additional description: ...
+   * Additional description: 
+     * Most of this follows from the fact that the app's state is persisted on Firebase (and therefore the classes and files in the [FB-Persist] section are utilised). For the app to automatically update without restarting, all that needs to be done is determine when a change has occurred on Firebase, and then update the user interface appropriately. The Firebase API provides a listener for when data changes. This is caught in Firebase.Firebase, which is then able to notify any observers of the change. One of the observers is the user interface, which then is then able to use the functions in Firebase.Firebase to redownload the new state of the app, and rerender the user interface appropriately.
 
 Feature Category: Peer-to-peer messaging <br>
 4. [P2P-Block] Provide users with the ability to ‘block’ users, preventing them from direct messaging
