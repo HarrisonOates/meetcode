@@ -129,8 +129,7 @@ public class CategoryFragment extends Fragment {
         binding.categoryCardHeadingText.setText(categoryListCard.getHeading());
         binding.categoryCardSubheadingText.setText(categoryListCard.getSubheading());
         binding.categoryCardSecondaryStarHeadingText.setText(categoryListCard.getStarProgress());
-        // TODO
-        //binding.categoryCardImage.setImageResource(categoryCard.getCardImage());
+        binding.categoryCardImage.setImageResource(categoryListCard.getCardImage());
         binding.categoryCard1.getBackground().setColorFilter(new BlendModeColorFilter(categoryListCard.getCardColor(), BlendMode.SRC_ATOP));
         binding.categoryStarWrapper.getBackground().setColorFilter(new BlendModeColorFilter(categoryListCard.getSecondaryCardColor(), BlendMode.SRC_ATOP));
     }

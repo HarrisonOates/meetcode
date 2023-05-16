@@ -146,8 +146,7 @@ public class CategoriesListFragment extends Fragment {
         starWrapper.getBackground().setColorFilter(new BlendModeColorFilter(categoryListCard.getSecondaryCardColor(), BlendMode.SRC_ATOP));
 
         // Setting UI elements with relevant data
-        // TODO uncomment this
-        //categoryImage.setImageResource(categoryListCard.getCardImage());
+        categoryImage.setImageResource(categoryListCard.getCardImage());
         headingText.setText(categoryListCard.getHeading());
         subheadingText.setText(categoryListCard.getSubheading());
         starHeadingText.setText(categoryListCard.getStarProgress());

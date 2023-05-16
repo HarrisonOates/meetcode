@@ -593,9 +593,10 @@ public class DirectMessageFragment extends Fragment {
 
             DirectMessageThread dms = new DirectMessageThread(messageRecipient);
 
-            dms.runWhenReady((obj) -> {
+            // TODO this doesn't work here like this
+            UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
 
-                UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
+            dms.runWhenReady((obj) -> {
 
                 // 1. Check if there is any difference between firebase direct messages and
                 //    local direct messages

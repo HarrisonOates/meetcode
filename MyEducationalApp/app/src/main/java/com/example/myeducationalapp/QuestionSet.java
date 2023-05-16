@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 /**
  * @author u7469758 Geun Yun
  * @author u7468248 Alex Boxall
+ * @author u7300256 Nikhila Gurusinghe
  */
 public class QuestionSet {
 
@@ -64,16 +65,16 @@ public class QuestionSet {
             assert this != TestQuestion;
 
             switch (this.ordinal()) {
+                case 0:
+                    return R.drawable.category_image_algorithm;
                 case 1:
-                    //return R.drawable.category_image_algorithm;
+                    return R.drawable.category_image_control_flow;
                 case 2:
-                    //return R.drawable.category_image_control_flow;
+                    return R.drawable.category_image_data_structure;
                 case 3:
-                    //return R.drawable.category_image_data_structure;
+                    return R.drawable.category_image_miscellaneous;
                 case 4:
-                    //return R.drawable.category_image_miscellaneous;
-                case 5:
-                    //return R.drawable.category_image_recursion;
+                    return R.drawable.category_image_recursion;
             }
 
             return 0;

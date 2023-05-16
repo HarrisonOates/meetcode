@@ -278,8 +278,7 @@ public class HomeFragment extends Fragment {
 
         headingText.setText(template.getHeading());
         subheadingText.setText(template.getSubheading());
-        // TODO uncomment this line
-        //categoryImage.setImageResource(template.getCardImage());
+        categoryImage.setImageResource(template.getCardImage());
 
         // Adding the final parent to the LinearLayout nested within the ScrollView
         binding.homeCategoryCarouselScrollable.addView(homeCategoryCard);
