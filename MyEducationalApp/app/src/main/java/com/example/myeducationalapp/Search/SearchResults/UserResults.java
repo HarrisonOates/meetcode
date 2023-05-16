@@ -66,7 +66,7 @@ public class UserResults extends Results{
         for (var character : word.toCharArray()) {
             var c = Character.toLowerCase(character);
             if (map.containsKey(c)) map.put(c,map.get(c)-1);
-            else sum -= 0.6; //Letters in search, not in user
+            else sum -= 1.2; //Letters in search, not in user
         }
 
 
