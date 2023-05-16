@@ -52,7 +52,6 @@ public class HomeCategoryCard {
     }
 
     public int getCardImage() {
-        // TODO
         return category.getCategoryImageDrawableID();
     }
 

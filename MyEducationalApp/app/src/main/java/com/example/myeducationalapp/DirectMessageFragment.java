@@ -13,6 +13,7 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.text.Html;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -25,6 +26,7 @@ import android.widget.TextView;
 
 import com.example.myeducationalapp.Firebase.Firebase;
 import com.example.myeducationalapp.Firebase.FirebaseObserver;
+import com.example.myeducationalapp.SyntaxHighlighting.DetectCodeBlock;
 import com.example.myeducationalapp.databinding.FragmentDirectMessageBinding;
 import com.example.myeducationalapp.userInterface.Generatable.MessageListCard;
 import com.example.myeducationalapp.userInterface.UserInterfaceManagerViewModel;
@@ -438,7 +440,12 @@ public class DirectMessageFragment extends Fragment {
         likeContainerConstraintLayout.setId(View.generateViewId());
 
         messageText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
-        messageText.setText(message.getContent());
+        // Checking to see if message includes a code block
+        if (message.getContent().contains("```")) {
+            messageText.setText(Html.fromHtml(DetectCodeBlock.parseCodeBlocks(message.getContent())));
+        } else {
+            messageText.setText(message.getContent());
+        }
         messageContainerConstraintLayout.setPadding(((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 15, getResources().getDisplayMetrics())),
                 ((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 13, getResources().getDisplayMetrics())),
                 ((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 15, getResources().getDisplayMetrics())),
@@ -623,17 +630,10 @@ public class DirectMessageFragment extends Fragment {
                                     (localMessages.size(), firebaseMessages.size());
 
                             messagesToRender.forEach(message -> {
-
-                                Log.d("DirectMessageFragment", message.getContent());
                                 boolean isRecipient = message.getPoster().getUsername().equals(messageRecipient);
-
-                                Log.d("DirectMessageFragment", String.valueOf(isRecipient));
 
                                 generateIndividualBubble(isRecipient, message);
                             });
-
-
-
 
                             break;
                         }
@@ -667,14 +667,6 @@ public class DirectMessageFragment extends Fragment {
                         }
                     }
                 }
-
-                //binding.directMessageLinearLayout.removeAllViews();
-                //generateAllDirectMessageBubble(getActivity());
-
-
-                
-
-
                 observer.enable();
                 return null;
             });
