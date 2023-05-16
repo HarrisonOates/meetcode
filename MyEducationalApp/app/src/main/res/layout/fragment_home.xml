@@ -513,7 +513,7 @@
 
         <RadioGroup
             android:id="@+id/search_filter"
-            android:layout_width="wrap_content"
+            android:layout_width="110dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="15dp"
@@ -564,7 +564,7 @@
                 android:textColor="#000000" />
         </RadioGroup>
 
-        <ListView
+        <com.example.myeducationalapp.NestedListView
             android:id="@+id/search_results"
             android:layout_width="409dp"
             android:layout_height="200dp"
@@ -572,10 +572,11 @@
             android:layout_marginTop="15dp"
             android:layout_marginEnd="1dp"
             android:background="@drawable/nav_menu"
+            android:fontFamily="@font/ibm_plex_sans_bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/direct_message_text_container"
-            tools:visibility="invisible"></ListView>
+            tools:visibility="invisible"></com.example.myeducationalapp.NestedListView>
 
         <Button
             android:id="@+id/hide_search_results"
