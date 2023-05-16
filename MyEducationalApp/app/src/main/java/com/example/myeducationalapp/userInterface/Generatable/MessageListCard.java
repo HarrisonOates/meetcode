@@ -17,6 +17,8 @@ public class MessageListCard {
     public boolean isNotification;
     public DirectMessageThread directMessageThread;
 
+    public boolean hasObserverBeenAttached = false;
+
     public MessageListCard(int profileImage, String headingText, String subHeadingText, DirectMessageThread directMessageThread) {
         this.profileImage = profileImage;
         this.headingText = headingText;

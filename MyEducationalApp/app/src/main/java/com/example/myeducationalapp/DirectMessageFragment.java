@@ -91,14 +91,6 @@ public class DirectMessageFragment extends Fragment {
         // Attaching observers
 
         UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
-
-        if (!userInterfaceManager.hasObserverBeenAttached) {
-
-            Firebase.getInstance().attachDirectMessageObserver(new DirectMessagesObserver(), UserLogin.getInstance().getCurrentUsername(), "geun");
-
-
-            userInterfaceManager.hasObserverBeenAttached = true;
-        }
     }
 
     @Override
@@ -118,6 +110,13 @@ public class DirectMessageFragment extends Fragment {
         // Username of person you're messaging, found through the toolbar title (set by previous fragment)
         messageRecipient = userInterfaceManager.getUiState().getValue().getToolbarTitle().getValue();
         generateAllDirectMessageBubble(getActivity());
+
+        // Adding observer onto this direct message thread, but only one will ever be added
+        if (!userInterfaceManager.getCurrentDirectMessages().getValue().get(messageRecipient).hasObserverBeenAttached) {
+
+            Firebase.getInstance().attachDirectMessageObserver(new DirectMessagesObserver(), UserLogin.getInstance().getCurrentUsername(), messageRecipient);
+            userInterfaceManager.getCurrentDirectMessages().getValue().get(messageRecipient).hasObserverBeenAttached = true;
+        }
 
         // Adding QOL for if you press enter in the message entry field
         binding.directMessageInputText.setOnKeyListener((view1, keyCode, keyEvent) -> {
@@ -515,7 +514,46 @@ public class DirectMessageFragment extends Fragment {
         });
     }
 
+    class DirectMessagesObserver extends FirebaseObserver {
 
+        public void update() {
+
+            FirebaseObserver observer = this;
+
+            DirectMessageThread dms = new DirectMessageThread(messageRecipient);
+
+            dms.runWhenReady((obj) -> {
+
+                UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
+
+                // 1. Check if there is any difference between firebase direct messages and
+                //    local direct messages
+                // 2. Update them if there is a difference, otherwise do nothing
+                // 3. Then if there is a difference update the UI
+                //    l-> refresh entire UI because if a heart is added somewhere we need to be able to
+                //        add that which is difficult to do unless we refresh everything
+
+                List<Message> localMessages = userInterfaceManager.getCurrentDirectMessages().
+                        getValue().get(messageRecipient).directMessageThread.messages;
+                List<Message> firebaseMessages = dms.getMessages();
+
+                if (!localMessages.equals(firebaseMessages)) {
+                    userInterfaceManager.getCurrentDirectMessages().
+                            getValue().get(messageRecipient).directMessageThread = dms;
+                }
+
+                binding.directMessageLinearLayout.removeAllViews();
+                generateAllDirectMessageBubble(getActivity());
+
+                observer.enable();
+                return null;
+            });
+
+
+
+            Log.d("DirectMessageObserver", "UPDATE!");
+        }
+    }
 
     private enum MessageBubbleOrientation {
         BOTTOM(R.drawable.direct_message_bubble_combo_bottom),
@@ -544,28 +582,6 @@ public class DirectMessageFragment extends Fragment {
             }
             return messageBubbleOrientation;
         }
-    }
-}
-
-class DirectMessagesObserver extends FirebaseObserver {
-
-    public void update() {
-
-        //Firebase.getInstance().getAllUsersYouHaveMessaged(dms -> {return null;});
-
-        FirebaseObserver observer = this;
-
-        try {
-            Firebase.getInstance().readDirectMessages(UserLogin.getInstance().getCurrentUsername(),  "geun").then((result) -> {
-                observer.enable();
-                return null;
-            });
-        } catch (AccessDeniedException e) {
-            throw new RuntimeException(e);
-        }
-
-
-        Log.d("DirectMessageObserver", "UPDATE!");
     }
 }
 

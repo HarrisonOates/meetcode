@@ -56,7 +56,19 @@ public class QuestionCard {
 
         // Replace all capital letters with " <capital letter>" then take the substring starting at
         // index 1 to avoid space added to start of category name
-        return question.getCategory().name().replaceAll("([A-Z])", " $1").substring(1);
+        return question.getCategory().name().toString();
+    }
+
+    public int getCardColour() {
+        return question.getCategory().getPrimaryCategoryColor();
+    }
+
+    public int getSecondaryCardColour() {
+        return question.getCategory().getSecondaryCategoryColor();
+    }
+
+    public int getTertiaryCardColour() {
+        return question.getCategory().getTertiaryCategoryColor();
     }
 
     public boolean isQuestionMultiChoice() {

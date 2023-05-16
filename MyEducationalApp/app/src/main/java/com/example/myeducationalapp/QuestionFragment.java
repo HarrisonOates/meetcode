@@ -1,5 +1,7 @@
 package com.example.myeducationalapp;
 
+import android.graphics.BlendMode;
+import android.graphics.BlendModeColorFilter;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.GradientDrawable;
@@ -109,6 +111,14 @@ public class QuestionFragment extends Fragment {
         binding.questionBodySubheadingText.setText(currentQuestion.getSubheading());
         binding.questionBodyCategoryText.setText(currentQuestion.getCategory());
         binding.questionBodyDifficultyText.setText(currentQuestion.getDifficulty());
+
+        // Changing colour of UI to reflect current category
+        // Setting primary colours
+        binding.questionBodyConstraintLayout.getBackground().setColorFilter(new BlendModeColorFilter(currentQuestion.getCardColour(), BlendMode.SRC_ATOP));
+        binding.questionMultiConstraintLayout.getBackground().setColorFilter(new BlendModeColorFilter(currentQuestion.getCardColour(), BlendMode.SRC_ATOP));
+        binding.questionAnswerEntryConstraintLayout.getBackground().setColorFilter(new BlendModeColorFilter(currentQuestion.getCardColour(), BlendMode.SRC_ATOP));
+
+
 
         // Code block related UI code
         if (currentQuestion.doesQuestionHaveCodeBlock()) {
