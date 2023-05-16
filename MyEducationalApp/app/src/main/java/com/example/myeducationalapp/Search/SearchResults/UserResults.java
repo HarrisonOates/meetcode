@@ -66,13 +66,13 @@ public class UserResults extends Results{
         for (var character : word.toCharArray()) {
             var c = Character.toLowerCase(character);
             if (map.containsKey(c)) map.put(c,map.get(c)-1);
-            else sum -= 0.6;
+            else sum -= 0.6; //Letters in search, not in user
         }
 
 
         for (var entry : map.keySet()) {
             var num = map.get(entry);
-            sum -= num > 0 ? num * 0.3 : num;
+            sum -= num > 0 ? num * 0.1 : -num; //> 0 = in user, not in search. < 0 = letters more freq in search
         }
 
         return sum * (1+Math.abs(word.length() - length)*0.1);

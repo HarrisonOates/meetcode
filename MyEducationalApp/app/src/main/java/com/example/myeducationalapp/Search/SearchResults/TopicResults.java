@@ -48,17 +48,19 @@ public class TopicResults extends Results{
 
 
     double wordScore(String word, HashMap<Character, Integer> map, double length) {
+        double sum = 0;
+
         for (var character : word.toCharArray()) {
             var c = Character.toLowerCase(character);
             if (map.containsKey(c)) map.put(c,map.get(c)-1);
+            else sum -= 1.5; //Letters in search, not in topic
         }
 
-        double sum = 0;
         for (var entry : map.keySet()) {
             var num = map.get(entry);
-            sum -= Math.abs(num);
+            sum -= num > 0 ? num * 0.1 : -num; //> 0 = in topic, not in search. < 0 = letters more freq in search
         }
 
-        return sum / (Math.abs(word.length() - length)*0.2 + 1);
+        return sum * (1+Math.abs(word.length() - length)*0.07);
     }
 }
