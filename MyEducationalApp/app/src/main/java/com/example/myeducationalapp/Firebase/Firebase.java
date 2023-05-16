@@ -98,7 +98,7 @@ public class Firebase {
      * changes are made to the Firebase database.
      * @param observer The observer object to add.
      */
-    public void attachObserver(FirebaseObserver observer, List<String> path) {
+    private void attachObserver(FirebaseObserver observer, List<String> path) {
         observer.path = path;
         observers.add(observer);
     }

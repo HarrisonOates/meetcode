@@ -8,7 +8,7 @@ import java.util.List;
  * @author u7468248 Alex Boxall
  */
 
-abstract class FirebaseObserver {
+public abstract class FirebaseObserver {
     abstract void update();
 
     /*
