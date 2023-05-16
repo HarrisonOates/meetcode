@@ -89,15 +89,31 @@ u7469758, Geun Yun: I contributed 20% of the code. Here are my contributions:
 
 
 u7468212, Harrison Oates: I contributed 20% of the code. Here are my contributions:
-* All of SyntaxHighlighting.DetectCodeBlock.Class
-* All of SyntaxHighlighting.Parser.Class
-* All of SyntaxHighlighting.Token.Class
-* All of SyntaxHighlighting.Tokenizer.Class
-* All of SyntaxHighlightingTest
-* All of SyntaxHighlightingParsingTest
+* All of [SyntaxHighlighting.DetectCodeBlock.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/SyntaxHighlighting/DetectCodeBlock.java)
+* All of [SyntaxHighlighting.Parser.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/SyntaxHighlighting/Parser.java)
+* All of [SyntaxHighlighting.Token.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/SyntaxHighlighting/Token.java)
+* All of [SyntaxHighlighting.Tokenizer.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/SyntaxHighlighting/Tokenizer.java)
+* All of [SyntaxHighlightingTest.java](./../MyEducationalApp/app/test/java/com/example/myeducationalapp/SyntaxHighlightingTest.java)
+* All of [SyntaxHighlightingParsingTest.java](./../MyEducationalApp/app/test/java/com/example/myeducationalapp/SyntaxHighlightingParsingTest.java)
+* All of [DatastreamSimulation.DataGenerator.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/DatastreamSimulation/DataGenerator.java)
+* Method ```writeDirectMessagesDatastream``` in [Firebase/Firebase.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Firebase/Firebase.java) - based off original main app code by Alex
+* All of [DirectMessageThreadDatastream.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/DirectMessageThreadDatastream.java) - based off original main app code by Alex
+* All of [MessageThreadDatastream.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/MessageThreadDatastream.java) - based off original main app code by Alex
+* All of [QuestionMessageThreadDatastream.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/MessageThreadDatastream.java) - based off original main app code by Alex
+
+
+* Summary of contributions:
+  * I designed and implemented code relating to syntax highlighting. This included building the tokenizer and parser to detect code snippets and render these accordingly.
+  *  and simulating the datastream. 
+  * I set up the Firebase access for the app to use.
+  * I also wrote in code to simulate a datastream for the project. As we successfully implemented a client-server model, the easiest way for this to occur was to use a thread of the program when logged in to one of the marking accounts to send messages to the firebase, with the app downloading these messages through its usual channels.
+
+
 * What design patterns, data structures, did the involved member propose?
+  
 * Specify what design did the involved member propose? What tools were used for the design?
 * Which part of the report did the involved member write?
+  * I wrote about the Syntax Highlighting Grammar, and about the [Custom-Syntax-Highlighting] and [datastream] features.
 * Were you responsible for the slides?
 * You are welcome to provide anything that you consider as a contribution to the project or team.
 
