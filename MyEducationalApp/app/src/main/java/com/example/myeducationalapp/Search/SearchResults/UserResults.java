@@ -23,6 +23,10 @@ public class UserResults extends Results{
         List<SearchResult> results = new ArrayList<>();
 
         for (var user : users) {
+            if (user.contains("comp2100")) {
+                int n = 0;
+            }
+
             var map = new HashMap<Character, Integer>();
             var charArray = user.toCharArray();
             for (var character : charArray) {
@@ -62,18 +66,21 @@ public class UserResults extends Results{
 
 
     double wordScore(String word, HashMap<Character, Integer> map, double length) {
+        double sum = 0;
+
         for (var character : word.toCharArray()) {
             var c = Character.toLowerCase(character);
             if (map.containsKey(c)) map.put(c,map.get(c)-1);
+            else sum -= 0.6;
         }
 
-        double sum = 0;
+
         for (var entry : map.keySet()) {
             var num = map.get(entry);
-            sum -= Math.abs(num);
+            sum -= num > 0 ? num * 0.3 : num;
         }
 
-        return sum * Math.abs(word.length() - length)*0.6;
+        return sum * (1+Math.abs(word.length() - length)*0.1);
     }
 
 
