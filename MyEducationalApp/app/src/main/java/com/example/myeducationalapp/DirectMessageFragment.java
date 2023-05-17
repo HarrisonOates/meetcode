@@ -569,21 +569,13 @@ public class DirectMessageFragment extends Fragment {
 
             DirectMessageThread dms = new DirectMessageThread(messageRecipient);
 
-//            UserInterfaceManagerViewModel userInterfaceManager;
-//
-//            try {
-//                // TODO this doesn't work here like this
-//                userInterfaceManager = new ViewModelProvider(requireActivity()).get(UserInterfaceManagerViewModel.class);
-//            } catch (NullPointerException nullPointerException) {
-//                // If we get a null pointer from the Activity, then we want to postpone updating
-//                // until we can acquire a good pointer to the Activity.
-//                //
-//                // If the recipient sends a message/likes a post and we acquire a bad reference to
-//                // the Activity, then our data will not be updated
-//                return;
-//            }
-
             UserDirectMessages instance = UserDirectMessages.getInstance();
+
+            // If we don't have any data to update we should just, y'know, not update it
+            // or something. Maybe return as well
+            if (instance.isEmpty()) {
+                return;
+            }
 
             dms.runWhenReady((obj) -> {
 
@@ -595,16 +587,13 @@ public class DirectMessageFragment extends Fragment {
                 //        then add new messages one-by-one, instead of generating the entire
                 //        LinearLayout lineage
 
+                // TODO need to make this assignment a deep copy of messages List
                 List<Message> localMessages = instance.currentDirectMessages
                         .get(messageRecipient).directMessageThread.messages;
                 List<Message> firebaseMessages = dms.getMessages();
 
-                Log.d("DirectMessageFragment", "RunningWhenReady");
-
                 // firebase Messages are newer than old ones
                 if (!localMessages.equals(firebaseMessages)) {
-                    Log.d("DirectMessageFragment", "Firebase If Statement");
-
 
                     // hence we assign the new DirectMessageThread to the view model
                     instance.currentDirectMessages
@@ -637,8 +626,6 @@ public class DirectMessageFragment extends Fragment {
                         Message localMessage = localMessages.get(i);
 
                         if (true || firebaseMessage.getLikeCount() != localMessage.getLikeCount()) {
-                            Log.d("DirectMessageFragment", "Found newly liked message");
-
                             // we have to update the ui for this element in the UI
                             ConstraintLayout parent = (ConstraintLayout) binding.directMessageLinearLayout.getChildAt(i);
                             ConstraintLayout likeContainer = (ConstraintLayout) parent.getChildAt(1);
@@ -659,7 +646,6 @@ public class DirectMessageFragment extends Fragment {
                                     likeText.setText("❤️  " + firebaseMessage.getLikeCount());
                                     break;
                             }
-
                         }
                     }
                 }

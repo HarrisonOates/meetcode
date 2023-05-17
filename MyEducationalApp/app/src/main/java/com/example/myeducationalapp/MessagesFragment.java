@@ -95,6 +95,20 @@ public class MessagesFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentMessagesBinding.inflate(inflater, container, false);
+
+        // If we don't have any direct message threads currently, we need to fetch them from firebase
+        if (UserDirectMessages.getInstance().isEmpty()) {
+            Firebase.getInstance().getAllUsersYouHaveMessaged(dms -> {
+                storeAllMessageThreads(dms);
+
+                return null;
+            });
+
+        } else {
+            // Otherwise just render what we have stored currently
+            generateAllMessageListCards();
+        }
+
         return binding.getRoot();
     }
 
@@ -123,19 +137,6 @@ public class MessagesFragment extends Fragment {
 
             return false;
         });
-
-        // If we don't have any direct message threads currently, we need to fetch them from firebase
-        if (UserDirectMessages.getInstance().isEmpty()) {
-            Firebase.getInstance().getAllUsersYouHaveMessaged(dms -> {
-                storeAllMessageThreads(dms);
-
-                return null;
-            });
-
-        } else {
-            // Otherwise just render what we have stored currently
-            generateAllMessageListCards();
-        }
     }
 
     private void initializeNewDirectMessage() {
