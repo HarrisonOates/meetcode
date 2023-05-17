@@ -421,6 +421,8 @@ public class DirectMessageFragment extends Fragment {
                 }
             }
 
+            binding.directMessageScrollView.post(() -> binding.directMessageScrollView.fullScroll(View.FOCUS_DOWN));
+
             return null;
         });
 
