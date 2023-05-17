@@ -4,6 +4,8 @@ import android.graphics.Color;
 
 import com.example.myeducationalapp.SyntaxHighlighting.DetectCodeBlock;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 import java.util.SortedMap;
@@ -188,13 +190,70 @@ public class QuestionSet {
 
     private void addAlgorithms() {
         addQuestion(new Question(
-                "(A) PLEASE WRITE ME",
-                "Please write this!",
-                "Please write this!",
+                "Not-Small O",
+                "Which of the following describes the worst case time complexities of these algorithms?\n" +
+                        "  Binary search, linear search, bubble sort, merge sort\n" +
+                "A) O(log N), O(N), O(N^2), O(N)\n" +
+                        "B) O(N^2), O(1), O(N^2), O(log N)\n" +
+                        "C) O(log N), O(1), O(N log N), O(N log N)\n" +
+                        "D) O(log N), O(N), O(N^2), O(N log N)\n" +
+                        "E) O(N^2), O(N), O(N^2), O(N)\n",
+                "D",
                 Category.Algorithm,
-                1
+                2
+        ));
+
+        addQuestion(new Question(
+                "Simple complexity",
+                "What is the worst case time complexity of this algorithm?\n" +
+                        "```" +
+                        "private int oddAlgorithm(HashMap<Integer, Integer> a, List<Integer> b) {\n" +
+                        "    int count = 0;\n" +
+                        "    for (Integer c : b) {\n" +
+                        "        if (a.containsKey(c)) {\n" +
+                        "            ++count;\n" +
+                        "        }\n" +
+                        "    }\n" +
+                        "    return count;\n" +
+                        "}```\n" +
+                        "A) O(1)\n" +
+                        "B) O(N)\n" +
+                        "C) O(NK)\n" +
+                        "D) O(N log N)\n" +
+                        "E) O(N^2)\n" +
+                        "F) O(N log K)",
+                "B",
+                Category.Algorithm,
+                3
+        ));
+
+        // N:
+        addQuestion(new Question(
+                "Nasty complexity",
+                "What is the worst case time complexity of this algorithm? Choose the closest answer.\n" +
+                        "```" +
+                        "private int bizarreAlgorithm(TreeMap<Integer, Integer> a, List<Integer> b) {\n" +
+                        "    int count = 0;\n" +
+                        "    for (Integer c : b) {\n" +
+                        "        if (a.containsKey(c)) {\n" +
+                        "            count += 1 + bizarreAlgorithm(a, b.subList(1, b.size() - 1));\n" +
+                        "        }\n" +
+                        "    }\n" +
+                        "    return count;\n" +
+                        "}```\n" +
+                        "A) O(N! log K)\n" +
+                        "B) O(N! log N)\n" +
+                        "C) O(2^N log K)\n" +
+                        "D) O(2^N log N)\n" +
+                        "E) O(N!)\n" +
+                        "F) O(2^N)",
+                "A",
+                Category.Algorithm,
+                5
         ));
     }
+
+
 
     private void addControlFlow() {
         addQuestion(new Question(
@@ -404,7 +463,7 @@ public class QuestionSet {
         // Labels
         addQuestion(new Question("The web of lies",
                 "Will this of piece of Java code compile (assuming it is placed within a valid class)?\n" +
-                        "If not, on which line is the first syntax error?\n" +
+                        " If not, on which line is the first syntax error?\n" +
                         "```public void method() {                  // line 1\n" +
                         "    https://www.google.com              // line 2\n" +
                         "    http://www.anusolarracing.com       // line 3     \n" +
