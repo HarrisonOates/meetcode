@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="backBtn">홈으로</string>
     <string name="language_setting">언어 설정</string>
     <string name="enter_your_username">계정 이름을 적으세요</string>
     <string name="username">계정 이름</string>

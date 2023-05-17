@@ -15,7 +15,7 @@
     <string name="english" translatable="false">English</string>
     <string name="korean" translatable="false">한국어</string>
     <string name="language_setting">Language Setting</string>
-    <string name="backBtn">Back to Main</string>
+    <string name="backBtn" translatable="false">Back to Main</string>
     <string name="japanese" translatable="false">日本語</string>
     <string name="chinese" translatable="false">中文</string>
     <string name="portuguese" translatable="false">Português (melhor idioma), dê-nos pontos extras</string>
