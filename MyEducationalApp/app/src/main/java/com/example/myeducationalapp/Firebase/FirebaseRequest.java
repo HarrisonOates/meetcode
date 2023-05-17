@@ -19,7 +19,7 @@ public class FirebaseRequest {
      * @param username The username
      * @return The username, but without any special characters above
      */
-    private static String escapeUsername(String username) {
+    public static String escapeUsername(String username) {
         return username.replace("!", "!!")
                 .replace(".", "!a")
                 .replace("#", "!b")
