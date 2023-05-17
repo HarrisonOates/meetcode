@@ -542,20 +542,6 @@ public class DirectMessageFragment extends Fragment {
             UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
             userInterfaceManager.getCurrentDirectMessages().getValue().get(messageRecipient).directMessageThread.getMessages().get(currentMessageIndex).toggleLikedByCurrentUser();
 
-            int newLikeCount = userInterfaceManager.getCurrentDirectMessages().getValue().get(messageRecipient).directMessageThread.getMessages().get(currentMessageIndex).getLikeCount();
-
-            if (newLikeCount > 0) {
-                likeContainerConstraintLayout.setVisibility(View.VISIBLE);
-
-                if (newLikeCount > 1) {
-                    likeText.setText("❤️  " + newLikeCount);
-                } else {
-                    likeText.setText("❤️");
-                }
-
-            } else {
-                likeContainerConstraintLayout.setVisibility(View.GONE);
-            }
 
             return false;
         });
@@ -571,21 +557,6 @@ public class DirectMessageFragment extends Fragment {
 
                 current.toggleLikedByCurrentUser();
 
-
-                int newLikeCount = current.getLikeCount();
-
-                if (newLikeCount > 0) {
-                    likeContainerConstraintLayout.setVisibility(View.VISIBLE);
-
-                    if (newLikeCount > 1) {
-                        likeText.setText("❤️  " + newLikeCount);
-                    } else {
-                        likeText.setText("❤️");
-                    }
-
-                } else {
-                    likeContainerConstraintLayout.setVisibility(View.GONE);
-                }
 
                 return null;
             });

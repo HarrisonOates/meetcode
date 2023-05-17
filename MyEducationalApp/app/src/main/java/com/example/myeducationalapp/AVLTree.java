@@ -375,7 +375,7 @@ public class AVLTree<T extends Comparable<T>> {
         strNull.add("null");
         valuesList.removeAll(strNull);
         for (String value : valuesList) {
-            System.out.println(value);
+            System.out.printf("TREE RELOAD: %s\n", value);
             if (value.contains("@") && useAtSignToSplit) {
                 tree.insert((T) new ComparablePair<>(
                         Integer.parseInt(value.split("@")[0]),

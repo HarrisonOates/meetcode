@@ -98,9 +98,7 @@ public class UserLocalData {
             return null;
         }
 
-        return null;
 
-        /*
         return Firebase.getInstance().readPerUserSettings(UserLogin.getInstance().getCurrentUsername()).then((obj) -> {
             String data = (String) obj;
 
@@ -122,7 +120,8 @@ public class UserLocalData {
             successfullyAnsweredQuestions = successfullyAnsweredQuestions.stringToTree(successfulAnswer, false);
 
             likedMessages = new AVLTree<>();
-            likedMessages = likedMessages.stringToTree(likedMessageStr, true);
+            System.out.printf("LIKED MSG STR: %s\n", likedMessageStr);
+            //likedMessages = likedMessages.stringToTree(likedMessageStr, true);
 
             HashMap<String, List<String>> newMap = new HashMap<>();
             int i = 4;
@@ -139,7 +138,7 @@ public class UserLocalData {
             }
             yourAnswers = newMap;
             return null;
-        });*/
+        });
     }
 
     private String escapeString(String str) {
