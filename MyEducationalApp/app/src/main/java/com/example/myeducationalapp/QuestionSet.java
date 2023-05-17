@@ -167,7 +167,15 @@ public class QuestionSet {
      * Gets the question of the day where the category rotates every day.
      */
     public Question getQuestionOfTheDay() {
+        /*
+         * In UTC time.
+         */
         long millisSince1970 = System.currentTimeMillis();
+
+        /*
+         * Add 10 hours so it occurs at midnight in the +10 timezone (Canberra).
+         */
+        millisSince1970 += 1000 * 60 * 60 * 10;
         int day = (int) (millisSince1970 / (1000 * 60 * 60 * 24));
         List<String> possibleQuestions = getQuestionIDsInCategory(Category.values()[(day % 5)]);
         return usedQuestionSets.get(possibleQuestions.get((day / 5) % possibleQuestions.size()));
