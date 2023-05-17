@@ -1,12 +1,6 @@
 package com.example.myeducationalapp.Localization;
 
-
 import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.mlkit.common.model.DownloadConditions;
 import com.google.mlkit.nl.translate.Translation;
 import com.google.mlkit.nl.translate.Translator;
@@ -14,9 +8,13 @@ import com.google.mlkit.nl.translate.TranslatorOptions;
 
 public class DynamicLocalization extends LanguageSetting {
     public static void translateText(String textToTranslate, final TextView textView) {
+        // Since the given textToTranslate when it first gets called will always be in English,
+        // Its source language should be English if the previous and current language are the same.
+        String sourceLanguage = (isSameLangauge) ? "en" : previousLanguage;
+
         // Create translator options with the specified source and target language
         TranslatorOptions.Builder optionsBuilder = new TranslatorOptions.Builder()
-                .setSourceLanguage(previousLanguage)
+                .setSourceLanguage(sourceLanguage)
                 .setTargetLanguage(currentLanguage);
 
         // Build the translator
@@ -50,5 +48,13 @@ public class DynamicLocalization extends LanguageSetting {
                         });
     }
 
-
+    public static void translatedOrDefaultText(String text, TextView textView) {
+        try{
+            translateText(text, textView);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        // Initial OnViewCreate will always execute the line below
+        textView.setText(text);
+    }
 }

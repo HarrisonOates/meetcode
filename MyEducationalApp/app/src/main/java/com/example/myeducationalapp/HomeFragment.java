@@ -66,11 +66,11 @@ public class HomeFragment extends Fragment {
 
     private RecyclerView.LayoutManager layoutManagerRecyclerView;
     private RecyclerViewCustomAdapter recyclerViewCustomAdapter;
+
     public HomeFragment() {
         // Required empty public constructor
     }
 
-    public boolean visitedLang = false;
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -134,15 +134,11 @@ public class HomeFragment extends Fragment {
         // Updating "Question of the Day" subheading and body with with relevant stuff
         LocalDateTime date = LocalDateTime.now();
         String today = date.format(DateTimeFormatter.ofPattern("d MMMM"));
-        translatedOrDefaultText(today, binding.homeHeroSubheadingText);
+        DynamicLocalization.translatedOrDefaultText(today, binding.homeHeroSubheadingText);
 
         Question qotd = QuestionSet.getInstance().getQuestionOfTheDay();
 
-        translatedOrDefaultText(qotd.getName(), binding.homeHeroBodyText);
-
-
-
-
+        DynamicLocalization.translatedOrDefaultText(qotd.getName(), binding.homeHeroBodyText);
 
         boolean success = UserLocalData.getInstance().hasQuestionBeenAnsweredCorrectly(qotd.getID());
         if (success) {
@@ -213,17 +209,6 @@ public class HomeFragment extends Fragment {
             return false;
         });
     }
-
-    private void translatedOrDefaultText(String text, TextView textView) {
-        try{
-            DynamicLocalization.translateText(text, textView);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        // Initial OnViewCreate will always execute the line below
-        textView.setText(text);
-    }
-
 
     private void initializeSearch() {
 

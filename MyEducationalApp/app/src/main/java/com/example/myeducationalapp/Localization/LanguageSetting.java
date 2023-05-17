@@ -33,22 +33,14 @@ import java.util.concurrent.CountDownLatch;
  */
 
 public class LanguageSetting extends AppCompatActivity{
-
-    public Translator portugueseTranslator;
-    public Translator koreanTranslator;
-    public Translator englishTranslator;
-
     public static String previousLanguage;
     public static String currentLanguage = TranslateLanguage.ENGLISH;
-    public Translator currentTranslator;
+
+    public static boolean isSameLangauge;
 
     RadioGroup languages;
     RadioButton english, korean, japanese, portuguese, chinese;
-    ArrayList<String> dynamicTranslations;
-    ArrayList<Integer> dynamicTextIDs;
-    public String qotddd;
 
-    private CountDownLatch translationLatch; // Latch to synchronize threads
 
    public LanguageSetting(){};
 
@@ -71,25 +63,29 @@ public class LanguageSetting extends AppCompatActivity{
                 previousLanguage = currentLanguage;
                 switch (languageID) {
                     case R.id.buttonEn:
-                        currentLanguage="en";
-                        currentTranslator = englishTranslator;
+                        currentLanguage = "en";
                         break;
                     case R.id.buttonKr:
-                        currentLanguage="ko";
-                        currentTranslator = koreanTranslator;
+                        currentLanguage = "ko";
                         break;
                     case R.id.buttonJa:
-                        currentLanguage="ja";
+                        currentLanguage = "ja";
                         break;
                     case R.id.buttonPo:
-                        currentLanguage="pt";
-                        currentTranslator = portugueseTranslator;
+                        currentLanguage = "pt";
                         break;
                     case R.id.buttonCh:
-                        currentLanguage="zh";
+                        currentLanguage = "zh";
                         break;
                 }
-                setLanguage(currentLanguage);
+                if (previousLanguage.equals(currentLanguage)) {
+                    isSameLangauge = true;
+                    Toast toast = Toast.makeText(getApplicationContext(), "Already in the selected langauge!", Toast.LENGTH_SHORT);
+                    toast.show();
+                } else {
+                    isSameLangauge = false;
+                    setLanguage(currentLanguage);
+                }
             }
         });
 
@@ -102,19 +98,11 @@ public class LanguageSetting extends AppCompatActivity{
 
     }
 
-    @SuppressLint("SetTextI18n")
+    /**
+     * Changes all the hardcoded string values in strings.xml into a given language
+     * @param languageCode
+     */
     private void setLanguage(String languageCode) {
-//        Question qotd = QuestionSet.getInstance().getQuestionOfTheDay();
-//        System.out.println("Before : " + qotd.getName());
-//        try {
-//            qotddd = getTranslatedText();
-//            System.out.println("Translated text: " + qotddd);
-//            // Call other methods that require the translated text
-//        } catch (InterruptedException e) {
-//            // Handle the interruption exception
-//        }
-        System.out.println("QOTDD 되나여?: " + qotddd);
-
         Locale locale = new Locale(languageCode);
         Locale.setDefault(locale);
 
@@ -127,145 +115,4 @@ public class LanguageSetting extends AppCompatActivity{
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
     }
-
-
-    public void buttonDownloadTranslators(View view) {
-        Toast toast = Toast.makeText(getApplicationContext(), "The download will take a while...", Toast.LENGTH_LONG);
-        toast.show();
-
-        TranslatorOptions portugueseOptions =
-                new TranslatorOptions.Builder()
-                        .setSourceLanguage(currentLanguage)
-                        .setTargetLanguage(TranslateLanguage.PORTUGUESE)
-                        .build();
-        portugueseTranslator = Translation.getClient(portugueseOptions);
-
-
-        TranslatorOptions englishOptions =
-                new TranslatorOptions.Builder()
-                        .setSourceLanguage(currentLanguage)
-                        .setTargetLanguage(TranslateLanguage.ENGLISH)
-                        .build();
-        englishTranslator = Translation.getClient(englishOptions);
-
-        TranslatorOptions koreanOptions =
-                new TranslatorOptions.Builder()
-                        .setSourceLanguage(currentLanguage)
-                        .setTargetLanguage(TranslateLanguage.KOREAN)
-                        .build();
-        koreanTranslator = Translation.getClient(koreanOptions);
-
-        DownloadConditions conditions = new DownloadConditions.Builder()
-                .requireWifi()
-                .build();
-        portugueseTranslator.downloadModelIfNeeded(conditions)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void v) {
-                        System.out.println("Portuguese successfully downloaded");
-                        Toast toast = Toast.makeText(getApplicationContext(), "Portuguese successfully downloaded", Toast.LENGTH_SHORT);
-                        toast.show();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        System.out.println(e);
-                    }
-                });
-
-        englishTranslator.downloadModelIfNeeded(conditions)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void v) {
-                        System.out.println("English successfully downloaded");
-                        Toast toast = Toast.makeText(getApplicationContext(), "English successfully downloaded", Toast.LENGTH_SHORT);
-                        toast.show();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        System.out.println(e);
-                    }
-                });
-
-        koreanTranslator.downloadModelIfNeeded(conditions)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void v) {
-                        System.out.println("Korean successfully downloaded");
-                        Toast toast = Toast.makeText(getApplicationContext(), "Korean successfully downloaded", Toast.LENGTH_SHORT);
-                        toast.show();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        System.out.println(e);
-                    }
-                });
-
-        System.out.println("port: " + portugueseTranslator.toString());
-        System.out.println("eng: " + englishTranslator.toString());
-        System.out.println("kor: " + koreanTranslator.toString());
-    }
-
-
-
-
-
-//    public String getTranslatedText() throws InterruptedException {
-//        translationLatch.await(); // Wait for the translation operation to complete
-//        return qotddd;
-//    }
-
-//    // Usage example
-//    translateString("Hello");
-//
-//try {
-//        String translatedText = getTranslatedText();
-//        System.out.println("Translated text: " + translatedText);
-//        // Call other methods that require the translated text
-//        doSomethingWithTranslatedText(translatedText);
-//    } catch (InterruptedException e) {
-//        // Handle the interruption exception
-//    }
-
-//    public void doSomethingWithTranslatedText(String translatedText) {
-//        // Do something with the translated text
-//        // ...
-//        // You can also access the global variable directly
-//        System.out.println("Global variable: " + qotddd);
-//    }
-
-
-//    // Usage example
-//    translateString("Hello", new TranslationCallback() {
-//        @Override
-//        public void onTranslationComplete(String translatedText) {
-//            // You can access the translated text here
-//            System.out.println("Translated text: " + translatedText);
-//
-//            // Call other methods that require the translated text
-//            doSomethingWithTranslatedText(translatedText);
-//        }
-//    });
-//
-//    public void doSomethingWithTranslatedText(String translatedText) {
-//        // Do something with the translated text
-//        // ...
-//    }
-//
-//
-//    public void translateApp() {
-//        System.out.println(QuestionSet.getInstance().getQuestionOfTheDay().getName());
-//
-//    }
-//
-//
-//    @Override
-//    public void onTranslationComplete(String translatedText) {
-//        qotddd = translatedText;
-//    }
 }
