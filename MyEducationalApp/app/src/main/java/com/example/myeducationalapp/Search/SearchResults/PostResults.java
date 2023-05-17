@@ -1,6 +1,8 @@
 package com.example.myeducationalapp.Search.SearchResults;
 
 import com.example.myeducationalapp.Firebase.Firebase;
+import com.example.myeducationalapp.Question;
+import com.example.myeducationalapp.QuestionSet;
 import com.example.myeducationalapp.Search.SearchParsing.SearchToken;
 
 import java.util.ArrayList;
@@ -9,11 +11,28 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.SortedMap;
 
+/**
+ * Obtains the results of how likely each post is to be the result being searched for
+ * @author u7146309
+ */
 public class PostResults extends Results{
-    private ArrayList<SearchResult> searchResults = new ArrayList<>();
-    HashMap<Character, Double> topics = new HashMap<>(Map.of('0',1.0,'1',1.0,'2',1.0,'3',1.0,'4',1.0));
+    /**
+     * A list of all possible search results, which is updated to include likelihood
+     */
+    private ArrayList<SearchResult> searchResults;
 
+    /**
+     * A map of all the question topics and their weighting of likelihood
+     */
+    HashMap<QuestionSet.Category, Double> topics = new HashMap<>(Map.of(QuestionSet.Category.Algorithm,1.0, QuestionSet.Category.ControlFlow,1.0, QuestionSet.Category.DataStructure,1.0, QuestionSet.Category.Miscellaneous,1.0, QuestionSet.Category.Recursion,1.0));
+
+    /**
+     * Returns a list containing the results from a post search
+     * @param search The user inputted search
+     * @return A list containing results from each post
+     */
     @Override
     public List<SearchResult> results(List<String> search) {
         if (searchResults == null) updatePosts();
@@ -22,14 +41,17 @@ public class PostResults extends Results{
             int confidence = 0;
             for (var searchWord : search) {
                 for (var questionWord : searchResult.getWords()) {
-                    if (Objects.equals(searchWord, questionWord)) confidence++;
-                    else if (questionWord.contains(searchWord)) confidence += 0.5;
+                    if (Objects.equals(searchWord.toLowerCase(), questionWord.toLowerCase())) confidence++;
+                    else if (questionWord.contains(searchWord)) confidence += 0.1;
+                    else confidence -= (double)search.size()/(double)searchResult.getWords().size();
+                    //TODO: Currently, caps
+                    //TODO: Currently, prioritises number of words
                 }
             }
 
-            var multiplier = topics.get(searchResult.getId().charAt(0));
+            var multiplier = topics.get(QuestionSet.charToCategory(searchResult.getId().charAt(0)));
 
-            searchResult.setConfidence(multiplier * confidence);
+            searchResult.setConfidence(-12);//TODO multiplier * confidence);
         });
 
         return searchResults;
@@ -39,20 +61,27 @@ public class PostResults extends Results{
 
     //TODO: When is this updated (as with other sections)
     //TODO: Filter topics
+
+    /**
+     * Updates the posts separately, instead of updating every time something is searched
+     */
     public void updatePosts() {
-        //var questions = (QuestionSet).geUsedQuestions();
-        HashMap<String, String[]> questions = new HashMap<>();
-        //TODO
+        SortedMap<String, Question> questions = QuestionSet.getInstance().getUsedQuestionSets();
+        //HashMap<String, Question> questions = new HashMap<>();
 
         if (questions == null) return;
+
+
+        searchResults = new ArrayList<>();
 
         var entrySet = questions.keySet();
         for (String entry : entrySet) {
             //TODO: Filter
-            if (!topics.containsKey(entry.charAt(0))) continue;
+            if (!topics.containsKey(questions.get(entry).getCategory())) continue;
 
 
             var comments = (String)Firebase.getInstance().readQuestionComments(entry).await();
+            if (comments == null) continue;
             var splitComments = comments.split("\n");
             int index = 0;
 
@@ -68,7 +97,11 @@ public class PostResults extends Results{
         }
     }
 
-    public void setTopics(HashMap<Character, Double> topics) {
+    /**
+     * Sets the likelihood of each post for being the one searched for
+     * @param topics A map of each post and it's likelihood
+     */
+    public void setTopics(HashMap<QuestionSet.Category, Double> topics) {
         this.topics = topics;
     }
 }
