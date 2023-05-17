@@ -104,7 +104,7 @@ public class Firebase {
     }
 
     public void attachDirectMessageObserver(FirebaseObserver observer, String username1, String username2) {
-        attachObserver(observer, getDirectMessageFilepath(username1, username2));
+        attachObserver(observer, getDirectMessageFilepath(username1, username2, true));
     }
 
     /**
@@ -128,15 +128,23 @@ public class Firebase {
      * @param username2 One of the two usernames (the order doesn't matter)
      * @return A list containing the 'subdirectories' to enter on the Firebase database
      */
-    List<String> getDirectMessageFilepath(String username1, String username2) {
+    List<String> getDirectMessageFilepath(String username1, String username2, boolean escape) {
         /*
          * We want to make sure the order is consistent, as it doesn't matter which username
          * gets passed in first.
          */
         if (username1.compareTo(username2) < 0) {
-            return Arrays.asList("dm", FirebaseRequest.escapeUsername(username1), FirebaseRequest.escapeUsername(username2));
+            if (escape) {
+                return Arrays.asList("dm", FirebaseRequest.escapeUsername(username1), FirebaseRequest.escapeUsername(username2));
+            } else {
+                return Arrays.asList("dm", username1, username2);
+            }
         } else {
-            return Arrays.asList("dm", FirebaseRequest.escapeUsername(username2), FirebaseRequest.escapeUsername(username1));
+            if (escape) {
+                return Arrays.asList("dm", FirebaseRequest.escapeUsername(username2), FirebaseRequest.escapeUsername(username1));
+            } else {
+                return Arrays.asList("dm", username2, username1);
+            }
         }
     }
 
@@ -170,7 +178,7 @@ public class Firebase {
         if (!UserLogin.getInstance().isUserLoggedIn(username1) && !UserLogin.getInstance().isUserLoggedIn(username2)) {
             throw new AccessDeniedException("you do not have permission to read this conversation");
         }
-        return FirebaseRequest.read(database, getDirectMessageFilepath(username1, username2));
+        return FirebaseRequest.read(database, getDirectMessageFilepath(username1, username2, true));
     }
 
     /**
@@ -207,7 +215,7 @@ public class Firebase {
             throw new AccessDeniedException("you do not have permission to read this conversation");
         }
 
-        return FirebaseRequest.write(database, getDirectMessageFilepath(username1, username2), messages.toString());
+        return FirebaseRequest.write(database, getDirectMessageFilepath(username1, username2, true), messages.toString());
     }
 
     /**
@@ -339,7 +347,7 @@ public class Firebase {
      * @return A Firebase result that can be used to determine when the deletion is completed.
      */
     public FirebaseResult debugDeleteAllDirectMessages(String username1, String username2) {
-        return FirebaseRequest.write(database, getDirectMessageFilepath(username1, username2), "");
+        return FirebaseRequest.write(database, getDirectMessageFilepath(username1, username2, true), "");
     }
 
     /**
@@ -458,7 +466,7 @@ public class Firebase {
      * @author Harrison Oates u7468212
      */
     public FirebaseResult writeDirectMessagesDatastream(String username1, String username2, MessageThread messages){
-        return FirebaseRequest.write(database, getDirectMessageFilepath(username1, username2), messages.toString());
+        return FirebaseRequest.write(database, getDirectMessageFilepath(username1, username2, true), messages.toString());
     }
 
 }

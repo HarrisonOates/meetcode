@@ -97,7 +97,8 @@ public class FirebaseResult {
                     DatabaseReference grandparent = parent == null || parent.getKey() == null ? null : parent.getParent();
 
                     if (grandparent != null && grandparent.getKey() != null && grandparent.getKey().equals("dm")) {
-                        List<String> dmPath = Firebase.getInstance().getDirectMessageFilepath(current.getKey(), parent.getKey());
+                        List<String> dmPath = Firebase.getInstance().getDirectMessageFilepath(current.getKey(), parent.getKey(), false);
+                        System.out.printf("DM PATH = %s\n", dmPath);
                         Firebase.getInstance().notifyObservers(dmPath);
                     }
                 }
