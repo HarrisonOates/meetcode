@@ -129,7 +129,7 @@ public class HomeFragment extends Fragment {
 
         // Updating toolbar text
         UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
-        userInterfaceManager.getUiState().getValue().enterNewFragment(toolbarTitle);
+        DynamicLocalization.translatedOrDefaultToolBar(toolbarTitle, userInterfaceManager, true);
 
         // Updating the categories carousel
         generateAllHomeCategoryCards(getActivity());

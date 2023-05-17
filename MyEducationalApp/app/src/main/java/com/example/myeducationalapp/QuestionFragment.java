@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.myeducationalapp.Localization.DynamicLocalization;
 import com.example.myeducationalapp.databinding.FragmentQuestionBinding;
 import com.example.myeducationalapp.userInterface.Generatable.QuestionCard;
 import com.example.myeducationalapp.userInterface.UserInterfaceManagerViewModel;
@@ -108,10 +109,10 @@ public class QuestionFragment extends Fragment {
         QuestionCard currentQuestion = userInterfaceManager.getCurrentlyDisplayedQuestion().getValue();
 
         // Setting question details to UI
-        binding.questionBodyHeadingText.setText(currentQuestion.getHeading());
-        binding.questionBodySubheadingText.setText(currentQuestion.getSubheading());
-        binding.questionBodyCategoryText.setText(currentQuestion.getCategory());
-        binding.questionBodyDifficultyText.setText(currentQuestion.getDifficulty());
+        DynamicLocalization.translatedOrDefaultText(currentQuestion.getHeading(), binding.questionBodyHeadingText);
+        DynamicLocalization.translatedOrDefaultText(currentQuestion.getSubheading(), binding.questionBodySubheadingText);
+        DynamicLocalization.translatedOrDefaultText(currentQuestion.getCategory(), binding.questionBodyCategoryText);
+        DynamicLocalization.translatedOrDefaultText(currentQuestion.getDifficulty(), binding.questionBodyDifficultyText);
         if (currentQuestion.getMaxStars() == 1) {
             binding.questionBodyStarsText.setText(getString(R.string.earn_1_star));
         } else {

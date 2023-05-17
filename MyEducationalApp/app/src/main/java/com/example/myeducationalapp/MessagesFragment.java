@@ -33,6 +33,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.myeducationalapp.Firebase.Firebase;
+import com.example.myeducationalapp.Localization.DynamicLocalization;
 import com.example.myeducationalapp.databinding.FragmentMessagesBinding;
 import com.example.myeducationalapp.userInterface.Generatable.MessageListCard;
 import com.example.myeducationalapp.userInterface.UserDirectMessages;
@@ -122,7 +123,7 @@ public class MessagesFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 
         UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
-        userInterfaceManager.getUiState().getValue().enterNewFragment(toolbarTitle, false);
+        DynamicLocalization.translatedOrDefaultToolBar(toolbarTitle, userInterfaceManager, false);
 
         // resetting previous error states
         GradientDrawable incorrectTextBox = (GradientDrawable) binding.messagesTextContainer.getBackground();

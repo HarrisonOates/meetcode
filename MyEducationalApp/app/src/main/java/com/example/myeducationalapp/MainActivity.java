@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import com.example.myeducationalapp.DatastreamSimulation.DataGenerator;
 import com.example.myeducationalapp.Firebase.Firebase;
+import com.example.myeducationalapp.Localization.DynamicLocalization;
 import com.example.myeducationalapp.userInterface.UserInterfaceManagerViewModel;
 
 import androidx.activity.OnBackPressedCallback;
@@ -84,28 +85,29 @@ public class MainActivity extends AppCompatActivity {
         // Anonymous on-click handlers
         navMenuHomeIcon.setOnClickListener(view -> {
 
-            if (!Objects.equals(userInterfaceManager.getUiState().getValue().getToolbarTitle().getValue(), "Home")) {
-                //userInterfaceManager.getUiState().getValue().setIsActionBarInBackState(false);
-                navController.navigate(R.id.HomeFragment);
-            }
+            DynamicLocalization.navigateTranslatedToolBar(userInterfaceManager, navController, "Home", R.id.HomeFragment);
 
         });
 
         navMenuMailIcon.setOnClickListener(view -> {
 
-            if (!Objects.equals(userInterfaceManager.getUiState().getValue().getToolbarTitle().getValue(), "Messages")) {
-                //userInterfaceManager.getUiState().getValue().setIsActionBarInBackState(true);
-                navController.navigate(R.id.messagesFragment);
-            }
+            DynamicLocalization.navigateTranslatedToolBar(userInterfaceManager, navController, "Messages", R.id.messagesFragment);
+
+//            if (!Objects.equals(userInterfaceManager.getUiState().getValue().getToolbarTitle().getValue(), "Messages")) {
+//                //userInterfaceManager.getUiState().getValue().setIsActionBarInBackState(true);
+//                navController.navigate(R.id.messagesFragment);
+//            }
 
         });
 
         navMenuHamburgerIcon.setOnClickListener(view -> {
 
-            if (!Objects.equals(userInterfaceManager.getUiState().getValue().getToolbarTitle().getValue(), "Menu")) {
-                //userInterfaceManager.getUiState().getValue().setIsActionBarInBackState(true);
-                navController.navigate(R.id.accountFragment);
-            }
+            DynamicLocalization.navigateTranslatedToolBar(userInterfaceManager, navController, "Menu", R.id.accountFragment);
+
+//            if (!Objects.equals(userInterfaceManager.getUiState().getValue().getToolbarTitle().getValue(), "Menu")) {
+//                //userInterfaceManager.getUiState().getValue().setIsActionBarInBackState(true);
+//                navController.navigate(R.id.accountFragment);
+//            }
 
         });
 

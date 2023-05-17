@@ -94,11 +94,8 @@ public class CategoryFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-
-
         UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
-        userInterfaceManager.getUiState().getValue().enterNewFragment(
-                userInterfaceManager.getCurrentlyDisplayedCategory().getValue().getHeading());
+        DynamicLocalization.translatedOrDefaultToolBar(userInterfaceManager.getCurrentlyDisplayedCategory().getValue().getHeading(), userInterfaceManager, true);
 
 
         generateAllCards(getActivity());

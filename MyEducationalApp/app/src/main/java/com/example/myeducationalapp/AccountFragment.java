@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.myeducationalapp.Localization.DynamicLocalization;
 import com.example.myeducationalapp.Localization.LanguageSetting;
 import com.example.myeducationalapp.databinding.FragmentAccountBinding;
 import com.example.myeducationalapp.userInterface.UserInterfaceManagerViewModel;
@@ -73,7 +74,7 @@ public class AccountFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 
         UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
-        userInterfaceManager.getUiState().getValue().enterNewFragment(toolbarTitle);
+        DynamicLocalization.translatedOrDefaultToolBar(toolbarTitle, userInterfaceManager, true);
 
         binding.accountMenuCategoryConstraintLayout.setOnClickListener(view1 -> {
             NavHostFragment.findNavController(AccountFragment.this).navigate(R.id.action_accountFragment_to_categoriesListFragment);

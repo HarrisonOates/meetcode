@@ -4,11 +4,10 @@
     <string name="username">Nome de usuário</string>
     <string name="enter_your_password">Digitar sua senha</string>
     <string name="password">Senha</string>
-    <string name="log_in">Entrar</string>
+    <string name="log_in">Entrar ➜</string>
     <string name="you_ve_achieved_x_stars">Você tem %1$d estrelas</string>
-    <string name="current_username">Nome de usuário atual</string>
     <string name="categories">Categorias</string>
     <string name="daily_challenge">Desafio diário</string>
     <string name="logout">Sair</string>
-    <string name="earn_x_stars">Ganhar %1$d estrelas</string>
+    <string name="earn_x_stars">Ganhar %1$d</string>
 </resources>
