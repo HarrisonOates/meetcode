@@ -12,13 +12,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.myeducationalapp.Localization.TranslationCallback;
 import com.example.myeducationalapp.MainActivity;
-import com.example.myeducationalapp.Question;
-import com.example.myeducationalapp.QuestionSet;
 import com.example.myeducationalapp.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
