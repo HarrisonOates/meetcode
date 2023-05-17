@@ -407,7 +407,7 @@ However, by manually inspecting the code, we find that the user login tests gets
 Feature Category: Data Structures <br>
 1. [Data-Deletion]. Deletion method of either a Red-Black Tree, AVL tree or B-Tree data structure. The deletion of nodes must serve a purpose within your application. (hard)
    * Class AVLTree, methods delete, findImbalanceDelete, deleteBeforeBalance, balanceSubtree, Lines of code: 53
-   * Additional description: ...
+   * TODO for Geun
 
 Feature Category: Firebase Integration <br>
 2. [FB-Persist] Use Firebase to persist all data used in your app. (medium)
@@ -454,6 +454,13 @@ Feature Category: Syntax Highlighting (custom, approved as per [here](https://wa
      All of this is bundled into a static method, ```SyntaxHighlighting.DetectCodeBlock.parseCodeBlocks()```, which detects the backticks and feeds the appropriate section of text to the other classes.
      To interface with the frontend, we call the method inside ```Html.fromHtml```, which is itself inside ```textView.setText()```.
 
+7. [Dynamic Localization] Provide users to switch languages of not only the hardcoded string values, but also the ones that are dynamic. (easy)
+   * Class Localization.DynamicLocalization, whole file
+   * Class Localization.LanguageSetting, whole file
+   * Most of the UI related classes
+   * Additional description:
+     * There are certain strings that were intentionally not translated, including programming questions and search query, as doing so would confuse users more.
+     
 *List all features you have completed in their separate categories with their difficulty classification. If they are features that are suggested and approved, please state this somewhere as well.*
 
 ## Team Meetings

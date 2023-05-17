@@ -96,7 +96,7 @@ public class QuestionFragment extends Fragment {
         UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
 
         // Setting title bar to name of question
-        userInterfaceManager.getUiState().getValue().enterNewFragment(userInterfaceManager.getCurrentlyDisplayedQuestion().getValue().getHeading());
+        DynamicLocalization.translatedOrDefaultToolBar(userInterfaceManager.getCurrentlyDisplayedQuestion().getValue().getHeading(), userInterfaceManager, true);
 
 
 
