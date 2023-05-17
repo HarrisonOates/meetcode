@@ -8,6 +8,7 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -91,10 +92,6 @@ public class QuestionFragment extends Fragment {
 
         UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
 
-        // Testing
-//        Question testQuestion = QuestionSet.getInstance().getQuestionOfTheDay();
-//        userInterfaceManager.getCurrentlyDisplayedQuestion().getValue().setQuestion(testQuestion);
-
         // Setting title bar to name of question
         userInterfaceManager.getUiState().getValue().enterNewFragment(userInterfaceManager.getCurrentlyDisplayedQuestion().getValue().getHeading());
 
@@ -177,7 +174,8 @@ public class QuestionFragment extends Fragment {
                         binding.questionAnswerEntryCarpetContraintLayout.setVisibility(View.VISIBLE);
                         binding.questionAnswerResultCorrectText.setVisibility(View.VISIBLE);
 
-                        binding.questionAnswerEntryCorrectIcon1st.setVisibility(View.VISIBLE);
+                        binding.questionAnswerEntryIcon1st.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.icon_check_mark_circle));
+                        binding.questionAnswerEntryIcon1st.setVisibility(View.VISIBLE);
                         binding.questionAnswerEntryText1st.setEnabled(false);
                         //binding.questionAnswerEntryText1st.setText(UserLocalData.getInstance().getYourAnswers(currentQuestion.getQuestionID()).get(0));
                         binding.questionAnswerEntryText1st.setTextColor(Color.parseColor("#FF00D408"));
@@ -212,7 +210,8 @@ public class QuestionFragment extends Fragment {
                         binding.questionAnswerResultCorrectText.setVisibility(View.VISIBLE);
 
                         // making second entry box green, green border with correct icon
-                        binding.questionAnswerEntryCorrectIcon2nd.setVisibility(View.VISIBLE);
+                        binding.questionAnswerEntryIcon2nd.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.icon_check_mark_circle));
+                        binding.questionAnswerEntryIcon2nd.setVisibility(View.VISIBLE);
                         binding.questionAnswerEntryText2nd.setEnabled(false);
                         //binding.questionAnswerEntryText1st.setText(UserLocalData.getInstance().getYourAnswers(currentQuestion.getQuestionID()).get(1));
                         binding.questionAnswerEntryText2nd.setTextColor(Color.parseColor("#FF00D408"));
@@ -226,7 +225,8 @@ public class QuestionFragment extends Fragment {
                         binding.questionAnswerResultIncorrectText.setVisibility(View.VISIBLE);
 
                         // making first entry box red, strikethrough, and red border
-                        binding.questionAnswerEntryIncorrectIcon2nd.setVisibility(View.VISIBLE);
+                        binding.questionAnswerEntryIcon2nd.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.icon_cross_circle));
+                        binding.questionAnswerEntryIcon2nd.setVisibility(View.VISIBLE);
                         binding.questionAnswerEntryText2nd.setEnabled(false);
                         //binding.questionAnswerEntryText2nd.setText(UserLocalData.getInstance().getYourAnswers(currentQuestion.getQuestionID()).get(1));
                         binding.questionAnswerEntryText2nd.setTextColor(Color.parseColor("#FFFF102D"));
@@ -262,7 +262,8 @@ public class QuestionFragment extends Fragment {
         binding.questionAnswerEntryBoxConstraintLayout2nd.setVisibility(View.VISIBLE);
         binding.questionAnswerSubmitInnerButtonConstraintLayout.setVisibility(View.VISIBLE);
         binding.questionAnswerEntryCarpetContraintLayout.setVisibility(View.VISIBLE);
-        binding.questionAnswerEntryIncorrectIcon1st.setVisibility(View.VISIBLE);
+        binding.questionAnswerEntryIcon1st.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.icon_cross_circle));
+        binding.questionAnswerEntryIcon1st.setVisibility(View.VISIBLE);
 
         // making first entry box red, strikethrough, and red border
         binding.questionAnswerEntryText1st.setEnabled(false);

@@ -198,18 +198,438 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/question_multi_carpet_contraint_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/categories_list_secondary_star_container"
-                android:clipToPadding="false"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/question_multi_question_text"
                 app:layout_constraintVertical_bias="0.0"
+                android:clipToPadding="false"
                 tools:visibility="visible">
+
+                <!-- multi choice 1 -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/question_multi_pick_constraint_layout_1"
+                    android:layout_width="310dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:background="@drawable/question_answer_1_container"
+                    android:clipToPadding="false"
+                    android:elevation="10dp"
+                    android:paddingVertical="17.5dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <!-- text entry field -->
+                    <TextView
+                        android:id="@+id/question_multi_pick_text_1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:background="@null"
+                        android:ems="10"
+                        android:fontFamily="@font/ibm_plex_sans_medium"
+                        android:hint="@string/enter_your_answer"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/question_multi_pick_icon_1"
+                        app:layout_constraintStart_toStartOf="@+id/question_multi_pick_start_guide_1"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/question_multi_pick_icon_1"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:background="@drawable/icon_cross_circle"
+                        android:clipToOutline="true"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/question_multi_pick_end_guide_1"
+                        app:layout_constraintStart_toStartOf="@+id/question_multi_pick_end_guide_1"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:visibility="visible" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/question_multi_pick_start_guide_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.09" />
+
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/question_multi_pick_end_guide_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.91" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- multi choice 2 -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/question_multi_pick_constraint_layout_2"
+                    android:layout_width="310dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/question_answer_2_container"
+                    android:clipToPadding="false"
+                    android:elevation="10dp"
+                    android:paddingVertical="17.5dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/question_multi_pick_constraint_layout_1">
+
+                    <!-- text entry field -->
+                    <TextView
+                        android:id="@+id/question_multi_pick_text_2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:background="@null"
+                        android:ems="10"
+                        android:fontFamily="@font/ibm_plex_sans_medium"
+                        android:hint="@string/enter_your_answer"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/question_multi_pick_icon_2"
+                        app:layout_constraintStart_toStartOf="@+id/question_multi_pick_start_guide_2"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/question_multi_pick_icon_2"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:background="@drawable/icon_cross_circle"
+                        android:clipToOutline="true"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/question_multi_pick_end_guide_2"
+                        app:layout_constraintStart_toStartOf="@+id/question_multi_pick_end_guide_2"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:visibility="visible" />
+
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/question_multi_pick_start_guide_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.09" />
+
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/question_multi_pick_end_guide_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.91" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- multi choice 3 -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/question_multi_pick_constraint_layout_3"
+                    android:layout_width="310dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/question_answer_3_container"
+                    android:clipToPadding="false"
+                    android:elevation="10dp"
+                    android:paddingVertical="17.5dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/question_multi_pick_constraint_layout_2">
+
+                    <!-- text entry field -->
+                    <TextView
+                        android:id="@+id/question_multi_pick_text_3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:background="@null"
+                        android:ems="10"
+                        android:fontFamily="@font/ibm_plex_sans_medium"
+                        android:hint="@string/enter_your_answer"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/question_multi_pick_icon_3"
+                        app:layout_constraintStart_toStartOf="@+id/question_multi_pick_start_guide_3"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/question_multi_pick_icon_3"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:background="@drawable/icon_cross_circle"
+                        android:clipToOutline="true"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/question_multi_pick_end_guide_3"
+                        app:layout_constraintStart_toStartOf="@+id/question_multi_pick_end_guide_3"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/question_multi_pick_start_guide_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.09" />
+
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/question_multi_pick_end_guide_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.91" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <!-- multi choice 4 -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/question_multi_pick_constraint_layout_4"
+                    android:layout_width="310dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/question_answer_4_container"
+                    android:clipToPadding="false"
+                    android:elevation="10dp"
+                    android:paddingVertical="17.5dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/question_multi_pick_constraint_layout_3">
+
+                    <!-- text entry field -->
+                    <TextView
+                        android:id="@+id/question_multi_pick_text_4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:background="@null"
+                        android:ems="10"
+                        android:fontFamily="@font/ibm_plex_sans_medium"
+                        android:hint="@string/enter_your_answer"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/question_multi_pick_icon_4"
+                        app:layout_constraintStart_toStartOf="@+id/question_multi_pick_start_guide_4"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/question_multi_pick_icon_4"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:background="@drawable/icon_cross_circle"
+                        android:clipToOutline="true"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/question_multi_pick_end_guide_4"
+                        app:layout_constraintStart_toStartOf="@+id/question_multi_pick_end_guide_4"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/question_multi_pick_start_guide_4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.09" />
+
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/question_multi_pick_end_guide_4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.91" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <!-- multi choice 5 -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/question_multi_pick_constraint_layout_5"
+                    android:layout_width="310dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/question_answer_5_container"
+                    android:clipToPadding="false"
+                    android:elevation="10dp"
+                    android:paddingVertical="17.5dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/question_multi_pick_constraint_layout_4">
+
+                    <!-- text entry field -->
+                    <TextView
+                        android:id="@+id/question_multi_pick_text_5"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:background="@null"
+                        android:ems="10"
+                        android:fontFamily="@font/ibm_plex_sans_medium"
+                        android:hint="@string/enter_your_answer"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/question_multi_pick_icon_5"
+                        app:layout_constraintStart_toStartOf="@+id/question_multi_pick_start_guide_5"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/question_multi_pick_icon_5"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:background="@drawable/icon_cross_circle"
+                        android:clipToOutline="true"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/question_multi_pick_end_guide_5"
+                        app:layout_constraintStart_toStartOf="@+id/question_multi_pick_end_guide_5"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/question_multi_pick_start_guide_5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.09" />
+
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/question_multi_pick_end_guide_5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.91" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+                <!-- multi choice 6 -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/question_multi_pick_constraint_layout_6"
+                    android:layout_width="310dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/question_answer_6_container"
+                    android:clipToPadding="false"
+                    android:elevation="10dp"
+                    android:paddingVertical="17.5dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/question_multi_pick_constraint_layout_5">
+
+                    <!-- text entry field -->
+                    <TextView
+                        android:id="@+id/question_multi_pick_text_6"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:background="@null"
+                        android:ems="10"
+                        android:fontFamily="@font/ibm_plex_sans_medium"
+                        android:hint="@string/enter_your_answer"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/question_multi_pick_icon_6"
+                        app:layout_constraintStart_toStartOf="@+id/question_multi_pick_start_guide_6"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/question_multi_pick_icon_6"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:background="@drawable/icon_cross_circle"
+                        android:clipToOutline="true"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/question_multi_pick_end_guide_6"
+                        app:layout_constraintStart_toStartOf="@+id/question_multi_pick_end_guide_6"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/question_multi_pick_start_guide_6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.09" />
+
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/question_multi_pick_end_guide_6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.91" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <TextView
+                    android:id="@+id/question_multi_result_correct_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="20dp"
+                    android:fontFamily="@font/ibm_plex_sans_semibold"
+                    android:text="@string/you_got_it_correct_great_job"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/question_multi_pick_constraint_layout_6"
+                    tools:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/question_multi_result_incorrect_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="20dp"
+                    android:fontFamily="@font/ibm_plex_sans_semibold"
+                    android:text="@string/oh_no_better_luck_next_time"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/question_multi_pick_constraint_layout_6"
+                    tools:visibility="visible" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -252,13 +672,14 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/question_answer_entry_1st_question_text"
-                tools:visibility="gone">
+                tools:visibility="visible">
 
                 <!-- text entry field -->
                 <EditText
                     android:id="@+id/question_answer_entry_text_1st_fake"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
                     android:background="@null"
                     android:ems="10"
                     android:fontFamily="@font/ibm_plex_sans_medium"
@@ -266,12 +687,12 @@
                     android:inputType="textAutoComplete|text"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/question_answer_entry_box_end_guide_1st_fake"
+                    app:layout_constraintEnd_toStartOf="@+id/question_answer_entry_icon_1st_fake"
                     app:layout_constraintStart_toStartOf="@+id/question_answer_entry_box_start_guide_1st_fake"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <View
-                    android:id="@+id/question_answer_entry_incorrect_icon_1st_fake"
+                    android:id="@+id/question_answer_entry_icon_1st_fake"
                     android:layout_width="28dp"
                     android:layout_height="28dp"
                     android:layout_alignParentStart="true"
@@ -282,22 +703,8 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/question_answer_entry_box_end_guide_1st_fake"
                     app:layout_constraintStart_toStartOf="@+id/question_answer_entry_box_end_guide_1st_fake"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <View
-                    android:id="@+id/question_answer_entry_correct_icon_1st_fake"
-                    android:layout_width="28dp"
-                    android:layout_height="28dp"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:background="@drawable/icon_check_mark_circle"
-                    android:clipToOutline="true"
-                    android:visibility="gone"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/question_answer_entry_box_end_guide_1st_fake"
-                    app:layout_constraintStart_toStartOf="@+id/question_answer_entry_box_end_guide_1st_fake"
-                    app:layout_constraintTop_toTopOf="parent" />
-
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:visibility="visible" />
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/question_answer_entry_box_start_guide_1st_fake"
@@ -346,13 +753,15 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:visibility="visible">
 
                     <!-- text entry field -->
                     <EditText
                         android:id="@+id/question_answer_entry_text_1st"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
                         android:background="@null"
                         android:ems="10"
                         android:fontFamily="@font/ibm_plex_sans_medium"
@@ -360,12 +769,12 @@
                         android:inputType="textAutoComplete|text"
                         android:textSize="18sp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/question_answer_entry_box_end_guide_1st"
+                        app:layout_constraintEnd_toStartOf="@+id/question_answer_entry_icon_1st"
                         app:layout_constraintStart_toStartOf="@+id/question_answer_entry_box_start_guide_1st"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <View
-                        android:id="@+id/question_answer_entry_incorrect_icon_1st"
+                        android:id="@+id/question_answer_entry_icon_1st"
                         android:layout_width="28dp"
                         android:layout_height="28dp"
                         android:layout_alignParentStart="true"
@@ -377,21 +786,6 @@
                         app:layout_constraintEnd_toStartOf="@+id/question_answer_entry_box_end_guide_1st"
                         app:layout_constraintStart_toStartOf="@+id/question_answer_entry_box_end_guide_1st"
                         app:layout_constraintTop_toTopOf="parent" />
-
-                    <View
-                        android:id="@+id/question_answer_entry_correct_icon_1st"
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:background="@drawable/icon_check_mark_circle"
-                        android:clipToOutline="true"
-                        android:visibility="gone"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/question_answer_entry_box_end_guide_1st"
-                        app:layout_constraintStart_toStartOf="@+id/question_answer_entry_box_end_guide_1st"
-                        app:layout_constraintTop_toTopOf="parent" />
-
 
                     <androidx.constraintlayout.widget.Guideline
                         android:id="@+id/question_answer_entry_box_start_guide_1st"
@@ -423,7 +817,7 @@
                     android:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/question_answer_entry_box_constraint_layout_1st"
-                    tools:visibility="visible" />
+                    tools:visibility="gone" />
 
                 <!-- Text entry Widget -->
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -439,13 +833,14 @@
                     app:layout_constraintHorizontal_bias="0.523"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/question_answer_entry_2nd_question_text"
-                    tools:visibility="visible">
+                    tools:visibility="gone">
 
                     <!-- text entry field -->
                     <EditText
                         android:id="@+id/question_answer_entry_text_2nd"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
                         android:background="@null"
                         android:ems="10"
                         android:fontFamily="@font/ibm_plex_sans_medium"
@@ -453,12 +848,12 @@
                         android:inputType="textAutoComplete|text"
                         android:textSize="18sp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/question_answer_entry_box_end_guide_2nd"
+                        app:layout_constraintEnd_toStartOf="@+id/question_answer_entry_icon_2nd"
                         app:layout_constraintStart_toStartOf="@+id/question_answer_entry_box_start_guide_2nd"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <View
-                        android:id="@+id/question_answer_entry_incorrect_icon_2nd"
+                        android:id="@+id/question_answer_entry_icon_2nd"
                         android:layout_width="28dp"
                         android:layout_height="28dp"
                         android:layout_alignParentStart="true"
@@ -469,21 +864,8 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/question_answer_entry_box_end_guide_2nd"
                         app:layout_constraintStart_toStartOf="@+id/question_answer_entry_box_end_guide_2nd"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <View
-                        android:id="@+id/question_answer_entry_correct_icon_2nd"
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:background="@drawable/icon_check_mark_circle"
-                        android:clipToOutline="true"
-                        android:visibility="gone"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/question_answer_entry_box_end_guide_2nd"
-                        app:layout_constraintStart_toStartOf="@+id/question_answer_entry_box_end_guide_2nd"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:visibility="visible" />
 
                     <androidx.constraintlayout.widget.Guideline
                         android:id="@+id/question_answer_entry_box_start_guide_2nd"
@@ -517,7 +899,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/question_answer_entry_box_constraint_layout_2nd"
-                    tools:visibility="gone" />
+                    tools:visibility="visible" />
 
                 <TextView
                     android:id="@+id/question_answer_result_incorrect_text"
