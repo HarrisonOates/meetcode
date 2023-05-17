@@ -22,17 +22,9 @@ public class UserInterfaceManagerViewModel extends ViewModel {
 
     private final MutableLiveData<UserInterfaceManager> uiState = new MutableLiveData<>(new UserInterfaceManager());
 
-    private final MutableLiveData<LinkedHashMap<String, MessageListCard>> currentDirectMessages = new MutableLiveData<>(new LinkedHashMap<>());
-
     private final MutableLiveData<QuestionCard> currentlyDisplayedQuestion = new MutableLiveData<>(new QuestionCard());
 
     private final MutableLiveData<CategoryListCard> currentlyDisplayedCategory = new MutableLiveData<>();
-
-    public boolean hasObserverBeenAttached = false;
-
-    public LiveData<LinkedHashMap<String, MessageListCard>> getCurrentDirectMessages() {
-        return currentDirectMessages;
-    }
 
     public LiveData<UserInterfaceManager> getUiState() {
         return uiState;
