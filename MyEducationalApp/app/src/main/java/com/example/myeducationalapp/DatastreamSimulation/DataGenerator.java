@@ -13,6 +13,7 @@ import com.example.myeducationalapp.MessageThread;
 import com.example.myeducationalapp.Person;
 import com.example.myeducationalapp.QuestionMessageThread;
 import com.example.myeducationalapp.QuestionMessageThreadDatastream;
+import com.example.myeducationalapp.QuestionSet;
 import com.example.myeducationalapp.UserLogin;
 import com.example.myeducationalapp.MainActivity;
 import java.io.File;
@@ -22,6 +23,7 @@ import java.io.InputStream;
 import java.nio.file.AccessDeniedException;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.Set;
 
 /**
  * Simulates a data stream to satisfy the basic features of the app.
@@ -35,92 +37,142 @@ public class DataGenerator {
      * Generates the data for the app to read from.
      */
     public static void generateData(Context context) throws FileNotFoundException, InterruptedException {
-        Thread t = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Random r = new Random();
+        Thread t = new Thread(() -> {
+            Random r = new Random();
 
-                AssetManager am = context.getAssets();
+            AssetManager am = context.getAssets();
 
-                // We're simulating real conversations between people.
-                InputStream beeMovie = null;
-                try {
-                    beeMovie = am.open("beemovie.txt");
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-                Scanner sc = null;
-                sc = new Scanner(beeMovie);
+            // We're simulating real conversations between people.
+            InputStream beeMovie = null;
+            try {
+                beeMovie = am.open("beemovie.txt");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            Scanner sc = new Scanner(beeMovie);
 
-                // We choose a random account to send it from
-                String[] randomUserNames = new String[]{"harrison", "geun", "alex", "jayden", "nikhila"};
-                for (int i = 0; i < 2500; i++){
-                    int n = r.nextInt(4);
-                    int userNameIndex = r.nextInt(4);
-                    switch (n){
-                        case 0:{
+            // The questions present in the database to comment on
+            Set<String> questions = QuestionSet.getInstance().getQuestionIDs();
+            String[] questionIDs = new String[questions.size()];
+            questions.toArray(questionIDs);
 
-                            DirectMessageThreadDatastream dms = new DirectMessageThreadDatastream(UserLogin.getInstance().getCurrentUsername(), randomUserNames[userNameIndex]);
-                            Scanner finalSc = sc;
-                            dms.runWhenReady((ignored) -> {
-                                dms.postMessageDatastream(finalSc.nextLine(), randomUserNames[userNameIndex]);
-                                return null;
-                            });
+            // Some sample answers that we'll draw from to replay
+            String[] exampleCodeBlocks = new String[]{
+                    "Here's how I would do Fibonacci in Java\n"
+                    + "```public static int fib(n) { \n"
+                    + "    if (n == 0 || n == 1){ \n"
+                    + "        return 1;\n"
+                    + "    }\n"
+                    + "    return fib(n - 1) + fib(n - 2);\n"
+                    + "}``` \n"
+                    + "As you can see, this has O(2^n) complexity, so it isn't great.",
 
-                            break;
-                        }
-                        //case 1 -> {
+                    "It turns out XOR is commutative! How cool is that!\n"
+                    + "``` a ^ b = b ^ a;```",
+                    "```Class Simple { \n"
+                    + "    public static void main(String args[]){ \n"
+                    + "        System.out.println(\"Hello World!\");\n"
+                    + "    }\n"
+                    + "}```",
+
+                    "Ready for the exam tomorrow? Remember this is bad code. \n"
+                    + "```while (true) {\n"
+                    + "    System.out.println(\"I'm panicking\");\n"
+                    + "}```",
+
+                    "The below code chooses where we're going this Thursday: \n"
+                    + "```Random r = new Random(); \n"
+                    + "int n = r.nextInt(4); \n"
+                    + "switch (n) {\n"
+                    + "    case 0 -> {System.out.println(\"Badger\");} \n"
+                    + "    case 1 -> {System.out.println(\"One22\");} \n"
+                    + "    case 2 -> {System.out.println(\"Mooseheads\");} \n"
+                    + "    case 3 -> {System.out.println(\"COMP2100 revision event\");} \n"
+                    + "    case 4 -> {System.out.println(\"To sleep!\");} \n"
+                    + "}```"
+            };
+
+
+
+            for (int i = 0; i < 2500; i++){
+                int n = r.nextInt(5);
+
+                switch (n) {
+                    case 0 -> {
+                        // Sending DMs without code blocks
+                        DirectMessageThread dms = new DirectMessageThread("comp2100@anu.au");
+                        dms.runWhenReady((ignored) -> {
+                            dms.postMessage(sc.nextLine());
+                            return null;
+                        });
+
+                    }
+
+                    case 1 -> {
                         // directMessage with a code block
-                        // Will work this out later
+                        DirectMessageThread dms = new DirectMessageThread("comp2100@anu.au");
+                        int codeBlockSelector = r.nextInt(exampleCodeBlocks.length);
+                        dms.runWhenReady((ignored) -> {
+                            dms.postMessage(exampleCodeBlocks[codeBlockSelector]);
+                            return null;
+                        });
 
-                        // }
-                        case 2:{
-                            // questionMessageThread
-                            // Need to get the question message thread ID
-                            QuestionMessageThreadDatastream qms = new QuestionMessageThreadDatastream(randomUserNames[userNameIndex]);
-                            Scanner finalSc1 = sc;
-                            qms.runWhenReady((ignored) -> {
-                                qms.postMessage(finalSc1.nextLine());
-                                return null;
-                            });
-                            break;
-                        }
-                        //case 3 -> {
-                        // questionMessage with a code block
-                        // Work this out later
-                        // }
-                        case 4:{
-                            // Like / unlike a random message
-                            DirectMessageThreadDatastream dms = new DirectMessageThreadDatastream(UserLogin.getInstance().getCurrentUsername(), randomUserNames[userNameIndex]);
-                            int indexToLike = r.nextInt(dms.getMessages().size() - 1);
-                            dms.runWhenReady((ignored) -> {
-                                dms.getMessages().get(indexToLike).runWhenReady((ignored2) -> {
-                                    dms.getMessages().get(indexToLike).toggleLikedByCurrentUser();
-                                    return null;
-                                });
-                                return null;
-                            });
-                            break;
-                        }
-                        default: {
-                            break;
-                        }
+
+                    }
+                    case 2 -> {
+                        int questionSelector = r.nextInt(questionIDs.length);
+                        // For the sake of demonstration, we're hardcoding questions to answer
+                        QuestionMessageThread dms = new QuestionMessageThread(questionIDs[questionSelector]);
+                        dms.runWhenReady((ignored) -> {
+                            dms.postMessage(sc.nextLine());
+                            return null;
+                        });
+
                     }
 
-                    try {
-                        Thread.sleep(3000);
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
+                    case 3 -> {
+                    // questionMessage with a code block
+                        int questionSelector = r.nextInt(questionIDs.length);
+                        // For the sake of demonstration, we're hardcoding questions to answer
+                        QuestionMessageThread dms = new QuestionMessageThread(questionIDs[questionSelector]);
+                        int codeBlockSelector = r.nextInt(exampleCodeBlocks.length);
+                        dms.runWhenReady((ignored) -> {
+                            dms.postMessage(exampleCodeBlocks[codeBlockSelector]);
+                            return null;
+                        });
                     }
+                    case 4 -> {
+                        // Like / unlike a random message
+                        DirectMessageThread dms = new DirectMessageThread("comp2100@anu.au");
+                        int indexToLike = r.nextInt(dms.getMessages().size());
 
+                        dms.runWhenReady((ignored) -> {
+                            dms.getMessages().get(indexToLike).runWhenReady((ignored2) -> {
+                                dms.getMessages().get(indexToLike).toggleLikedByCurrentUser();
+                                return null;
+                            });
+                            return null;
+                        });
+
+
+                    }
+                    default -> {
+                    }
                 }
 
-                sc.close();
                 try {
-                    beeMovie.close();
-                } catch (IOException e) {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
+
+            }
+
+            sc.close();
+            try {
+                beeMovie.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         });
 
