@@ -3,6 +3,8 @@ package com.example.myeducationalapp;
 import android.content.Context;
 import android.graphics.BlendMode;
 import android.graphics.BlendModeColorFilter;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -22,12 +24,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.myeducationalapp.Firebase.Firebase;
 import com.example.myeducationalapp.Localization.DynamicLocalization;
 import com.example.myeducationalapp.Localization.LanguageSetting;
 import com.example.myeducationalapp.Search.Search;
+import com.example.myeducationalapp.Search.SearchParsing.SearchToken;
 import com.example.myeducationalapp.userInterface.Generatable.GeneratedUserInterfaceViewModel;
 import com.example.myeducationalapp.userInterface.Generatable.HomeCategoryCard;
 import com.example.myeducationalapp.userInterface.Generatable.Iterator;
+import com.example.myeducationalapp.userInterface.Generatable.MessageListCard;
+import com.example.myeducationalapp.userInterface.UserDirectMessages;
 import com.example.myeducationalapp.userInterface.UserInterfaceManagerViewModel;
 import com.example.myeducationalapp.databinding.FragmentHomeBinding;
 
@@ -63,6 +69,8 @@ public class HomeFragment extends Fragment {
 
     // Indicates whether the search filter is open or not to decide whether to close it or open it
     private boolean isFilterOpen = false;
+
+    private boolean isFirstSearch = true;
 
     private RecyclerView.LayoutManager layoutManagerRecyclerView;
     private RecyclerViewCustomAdapter recyclerViewCustomAdapter;
@@ -210,6 +218,11 @@ public class HomeFragment extends Fragment {
     }
 
     private void initializeSearch() {
+        if (isFirstSearch) {
+            Toast toast = Toast.makeText(getContext(), "The first search will take a little longer", Toast.LENGTH_SHORT);
+            toast.show();
+            isFirstSearch = false;
+        }
 
         new Thread(() -> {
             String adder = "";
@@ -219,23 +232,19 @@ public class HomeFragment extends Fragment {
                 else if (binding.topicSearch.isChecked()) {adder += "#";}//searchType = SearchToken.Query.Topic;}
                 else if (binding.userSearch.isChecked()) {adder += "@";}//searchType = SearchToken.Query.User;}
                 else {throw new NullPointerException("No search filter selected, which should never happen");}
-
-                // Remove all the results that are not in the selected search type
-                //searchResults.removeIf(result -> result.getType() != searchType);
             }
             List<SearchResult> searchResults = Search.getInstance().search(adder + binding.searchInputText.getText().toString());
-            this.getActivity().runOnUiThread(() -> visualizeSearchResults(searchResults));
+            this.getActivity().runOnUiThread(() -> visualizeClickableSearchResults(searchResults));
 
         }).start();
     }
 
-    private void visualizeSearchResults(List<SearchResult> results) {
+    private void visualizeClickableSearchResults(List<SearchResult> results) {
         if (results.size() == 0) {
             Toast toast = Toast.makeText(getContext(), "No relevant result found", Toast.LENGTH_SHORT);
             toast.show();
         } else {
             layoutManagerRecyclerView = new LinearLayoutManager(getContext());
-//            layoutManagerRecyclerView = new GridLayoutManager(getContext(), 2);
             binding.searchResults.setLayoutManager(layoutManagerRecyclerView);
 
             List<String> resultStrings = new ArrayList<>();
@@ -251,16 +260,61 @@ public class HomeFragment extends Fragment {
             binding.hideSearchResults.setVisibility(View.VISIBLE);
 
 
+            // Navigate to where the search result is when it is clicked
+            recyclerViewCustomAdapter.setOnItemClickListener(new RecyclerViewCustomAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(int position) {
+                    SearchResult clickedSearch = results.get(position);
+                    String clickedID = clickedSearch.getId();
+                    SearchToken.Query clickedType = clickedSearch.getType();
+                    String clickedResult = clickedSearch.getStringResult();
 
+                    UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
+                    switch (clickedType) {
+                        case Question -> {
+                            userInterfaceManager.setCurrentlyDisplayedQuestion(QuestionSet.getInstance().getQuestionFromID(clickedID));
+                            NavHostFragment.findNavController(HomeFragment.this).navigate(R.id.action_HomeFragment_to_questionFragment);
+                        }
+                        case Discussion -> {
+                            Toast toast = Toast.makeText(getContext(), "Can't link you to the discussion yet :(", Toast.LENGTH_SHORT);
+                            toast.show();
+                        }
+                        case Topic -> {
+                            userInterfaceManager.setCurrentlyDisplayedCategory(QuestionSet.stringToCategory(clickedResult));
+                            NavHostFragment.findNavController(HomeFragment.this).navigate(R.id.action_HomeFragment_to_categoryFragment);
+                        }
+                        case User -> initializeNewDirectMessageFromSearch(clickedResult);
+                    }
+                }
+            });
 
-
-//
-//            ArrayAdapter<String> resultsAdapter = new ArrayAdapter<>(this.getContext(), android.R.layout.simple_list_item_1, resultStrings);
-//            binding.searchResults.setAdapter(resultsAdapter);
-//
-//            binding.searchResults.setVisibility(View.VISIBLE);
-//            binding.hideSearchResults.setVisibility(View.VISIBLE);
         }
+    }
+
+    private void initializeNewDirectMessageFromSearch(String usernameToDirectMessage) {
+        // This username will guaranteed to be a valid one so no need to check its validity
+        UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
+        Firebase.getInstance().readAllUsernamesAsync().then((obj) -> {
+            List<String> usernames = (List<String>) obj;
+            userInterfaceManager.getUiState().getValue().setToolbarTitle(usernameToDirectMessage);
+
+            // If user is already someone we have messaged then we don't have to worry about setting up new local data
+            // to support their DM, as it already exists
+            boolean isUserInLocalDirectMessages = UserDirectMessages.getInstance().doesUserExistInDirectMessages(usernameToDirectMessage);
+
+            if (!isUserInLocalDirectMessages) {
+                // creating local DirectMessageThread
+                DirectMessageThread dms = new DirectMessageThread(usernameToDirectMessage);
+
+                // adding new user to our ViewModel data
+                MessageListCard template = new MessageListCard(R.drawable.user_profile_default, usernameToDirectMessage, "", dms);
+                UserDirectMessages.getInstance().currentDirectMessages.put(usernameToDirectMessage, template);
+                UserDirectMessages.getInstance().currentDirectMessages.get(template.headingText).isNotification = false;
+            }
+            // Going to the direct message fragment
+            NavHostFragment.findNavController(HomeFragment.this).navigate(R.id.action_HomeFragment_to_directMessageFragment);
+            return null;
+        });
     }
 
     private void generateAllHomeCategoryCards(Context context) {

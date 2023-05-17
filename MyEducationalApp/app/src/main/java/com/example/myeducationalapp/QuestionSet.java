@@ -571,4 +571,14 @@ public class QuestionSet {
             default : return Category.Algorithm;
         }
     }
+
+    public static Category stringToCategory(String category) {
+        return switch (category) {
+            case "ControlFlow" -> Category.ControlFlow;
+            case "DataStructure" -> Category.DataStructure;
+            case "Miscellaneous" -> Category.Miscellaneous;
+            case "Recursion" -> Category.Recursion;
+            default -> Category.Algorithm;
+        };
+    }
 }

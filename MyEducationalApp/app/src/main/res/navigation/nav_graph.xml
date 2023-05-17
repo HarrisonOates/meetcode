@@ -23,6 +23,9 @@
         <action
             android:id="@+id/action_HomeFragment_to_questionFragment"
             app:destination="@id/questionFragment" />
+        <action
+            android:id="@+id/action_HomeFragment_to_directMessageFragment"
+            app:destination="@id/directMessageFragment" />
     </fragment>
     <fragment
         android:id="@+id/categoryFragment"
