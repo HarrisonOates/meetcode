@@ -123,7 +123,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        if (UserLogin.getInstance().getCurrentUsername().equals("comp2100@anu.au")){
+        // Creates the data feed for the app
+        if (UserLogin.getInstance().getCurrentUsername().equals("harrison")){
             try {
                 DataGenerator.generateData(getApplicationContext());
             } catch (FileNotFoundException | InterruptedException e) {
