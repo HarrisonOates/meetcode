@@ -223,10 +223,6 @@ public class MessagesFragment extends Fragment {
         generateMessageListCard(template, getActivity(), template.isNotification, directMessageRecipient);
     }
 
-    public void getAllUsersYouHaveMessagedCallback(DirectMessageThread directMessageThread) {
-
-    }
-
     private void generateAllMessageListCards() {
         UserDirectMessages.getInstance().currentDirectMessages.values().forEach(messageListCard -> {
             // Updating the subheading of the message card before rendering
@@ -365,7 +361,7 @@ public class MessagesFragment extends Fragment {
         dividerConstraintSet.applyTo(constraintLayout);
 
         binding.messagesCardLinearLayout.addView(constraintLayout);
-
+        
         LinearLayout.LayoutParams constraintLayoutParams = (LinearLayout.LayoutParams) constraintLayout.getLayoutParams();
         constraintLayoutParams.width = ((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 350, getResources().getDisplayMetrics()));
         constraintLayoutParams.height = ((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 105, getResources().getDisplayMetrics()));

@@ -8,6 +8,7 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -17,6 +18,7 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.myeducationalapp.databinding.FragmentQuestionBinding;
 import com.example.myeducationalapp.userInterface.Generatable.QuestionCard;
@@ -95,6 +97,8 @@ public class QuestionFragment extends Fragment {
         // Setting title bar to name of question
         userInterfaceManager.getUiState().getValue().enterNewFragment(userInterfaceManager.getCurrentlyDisplayedQuestion().getValue().getHeading());
 
+
+
         initializeLayoutOnEnter();
     }
 
@@ -126,11 +130,10 @@ public class QuestionFragment extends Fragment {
         binding.questionBodyDifficultyContainerConstraintLayout.getBackground().setColorFilter(new BlendModeColorFilter(currentQuestion.getSecondaryCardColour(), BlendMode.SRC_ATOP));
         binding.questionBodyStarsContainerConstraintLayout.getBackground().setColorFilter(new BlendModeColorFilter(currentQuestion.getSecondaryCardColour(), BlendMode.SRC_ATOP));
         binding.questionAnswerEntryCarpetContraintLayout.getBackground().setColorFilter(new BlendModeColorFilter(currentQuestion.getSecondaryCardColour(), BlendMode.SRC_ATOP));
+        binding.questionMultiCarpetContraintLayout.getBackground().setColorFilter(new BlendModeColorFilter(currentQuestion.getSecondaryCardColour(), BlendMode.SRC_ATOP));
 
         // Setting tertiary colours
         binding.questionAnswerSubmitInnerButtonConstraintLayout.getBackground().setColorFilter(new BlendModeColorFilter(currentQuestion.getTertiaryCardColour(), BlendMode.SRC_ATOP));
-
-
 
         // Code block related UI code
         if (currentQuestion.doesQuestionHaveCodeBlock()) {
@@ -142,18 +145,74 @@ public class QuestionFragment extends Fragment {
         }
 
         // Multiple choice related UI code
-//        if (currentQuestion.isQuestionMultiChoice()) {
-        if (false) {
+        if (currentQuestion.isQuestionMultiChoice()) {
             binding.questionAnswerEntryConstraintLayout.setVisibility(View.GONE);
 
+            binding.questionMultiConstraintLayout.setVisibility(View.VISIBLE);
+
+            // This should be of size 6 or less
             List<String> listOfMultiChoiceOptions = currentQuestion.multiChoiceOptions;
 
-            listOfMultiChoiceOptions.forEach(questionContent -> {
-                Log.d("QuestionFragment", questionContent);
-            });
+            // Showing the multiple choice questions
+            for (int i = 0; i < QuestionSet.MAXIMUM_NUMBER_OF_MULTI_CHOICE_OPTIONS; i++) {
+                // This is guaranteed to always return a non null element
+                ConstraintLayout parent = (ConstraintLayout) binding.questionMultiCarpetContraintLayout.getChildAt(i);
+                // This index is derived from the XML
+                TextView multiChoiceText = (TextView) parent.getChildAt(0);
+
+                // Checking to see if listOfMultiChoiceOptions size is smaller than the current
+                // value of the counter
+                if (i >= listOfMultiChoiceOptions.size()) {
+                    parent.setVisibility(View.GONE);
+                } else {
+                    // we're editing the multiple choice options that we want to display
+                    multiChoiceText.setText(((char)('A' + i)) + ")  " + listOfMultiChoiceOptions.get(i));
+
+                    // Checking if this question has been answered correctly before
+                    // also the amount of times it's been answered
+                    boolean hasQuestionBeenAnsweredCorrectly = UserLocalData.getInstance().hasQuestionBeenAnsweredCorrectly(currentQuestion.getQuestionID());
+                    int numberOfQuestionAttempts = UserLocalData.getInstance().getNumberOfFailedAttempts(currentQuestion.getQuestionID());
+
+                    // If we have attempted this question before
+                    // if we haven't attempted this question before then we just want to set
+                    // on click listeners and do nothing else
+                    if (numberOfQuestionAttempts != 0) {
+                        // we need to init previous attempts
+
+                    }
+
+
+                    // If question has not been answered correctly
+                    if (!hasQuestionBeenAnsweredCorrectly) {
+                        // we haven't answered the question correctly so we need to have
+                        // the multiple choice options clickeable by the user
+                        // Setting on click handler
+                        int finalI = i;
+                        parent.setOnClickListener(view -> {
+
+                            int numberOfQuestionAttemptsAnon = UserLocalData.getInstance().getNumberOfFailedAttempts(currentQuestion.getQuestionID());
+
+                            if (currentQuestion.isAnswerCorrect(listOfMultiChoiceOptions.get(finalI))) {
+                                if (numberOfQuestionAttemptsAnon == 0) {
+
+                                } else if (numberOfQuestionAttemptsAnon == 2) {
+
+                                }
+                            }
+                            //UserLocalData.getInstance().hasQuestionBeenAnsweredCorrectly()
+                        });
+                    }
+
+
+
+                }
+            }
+
         } else {
             // Single choice UI should be ready for first attempt by default
             binding.questionAnswerEntryConstraintLayout.setVisibility(View.VISIBLE);
+
+            binding.questionMultiConstraintLayout.setVisibility(View.GONE);
 
 
             int numberOfQuestionAttempts = UserLocalData.getInstance().getNumberOfFailedAttempts(currentQuestion.getQuestionID());

@@ -90,10 +90,6 @@ public class DirectMessageFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
-        // Attaching observers
-
-        UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
     }
 
     @Override
@@ -106,8 +102,6 @@ public class DirectMessageFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-
-
         UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
         userInterfaceManager.getUiState().getValue().enterNewFragment(false);
         // Username of person you're messaging, found through the toolbar title (set by previous fragment)
@@ -310,13 +304,17 @@ public class DirectMessageFragment extends Fragment {
         }
     }
 
+    private void generateAllDirectMessageBubble() {
+        binding.directMessageLinearLayout.removeAllViews();
+        generateAllDirectMessageBubble(getActivity());
+    }
+
     private void generateAllDirectMessageBubble(Context context) {
 
         // TODO only render ~30 messages, then when user scrolls to the top of the scrollviewer
         // add another 30 messages onto the layout
         // https://stackoverflow.com/questions/38029423/check-if-a-scrollview-has-reached-the-top-of-the-layout
 
-        UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
         MessageListCard messageListCard = UserDirectMessages.getInstance().currentDirectMessages.get(messageRecipient);
         String currentUsername = UserLogin.getInstance().getCurrentUsername();
 
@@ -326,91 +324,99 @@ public class DirectMessageFragment extends Fragment {
             return;
         }
 
-        List<Message> messages = messageListCard.directMessageThread.getMessages();
+        DirectMessageThread messageThread = new DirectMessageThread(messageRecipient); //messageListCard.directMessageThread.getMessages();
 
-        int currentMessageIndex = 0;
+        messageThread.runWhenReady((ignored) -> {
 
-        for (int i = 0, messagesSize = messages.size(); i < messagesSize; i++) {
-            Message firstMessage = messages.get(i);
-            Person currentPoster = firstMessage.getPoster();
+            List<Message> messages = messageThread.getMessages();
 
-            boolean isRecipient = !Objects.equals(currentUsername, currentPoster.getUsername());
 
-            // making sure that there is a next message
-            if (UserLocalData.getInstance().isUserBlocked(messageRecipient)) return;
-            if ((i + 1) < messagesSize) {
+            int currentMessageIndex = 0;
 
-                if (messages.get(i + 1).getPoster().equals(currentPoster)) {
-                    // We have multiple messages from the same poster
-                    ArrayList<Message> currentPosterMessages = new ArrayList<>();
+            for (int i = 0, messagesSize = messages.size(); i < messagesSize; i++) {
+                Message firstMessage = messages.get(i);
+                Person currentPoster = firstMessage.getPoster();
 
-                    currentPosterMessages.add(firstMessage);
-                    // TODO when it gets to this line using the OR condition
-                    // the following might not belong to the same author
-                    currentPosterMessages.add(messages.get(i + 1));
+                boolean isRecipient = !Objects.equals(currentUsername, currentPoster.getUsername());
 
-                    // loop until we reach a message from the next poster
-                    for (int j = i + 2; j < messagesSize; j++) {
+                // making sure that there is a next message
+                if (UserLocalData.getInstance().isUserBlocked(messageRecipient)) return null;
+                if ((i + 1) < messagesSize) {
 
-                        Message nextMessage = messages.get(j);
+                    if (messages.get(i + 1).getPoster().equals(currentPoster)) {
+                        // We have multiple messages from the same poster
+                        ArrayList<Message> currentPosterMessages = new ArrayList<>();
 
-                        if (nextMessage.getPoster().equals(currentPoster)) {
-                            currentPosterMessages.add(nextMessage);
-                            i = j;
-                        } else {
-                            // If poster is not the currentPoster, we've reached the end of
-                            // the posts from the currentPoster, so update i
-                            // index and then break
-                            i = j - 1;
+                        currentPosterMessages.add(firstMessage);
+                        // TODO when it gets to this line using the OR condition
+                        // the following might not belong to the same author
+                        currentPosterMessages.add(messages.get(i + 1));
 
-                            break;
+                        // loop until we reach a message from the next poster
+                        for (int j = i + 2; j < messagesSize; j++) {
+
+                            Message nextMessage = messages.get(j);
+
+                            if (nextMessage.getPoster().equals(currentPoster)) {
+                                currentPosterMessages.add(nextMessage);
+                                i = j;
+                            } else {
+                                // If poster is not the currentPoster, we've reached the end of
+                                // the posts from the currentPoster, so update i
+                                // index and then break
+                                i = j - 1;
+
+                                break;
+                            }
                         }
-                    }
 
-                    // Draw currentPosterMessages to UI
-                    generateDirectMessageBubble(currentPosterMessages.get(0), isRecipient, MessageBubbleOrientation.TOP, true, currentMessageIndex, context);
-                    currentMessageIndex++;
-
-                    for (int k = 1; k < currentPosterMessages.size() - 1; k++) {
-                        generateDirectMessageBubble(currentPosterMessages.get(k), isRecipient, MessageBubbleOrientation.MIDDLE, false, currentMessageIndex, context);
+                        // Draw currentPosterMessages to UI
+                        generateDirectMessageBubble(currentPosterMessages.get(0), isRecipient, MessageBubbleOrientation.TOP, true, currentMessageIndex, context);
                         currentMessageIndex++;
+
+                        for (int k = 1; k < currentPosterMessages.size() - 1; k++) {
+                            generateDirectMessageBubble(currentPosterMessages.get(k), isRecipient, MessageBubbleOrientation.MIDDLE, false, currentMessageIndex, context);
+                            currentMessageIndex++;
+                        }
+
+                        generateDirectMessageBubble(currentPosterMessages.get(currentPosterMessages.size() - 1), isRecipient, MessageBubbleOrientation.BOTTOM, false, currentMessageIndex, getActivity());
+                        currentMessageIndex++;
+
+                        wasLastRenderedMessageFromRecipient = isRecipient;
+                        lastRenderedMessageOrientation = MessageBubbleOrientation.BOTTOM;
+
+                    } else {
+                        // The next message is from the other poster
+                        // draw firstMessage to UI and continue with loop
+                        generateDirectMessageBubble(firstMessage, isRecipient, MessageBubbleOrientation.SINGLE, true, currentMessageIndex, context);
+                        currentMessageIndex++;
+
+                        wasLastRenderedMessageFromRecipient = isRecipient;
+                        lastRenderedMessageOrientation = MessageBubbleOrientation.SINGLE;
+
                     }
-
-                    generateDirectMessageBubble(currentPosterMessages.get(currentPosterMessages.size() - 1), isRecipient, MessageBubbleOrientation.BOTTOM, false, currentMessageIndex, getActivity());
-                    currentMessageIndex++;
-
-                    wasLastRenderedMessageFromRecipient = isRecipient;
-                    lastRenderedMessageOrientation = MessageBubbleOrientation.BOTTOM;
-
                 } else {
-                    // The next message is from the other poster
-                    // draw firstMessage to UI and continue with loop
-                    generateDirectMessageBubble(firstMessage, isRecipient, MessageBubbleOrientation.SINGLE, true, currentMessageIndex, context);
-                    currentMessageIndex++;
+                    // If we're at the last message
+                    if (i - 1 >= 0) {
 
-                    wasLastRenderedMessageFromRecipient = isRecipient;
-                    lastRenderedMessageOrientation = MessageBubbleOrientation.SINGLE;
-
-                }
-            } else {
-                // If we're at the last message
-                if (i - 1 >= 0) {
-
-                    if (i == messagesSize - 1 && !messages.get(i - 1).getPoster().equals(currentPoster)) {
+                        if (i == messagesSize - 1 && !messages.get(i - 1).getPoster().equals(currentPoster)) {
+                            // This is the last single message
+                            generateDirectMessageBubble(firstMessage, isRecipient, MessageBubbleOrientation.SINGLE, true, currentMessageIndex, context);
+                            currentMessageIndex++;
+                        }
+                    } else {
                         // This is the last single message
                         generateDirectMessageBubble(firstMessage, isRecipient, MessageBubbleOrientation.SINGLE, true, currentMessageIndex, context);
                         currentMessageIndex++;
                     }
-                } else {
-                    // This is the last single message
-                    generateDirectMessageBubble(firstMessage, isRecipient, MessageBubbleOrientation.SINGLE, true, currentMessageIndex, context);
-                    currentMessageIndex++;
-                }
 
-                wasLastRenderedMessageFromRecipient = isRecipient;
-                lastRenderedMessageOrientation = MessageBubbleOrientation.SINGLE;
+                    wasLastRenderedMessageFromRecipient = isRecipient;
+                    lastRenderedMessageOrientation = MessageBubbleOrientation.SINGLE;
+                }
             }
-        }
+
+            return null;
+        });
 
         /*
          * Scroll down to the most recent message.
@@ -556,7 +562,12 @@ public class DirectMessageFragment extends Fragment {
         messageContainerConstraintLayout.setOnLongClickListener(view -> {
 
             UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
-            UserDirectMessages.getInstance().currentDirectMessages.get(messageRecipient).directMessageThread.getMessages().get(currentMessageIndex).toggleLikedByCurrentUser();
+            Message current = UserDirectMessages.getInstance().currentDirectMessages.get(messageRecipient).directMessageThread.getMessages().get(currentMessageIndex);
+
+            current.runWhenReady((ignored) -> {
+                current.toggleLikedByCurrentUser();
+                return null;
+            });
 
             return false;
         });
