@@ -13,6 +13,9 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.TypedValue;
 import android.view.KeyEvent;
@@ -69,6 +72,9 @@ public class HomeFragment extends Fragment {
 
     // Indicates whether the search filter is open or not to decide whether to close it or open it
     private boolean isFilterOpen = false;
+
+    private RecyclerView.LayoutManager layoutManagerRecyclerView;
+    private RecyclerViewCustomAdapter recyclerViewCustomAdapter;
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -254,14 +260,32 @@ public class HomeFragment extends Fragment {
             Toast toast = Toast.makeText(getContext(), "No relevant result found", Toast.LENGTH_SHORT);
             toast.show();
         } else {
+            layoutManagerRecyclerView = new LinearLayoutManager(getContext());
+//            layoutManagerRecyclerView = new GridLayoutManager(getContext(), 2);
+            binding.searchResults.setLayoutManager(layoutManagerRecyclerView);
+
             List<String> resultStrings = new ArrayList<>();
             results.forEach(res -> resultStrings.add(res.getStringResult()));
+            String[] res = resultStrings.toArray(new String[0]);
+            System.out.println("the search results: " + Arrays.toString(res));
 
-            ArrayAdapter<String> resultsAdapter = new ArrayAdapter<>(this.getContext(), android.R.layout.simple_list_item_1, resultStrings);
-            binding.searchResults.setAdapter(resultsAdapter);
+            recyclerViewCustomAdapter = new RecyclerViewCustomAdapter(res);
+
+            binding.searchResults.setAdapter(recyclerViewCustomAdapter);
 
             binding.searchResults.setVisibility(View.VISIBLE);
             binding.hideSearchResults.setVisibility(View.VISIBLE);
+
+
+
+
+
+//
+//            ArrayAdapter<String> resultsAdapter = new ArrayAdapter<>(this.getContext(), android.R.layout.simple_list_item_1, resultStrings);
+//            binding.searchResults.setAdapter(resultsAdapter);
+//
+//            binding.searchResults.setVisibility(View.VISIBLE);
+//            binding.hideSearchResults.setVisibility(View.VISIBLE);
         }
     }
 
