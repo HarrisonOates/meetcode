@@ -281,23 +281,18 @@ public class MessagesFragment extends Fragment {
                 if (item.getTitle().equals("unblock")) {
                     if (UserLocalData.getInstance().isUserBlocked(username)) {
                         UserLocalData.getInstance().toggleBlockUser(username);
-                        popup.getMenu().getItem(0).setTitle("block");
-                        subheading.setText("User has been unblocked");
                     }
-                    else popup.getMenu().getItem(0).setTitle("block");;
+                    popup.getMenu().getItem(0).setTitle("block");
+                    subheading.setText("User has been unblocked");
                     popup.show();
                     return true;
                 }
                 else if (item.getTitle().equals("block")) {
                     if (!UserLocalData.getInstance().isUserBlocked(username)) {
                         UserLocalData.getInstance().toggleBlockUser(username);
-                        popup.getMenu().getItem(0).setTitle("unblock");
-                        subheading.setText("This user is blocked");
                     }
-                    else {
-                        popup.getMenu().getItem(0).setTitle("unblock");
-                        subheading.setText("This user is blocked");
-                    }
+                    popup.getMenu().getItem(0).setTitle("unblock");
+                    subheading.setText("This user is blocked");
                     popup.show();
                     return true;
                 }

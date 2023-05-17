@@ -255,7 +255,6 @@ public class UserLocalData {
     }
 
     boolean isUserBlocked(String username) {
-        loadFromDisk();
         return blockedUserList.search(username) != null;
     }
 
