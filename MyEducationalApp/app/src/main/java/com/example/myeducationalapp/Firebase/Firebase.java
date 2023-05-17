@@ -32,7 +32,7 @@ import java.util.function.Function;
  * Abstracts away the low-level details of interacting with Firebase. Implements the
  * singleton, and facade design patterns.
  *
- * @author u7468248 Alex Boxall (main app) and Harrison Oates (datastream-specific methods)
+ * @author u7468248 Alex Boxall
  */
 public class Firebase {
     /**
@@ -451,29 +451,6 @@ public class Firebase {
     public void dump() {
         Log.w("dump", "FIREBASE CONTENTS");
         dumpFrom(database, "");
-    }
-
-    /**
-     * Below this point is a number of functions that are required to simulate the datastream
-     * for the assignment. These would be deleted before releasing for production.
-     * These are NOT to be used outside of this very specific purpose
-     * @author Harrison Oates u7468212
-     */
-
-    /**
-     * Given a direct message conversation between two users, update it on the Firebase backend.
-     * Used exclusively for simulating datastream.
-     *
-     * @param username1 One of the two people. The order doesn't matter.
-     * @param username2 One of the two people. The order doesn't matter.
-     * @param messages The direct messages to be saved for these two users.
-     * @return An asynchronous result that can be used to determine when the request has been
-     * completed.
-     * @author Harrison Oates u7468212
-     */
-    public FirebaseResult writeDirectMessagesDatastream(String username1, String username2, MessageThread messages){
-        Log.d("writeDirectMessagesDatastream", username1 + " <-> " + username2);
-        return FirebaseRequest.write(database, getDirectMessageFilepath(username1, username2, false), messages.toString());
     }
 
 }
