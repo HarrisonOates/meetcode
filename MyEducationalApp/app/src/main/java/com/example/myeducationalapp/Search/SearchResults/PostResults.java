@@ -66,16 +66,11 @@ public class PostResults extends Results{
     }
 
 
-
-    //TODO: When is this updated (as with other sections)
-    //TODO: Filter topics
-
     /**
      * Updates the posts separately, instead of updating every time something is searched
      */
     public void updatePosts() {
         SortedMap<String, Question> questions = QuestionSet.getInstance().getUsedQuestionSets();
-        //HashMap<String, Question> questions = new HashMap<>();
 
         if (questions == null) return;
 
@@ -84,7 +79,6 @@ public class PostResults extends Results{
 
         var entrySet = questions.keySet();
         for (String entry : entrySet) {
-            //TODO: Filter
             if (!topics.containsKey(questions.get(entry).getCategory())) continue;
 
 
@@ -95,7 +89,7 @@ public class PostResults extends Results{
 
             for (var comment : splitComments) {
                 var sections = comment.split("\t");
-                String id = entry + "\n" + index;//sections[0]; //TODO indexWithinThread
+                String id = entry + "\n" + index;
                 List<String> words = List.of(sections[1].split(" "));
 
                 var searchResult = new SearchResult(id, SearchToken.Query.Discussion, words);

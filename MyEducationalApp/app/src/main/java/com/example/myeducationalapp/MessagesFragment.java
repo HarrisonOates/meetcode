@@ -1,5 +1,8 @@
 package com.example.myeducationalapp;
 
+import static android.content.Context.LAYOUT_INFLATER_SERVICE;
+import static androidx.core.content.ContextCompat.getSystemService;
+
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -10,10 +13,13 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -214,7 +220,7 @@ public class MessagesFragment extends Fragment {
 
         UserDirectMessages.getInstance().currentDirectMessages.put(directMessageRecipient, template);
 
-        generateMessageListCard(template, getActivity(), template.isNotification);
+        generateMessageListCard(template, getActivity(), template.isNotification, directMessageRecipient);
     }
 
     public void getAllUsersYouHaveMessagedCallback(DirectMessageThread directMessageThread) {
@@ -223,23 +229,25 @@ public class MessagesFragment extends Fragment {
 
     private void generateAllMessageListCards() {
         UserDirectMessages.getInstance().currentDirectMessages.values().forEach(messageListCard -> {
-
             // Updating the subheading of the message card before rendering
             // first checking if there are any messages
             if (messageListCard.directMessageThread.getMessages().size() > 0) {
-                messageListCard.subHeadingText = messageListCard.directMessageThread.getMessages().
+                if (UserLocalData.getInstance().isUserBlocked(messageListCard.directMessageThread.getUsername())) {
+                    messageListCard.subHeadingText = "This user is blocked";
+                }
+                else messageListCard.subHeadingText = messageListCard.directMessageThread.getMessages().
                         get(messageListCard.directMessageThread.getMessages().size() - 1).getContent();
             }
 
             // "" is default set for when a new DM is made, so we don't want to show if a new DM was made
             // and a message was never sent in that newly made DM
             if (!Objects.equals(messageListCard.subHeadingText, "")) {
-                generateMessageListCard(messageListCard, getActivity(), messageListCard.isNotification);
+                generateMessageListCard(messageListCard, getActivity(), messageListCard.isNotification, messageListCard.directMessageThread.getUsername());
             }
         });
     }
 
-    private ConstraintLayout generateMessageListCard(MessageListCard template, Context context, boolean isNotification) {
+    private ConstraintLayout generateMessageListCard(MessageListCard template, Context context, boolean isNotification, String username) {
         // making ui elements within parent
         ImageView image = new ImageView(context);
         TextView heading = new TextView(context);
@@ -259,6 +267,39 @@ public class MessagesFragment extends Fragment {
         // TODO set this using imageReference
         image.setImageResource(template.profileImage);
         image.setId(View.generateViewId());
+        image.setOnClickListener(v -> {
+            var popup = new PopupMenu(getContext(), image);
+
+            popup.getMenuInflater().inflate(R.menu.blocking_menu, popup.getMenu());
+
+            if (UserLocalData.getInstance().isUserBlocked(username)) popup.getMenu().getItem(0).setTitle("unblock");
+            else popup.getMenu().getItem(0).setTitle("block");
+
+            popup.setOnMenuItemClickListener(item -> {
+                if (item.getTitle().equals("unblock")) {
+                    if (UserLocalData.getInstance().isUserBlocked(username)) {
+                        UserLocalData.getInstance().toggleBlockUser(username);
+                        popup.getMenu().getItem(0).setTitle("block");
+                    }
+                    else popup.getMenu().getItem(0).setTitle("block");;
+                    popup.show();
+                    return true;
+                }
+                else if (item.getTitle().equals("block")) {
+                    if (!UserLocalData.getInstance().isUserBlocked(username)) {
+                        UserLocalData.getInstance().toggleBlockUser(username);
+                        popup.getMenu().getItem(0).setTitle("unblock");;
+                    }
+                    else popup.getMenu().getItem(0).setTitle("unblock");;
+                    popup.show();
+                    return true;
+                }
+                popup.show();
+                return false;
+            });
+
+            popup.show();
+        });
 
         heading.setSingleLine();
         heading.setEllipsize(TextUtils.TruncateAt.END);

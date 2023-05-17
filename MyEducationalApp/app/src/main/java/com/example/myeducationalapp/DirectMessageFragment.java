@@ -337,6 +337,7 @@ public class DirectMessageFragment extends Fragment {
             boolean isRecipient = !Objects.equals(currentUsername, currentPoster.getUsername());
 
             // making sure that there is a next message
+            if (UserLocalData.getInstance().isUserBlocked(messageRecipient)) return;
             if ((i + 1) < messagesSize) {
 
                 if (messages.get(i + 1).getPoster().equals(currentPoster)) {
