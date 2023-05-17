@@ -111,6 +111,11 @@ public class QuestionFragment extends Fragment {
         binding.questionBodySubheadingText.setText(currentQuestion.getSubheading());
         binding.questionBodyCategoryText.setText(currentQuestion.getCategory());
         binding.questionBodyDifficultyText.setText(currentQuestion.getDifficulty());
+        if (currentQuestion.getMaxStars() == 1) {
+            binding.questionBodyStarsText.setText(getString(R.string.earn_1_star));
+        } else {
+            binding.questionBodyStarsText.setText(getString(R.string.earn_x_stars, currentQuestion.getMaxStars()));
+        }
 
         // Changing colour of UI to reflect current category
         // Setting primary colours

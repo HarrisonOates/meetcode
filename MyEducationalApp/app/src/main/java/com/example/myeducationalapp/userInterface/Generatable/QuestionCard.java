@@ -142,6 +142,9 @@ public class QuestionCard {
         return question.getAnswer();
     }
 
+    public int getMaxStars() {
+        return question.getDifficulty();
+    }
 
     public String getDifficulty() {
 
