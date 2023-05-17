@@ -248,6 +248,8 @@ public class MessagesFragment extends Fragment {
     }
 
     private ConstraintLayout generateMessageListCard(MessageListCard template, Context context, boolean isNotification, String username) {
+        UserLocalData.getInstance().loadFromDisk();
+
         // making ui elements within parent
         ImageView image = new ImageView(context);
         TextView heading = new TextView(context);
@@ -280,6 +282,7 @@ public class MessagesFragment extends Fragment {
                     if (UserLocalData.getInstance().isUserBlocked(username)) {
                         UserLocalData.getInstance().toggleBlockUser(username);
                         popup.getMenu().getItem(0).setTitle("block");
+                        subheading.setText("User has been unblocked");
                     }
                     else popup.getMenu().getItem(0).setTitle("block");;
                     popup.show();
@@ -288,9 +291,13 @@ public class MessagesFragment extends Fragment {
                 else if (item.getTitle().equals("block")) {
                     if (!UserLocalData.getInstance().isUserBlocked(username)) {
                         UserLocalData.getInstance().toggleBlockUser(username);
-                        popup.getMenu().getItem(0).setTitle("unblock");;
+                        popup.getMenu().getItem(0).setTitle("unblock");
+                        subheading.setText("This user is blocked");
                     }
-                    else popup.getMenu().getItem(0).setTitle("unblock");;
+                    else {
+                        popup.getMenu().getItem(0).setTitle("unblock");
+                        subheading.setText("This user is blocked");
+                    }
                     popup.show();
                     return true;
                 }
@@ -318,6 +325,7 @@ public class MessagesFragment extends Fragment {
         Typeface subheadingTypeface = ResourcesCompat.getFont(context, R.font.ibm_plex_sans);
         subheading.setTypeface(subheadingTypeface);
         subheading.setId(View.generateViewId());
+        if (UserLocalData.getInstance().isUserBlocked(username)) subheading.setText("This user is blocked");
 
         notificationDot.setBackground(ContextCompat.getDrawable(context, R.drawable.icon_notification_dot));
         notificationDot.setId(View.generateViewId());
