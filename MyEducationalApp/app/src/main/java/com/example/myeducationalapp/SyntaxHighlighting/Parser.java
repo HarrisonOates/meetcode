@@ -68,7 +68,7 @@ public class Parser {
             else if (t.getType() == IDENTIFIER){
                 // A shortcut for classes
                 if (Character.isUpperCase(t.getToken().charAt(0))){
-                    highlightedBlock.append("<font color = \"red\">");
+                    highlightedBlock.append("<font color = \"#0080A0\">");
                     highlightedBlock.append(t.getToken());
                     highlightedBlock.append("</font>");
                 }
