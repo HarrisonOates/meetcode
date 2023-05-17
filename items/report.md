@@ -96,11 +96,6 @@ u7468212, Harrison Oates: I contributed 20% of the code. Here are my contributio
 * All of [SyntaxHighlightingTest.java](./../MyEducationalApp/app/test/java/com/example/myeducationalapp/SyntaxHighlightingTest.java)
 * All of [SyntaxHighlightingParsingTest.java](./../MyEducationalApp/app/test/java/com/example/myeducationalapp/SyntaxHighlightingParsingTest.java)
 * All of [DatastreamSimulation.DataGenerator.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/DatastreamSimulation/DataGenerator.java)
-* Method ```writeDirectMessagesDatastream``` in [Firebase/Firebase.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Firebase/Firebase.java) - based off original main app code by Alex
-* All of [DirectMessageThreadDatastream.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/DirectMessageThreadDatastream.java) - based off original main app code by Alex
-* All of [MessageThreadDatastream.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/MessageThreadDatastream.java) - based off original main app code by Alex
-* All of [QuestionMessageThreadDatastream.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/MessageThreadDatastream.java) - based off original main app code by Alex
-
 
 * Summary of contributions:
   * I designed and implemented code relating to syntax highlighting. This included building the tokenizer and parser to detect code snippets and render these accordingly.
@@ -277,13 +272,15 @@ Production rules for the search:
 Production rules for syntax highlighting:
 
       TOKENS          ::= KEYWORD | NUMERIC_LITERAL | STRING_LITERAL | IDENTIFIER | NEWLINE | WHITESPACE | PUNCTUATOR | END-GRAMMAR
-      KEYWORD         ::= <font color = "orange"> keyword </font> TOKENS
+      KEYWORD         ::= <font color = "#FF6000"> keyword </font> TOKENS
       NUMERIC_LITERAL ::= <font color = "blue"> numeric_literal </font> TOKENS
-      STRING_LITERAL  ::= <font color = "green"> string_literal </font> TOKENS 
-      IDENTIFIER      ::= <font color = "purple"> identifier </font> TOKENS | identifier TOKENS
+      STRING_LITERAL  ::= <font color = "#008000"> string_literal </font> TOKENS 
+      IDENTIFIER      ::= <font color = "#0080A0"> identifier </font> TOKENS | <font color = "purple"> identifier </font> TOKENS
       NEWLINE         ::= <br> TOKENS 
       WHITESPACE      ::= (<&nbsp;>)* TOKENS
-      PUNCTUATOR      ::= <font color = "purple"> punctuator </font> TOKENS
+      PUNCTUATOR      ::= <font color = "black"> punctuator </font> TOKENS
+      MULTILINE_COMMENT ::= <font color = "grey"> multiline </font> TOKENS
+      SINGLELINE_COMMENT ::= <font color = "grey"> singleline </font> TOKENS
       END-GRAMMAR     ::= [finish parsing]
 
       keyword         ::=  abstract |  assert |  boolean |  break    |  byte 
@@ -293,7 +290,7 @@ Production rules for syntax highlighting:
                         | implements |  import |  instanceof |  int |  interface 
                         |  long |  native |  new |  package |  private |  protected 
                         |  public |  return |  short |  static |  strictfp |  super 
-                        | synchronized |  this |  throw |  throws |  transient 
+                        | switch | synchronized |  this |  throw |  throws |  transient 
                         |  try |  void |  volatile |  while 
 
       numeric         ::= \{x | x \in \mathbb{R}, base 10, 2, or 16\}. 
@@ -301,6 +298,8 @@ Production rules for syntax highlighting:
       identifier      ::= [a-zA-Z]+
       punctuator      :=  { | } | ( | ) | [ | ] | . | : | = | - | + | ! | @ | # 
                         | $ | % | ^ | & | * | ; | ' | ~ | < | > | / | \ | | |
+      multiline       ::= /* Any character combination save end comment sign */
+      singleline      ::= // Any characters bar \n
 
    
    This grammar implements a custom-designed syntax highlighter for Java. An advantage of this approach is that it is easily extensible if more complex syntax highlighting is required later, but does not need the full Java specification grammar to create the colours.

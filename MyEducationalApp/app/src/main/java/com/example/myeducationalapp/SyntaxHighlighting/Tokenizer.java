@@ -119,6 +119,46 @@ public class Tokenizer {
             currentToken = new Token(s.toString(), Token.Type.STRING_LITERAL);
         }
 
+        else if (firstChar == '/'){
+            char comment = buffer.charAt(1);
+            // It is a single line comment
+            if (comment == '/'){
+                StringBuilder s = new StringBuilder();
+                s.append(firstChar);
+                int pointer = 1;
+                while (pointer < buffer.length()){
+                    if (buffer.charAt(pointer) == '\n'){
+                        break;
+                    }
+                    s.append(buffer.charAt(pointer));
+                    pointer++;
+                }
+
+                currentToken = new Token(s.toString(), Token.Type.SINGLELINE_COMMENT);
+            }
+            // It is a multi-line comment
+            else if (comment == '*'){
+                StringBuilder s = new StringBuilder();
+                s.append(firstChar);
+                int pointer = 1;
+                boolean almostEndOfComment = false;
+                while (pointer < buffer.length()){
+                    if (almostEndOfComment && buffer.charAt(pointer) == '/'){
+                        s.append(buffer.charAt(pointer));
+                        break;
+                    }
+                    else almostEndOfComment = buffer.charAt(pointer) == '*';
+                    s.append(buffer.charAt(pointer));
+                    pointer++;
+                }
+                currentToken = new Token(s.toString(), Token.Type.MULTILINE_COMMENT);
+            }
+            else {
+                currentToken = new Token(String.valueOf(firstChar), Token.Type.PUNCTUATOR);
+            }
+
+
+        }
         // If none of the above are satisfied, then it's punctuation
         else {
             currentToken = new Token(String.valueOf(firstChar), Token.Type.PUNCTUATOR);

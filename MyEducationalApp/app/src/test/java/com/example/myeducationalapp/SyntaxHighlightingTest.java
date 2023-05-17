@@ -31,10 +31,12 @@ public class SyntaxHighlightingTest {
         String[] punctuator          = new String[]{"{", "Token({, PUNCTUATOR)"};
         String[] stringLiteral       = new String[]{"\"Hello World!\"", "Token(\"Hello World!\", STRING_LITERAL)"};
         String[] binaryPrefix        = new String[]{"0b1001", "Token(0b1001, NUMERIC_LITERAL)"};
-        String[] hexPrefix          = new String[]{"0xDEADBEEF", "Token(0xDEADBEEF, NUMERIC_LITERAL)"};
+        String[] hexPrefix           = new String[]{"0xDEADBEEF", "Token(0xDEADBEEF, NUMERIC_LITERAL)"};
+        String[] singleComment       = new String[]{"// int i = 0;", "Token(// int i = 0;, SINGLELINE_COMMENT)"};
+        String[] multiComment        = new String[]{"/* this is multi-line \n * \n */", "Token(/* this is multi-line \n * \n */, MULTILINE_COMMENT)"};
 
 
-        return Arrays.asList(new String[][]{declaration, numericLiteral, newLine, arbitraryWhitespace, punctuator, stringLiteral, binaryPrefix, hexPrefix});
+        return Arrays.asList(new String[][]{declaration, numericLiteral, newLine, arbitraryWhitespace, punctuator, stringLiteral, binaryPrefix, hexPrefix, singleComment, multiComment});
     }
 
     @Parameterized.Parameter()

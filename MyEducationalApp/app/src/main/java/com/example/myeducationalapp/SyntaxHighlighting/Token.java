@@ -9,13 +9,16 @@ import java.util.Objects;
 public class Token {
     // Defines the various types of tokens, as discussed in the lecture
     public enum Type {
-        KEYWORD,        // See https://docs.oracle.com/javase/tutorial/java/nutsandbolts/_keywords.html
-        PUNCTUATOR,     // e.g {}(),;[]
-        IDENTIFIER,     // e.g SquareRoot
-        STRING_LITERAL, // e.g "String Literal" or 's'
-        NUMERIC_LITERAL,
-        WHITESPACE,      // As we're only highlighting syntax, we want to preserve whitespace somehow
-        NEWLINE          // To preserve the structure.
+        KEYWORD,           // See https://docs.oracle.com/javase/tutorial/java/nutsandbolts/_keywords.html
+        PUNCTUATOR,        // e.g {}(),;[]
+        IDENTIFIER,        // e.g SquareRoot
+        STRING_LITERAL,    // e.g "String Literal" or 's'
+        NUMERIC_LITERAL,  // e.g 0xA or 21.9 or 21
+        WHITESPACE,       // As we're only highlighting syntax, we want to preserve whitespace somehow
+        NEWLINE,          // To preserve the structure.
+
+        SINGLELINE_COMMENT, // This is an example
+        MULTILINE_COMMENT          /* This is an example */
     }
 
     private final String token;
