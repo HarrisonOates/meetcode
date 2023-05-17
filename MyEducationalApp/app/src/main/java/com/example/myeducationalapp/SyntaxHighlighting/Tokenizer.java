@@ -29,7 +29,7 @@ public class Tokenizer {
             , "native", "new"
             , "package", "private", "protected", "public"
             , "return"
-            , "short", "static", "strictfp", "super", "synchronized"
+            , "short", "static", "strictfp", "super", "switch", "synchronized"
             , "this", "throw", "throws", "transient", "try"
             , "void", "volatile"
             , "while"
