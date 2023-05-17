@@ -144,16 +144,17 @@ public class DataGenerator {
                     case 4 -> {
                         // Like / unlike a random message
                         DirectMessageThread dms = new DirectMessageThread("comp2100@anu.au");
-                        int indexToLike = r.nextInt(dms.getMessages().size());
+                        if (dms.getMessages().size() > 0) {
+                            int indexToLike = r.nextInt(dms.getMessages().size());
 
-                        dms.runWhenReady((ignored) -> {
-                            dms.getMessages().get(indexToLike).runWhenReady((ignored2) -> {
-                                dms.getMessages().get(indexToLike).toggleLikedByCurrentUser();
+                            dms.runWhenReady((ignored) -> {
+                                dms.getMessages().get(indexToLike).runWhenReady((ignored2) -> {
+                                    dms.getMessages().get(indexToLike).toggleLikedByCurrentUser();
+                                    return null;
+                                });
                                 return null;
                             });
-                            return null;
-                        });
-
+                        }
 
                     }
                     default -> {
