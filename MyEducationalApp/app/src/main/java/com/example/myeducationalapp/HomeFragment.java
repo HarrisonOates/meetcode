@@ -2,10 +2,12 @@ package com.example.myeducationalapp;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.BlendMode;
 import android.graphics.BlendModeColorFilter;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
@@ -32,7 +34,9 @@ import com.example.myeducationalapp.userInterface.UserInterfaceManagerViewModel;
 import com.example.myeducationalapp.databinding.FragmentHomeBinding;
 
 import com.example.myeducationalapp.Search.SearchResults.*;
-
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.example.myeducationalapp.DynamicLocalization;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -69,6 +73,7 @@ public class HomeFragment extends Fragment {
         // Required empty public constructor
     }
 
+    public boolean visitedLang = false;
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -103,11 +108,13 @@ public class HomeFragment extends Fragment {
                 genUserInterfaceManager.addToListOfElements(new HomeCategoryCard(category));
             }
         }
+
+
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         return binding.getRoot();
@@ -132,7 +139,24 @@ public class HomeFragment extends Fragment {
         binding.homeHeroSubheadingText.setText(date.format(DateTimeFormatter.ofPattern("d MMMM")));
 
         Question qotd = QuestionSet.getInstance().getQuestionOfTheDay();
+
+        // will clean this dynamic localization check later
+//        try {
+//            if (visitedLang) {
+//                LanguageSetting trans = new LanguageSetting();
+//                trans.translateString(qotd.getName());
+//                String translatedText = trans.getTranslatedText();
+//                System.out.println("Translated text :))) " + translatedText);
+//                // Call other methods that require the translated text
+//                binding.homeHeroBodyText.setText(translatedText);
+//            }
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
         binding.homeHeroBodyText.setText(qotd.getName());
+
+
+
 
         boolean success = UserLocalData.getInstance().hasQuestionBeenAnsweredCorrectly(qotd.getID());
         if (success) {
