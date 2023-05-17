@@ -371,8 +371,12 @@ Many types of test were created:
   - reading messages downloaded
   - checking whether messages have been liked
 
+- Tests for syntax highlighting (```SyntaxHighlightingTest``` and ```SyntaxHighlightingParsingTest```), which test the following:
+  - Tokenizer accuracy in creating tokens
+  - Parser accuracy in translating this to HTML
+
 Android Studio does not provide code coverage for instrumented tests, and thus the exact code coverage is not known.
-However, by manually inspecting the code, we find that the user login tests gets 100% line coverage of ```Firebase.FirebaseRequest```, approximately 76% of both ```Firebase.FirebaseResult```, and ```UserLogin```. Additionally, 100% of ```UserLocalData``` is tested, split across ```UserLocalDataTest``` (for most methods), and ```DirecteMessageTest``` (for ```loadFromDisk```).
+However, by manually inspecting the code, we find that the user login tests gets 100% line coverage of ```Firebase.FirebaseRequest```, approximately 76% of both ```Firebase.FirebaseResult```, and ```UserLogin```. Additionally, 100% of ```UserLocalData``` is tested, split across ```UserLocalDataTest``` (for most methods), and ```DirecteMessageTest``` (for ```loadFromDisk```). We achieve 100% branch coverage of the syntax highlighting methods across the two methods.
 
 
 ## Implemented Features
@@ -384,7 +388,17 @@ However, by manually inspecting the code, we find that the user login tests gets
     * Class X, methods Z, Y, Lines of code: 10-100
     * Additional description: ...
       <br>
-2. [Data Visualization]. Description  ... ...
+
+2. [Data Stream]. Uses a second instance of an Android Virtual Device to mimic a realistic data stream of over 2500 data instances (easy). 
+   * Class DatastreamSimulation.DataGenerator - whole file
+   * Class MainActivity - lines 127-134.
+   * Additional description:
+     * As we built a client-server model application, it was easier to set up a second instance of the app to feed data to the Firebase, and then use the primary account to pull from. See [here](https://wattlecourses.anu.edu.au/mod/forum/discuss.php?d=875865) for permission.
+
+     * To set this up, log onto the secondary AVD with the credentials 'harrison' and '12345678' and then open up the primary marker account 'comp2100@anu.au'.
+     The secondary account will then send code snippets, text excerpts, or like comments at random every three seconds, without the need for additional input. This is due to a login hook on mainActivity that activates whenever that specific account is logged into. The link to our Firebase can be found [here](https://console.firebase.google.com/u/0/project/comp2100groupassignment-8427a/overview).
+
+3. [Data Visualization]. Description  ... ...
 <br><br>
 
 ### General Features
@@ -428,9 +442,15 @@ Feature Category: Peer-to-peer messaging <br>
 
 Feature Category: Syntax Highlighting (custom, approved as per [here](https://wattlecourses.anu.edu.au/mod/forum/discuss.php?d=870859)) <br>
 6. [Custom-Syntax-Highlighting]. Description: The user interface will be able to display snippets of code to the user, with dynamically generated syntax highlighting applied. The syntax of the code will be Java-like. (hard)
-   * Class SyntaxHighlighting.???, methods Z, Y, Lines of code: 10-100
-   * Class SyntaxHighlighting.???, methods K, L, M, Lines of code: 35-150
-   * Additional description: ...
+   * Class SyntaxHighlighting.DetectCodeBlock, whole file
+   * Class SyntaxHighlighting.Parser, whole file
+   * Class SyntaxHighlighting.Tokenizer, whole file
+   * Class SyntaxHighlighting.Token, whole file
+   * Additional description: 
+     * Users are able to input code in comments in between two sets of three backticks, and this code will be highlighted according to our custom colour scheme. Token types are stored in Token, with the classification of the text into tokens happening in the ```next()``` method in the Tokenizer class.
+     The Parser calls ```next()``` repeatedly until the end of the text and transforms the tokenized query into HTML, applying the colours appropriately.
+     All of this is bundled into a static method, ```SyntaxHighlighting.DetectCodeBlock.parseCodeBlocks()```, which detects the backticks and feeds the appropriate section of text to the other classes.
+     To interface with the frontend, we call the method inside ```Html.fromHtml```, which is itself inside ```textView.setText()```.
 
 *List all features you have completed in their separate categories with their difficulty classification. If they are features that are suggested and approved, please state this somewhere as well.*
 
