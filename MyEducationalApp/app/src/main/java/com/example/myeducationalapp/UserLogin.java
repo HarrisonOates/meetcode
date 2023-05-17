@@ -1,10 +1,12 @@
 package com.example.myeducationalapp;
 
 import com.example.myeducationalapp.Firebase.Firebase;
+import com.example.myeducationalapp.userInterface.UserDirectMessages;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -131,7 +133,6 @@ public class UserLogin {
     }
 
     public boolean isUserLoggedIn(String username) {
-        System.out.printf("USER COMPARE: %s, %s\n", username, getCurrentUsername());
         return loggedInUsername != null && getCurrentUsername().equals(username);
     }
 
@@ -165,6 +166,7 @@ public class UserLogin {
 
     public void logout() {
         UserLocalData.getInstance().logout();
+        UserDirectMessages.getInstance().logout();
         loggedInUsername = null;
     }
 

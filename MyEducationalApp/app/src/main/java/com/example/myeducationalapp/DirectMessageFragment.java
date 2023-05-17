@@ -29,6 +29,7 @@ import com.example.myeducationalapp.Firebase.FirebaseObserver;
 import com.example.myeducationalapp.SyntaxHighlighting.DetectCodeBlock;
 import com.example.myeducationalapp.databinding.FragmentDirectMessageBinding;
 import com.example.myeducationalapp.userInterface.Generatable.MessageListCard;
+import com.example.myeducationalapp.userInterface.UserDirectMessages;
 import com.example.myeducationalapp.userInterface.UserInterfaceManagerViewModel;
 
 import java.nio.file.AccessDeniedException;
@@ -114,10 +115,10 @@ public class DirectMessageFragment extends Fragment {
         generateAllDirectMessageBubble(getActivity());
 
         // Adding observer onto this direct message thread, but only one will ever be added
-        if (!userInterfaceManager.getCurrentDirectMessages().getValue().get(messageRecipient).hasObserverBeenAttached) {
+        if (!UserDirectMessages.getInstance().hasObserverBeenAttached(messageRecipient)) {
 
             Firebase.getInstance().attachDirectMessageObserver(new DirectMessagesObserver(), UserLogin.getInstance().getCurrentUsername(), messageRecipient);
-            userInterfaceManager.getCurrentDirectMessages().getValue().get(messageRecipient).hasObserverBeenAttached = true;
+            UserDirectMessages.getInstance().setObserverHasBeenAttached(messageRecipient, true);
         }
 
         // Adding QOL for if you press enter in the message entry field
@@ -145,7 +146,7 @@ public class DirectMessageFragment extends Fragment {
     private void sendMessage(boolean isRecipient) {
 
         UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
-        DirectMessageThread dms = userInterfaceManager.getCurrentDirectMessages().getValue().get(messageRecipient).directMessageThread;
+        DirectMessageThread dms = UserDirectMessages.getInstance().currentDirectMessages.get(messageRecipient).directMessageThread;
 
         dms.runWhenReady((obj) -> {
 
@@ -170,7 +171,7 @@ public class DirectMessageFragment extends Fragment {
                 //
                 // remember to update wasLastRenderedMessageFromRecipient and lastRenderedMessageOrientation
 
-                MessageListCard messageListCard = userInterfaceManager.getCurrentDirectMessages().getValue().get(messageRecipient);
+                MessageListCard messageListCard = UserDirectMessages.getInstance().currentDirectMessages.get(messageRecipient);
                 List<Message> messages = messageListCard.directMessageThread.getMessages();
                 Message messageToRender = messages.get(messages.size() - 1);
 
@@ -316,7 +317,7 @@ public class DirectMessageFragment extends Fragment {
         // https://stackoverflow.com/questions/38029423/check-if-a-scrollview-has-reached-the-top-of-the-layout
 
         UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
-        MessageListCard messageListCard = userInterfaceManager.getCurrentDirectMessages().getValue().get(messageRecipient);
+        MessageListCard messageListCard = UserDirectMessages.getInstance().currentDirectMessages.get(messageRecipient);
         String currentUsername = UserLogin.getInstance().getCurrentUsername();
 
         // If messageListCard is null here then it means that we're starting a new message thread
@@ -540,22 +541,12 @@ public class DirectMessageFragment extends Fragment {
         likeContainerConstraintLayout.setOnLongClickListener(view -> {
 
             UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
-            userInterfaceManager.getCurrentDirectMessages().getValue().get(messageRecipient).directMessageThread.getMessages().get(currentMessageIndex).toggleLikedByCurrentUser();
+            Message current = UserDirectMessages.getInstance().currentDirectMessages.get(messageRecipient).directMessageThread.getMessages().get(currentMessageIndex);
 
-            int newLikeCount = userInterfaceManager.getCurrentDirectMessages().getValue().get(messageRecipient).directMessageThread.getMessages().get(currentMessageIndex).getLikeCount();
-
-            if (newLikeCount > 0) {
-                likeContainerConstraintLayout.setVisibility(View.VISIBLE);
-
-                if (newLikeCount > 1) {
-                    likeText.setText("❤️  " + newLikeCount);
-                } else {
-                    likeText.setText("❤️");
-                }
-
-            } else {
-                likeContainerConstraintLayout.setVisibility(View.GONE);
-            }
+            current.runWhenReady((ignored) -> {
+                current.toggleLikedByCurrentUser();
+                return null;
+            });
 
             return false;
         });
@@ -564,22 +555,7 @@ public class DirectMessageFragment extends Fragment {
         messageContainerConstraintLayout.setOnLongClickListener(view -> {
 
             UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
-            userInterfaceManager.getCurrentDirectMessages().getValue().get(messageRecipient).directMessageThread.getMessages().get(currentMessageIndex).toggleLikedByCurrentUser();
-
-            int newLikeCount = userInterfaceManager.getCurrentDirectMessages().getValue().get(messageRecipient).directMessageThread.getMessages().get(currentMessageIndex).getLikeCount();
-
-            if (newLikeCount > 0) {
-                likeContainerConstraintLayout.setVisibility(View.VISIBLE);
-
-                if (newLikeCount > 1) {
-                    likeText.setText("❤️  " + newLikeCount);
-                } else {
-                    likeText.setText("❤️");
-                }
-
-            } else {
-                likeContainerConstraintLayout.setVisibility(View.GONE);
-            }
+            UserDirectMessages.getInstance().currentDirectMessages.get(messageRecipient).directMessageThread.getMessages().get(currentMessageIndex).toggleLikedByCurrentUser();
 
             return false;
         });
@@ -588,32 +564,39 @@ public class DirectMessageFragment extends Fragment {
     class DirectMessagesObserver extends FirebaseObserver {
 
         public void update() {
-
             FirebaseObserver observer = this;
 
             DirectMessageThread dms = new DirectMessageThread(messageRecipient);
 
+            UserDirectMessages instance = UserDirectMessages.getInstance();
+
+            // If we don't have any data to update we should just, y'know, not update it
+            // or something. Maybe return as well
+            if (instance.isEmpty()) {
+                observer.enable();
+                return;
+            }
+
             dms.runWhenReady((obj) -> {
-
-                UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
-
                 // 1. Check if there is any difference between firebase direct messages and
                 //    local direct messages
                 // 2. Update them if there is a difference, otherwise do nothing
                 // 3. Then if there is a difference update the UI
-                //    l-> refresh entire UI because if a heart is added somewhere we need to be able to
-                //        add that which is difficult to do unless we refresh everything
+                //    l-> refresh only what needs to be refreshed in terms of liked messages and
+                //        then add new messages one-by-one, instead of generating the entire
+                //        LinearLayout lineage
 
-                List<Message> localMessages = userInterfaceManager.getCurrentDirectMessages().
-                        getValue().get(messageRecipient).directMessageThread.messages;
+                // TODO need to make this assignment a deep copy of messages List
+                List<Message> localMessages = instance.currentDirectMessages
+                        .get(messageRecipient).directMessageThread.messages;
                 List<Message> firebaseMessages = dms.getMessages();
-
 
                 // firebase Messages are newer than old ones
                 if (!localMessages.equals(firebaseMessages)) {
+
                     // hence we assign the new DirectMessageThread to the view model
-                    userInterfaceManager.getCurrentDirectMessages().
-                            getValue().get(messageRecipient).directMessageThread = dms;
+                    instance.currentDirectMessages
+                            .get(messageRecipient).directMessageThread = dms;
 
                     // Updating likes on messages
                     // Going through previous messages and checking if their likes are different
@@ -632,6 +615,13 @@ public class DirectMessageFragment extends Fragment {
                             messagesToRender.forEach(message -> {
                                 boolean isRecipient = message.getPoster().getUsername().equals(messageRecipient);
 
+                                // if the person's that we're messaging has the same username as us
+                                // then isRecipient will always be false
+                                // this is nice for when we are messaging ourself
+                                if (message.getPoster().getUsername().equals(UserLogin.getInstance().getCurrentUsername())) {
+                                    isRecipient = false;
+                                }
+
                                 generateIndividualBubble(isRecipient, message);
                             });
 
@@ -641,10 +631,16 @@ public class DirectMessageFragment extends Fragment {
                         // we know that i is a valid index of localMessage now
                         Message localMessage = localMessages.get(i);
 
-                        if (firebaseMessage.getLikeCount() != localMessage.getLikeCount()) {
-
+                        if (true || firebaseMessage.getLikeCount() != localMessage.getLikeCount()) {
                             // we have to update the ui for this element in the UI
                             ConstraintLayout parent = (ConstraintLayout) binding.directMessageLinearLayout.getChildAt(i);
+
+                            // If the parent we have gotten is a null reference we should break out of this
+                            // loop and continue on our day like nothing ever happened.
+                            if (parent == null) {
+                                break;
+                            }
+
                             ConstraintLayout likeContainer = (ConstraintLayout) parent.getChildAt(1);
                             TextView likeText = (TextView) likeContainer.getChildAt(0);
 
@@ -663,7 +659,6 @@ public class DirectMessageFragment extends Fragment {
                                     likeText.setText("❤️  " + firebaseMessage.getLikeCount());
                                     break;
                             }
-
                         }
                     }
                 }

@@ -29,6 +29,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.example.myeducationalapp.Firebase.Firebase;
 import com.example.myeducationalapp.databinding.FragmentMessagesBinding;
 import com.example.myeducationalapp.userInterface.Generatable.MessageListCard;
+import com.example.myeducationalapp.userInterface.UserDirectMessages;
 import com.example.myeducationalapp.userInterface.UserInterfaceManagerViewModel;
 import com.google.android.material.divider.MaterialDivider;
 
@@ -94,6 +95,20 @@ public class MessagesFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentMessagesBinding.inflate(inflater, container, false);
+
+        // If we don't have any direct message threads currently, we need to fetch them from firebase
+        if (UserDirectMessages.getInstance().isEmpty()) {
+            Firebase.getInstance().getAllUsersYouHaveMessaged(dms -> {
+                storeAllMessageThreads(dms);
+
+                return null;
+            });
+
+        } else {
+            // Otherwise just render what we have stored currently
+            generateAllMessageListCards();
+        }
+
         return binding.getRoot();
     }
 
@@ -122,19 +137,6 @@ public class MessagesFragment extends Fragment {
 
             return false;
         });
-
-        // If we don't have any direct message threads currently, we need to fetch them from firebase
-        if (userInterfaceManager.getCurrentDirectMessages().getValue().size() == 0) {
-            Firebase.getInstance().getAllUsersYouHaveMessaged(dms -> {
-                storeAllMessageThreads(dms);
-
-                return null;
-            });
-
-        } else {
-            // Otherwise just render what we have stored currently
-            generateAllMessageListCards();
-        }
     }
 
     private void initializeNewDirectMessage() {
@@ -153,7 +155,7 @@ public class MessagesFragment extends Fragment {
 
                     // If user is already someone we have messaged then we don't have to worry about setting up new local data
                     // to support their DM, as it already exists
-                    boolean isUserInLocalDirectMessages = userInterfaceManager.getCurrentDirectMessages().getValue().get(usernameToDirectMessage) != null;
+                    boolean isUserInLocalDirectMessages = UserDirectMessages.getInstance().doesUserExistInDirectMessages(usernameToDirectMessage);
 
                     if (!isUserInLocalDirectMessages) {
                         // creating local DirectMessageThread
@@ -161,8 +163,8 @@ public class MessagesFragment extends Fragment {
 
                         // adding new user to our ViewModel data
                         MessageListCard template = new MessageListCard(R.drawable.user_profile_default, usernameToDirectMessage, "", dms);
-                        userInterfaceManager.getCurrentDirectMessages().getValue().put(usernameToDirectMessage, template);
-                        userInterfaceManager.getCurrentDirectMessages().getValue().get(template.headingText).isNotification = false;
+                        UserDirectMessages.getInstance().currentDirectMessages.put(usernameToDirectMessage, template);
+                        UserDirectMessages.getInstance().currentDirectMessages.get(template.headingText).isNotification = false;
                     }
 
                     binding.messagesSendNewMessageInputText.getText().clear();
@@ -196,7 +198,6 @@ public class MessagesFragment extends Fragment {
     }
 
     private void storeAllMessageThreads(DirectMessageThread dms) {
-        UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
         String directMessageRecipient = dms.getUsername();
 
         MessageListCard template = new MessageListCard(R.drawable.user_profile_default, directMessageRecipient, "", dms);
@@ -211,7 +212,7 @@ public class MessagesFragment extends Fragment {
             }
         }
 
-        userInterfaceManager.getCurrentDirectMessages().getValue().put(directMessageRecipient, template);
+        UserDirectMessages.getInstance().currentDirectMessages.put(directMessageRecipient, template);
 
         generateMessageListCard(template, getActivity(), template.isNotification);
     }
@@ -221,8 +222,7 @@ public class MessagesFragment extends Fragment {
     }
 
     private void generateAllMessageListCards() {
-        UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
-        userInterfaceManager.getCurrentDirectMessages().getValue().values().forEach(messageListCard -> {
+        UserDirectMessages.getInstance().currentDirectMessages.values().forEach(messageListCard -> {
 
             // Updating the subheading of the message card before rendering
             // first checking if there are any messages
@@ -366,7 +366,7 @@ public class MessagesFragment extends Fragment {
 
             UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
             userInterfaceManager.getUiState().getValue().setToolbarTitle(heading.getText().toString());
-            userInterfaceManager.getCurrentDirectMessages().getValue().get(template.headingText).isNotification = false;
+            UserDirectMessages.getInstance().currentDirectMessages.get(template.headingText).isNotification = false;
 
             NavHostFragment.findNavController(MessagesFragment.this).navigate(R.id.action_messagesFragment_to_directMessageFragment);
 

@@ -111,12 +111,27 @@ public class QuestionFragment extends Fragment {
         binding.questionBodySubheadingText.setText(currentQuestion.getSubheading());
         binding.questionBodyCategoryText.setText(currentQuestion.getCategory());
         binding.questionBodyDifficultyText.setText(currentQuestion.getDifficulty());
+        if (currentQuestion.getMaxStars() == 1) {
+            binding.questionBodyStarsText.setText(getString(R.string.earn_1_star));
+        } else {
+            binding.questionBodyStarsText.setText(getString(R.string.earn_x_stars, currentQuestion.getMaxStars()));
+        }
 
         // Changing colour of UI to reflect current category
         // Setting primary colours
         binding.questionBodyConstraintLayout.getBackground().setColorFilter(new BlendModeColorFilter(currentQuestion.getCardColour(), BlendMode.SRC_ATOP));
         binding.questionMultiConstraintLayout.getBackground().setColorFilter(new BlendModeColorFilter(currentQuestion.getCardColour(), BlendMode.SRC_ATOP));
         binding.questionAnswerEntryConstraintLayout.getBackground().setColorFilter(new BlendModeColorFilter(currentQuestion.getCardColour(), BlendMode.SRC_ATOP));
+
+        // Setting secondary colours
+        binding.questionAnswerSubmitOuterButtonConstraintLayout.getBackground().setColorFilter(new BlendModeColorFilter(currentQuestion.getSecondaryCardColour(), BlendMode.SRC_ATOP));
+        binding.questionBodyCategoryContainerConstraintLayout.getBackground().setColorFilter(new BlendModeColorFilter(currentQuestion.getSecondaryCardColour(), BlendMode.SRC_ATOP));
+        binding.questionBodyDifficultyContainerConstraintLayout.getBackground().setColorFilter(new BlendModeColorFilter(currentQuestion.getSecondaryCardColour(), BlendMode.SRC_ATOP));
+        binding.questionBodyStarsContainerConstraintLayout.getBackground().setColorFilter(new BlendModeColorFilter(currentQuestion.getSecondaryCardColour(), BlendMode.SRC_ATOP));
+        binding.questionAnswerEntryCarpetContraintLayout.getBackground().setColorFilter(new BlendModeColorFilter(currentQuestion.getSecondaryCardColour(), BlendMode.SRC_ATOP));
+
+        // Setting tertiary colours
+        binding.questionAnswerSubmitInnerButtonConstraintLayout.getBackground().setColorFilter(new BlendModeColorFilter(currentQuestion.getTertiaryCardColour(), BlendMode.SRC_ATOP));
 
 
 

@@ -369,23 +369,25 @@ public class AVLTree<T extends Comparable<T>> {
      */
     public AVLTree<T> stringToTree(String levelOrderTraversal, boolean useAtSignToSplit) {
         AVLTree<T> tree = new AVLTree<>();
+        if (levelOrderTraversal.length() == 0) {
+            /*
+             * Otherwise, we get values having an empty string, which causes it to add an
+             * empty string to the tree, which may be of the wrong type (i.e. not T), so it
+             * crashes.
+             */
+            return tree;
+        }
         String[] values = levelOrderTraversal.split(",");
         ArrayList<String> valuesList = new ArrayList<>(Arrays.asList(values));
         ArrayList<String> strNull = new ArrayList<>();
         strNull.add("null");
         valuesList.removeAll(strNull);
         for (String value : valuesList) {
-            System.out.println(value);
             if (value.contains("@") && useAtSignToSplit) {
-                System.out.printf("FOUND A @ SPLIT\n%d, %d\n",
-                        Integer.parseInt(value.split("@")[0]),
-                        Integer.parseInt(value.split("@")[1])
-                        );
                 tree.insert((T) new ComparablePair<>(
                         Integer.parseInt(value.split("@")[0]),
                         Integer.parseInt(value.split("@")[1])
                 ));
-                System.out.printf(" -> INSERTED, SIZE = %d\n", tree.size());
 
             } else {
                 try {
@@ -419,6 +421,7 @@ public class AVLTree<T extends Comparable<T>> {
             sb.append(padding);
             sb.append(pointer);
             sb.append(node.value);
+            sb.append("   (").append(node.value == null ? "null" : node.value.getClass().toString()).append(")");
             sb.append("\n");
 
             String paddingForBoth = padding + "|  ";

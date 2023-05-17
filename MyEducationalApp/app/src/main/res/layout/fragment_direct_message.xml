@@ -131,7 +131,7 @@
             android:background="@null"
             android:maxLines="4"
             android:fontFamily="@font/ibm_plex_sans_medium"
-            android:hint="Message..."
+            android:hint="@string/message"
             android:inputType="text|textMultiLine|textAutoComplete|textAutoCorrect|textLongMessage"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"

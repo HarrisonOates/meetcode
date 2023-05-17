@@ -98,13 +98,12 @@ public class UserLocalData {
             return null;
         }
 
+
         return Firebase.getInstance().readPerUserSettings(UserLogin.getInstance().getCurrentUsername()).then((obj) -> {
             String data = (String) obj;
 
             if (data == null) {
-                /*
-                 * New user, so no data.
-                 */
+                // New user, so no data.
                 return null;
             }
 
@@ -177,6 +176,8 @@ public class UserLocalData {
         } else {
             likedMessages.delete(pair);
         }
+
+        Log.d("UserLocalData", "user local data shows " + likedMessages.size() + " liked messages");
 
         saveToDisk();
     }
@@ -258,7 +259,7 @@ public class UserLocalData {
     }
 
     boolean isMessageLiked(int threadID, int messageID) {
-        var pair = new ComparablePair<>(threadID, messageID);
+        ComparablePair<Integer> pair = new ComparablePair<>(threadID, messageID);
         return likedMessages.search(pair) != null;
     }
 

@@ -12,21 +12,4 @@
     <string name="title_activity_messaging_demo_fragment">メッセージングをしめすフラグメント</string>
     <string name="backBtn">ホームに戻る</string>
     <string name="language_setting">言語を変える</string>
-    <string name="enter_your_username">Enter your username</string>
-    <string name="username">Username</string>
-    <string name="enter_your_password">Enter your password</string>
-    <string name="password">Password</string>
-    <string name="log_in">Log in ➜</string>
-    <string name="you_ve_achieved_x_stars">You\'ve achieved %1$d stars</string>
-    <string name="current_username">Current username</string>
-    <string name="categories">Categories</string>
-    <string name="daily_challenge">Daily Challenge</string>
-    <string name="logout">Logout</string>
-    <string name="earn_x_stars">Earn %1$d stars</string>
-    <string name="completed">Completed!</string>
-    <string name="earn_1_star">Earn 1 star</string>
-    <string name="question">Question</string>
-    <string name="topic">Topic</string>
-    <string name="user">User</string>
-    <string name="post">Post</string>
 </resources>

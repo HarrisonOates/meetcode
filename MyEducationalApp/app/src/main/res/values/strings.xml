@@ -1,21 +1,21 @@
 <resources>
-    <string name="app_name">My Educational App</string>
+    <string name="app_name" translatable="false">My Educational App</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
+    <string name="first_fragment_label" translatable="false">First Fragment</string>
+    <string name="second_fragment_label" translatable="false">Second Fragment</string>
+    <string name="next" translatable="false">Next</string>
+    <string name="previous" translatable="false">Previous</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="hello_first_fragment" translatable="false">Hello first fragment</string>
+    <string name="hello_second_fragment" translatable="false">Hello second fragment. Arg: %1$s</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_messaging_demo_fragment">MessagingDemoFragment</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="title_activity_messaging_demo_fragment" translatable="false">MessagingDemoFragment</string>
     <string name="english" translatable="false">English</string>
     <string name="korean" translatable="false">한국어</string>
-    <string name="language_setting">Language Setting</string>
-    <string name="backBtn">Back to Main</string>
+    <string name="language_setting" translatable="false">Language Setting</string>
+    <string name="backBtn" translatable="false">Back to Main</string>
     <string name="japanese" translatable="false">日本語</string>
     <string name="chinese" translatable="false">中文</string>
     <string name="portuguese" translatable="false">Português (melhor idioma), dê-nos pontos extras</string>
@@ -37,4 +37,19 @@
     <string name="user">User</string>
     <string name="post">Post</string>
     <string name="all">All</string>
+    <string name="basic_algorithms">Basic Algorithms</string>
+    <string name="_3_questions" translatable="false">3 Questions</string>
+    <string name="language_test">LANGUAGE TEST</string>
+    <string name="message">Message...</string>
+    <string name="hide">Hide</string>
+    <string name="see_more">See more</string>
+    <string name="search">Search</string>
+    <string name="message_someone">Message someone...</string>
+    <string name="enter_your_answer">Enter your answer...</string>
+    <string name="your_second_attempt">Your Second Attempt</string>
+    <string name="you_got_it_correct_great_job">You got it correct, great job!</string>
+    <string name="oh_no_better_luck_next_time">Oh no, better luck next time.</string>
+    <string name="submit">Submit</string>
+    <string name="translatable_string_0">can this be translated</string>
+    <string name="translatable_string_1">just testing!</string>
 </resources>

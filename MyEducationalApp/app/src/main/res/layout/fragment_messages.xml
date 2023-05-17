@@ -45,7 +45,7 @@
             android:background="@null"
             android:ems="10"
             android:fontFamily="@font/ibm_plex_sans_medium"
-            android:hint="Message someone..."
+            android:hint="@string/message_someone"
             android:inputType="textAutoComplete|text"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
