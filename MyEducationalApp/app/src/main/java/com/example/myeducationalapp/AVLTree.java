@@ -284,11 +284,6 @@ public class AVLTree<T extends Comparable<T>> {
             return null;
         }
 
-        System.out.printf("%s\n", visualize());
-        System.out.printf("Tree size = %d\n", getHeight(node));
-        System.out.printf("Typeof value: %s\n", value.getClass());
-        System.out.printf("Typeof node.value: %s\n", node.value.getClass());
-
         int cmp = value.compareTo(node.value);
         if (cmp < 0)
             return find(node.left, value);
