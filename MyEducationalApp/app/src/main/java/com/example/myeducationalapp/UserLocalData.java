@@ -177,6 +177,8 @@ public class UserLocalData {
             likedMessages.delete(pair);
         }
 
+        Log.d("UserLocalData", "user local data shows " + likedMessages.size() + " liked messages");
+
         saveToDisk();
     }
 

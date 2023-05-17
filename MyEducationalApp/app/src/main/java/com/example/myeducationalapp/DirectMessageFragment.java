@@ -636,7 +636,7 @@ public class DirectMessageFragment extends Fragment {
                         // we know that i is a valid index of localMessage now
                         Message localMessage = localMessages.get(i);
 
-                        if (firebaseMessage.getLikeCount() != localMessage.getLikeCount()) {
+                        if (true || firebaseMessage.getLikeCount() != localMessage.getLikeCount()) {
                             Log.d("DirectMessageFragment", "Found newly liked message");
 
                             // we have to update the ui for this element in the UI
