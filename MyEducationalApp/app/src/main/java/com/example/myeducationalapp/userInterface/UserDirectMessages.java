@@ -5,6 +5,9 @@ import com.example.myeducationalapp.userInterface.Generatable.MessageListCard;
 
 import java.util.LinkedHashMap;
 
+/**
+ * @author u7300256 Nikhila Gurusinghe
+ */
 public class UserDirectMessages {
 
     private static UserDirectMessages instance = null;

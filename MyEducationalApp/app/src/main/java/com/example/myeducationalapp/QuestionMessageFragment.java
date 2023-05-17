@@ -4,15 +4,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.ConstraintSet;
-import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.text.Html;
 import android.util.Log;
 import android.util.TypedValue;
@@ -24,27 +15,33 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.myeducationalapp.Firebase.Firebase;
+import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.example.myeducationalapp.Firebase.FirebaseObserver;
 import com.example.myeducationalapp.SyntaxHighlighting.DetectCodeBlock;
 import com.example.myeducationalapp.databinding.FragmentDirectMessageBinding;
 import com.example.myeducationalapp.userInterface.Generatable.MessageListCard;
-import com.example.myeducationalapp.userInterface.UserDirectMessages;
 import com.example.myeducationalapp.userInterface.UserInterfaceManagerViewModel;
 
-import java.nio.file.AccessDeniedException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link DirectMessageFragment#newInstance} factory method to
+ * Use the {@link QuestionMessageFragment#newInstance} factory method to
  * create an instance of this fragment.
  *
- * @author u7300256 Nikhila Gurusinghe
+ * @author u7300256 Nikhila Gurusinghe (original code from DirectMessageFragment.java)
+ * @author u7468248 Alex Boxall (adapted to QuestionMessageThread.java)
  */
-public class DirectMessageFragment extends Fragment {
+public class QuestionMessageFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -57,11 +54,11 @@ public class DirectMessageFragment extends Fragment {
 
     private FragmentDirectMessageBinding binding;
     // Username of person you're messaging
-    private String messageRecipient;
+    private String questionID;
     private boolean wasLastRenderedMessageFromRecipient;
     private MessageBubbleOrientation lastRenderedMessageOrientation;
 
-    public DirectMessageFragment() {
+    public QuestionMessageFragment() {
         // Required empty public constructor
     }
 
@@ -74,8 +71,8 @@ public class DirectMessageFragment extends Fragment {
      * @return A new instance of fragment DirectMessageFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static DirectMessageFragment newInstance(String param1, String param2) {
-        DirectMessageFragment fragment = new DirectMessageFragment();
+    public static QuestionMessageFragment newInstance(String param1, String param2) {
+        QuestionMessageFragment fragment = new QuestionMessageFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -111,15 +108,23 @@ public class DirectMessageFragment extends Fragment {
         UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
         userInterfaceManager.getUiState().getValue().enterNewFragment(false);
         // Username of person you're messaging, found through the toolbar title (set by previous fragment)
-        messageRecipient = userInterfaceManager.getUiState().getValue().getToolbarTitle().getValue();
-        generateAllDirectMessageBubble(getActivity());
 
-        // Adding observer onto this direct message thread, but only one will ever be added
-        if (!UserDirectMessages.getInstance().hasObserverBeenAttached(messageRecipient)) {
-
-            Firebase.getInstance().attachDirectMessageObserver(new DirectMessagesObserver(), UserLogin.getInstance().getCurrentUsername(), messageRecipient);
-            UserDirectMessages.getInstance().setObserverHasBeenAttached(messageRecipient, true);
+        String questionName = userInterfaceManager.getUiState().getValue().getToolbarTitle().getValue();
+        questionID = null;
+        for (Question q: QuestionSet.getInstance().getUsedQuestionSets().values()) {
+            if (q.getName().equals(questionName)) {
+                if (questionID != null) {
+                    throw new AssertionError("two questions with the same name???");
+                }
+                questionID = q.getID();
+            }
         }
+        if (questionID == null) {
+            throw new AssertionError("can't find question???");
+        }
+        generateAllQuestionMessageBubbles(getActivity());
+
+        // No observers for this one
 
         // Adding QOL for if you press enter in the message entry field
         binding.directMessageInputText.setOnKeyListener((view1, keyCode, keyEvent) -> {
@@ -146,41 +151,17 @@ public class DirectMessageFragment extends Fragment {
     private void sendMessage(boolean isRecipient) {
 
         UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
-        DirectMessageThread dms = UserDirectMessages.getInstance().currentDirectMessages.get(messageRecipient).directMessageThread;
+        QuestionMessageThread qms = new QuestionMessageThread(questionID);
 
-        dms.runWhenReady((obj) -> {
+        qms.runWhenReady((obj) -> {
+            String content = binding.directMessageInputText.getText().toString();
+            Message msg = qms.postMessage(content);
 
-            dms.postMessage(binding.directMessageInputText.getText().toString());
-
-            // TODO make this better
             binding.directMessageLinearLayout.post(() -> {
-
-                // We know this will always be sent by the current user and will always appear
-                // on the right of the screen in the isRecipient=false state
-                //
-                // We need to do the opposite if isRecipient=true :)
-                //
-                // We also know that it will be the last message that we need to render
-                //
-                // wasLastRenderedMessageFromRecipient
-                // l-> true: we need to render a SINGLE
-                // l-> false: we need to check lastRenderedMessageOrientation
-                //     l-> SINGLE: we need to update this SINGLE to a TOP and add new BOTTOM
-                //     l-> BOTTOM: we need to make this a MIDDLE and add a new BOTTOM
-                //     l-> null:   we have a brand new message thread and we need to render a SINGLE
-                //
-                // remember to update wasLastRenderedMessageFromRecipient and lastRenderedMessageOrientation
-
-                MessageListCard messageListCard = UserDirectMessages.getInstance().currentDirectMessages.get(messageRecipient);
-                List<Message> messages = messageListCard.directMessageThread.getMessages();
-                Message messageToRender = messages.get(messages.size() - 1);
-
-                generateIndividualBubble(isRecipient, messageToRender);
+                generateIndividualBubble(isRecipient, msg);
             });
 
-            // Clearing input text
             binding.directMessageInputText.getText().clear();
-
             return null;
         });
     }
@@ -192,7 +173,7 @@ public class DirectMessageFragment extends Fragment {
                 // This is from the point of view of the sender
                 // Rendering a new SINGLE
                 int currentMessageIndex = binding.directMessageLinearLayout.getChildCount();
-                generateDirectMessageBubble(messageToRender, false, MessageBubbleOrientation.SINGLE, true, currentMessageIndex, getActivity());
+                generateQuestionMessageBubble(messageToRender, false, MessageBubbleOrientation.SINGLE, true, currentMessageIndex, getActivity());
 
                 // Remember to scroll to bottom
                 binding.directMessageScrollView.post(() -> binding.directMessageScrollView.fullScroll(View.FOCUS_DOWN));
@@ -209,7 +190,7 @@ public class DirectMessageFragment extends Fragment {
 
                     // render new BOTTOM
                     int currentMessageIndex = binding.directMessageLinearLayout.getChildCount();
-                    generateDirectMessageBubble(messageToRender, true, MessageBubbleOrientation.BOTTOM_RECIPIENT, false, currentMessageIndex, getActivity());
+                    generateQuestionMessageBubble(messageToRender, true, MessageBubbleOrientation.BOTTOM_RECIPIENT, false, currentMessageIndex, getActivity());
 
                     // Remember to scroll to bottom
                     binding.directMessageScrollView.post(() -> binding.directMessageScrollView.fullScroll(View.FOCUS_DOWN));
@@ -223,7 +204,7 @@ public class DirectMessageFragment extends Fragment {
                             setBackground(ContextCompat.getDrawable(getActivity(), MessageBubbleOrientation.MIDDLE_RECIPIENT.drawableID));
                     // render new BOTTOM
                     int currentMessageIndex = binding.directMessageLinearLayout.getChildCount();
-                    generateDirectMessageBubble(messageToRender, true, MessageBubbleOrientation.BOTTOM_RECIPIENT, false, currentMessageIndex, getActivity());
+                    generateQuestionMessageBubble(messageToRender, true, MessageBubbleOrientation.BOTTOM_RECIPIENT, false, currentMessageIndex, getActivity());
 
                     // Remember to scroll to bottom
                     binding.directMessageScrollView.post(() -> binding.directMessageScrollView.fullScroll(View.FOCUS_DOWN));
@@ -237,7 +218,7 @@ public class DirectMessageFragment extends Fragment {
 
                     // Rendering a new SINGLE
                     int currentMessageIndex = binding.directMessageLinearLayout.getChildCount();
-                    generateDirectMessageBubble(messageToRender, true, MessageBubbleOrientation.SINGLE, true, currentMessageIndex, getActivity());
+                    generateQuestionMessageBubble(messageToRender, true, MessageBubbleOrientation.SINGLE, true, currentMessageIndex, getActivity());
 
                     // Remember to scroll to bottom
                     binding.directMessageScrollView.post(() -> binding.directMessageScrollView.fullScroll(View.FOCUS_DOWN));
@@ -257,7 +238,7 @@ public class DirectMessageFragment extends Fragment {
 
                     // render new BOTTOM
                     int currentMessageIndex = binding.directMessageLinearLayout.getChildCount();
-                    generateDirectMessageBubble(messageToRender, false, MessageBubbleOrientation.BOTTOM, false, currentMessageIndex, getActivity());
+                    generateQuestionMessageBubble(messageToRender, false, MessageBubbleOrientation.BOTTOM, false, currentMessageIndex, getActivity());
 
                     // Remember to scroll to bottom
                     binding.directMessageScrollView.post(() -> binding.directMessageScrollView.fullScroll(View.FOCUS_DOWN));
@@ -271,7 +252,7 @@ public class DirectMessageFragment extends Fragment {
                             setBackground(ContextCompat.getDrawable(getActivity(), MessageBubbleOrientation.MIDDLE.drawableID));
                     // render new BOTTOM
                     int currentMessageIndex = binding.directMessageLinearLayout.getChildCount();
-                    generateDirectMessageBubble(messageToRender, false, MessageBubbleOrientation.BOTTOM, false, currentMessageIndex, getActivity());
+                    generateQuestionMessageBubble(messageToRender, false, MessageBubbleOrientation.BOTTOM, false, currentMessageIndex, getActivity());
 
                     // Remember to scroll to bottom
                     binding.directMessageScrollView.post(() -> binding.directMessageScrollView.fullScroll(View.FOCUS_DOWN));
@@ -285,7 +266,7 @@ public class DirectMessageFragment extends Fragment {
 
                     // Rendering a new SINGLE
                     int currentMessageIndex = binding.directMessageLinearLayout.getChildCount();
-                    generateDirectMessageBubble(messageToRender, false, MessageBubbleOrientation.SINGLE, true, currentMessageIndex, getActivity());
+                    generateQuestionMessageBubble(messageToRender, false, MessageBubbleOrientation.SINGLE, true, currentMessageIndex, getActivity());
 
                     // Remember to scroll to bottom
                     binding.directMessageScrollView.post(() -> binding.directMessageScrollView.fullScroll(View.FOCUS_DOWN));
@@ -298,7 +279,7 @@ public class DirectMessageFragment extends Fragment {
                 // This is from the point of view of the recipient
                 // Rendering a new SINGLE
                 int currentMessageIndex = binding.directMessageLinearLayout.getChildCount();
-                generateDirectMessageBubble(messageToRender, true, MessageBubbleOrientation.SINGLE, true, currentMessageIndex, getActivity());
+                generateQuestionMessageBubble(messageToRender, true, MessageBubbleOrientation.SINGLE, true, currentMessageIndex, getActivity());
 
                 // Remember to scroll to bottom
                 binding.directMessageScrollView.post(() -> binding.directMessageScrollView.fullScroll(View.FOCUS_DOWN));
@@ -310,115 +291,111 @@ public class DirectMessageFragment extends Fragment {
         }
     }
 
-    private void generateAllDirectMessageBubble(Context context) {
+    private void generateAllQuestionMessageBubbles(Context context) {
 
         // TODO only render ~30 messages, then when user scrolls to the top of the scrollviewer
         // add another 30 messages onto the layout
         // https://stackoverflow.com/questions/38029423/check-if-a-scrollview-has-reached-the-top-of-the-layout
 
-        UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
-        MessageListCard messageListCard = UserDirectMessages.getInstance().currentDirectMessages.get(messageRecipient);
         String currentUsername = UserLogin.getInstance().getCurrentUsername();
+        QuestionMessageThread qms = new QuestionMessageThread(questionID);
+        qms.runWhenReady((ignored) -> {
+            List<Message> messages = qms.getMessages();
 
-        // If messageListCard is null here then it means that we're starting a new message thread
-        // hence there's nothing we should be rendering and we should stop
-        if (messageListCard == null) {
-            return;
-        }
+            int currentMessageIndex = 0;
 
-        List<Message> messages = messageListCard.directMessageThread.getMessages();
+            for (int i = 0, messagesSize = messages.size(); i < messagesSize; i++) {
+                Message firstMessage = messages.get(i);
+                Person currentPoster = firstMessage.getPoster();
 
-        int currentMessageIndex = 0;
+                boolean isRecipient = !Objects.equals(currentUsername, currentPoster.getUsername());
 
-        for (int i = 0, messagesSize = messages.size(); i < messagesSize; i++) {
-            Message firstMessage = messages.get(i);
-            Person currentPoster = firstMessage.getPoster();
+                // making sure that there is a next message
+                if (UserLocalData.getInstance().isUserBlocked(firstMessage.getPoster().getUsername())) continue;
+                if ((i + 1) < messagesSize) {
 
-            boolean isRecipient = !Objects.equals(currentUsername, currentPoster.getUsername());
+                    if (messages.get(i + 1).getPoster().equals(currentPoster)) {
+                        // We have multiple messages from the same poster
+                        ArrayList<Message> currentPosterMessages = new ArrayList<>();
 
-            // making sure that there is a next message
-            if (UserLocalData.getInstance().isUserBlocked(messageRecipient)) return;
-            if ((i + 1) < messagesSize) {
+                        currentPosterMessages.add(firstMessage);
+                        // TODO when it gets to this line using the OR condition
+                        // the following might not belong to the same author
+                        currentPosterMessages.add(messages.get(i + 1));
 
-                if (messages.get(i + 1).getPoster().equals(currentPoster)) {
-                    // We have multiple messages from the same poster
-                    ArrayList<Message> currentPosterMessages = new ArrayList<>();
+                        // loop until we reach a message from the next poster
+                        for (int j = i + 2; j < messagesSize; j++) {
 
-                    currentPosterMessages.add(firstMessage);
-                    // TODO when it gets to this line using the OR condition
-                    // the following might not belong to the same author
-                    currentPosterMessages.add(messages.get(i + 1));
+                            Message nextMessage = messages.get(j);
 
-                    // loop until we reach a message from the next poster
-                    for (int j = i + 2; j < messagesSize; j++) {
+                            if (nextMessage.getPoster().equals(currentPoster)) {
+                                currentPosterMessages.add(nextMessage);
+                                i = j;
+                            } else {
+                                // If poster is not the currentPoster, we've reached the end of
+                                // the posts from the currentPoster, so update i
+                                // index and then break
+                                i = j - 1;
 
-                        Message nextMessage = messages.get(j);
-
-                        if (nextMessage.getPoster().equals(currentPoster)) {
-                            currentPosterMessages.add(nextMessage);
-                            i = j;
-                        } else {
-                            // If poster is not the currentPoster, we've reached the end of
-                            // the posts from the currentPoster, so update i
-                            // index and then break
-                            i = j - 1;
-
-                            break;
+                                break;
+                            }
                         }
+
+                        // Draw currentPosterMessages to UI
+                        generateQuestionMessageBubble(currentPosterMessages.get(0), isRecipient, MessageBubbleOrientation.TOP, true, currentMessageIndex, context);
+                        currentMessageIndex++;
+
+                        for (int k = 1; k < currentPosterMessages.size() - 1; k++) {
+                            generateQuestionMessageBubble(currentPosterMessages.get(k), isRecipient, MessageBubbleOrientation.MIDDLE, false, currentMessageIndex, context);
+                            currentMessageIndex++;
+                        }
+
+                        generateQuestionMessageBubble(currentPosterMessages.get(currentPosterMessages.size() - 1), isRecipient, MessageBubbleOrientation.BOTTOM, false, currentMessageIndex, getActivity());
+                        currentMessageIndex++;
+
+                        wasLastRenderedMessageFromRecipient = isRecipient;
+                        lastRenderedMessageOrientation = MessageBubbleOrientation.BOTTOM;
+
+                    } else {
+                        // The next message is from the other poster
+                        // draw firstMessage to UI and continue with loop
+                        generateQuestionMessageBubble(firstMessage, isRecipient, MessageBubbleOrientation.SINGLE, true, currentMessageIndex, context);
+                        currentMessageIndex++;
+
+                        wasLastRenderedMessageFromRecipient = isRecipient;
+                        lastRenderedMessageOrientation = MessageBubbleOrientation.SINGLE;
+
                     }
+                } else {
+                    // If we're at the last message
+                    if (i - 1 >= 0) {
 
-                    // Draw currentPosterMessages to UI
-                    generateDirectMessageBubble(currentPosterMessages.get(0), isRecipient, MessageBubbleOrientation.TOP, true, currentMessageIndex, context);
-                    currentMessageIndex++;
-
-                    for (int k = 1; k < currentPosterMessages.size() - 1; k++) {
-                        generateDirectMessageBubble(currentPosterMessages.get(k), isRecipient, MessageBubbleOrientation.MIDDLE, false, currentMessageIndex, context);
+                        if (i == messagesSize - 1 && !messages.get(i - 1).getPoster().equals(currentPoster)) {
+                            // This is the last single message
+                            generateQuestionMessageBubble(firstMessage, isRecipient, MessageBubbleOrientation.SINGLE, true, currentMessageIndex, context);
+                            currentMessageIndex++;
+                        }
+                    } else {
+                        // This is the last single message
+                        generateQuestionMessageBubble(firstMessage, isRecipient, MessageBubbleOrientation.SINGLE, true, currentMessageIndex, context);
                         currentMessageIndex++;
                     }
-
-                    generateDirectMessageBubble(currentPosterMessages.get(currentPosterMessages.size() - 1), isRecipient, MessageBubbleOrientation.BOTTOM, false, currentMessageIndex, getActivity());
-                    currentMessageIndex++;
-
-                    wasLastRenderedMessageFromRecipient = isRecipient;
-                    lastRenderedMessageOrientation = MessageBubbleOrientation.BOTTOM;
-
-                } else {
-                    // The next message is from the other poster
-                    // draw firstMessage to UI and continue with loop
-                    generateDirectMessageBubble(firstMessage, isRecipient, MessageBubbleOrientation.SINGLE, true, currentMessageIndex, context);
-                    currentMessageIndex++;
 
                     wasLastRenderedMessageFromRecipient = isRecipient;
                     lastRenderedMessageOrientation = MessageBubbleOrientation.SINGLE;
-
                 }
-            } else {
-                // If we're at the last message
-                if (i - 1 >= 0) {
-
-                    if (i == messagesSize - 1 && !messages.get(i - 1).getPoster().equals(currentPoster)) {
-                        // This is the last single message
-                        generateDirectMessageBubble(firstMessage, isRecipient, MessageBubbleOrientation.SINGLE, true, currentMessageIndex, context);
-                        currentMessageIndex++;
-                    }
-                } else {
-                    // This is the last single message
-                    generateDirectMessageBubble(firstMessage, isRecipient, MessageBubbleOrientation.SINGLE, true, currentMessageIndex, context);
-                    currentMessageIndex++;
-                }
-
-                wasLastRenderedMessageFromRecipient = isRecipient;
-                lastRenderedMessageOrientation = MessageBubbleOrientation.SINGLE;
             }
-        }
 
-        /*
-         * Scroll down to the most recent message.
-         */
-        binding.directMessageScrollView.post(() -> binding.directMessageScrollView.fullScroll(View.FOCUS_DOWN));
+            /*
+             * Scroll down to the most recent message.
+             */
+            binding.directMessageScrollView.post(() -> binding.directMessageScrollView.fullScroll(View.FOCUS_DOWN));
+
+            return null;
+        });
     }
 
-    private void generateDirectMessageBubble(Message message, boolean isRecipient, MessageBubbleOrientation messageBubbleOrientation, boolean isSeperate, int currentMessageIndex, Context context) {
+    private void generateQuestionMessageBubble(Message message, boolean isRecipient, MessageBubbleOrientation messageBubbleOrientation, boolean isSeperate, int currentMessageIndex, Context context) {
 
 
         // Setting up ui elements
@@ -525,6 +502,7 @@ public class DirectMessageFragment extends Fragment {
         }
         constraintLayout.setLayoutParams(constraintLayoutParams);
 
+
         // If post has likes
         if (message.getLikeCount() > 0) {
             if (message.getLikeCount() > 1) {
@@ -538,149 +516,17 @@ public class DirectMessageFragment extends Fragment {
             likeContainerConstraintLayout.setVisibility(View.GONE);
         }
 
+        /* TODO: liking question comments */
+
         // Long click to remove like when clicking on like container
         likeContainerConstraintLayout.setOnLongClickListener(view -> {
-
-            UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
-            Message current = UserDirectMessages.getInstance().currentDirectMessages.get(messageRecipient).directMessageThread.getMessages().get(currentMessageIndex);
-
-            current.runWhenReady((ignored) -> {
-                current.toggleLikedByCurrentUser();
-                return null;
-            });
-
             return false;
         });
 
         // Long click to add a like
         messageContainerConstraintLayout.setOnLongClickListener(view -> {
-
-            UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
-            UserDirectMessages.getInstance().currentDirectMessages.get(messageRecipient).directMessageThread.getMessages().get(currentMessageIndex).toggleLikedByCurrentUser();
-
             return false;
         });
     }
-
-    class DirectMessagesObserver extends FirebaseObserver {
-
-        public void update() {
-            FirebaseObserver observer = this;
-
-            DirectMessageThread dms = new DirectMessageThread(messageRecipient);
-
-            UserDirectMessages instance = UserDirectMessages.getInstance();
-
-            // If we don't have any data to update we should just, y'know, not update it
-            // or something. Maybe return as well
-            if (instance.isEmpty()) {
-                Log.d("DBG", "REACHED RETURN (A)");
-                observer.enable();
-                return;
-            }
-
-            dms.runWhenReady((obj) -> {
-                Log.d("DBG", "REACHED DMS READY");
-
-                // 1. Check if there is any difference between firebase direct messages and
-                //    local direct messages
-                // 2. Update them if there is a difference, otherwise do nothing
-                // 3. Then if there is a difference update the UI
-                //    l-> refresh only what needs to be refreshed in terms of liked messages and
-                //        then add new messages one-by-one, instead of generating the entire
-                //        LinearLayout lineage
-
-                // TODO need to make this assignment a deep copy of messages List
-                List<Message> localMessages = instance.currentDirectMessages
-                        .get(messageRecipient).directMessageThread.messages;
-                List<Message> firebaseMessages = dms.getMessages();
-
-                // firebase Messages are newer than old ones
-                if (!localMessages.equals(firebaseMessages)) {
-                    Log.d("DBG", "GOT NEW DATA");
-
-                    // hence we assign the new DirectMessageThread to the view model
-                    instance.currentDirectMessages
-                            .get(messageRecipient).directMessageThread = dms;
-
-                    // Updating likes on messages
-                    // Going through previous messages and checking if their likes are different
-                    for (int i = 0; i < firebaseMessages.size(); i++) {
-                        Message firebaseMessage = firebaseMessages.get(i);
-
-                        // if the length of firebaseMessage is greater than the length of the
-                        // localMessages list then we know that firebaseMessage is newer than
-                        // localMessages
-                        // hence, break
-                        if (i >= localMessages.size()) {
-                            // adding new messages to the UI
-                            List<Message> messagesToRender = firebaseMessages.subList
-                                    (localMessages.size(), firebaseMessages.size());
-
-                            messagesToRender.forEach(message -> {
-                                boolean isRecipient = message.getPoster().getUsername().equals(messageRecipient);
-
-                                // if the person's that we're messaging has the same username as us
-                                // then isRecipient will always be false
-                                // this is nice for when we are messaging ourself
-                                if (message.getPoster().getUsername().equals(UserLogin.getInstance().getCurrentUsername())) {
-                                    isRecipient = false;
-                                }
-
-                                generateIndividualBubble(isRecipient, message);
-                            });
-
-                            Log.d("DBG", "BREAKING (1)");
-
-                            break;
-                        }
-
-                        // we know that i is a valid index of localMessage now
-                        Message localMessage = localMessages.get(i);
-
-                        if (true || firebaseMessage.getLikeCount() != localMessage.getLikeCount()) {
-                            // we have to update the ui for this element in the UI
-                            ConstraintLayout parent = (ConstraintLayout) binding.directMessageLinearLayout.getChildAt(i);
-
-                            // If the parent we have gotten is a null reference we should break out of this
-                            // loop and continue on our day like nothing ever happened.
-                            if (parent == null) {
-                                Log.d("DBG", "BREAKING (2)");
-                                break;
-                            }
-
-                            ConstraintLayout likeContainer = (ConstraintLayout) parent.getChildAt(1);
-                            TextView likeText = (TextView) likeContainer.getChildAt(0);
-                            Log.d("DBG", "REACHED LIKE UPDATER");
-                            Log.d("DBG", "-> " + firebaseMessage.getContent() + ", " + firebaseMessage.getLikeCount());
-
-                            // Override firebase message's like count onto the current UI
-                            switch (firebaseMessage.getLikeCount()) {
-                                case 0:
-                                    // no likes = no like container
-                                    likeContainer.setVisibility(View.GONE);
-                                    break;
-                                case 1:
-                                    likeContainer.setVisibility(View.VISIBLE);
-                                    likeText.setText("❤️");
-                                    break;
-                                default:
-                                    likeContainer.setVisibility(View.VISIBLE);
-                                    likeText.setText("❤️  " + firebaseMessage.getLikeCount());
-                                    break;
-                            }
-                        }
-                    }
-                }
-
-                Log.d("DBG", "DONE");
-
-                observer.enable();
-                return null;
-            });
-        }
-    }
-
-
 }
 

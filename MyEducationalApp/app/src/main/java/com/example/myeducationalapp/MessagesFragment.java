@@ -274,24 +274,24 @@ public class MessagesFragment extends Fragment {
 
             popup.getMenuInflater().inflate(R.menu.blocking_menu, popup.getMenu());
 
-            if (UserLocalData.getInstance().isUserBlocked(username)) popup.getMenu().getItem(0).setTitle("unblock");
-            else popup.getMenu().getItem(0).setTitle("block");
+            if (UserLocalData.getInstance().isUserBlocked(username)) popup.getMenu().getItem(0).setTitle("Unblock");
+            else popup.getMenu().getItem(0).setTitle("Block");
 
             popup.setOnMenuItemClickListener(item -> {
-                if (item.getTitle().equals("unblock")) {
+                if (item.getTitle().equals("Unblock")) {
                     if (UserLocalData.getInstance().isUserBlocked(username)) {
                         UserLocalData.getInstance().toggleBlockUser(username);
                     }
-                    popup.getMenu().getItem(0).setTitle("block");
+                    popup.getMenu().getItem(0).setTitle("Block");
                     subheading.setText("User has been unblocked");
                     popup.show();
                     return true;
                 }
-                else if (item.getTitle().equals("block")) {
+                else if (item.getTitle().equals("Block")) {
                     if (!UserLocalData.getInstance().isUserBlocked(username)) {
                         UserLocalData.getInstance().toggleBlockUser(username);
                     }
-                    popup.getMenu().getItem(0).setTitle("unblock");
+                    popup.getMenu().getItem(0).setTitle("Unblock");
                     subheading.setText("This user is blocked");
                     popup.show();
                     return true;

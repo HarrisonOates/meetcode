@@ -59,7 +59,7 @@ public abstract class MessageThread extends Asynchronous {
         return messages;
     }
 
-    public void postMessage(String content, Message replyingTo) {
+    public Message postMessage(String content, Message replyingTo) {
         int indexReplyingTo = replyingTo == null ? -1 : replyingTo.getIndex();
 
         // -1\t content here \t\t
@@ -70,9 +70,11 @@ public abstract class MessageThread extends Asynchronous {
             uploadChanges();
             return null;
         });
+
+        return message;
     }
 
-    public void postMessage(String content) {
-        postMessage(content, null);
+    public Message postMessage(String content) {
+        return postMessage(content, null);
     }
 }
