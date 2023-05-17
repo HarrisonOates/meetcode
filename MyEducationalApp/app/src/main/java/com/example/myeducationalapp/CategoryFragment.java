@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.myeducationalapp.Localization.DynamicLocalization;
 import com.example.myeducationalapp.databinding.FragmentCategoryBinding;
 import com.example.myeducationalapp.userInterface.Generatable.CategoryListCard;
 import com.example.myeducationalapp.userInterface.Generatable.HomeCategoryCard;
@@ -126,9 +127,10 @@ public class CategoryFragment extends Fragment {
         UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
 
         // Setting category card's heading and subheading as well as the star container area
-        binding.categoryCardHeadingText.setText(categoryListCard.getHeading());
-        binding.categoryCardSubheadingText.setText(categoryListCard.getSubheading());
-        binding.categoryCardSecondaryStarHeadingText.setText(categoryListCard.getStarProgress());
+        DynamicLocalization.translatedOrDefaultText(categoryListCard.getHeading(), binding.categoryCardHeadingText);
+        DynamicLocalization.translatedOrDefaultText(categoryListCard.getSubheading(), binding.categoryCardSubheadingText);
+        DynamicLocalization.translatedOrDefaultText(categoryListCard.getStarProgress(), binding.categoryCardSecondaryStarHeadingText);
+
         binding.categoryCardImage.setImageResource(categoryListCard.getCardImage());
         binding.categoryCard1.getBackground().setColorFilter(new BlendModeColorFilter(categoryListCard.getCardColor(), BlendMode.SRC_ATOP));
         binding.categoryStarWrapper.getBackground().setColorFilter(new BlendModeColorFilter(categoryListCard.getSecondaryCardColor(), BlendMode.SRC_ATOP));
@@ -160,7 +162,7 @@ public class CategoryFragment extends Fragment {
         TextView headingText = (TextView) categoryQuestionCard.getChildAt(0);
         View starIcon = (View) categoryQuestionCard.getChildAt(1);
 
-        headingText.setText(questionCount + ". " + questionTitle);
+        DynamicLocalization.translatedOrDefaultText(questionCount + ". " + questionTitle, headingText);
         if (isQuestionAnsweredCorrectly) {
             starIcon.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.icon_star));
         }
