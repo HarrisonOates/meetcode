@@ -37,15 +37,9 @@ public class QuestionResults extends Results{
         if (searchResults == null || searchResults.size() == 0) updateQuestions();
 
         searchResults.forEach(searchResult -> {
-            double confidence = searchResult.getConfidence();
             double count = 0;
             for (var searchWord : search) {
                 for (var questionWord : searchResult.getWords()) {
-                    if (questionWord.charAt(0) == 'Y') {
-                        int n = 0;
-                    }
-
-
                     if (Objects.equals(searchWord.toLowerCase(), questionWord.toLowerCase())) {
                         count++;
                         break;
@@ -56,19 +50,11 @@ public class QuestionResults extends Results{
                     }
 
                 }
-
-
-//                for (var questionWord : searchResult.getWords()) {
-//                    if (Objects.equals(searchWord.toLowerCase(), questionWord.toLowerCase())) confidence++;
-//                    else if (questionWord.contains(searchWord)) confidence += 0.1;
-//                    else confidence -= (double)search.size()/(double)searchResult.getWords().size();
-//                    //TODO: Currently, caps
-//                    //TODO: Currently, prioritises number of words
-//                    //TODO: Currently only calculates for one word each
-//                }
             }
+
+
             double percentage = count / (double) search.size();
-            confidence = -12 * Math.pow((percentage - 1),2.0);
+            double confidence = -12 * Math.pow((percentage - 1),2.0);
 
             var multiplier = topics.get(QuestionSet.charToCategory(searchResult.getId().charAt(0)));
 

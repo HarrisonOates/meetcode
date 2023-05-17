@@ -38,20 +38,28 @@ public class PostResults extends Results{
         if (searchResults == null) updatePosts();
 
         searchResults.forEach(searchResult -> {
-            int confidence = 0;
+            double confidence = 0;
+            double count = 0;
             for (var searchWord : search) {
                 for (var questionWord : searchResult.getWords()) {
-                    if (Objects.equals(searchWord.toLowerCase(), questionWord.toLowerCase())) confidence++;
-                    else if (questionWord.contains(searchWord)) confidence += 0.1;
-                    else confidence -= (double)search.size()/(double)searchResult.getWords().size();
-                    //TODO: Currently, caps
-                    //TODO: Currently, prioritises number of words
+                    if (Objects.equals(searchWord.toLowerCase(), questionWord.toLowerCase())) {
+                        count++;
+                        break;
+                    }
+                    else if (questionWord.toLowerCase().contains(searchWord.toLowerCase())) {
+                        count += (double)searchWord.length()/(double)questionWord.length();
+                        break;
+                    }
+
                 }
             }
 
+            double percentage = count / (double) search.size();
+            confidence = -12 * Math.pow((percentage - 1),2.0);
+
             var multiplier = topics.get(QuestionSet.charToCategory(searchResult.getId().charAt(0)));
 
-            searchResult.setConfidence(-12);//TODO multiplier * confidence);
+            searchResult.setConfidence(multiplier * confidence);
         });
 
         return searchResults;

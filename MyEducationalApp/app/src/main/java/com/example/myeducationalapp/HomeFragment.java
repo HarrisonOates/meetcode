@@ -235,8 +235,8 @@ public class HomeFragment extends Fragment {
             String adder = "";
             if (!binding.allSearch.isChecked()) {
                 if (binding.questionSearch.isChecked()) {adder += "?";}//searchType = SearchToken.Query.Question;}
-                else if (binding.postSearch.isChecked()) {adder += "#";}//searchType = SearchToken.Query.Discussion;}
-                else if (binding.topicSearch.isChecked()) {adder += "!";}//searchType = SearchToken.Query.Topic;}
+                else if (binding.postSearch.isChecked()) {adder += "!";}//searchType = SearchToken.Query.Discussion;}
+                else if (binding.topicSearch.isChecked()) {adder += "#";}//searchType = SearchToken.Query.Topic;}
                 else if (binding.userSearch.isChecked()) {adder += "@";}//searchType = SearchToken.Query.User;}
                 else {throw new NullPointerException("No search filter selected, which should never happen");}
 
