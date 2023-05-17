@@ -51,7 +51,7 @@ public class Parser {
         while(tokenizer.currentToken != null){
             Token t = tokenizer.currentToken;
             if (t.getType() == KEYWORD){
-                highlightedBlock.append("<font color = \"#FF8000\">");
+                highlightedBlock.append("<font color = \"#FF4000\">");
                 highlightedBlock.append(t.getToken());
                 highlightedBlock.append("</font>");
             }
