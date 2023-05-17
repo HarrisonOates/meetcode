@@ -227,27 +227,26 @@ public class QuestionSet {
                 3
         ));
 
-        // N:
         addQuestion(new Question(
                 "Nasty complexity",
-                "What is the worst case time complexity of this algorithm? Choose the closest answer.\n" +
+                "What is the worst case time complexity of this algorithm?\n" +
                         "```" +
                         "private int bizarreAlgorithm(TreeMap<Integer, Integer> a, List<Integer> b) {\n" +
                         "    int count = 0;\n" +
-                        "    for (Integer c : b) {\n" +
-                        "        if (a.containsKey(c)) {\n" +
+                        "    for (int i = 0; i < b.size(); ++i) {\n" +
+                        "        if (a.containsKey(b.get(i))) {\n" +
                         "            count += 1 + bizarreAlgorithm(a, b.subList(1, b.size() - 1));\n" +
                         "        }\n" +
                         "    }\n" +
                         "    return count;\n" +
                         "}```\n" +
-                        "A) O(N! log K)\n" +
-                        "B) O(N! log N)\n" +
-                        "C) O(2^N log K)\n" +
-                        "D) O(2^N log N)\n" +
-                        "E) O(N!)\n" +
-                        "F) O(2^N)",
-                "A",
+                        "A) O(N! N log N)\n" +
+                        "B) O(N! N log K)\n" +
+                        "C) O(N! log K)\n" +
+                        "D) O(2^N log K)\n" +
+                        "E) O(2^N N log K)\n" +
+                        "F) O(2^N N)\n",
+                "B",
                 Category.Algorithm,
                 5
         ));
