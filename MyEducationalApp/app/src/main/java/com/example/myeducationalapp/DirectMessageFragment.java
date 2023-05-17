@@ -602,8 +602,16 @@ public class DirectMessageFragment extends Fragment {
 
             DirectMessageThread dms = new DirectMessageThread(messageRecipient);
 
-            // TODO this doesn't work here like this
-            UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
+            UserInterfaceManagerViewModel userInterfaceManager;
+
+            try {
+                // TODO this doesn't work here like this
+                userInterfaceManager = new ViewModelProvider(requireActivity()).get(UserInterfaceManagerViewModel.class);
+            } catch (NullPointerException nullPointerException) {
+                // If we get a null pointer from the Activity, then we want to postpone updating
+                // until we can acquire a good point to the Activity.
+                return;
+            }
 
             dms.runWhenReady((obj) -> {
 
