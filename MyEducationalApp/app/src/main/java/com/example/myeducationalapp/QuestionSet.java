@@ -193,6 +193,16 @@ public class QuestionSet {
 
     private void addControlFlow() {
         addQuestion(new Question(
+                "Standard for loops",
+                "What will be the value of x after the execution of the below code?\n" +
+                        "```\n" +
+                        "???\n" +
+                        "```\n",
+                "",
+                Category.ControlFlow,
+                1
+        ));
+        addQuestion(new Question(
                 "(B) PLEASE WRITE ME",
                 "Please write this!",
                 "Please write this!",
@@ -204,7 +214,7 @@ public class QuestionSet {
     private void addDataStructure() {
         // Question about HashMap
         addQuestion(new Question("Hash maps",
-                "What will be the output of map.get(2) after the execution of the codes below?\n\n"+
+                "What will be the output of map.get(2) after the execution of the code below?\n\n"+
                         "```Map<Integer, String> map = new HashMap<Integer, String>();\n"+
                         "map.put(1, \"2\");\n"+
                         "map.put(2, \"5\");\n"+
@@ -286,70 +296,70 @@ public class QuestionSet {
 
         // Question about BST
         addQuestion(new Question("Binary search trees",
-                "Given an integer n, what is the number (G(n)) of structurally unique BST's " +
+                "Given an integer n, what is the number (G(n)) of structurally unique BSTs \n" +
                         "which has exactly n nodes of unique values from 1 to n?\n" +
                         "Initial State: G(0) = 1 G(1) = 1\n\n" +
-                        "A) G(n) = SUM(G(i - 1) * G(n - i)) over i = 1, ..., n - 1 " +
-                        "B) G(n) = SUM(G(i - 1) * G(n - i)) over i = 1, ..., n " +
-                        "C) G(n) = SUM(G(i) * G(n - i)) over i = 1, ..., n " +
-                        "D) G(n) = SUM(G(i - 1) * G(n - 1)) over i = 1, ..., n - 1 " +
-                        "E) G(n) = SUM(G(i) * G(n - i)) over i = 1, ..., n - 1 ",
+                        "A) G(n) = SUM(G(i - 1) * G(n - i)) over i = 1, ..., n - 1 \n" +
+                        "B) G(n) = SUM(G(i - 1) * G(n - i)) over i = 1, ..., n \n" +
+                        "C) G(n) = SUM(G(i) * G(n - i)) over i = 1, ..., n \n" +
+                        "D) G(n) = SUM(G(i - 1) * G(n - 1)) over i = 1, ..., n - 1 \n" +
+                        "E) G(n) = SUM(G(i) * G(n - i)) over i = 1, ..., n - 1 \n",
                 "B" ,QuestionSet.Category.DataStructure, 5));
     }
 
     private void addMiscellaneous() {
         // Octal literals
         addQuestion(new Question("Integer literals and formatting",
-                "What is the output of this line of code?" +
-                        "```    System.out.printf(\"%03X%03X\", 050, 100);```"
+                "What is the output of this line of code?\n" +
+                        "```System.out.printf(\"%03X%03X\", 050, 100);    ```"
         , "028064", Category.Miscellaneous, 3));
 
         // XOR swapping
         addQuestion(new Question("Funny XORs",
-                "What is the output of this section of code?" +
-                        "``` int a = 30;" +
-                        "    int b = 45;" +
-                        "    a ^= b;" +
-                        "    b ^= a;" +
-                        "    a ^= b;" +
-                        "    System.out.printf(\"%d, %d\", a, b);```"
+                "What is the output of this section of code?\n" +
+                        "```int a = 30;\n" +
+                        "int b = 45;\n" +
+                        "a ^= b;\n" +
+                        "b ^= a;\n" +
+                        "a ^= b;\n" +
+                        "System.out.printf(\"%d, %d\", a, b);    \n```"
                 , "45, 30", Category.Miscellaneous, 3));
 
         // XOR swapping gone wrong
-        addQuestion(new Question("Funnier XORs",
-                "What is the output of this section of code?" +
-                        "``` int a = 45;" +
-                        "    int b = 45;" +
-                        "    a ^= b;" +
-                        "    b ^= a;" +
-                        "    a ^= b;" +
-                        "    System.out.printf(\"%d, %d\", a, b);```"
+        addQuestion(new Question("Strange XORs",
+                "What is the output of this section of code?\n" +
+                        "```int a = 45;\n" +
+                        "int b = 45;\n" +
+                        "a ^= b;\n" +
+                        "b ^= a;\n" +
+                        "a ^= b;\n" +
+                        "System.out.printf(\"%d, %d\", a, b);    ```"
                 , "0, 0", Category.Miscellaneous, 2));
 
         // Weirdo bitwise manipulation
         addQuestion(new Question("Bitwise operations",
-                "What is the value of y?" +
-                        "``` int x = 1" +
-                        "    int y = ((x & (-2)) ^ (-1)) + 1;```"
+                "What is the value of y?\n" +
+                        "```int x = 1;\n" +
+                        "int y = ((x & (-2)) ^ (-1)) + 1;    ```"
         , "0", Category.Miscellaneous, 4));
 
         // Labels
         addQuestion(new Question("The web of lies",
-                // THIS QUESTION NEEDS SYNTAX HIGHLIGHTING DISABLED FOR IT TO WORK PROPERLY
-                "Will this of piece of Java code compile (assuming it is placed within a valid class)?" +
-                        "```public void method() {                  // line 1" +
-                        "    https://www.google.com              // line 2" +
-                        "    http://www.anusolarracing.com       // line 3" +
-                        "    https://www.example.com             // line 4" +
-                        "    www.example.com                     // line 5" +
-                        "    ();                                 // line 6" +
-                        "}```" +
-                        "A) Yes " +
-                        "B) No, the first error occurs on line 2 " +
-                        "C) No, the first error occurs on line 3 " +
-                        "D) No, the first error occurs on line 4 " +
-                        "E) No, the first error occurs on line 5 " +
-                        "F) No, the first error occurs on line 6 "
+                "Will this of piece of Java code compile (assuming it is placed within a valid class)?\n" +
+                        "If not, on which line is the first syntax error?\n" +
+                        "```public void method() {                  // line 1\n" +
+                        "    https://www.google.com              // line 2\n" +
+                        "    http://www.anusolarracing.com       // line 3     \n" +
+                        "    https://www.example.com             // line 4\n" +
+                        "    www.example.com                     // line 5\n" +
+                        "    ();                                 // line 6\n" +
+                        "}\n```" +
+                        "A) Yes \n" +
+                        "B) No, the first error occurs on line 2 \n" +
+                        "C) No, the first error occurs on line 3 \n" +
+                        "D) No, the first error occurs on line 4 \n" +
+                        "E) No, the first error occurs on line 5 \n" +
+                        "F) No, the first error occurs on line 6 \n"
                 , "D", Category.Miscellaneous, 5));
 
     }
@@ -359,66 +369,68 @@ public class QuestionSet {
 
     private void addRecursion() {
         addQuestion(new Question("Basic recursion",
-                "What is the output of adder(0)" +
-                        "public static int adder(int i) { "+
-                        "    if (i==5) return i;" +
-                        "    else return 1 + adder(i+1);" +
-                        "}"
+                "What value does adder(0) return?\n" +
+                        "```public static int adder(int i) { \n"+
+                        "    if (i==5) return i;\n" +
+                        "    else return 1 + adder(i+1);\n" +
+                        "}```"
                 , "10", Category.Recursion, 1));
 
 
         addQuestion(new Question("Recursion multiple branches",
-                "What is the output of recursion(0)" +
-                        "static int[] numbers = new int[]{11,5,89,2,7,8,12,4,5,37};" +
-                        "public static int recursion(int i) {" +
-                        "    if (i == numbers.length - 1) return 0;" +
-                        "    if (numbers[i] % 2 == 0) return i + recursion(i + 1);" +
-                        "    else return recursion(i + 1);" +
-                        "}"
+                "What value does recursion(0) return?\n" +
+                        "```static int[] numbers = new int[]{11,5,89,2,7,8,12,4,5,37};\n" +
+                        "public static int recursion(int i) {\n" +
+                        "    if (i == numbers.length - 1) return 0;\n" +
+                        "    if (numbers[i] % 2 == 0) return i + recursion(i + 1);\n" +
+                        "    else return recursion(i + 1);\n" +
+                        "}```"
                 , "21", Category.Recursion, 2));
 
 
         addQuestion(new Question("Recursion over a list",
-                "What is the contents of ints after calling list(0)" +
-                        "static int[] ints = new int[] {17,5,7,3,9,1,11,15,13};" +
-                        "public static void list(int i) {" +
-                        "    if (i == ints.length - 1) return;" +
-                        "    if (ints[i] < ints[i+1]) list(i+1);" +
-                        "    else {" +
-                        "        int j = ints[i];" +
-                        "        ints[i] = ints[i+1];" +
-                        "        ints[i+1] = j;" +
-                        "        list(i+1);" +
-                        "    }" +
-                        "}" +
-                        "A) [17,5,7,3,9,1,11,15,13] " +
-                        "B) [1,3,5,7,9,11,13,15,17] " +
-                        "C) [17,15,13,11,9,7,5,3,1] " +
-                        "D) [5,7,3,9,1,11,15,13,17] " +
-                        "E) [5,7,3,1,9,11,13,15,17]"
+                "What is the contents of ints after calling list(0)?\n" +
+                        "```static int[] ints = new int[] {\n" +
+                        "        17,5,7,3,9,1,11,15,13\n" +
+                        "};\n" +
+                        "public static void list(int i) {\n" +
+                        "    if (i == ints.length - 1) return;\n" +
+                        "    if (ints[i] < ints[i+1]) list(i+1);\n" +
+                        "    else {\n" +
+                        "        int j = ints[i];\n" +
+                        "        ints[i] = ints[i+1];\n" +
+                        "        ints[i+1] = j;\n" +
+                        "        list(i+1);\n" +
+                        "    }\n" +
+                        "}```\n" +
+                        "A) [17,5,7,3,9,1,11,15,13] \n" +
+                        "B) [1,3,5,7,9,11,13,15,17] \n" +
+                        "C) [17,15,13,11,9,7,5,3,1] \n" +
+                        "D) [5,7,3,9,1,11,15,13,17] \n" +
+                        "E) [5,7,3,1,9,11,13,15,17] "
                 , "D", Category.Recursion, 3));
 
 
 
         addQuestion(new Question("Recursion over a tree",
-                "What is the result of an in-order traversal on the tree generated by treeRecursion(root, 1)" +
-                        "public static void treeRecursion(Node node, int i) {" +
-                        "    if (i > 10) return;" +
-                        "    i = (i * 3)/2;" +
-                        "    if (i % 2 == 0) {" +
-                        "        node.left = new Node(i);" +
-                        "        treeRecursion(node.left,i);" +
-                        "    }" +
-                        "    else {" +
-                        "        node.right = new Node(i);" +
-                        "        treeRecursion(node.right, i);" +
-                        "    }" +
-                        "}" +
-                        "A) [2,3,12,8,5,1] " +
-                        "B) [1,2,3,5,8,12] " +
-                        "C) [1,1.5,2.25,3.375,5.0625,7.59375,11.390625] " +
-                        "D) [1.5,2.25,3.375,11.390625,7.59375,5.0625,1] " +
-                        "E) [12,8,3,2,1,5]"
+                "What is the result of an in-order traversal on the tree generated by treeRecursion(root, 1)?\n" +
+                        "```public static void treeRecursion(Node node, int i) {\n" +
+                        "    if (i > 10) return;\n" +
+                        "    i = (i * 3)/2;\n" +
+                        "    if (i % 2 == 0) {\n" +
+                        "        node.left = new Node(i);\n" +
+                        "        treeRecursion(node.left,i);\n" +
+                        "    }\n" +
+                        "    else {\n" +
+                        "        node.right = new Node(i);\n" +
+                        "        treeRecursion(node.right, i);\n" +
+                        "    }\n" +
+                        "}```\n" +
+                        "A) [2,3,12,8,5,1] \n" +
+                        "B) [1,2,3,5,8,12] \n" +
+                        "C) [1,1.5,2.25,3.375,5.0625,7.59375,11.390625] \n" +
+                        "D) [1.5,2.25,3.375,11.390625,7.59375,5.0625,1] \n" +
+                        "E) [12,8,3,2,1,5]\n"
                 , "A", Category.Recursion, 5));
 
 

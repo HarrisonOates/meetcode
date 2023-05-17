@@ -51,7 +51,7 @@ public class Parser {
         while(tokenizer.currentToken != null){
             Token t = tokenizer.currentToken;
             if (t.getType() == KEYWORD){
-                highlightedBlock.append("<font color = \"orange\">");
+                highlightedBlock.append("<font color = \"#FF8000\">");
                 highlightedBlock.append(t.getToken());
                 highlightedBlock.append("</font>");
             }
@@ -61,14 +61,14 @@ public class Parser {
                 highlightedBlock.append("</font>");
             }
             else if (t.getType() == STRING_LITERAL){
-                highlightedBlock.append("<font color = \"green\">");
+                highlightedBlock.append("<font color = \"#008000\">");
                 highlightedBlock.append(t.getToken());
                 highlightedBlock.append("</font>");
             }
             else if (t.getType() == IDENTIFIER){
                 // A shortcut for classes
                 if (Character.isUpperCase(t.getToken().charAt(0))){
-                    highlightedBlock.append("<font color = \"yellow\">");
+                    highlightedBlock.append("<font color = \"red\">");
                     highlightedBlock.append(t.getToken());
                     highlightedBlock.append("</font>");
                 }
@@ -97,7 +97,7 @@ public class Parser {
                 highlightedBlock.append(whitespace);
             }
             else if (t.getType() == PUNCTUATOR){
-                highlightedBlock.append("<font color = \"purple\">");
+                highlightedBlock.append("<font color = \"black\">");
 
                 // < and > are reserved entities in HTML, so we need to use special characters
                 if (t.getToken().equals("<")){
