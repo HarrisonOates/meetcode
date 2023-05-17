@@ -255,9 +255,15 @@ public class QuestionSet {
         ));
 
         addQuestion(new Question(
-                "(B) PLEASE WRITE ME",
-                "Please write this!",
-                "Please write this!",
+                "Do while",
+                "What is the value of y after the loop ends?\n" +
+                "```int x = 0;\n" +
+                        "int y = 0;\n" +
+                        "do {\n" +
+                        "    x = 1 - x;\n" +
+                        "    ++y;\n" +
+                        "} while (x != 0);\n",
+                "2",
                 Category.ControlFlow,
                 1
         ));
