@@ -28,7 +28,7 @@ public class QuestionCard {
     }
 
     public String getSubheading() {
-        return question.getContent().split("```")[0].replace("\n", "");
+        return question.getContent().split("```")[0].replace("\n", "").split("A\\)")[0];
     }
 
     public boolean doesQuestionHaveCodeBlock() {
