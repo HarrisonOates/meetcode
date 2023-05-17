@@ -227,14 +227,13 @@ public class QuestionSet {
                 3
         ));
 
-        // N:
         addQuestion(new Question(
                 "Nasty complexity",
-                "What is the worst case time complexity of this algorithm? Choose the closest answer.\n" +
+                "What is the worst case time complexity of this algorithm?\n" +
                         "```" +
                         "private int bizarreAlgorithm(TreeMap<Integer, Integer> a, List<Integer> b) {\n" +
                         "    int count = 0;\n" +
-                        "    for (int i = 0; i < b.size(); ++b) {\n" +
+                        "    for (int i = 0; i < b.size(); ++i) {\n" +
                         "        if (a.containsKey(b.get(i))) {\n" +
                         "            count += 1 + bizarreAlgorithm(a, b.subList(1, b.size() - 1));\n" +
                         "        }\n" +
