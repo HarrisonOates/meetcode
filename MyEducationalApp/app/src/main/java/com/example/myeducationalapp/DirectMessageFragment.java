@@ -553,11 +553,7 @@ public class DirectMessageFragment extends Fragment {
             Message current = userInterfaceManager.getCurrentDirectMessages().getValue().get(messageRecipient).directMessageThread.getMessages().get(currentMessageIndex);
 
             current.runWhenReady((ignored) -> {
-                Firebase.getInstance().dump();
-
                 current.toggleLikedByCurrentUser();
-
-
                 return null;
             });
 

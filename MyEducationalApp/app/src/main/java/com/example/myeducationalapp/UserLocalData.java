@@ -121,7 +121,7 @@ public class UserLocalData {
 
             likedMessages = new AVLTree<>();
             System.out.printf("LIKED MSG STR: %s\n", likedMessageStr);
-            //likedMessages = likedMessages.stringToTree(likedMessageStr, true);
+            likedMessages = likedMessages.stringToTree(likedMessageStr, true);
 
             HashMap<String, List<String>> newMap = new HashMap<>();
             int i = 4;
