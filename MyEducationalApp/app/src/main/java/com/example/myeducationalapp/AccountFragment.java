@@ -11,10 +11,9 @@ import androidx.navigation.fragment.NavHostFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
+import com.example.myeducationalapp.Localization.LanguageSetting;
 import com.example.myeducationalapp.databinding.FragmentAccountBinding;
-import com.example.myeducationalapp.databinding.FragmentHomeBinding;
 import com.example.myeducationalapp.userInterface.UserInterfaceManagerViewModel;
 
 /**

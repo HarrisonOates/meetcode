@@ -1,4 +1,4 @@
-package com.example.myeducationalapp;
+package com.example.myeducationalapp.Localization;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 
