@@ -58,7 +58,7 @@ public class LoginActivity extends AppCompatActivity {
             return false;
         });
 
-        //Firebase.getInstance().dump();
+        Firebase.getInstance().dump();
         //UserLogin.getInstance().addUser("comp2100@anu.au", "comp2100");
     }
 

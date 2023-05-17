@@ -198,15 +198,62 @@ public class QuestionSet {
 
     private void addControlFlow() {
         addQuestion(new Question(
-                "Standard for loops",
-                "What will be the value of x after the execution of the below code?\n" +
-                        "```\n" +
-                        "???\n" +
-                        "```\n",
-                "",
+                "If you please",
+                "Which letter gets printed to the screen?" +
+                        "```" +
+                        "String x = \"yes please\";\n" +
+                        "if (x.equals(\"please\") {\n" +
+                        "    System.out.println(\"A\");\n" +
+                        "} else if (x.contains(\"please\") {\n" +
+                        "    System.out.println(\"B\");\n" +
+                        "} else {\n" +
+                        "    System.out.println(\"C\");\n" +
+                        "}",
+                "B",
                 Category.ControlFlow,
                 1
         ));
+
+        addQuestion(new Question(
+                "For four fours",
+                "What will be the value of x after the execution of the below code?\n" +
+                        "```" +
+                        "int x = 4;\n" +
+                        "for (int i = 4; i >= 0; --i) {\n" +
+                        "    x += i * 4 + 4;\n" +
+                        "}\n" +
+                        "```\n",
+                "64",
+                Category.ControlFlow,
+                2
+        ));
+
+        addQuestion(new Question(
+                "Breaking expectations",
+                "What will be the value of x after the execution of the below code?\n" +
+                        "```" +
+                        "int x = 5;\n" +
+                        "switch (x) {\n" +
+                        "   case 7:\n" +
+                        "       x = 5;\n" +
+                        "       break;\n" +
+                        "   case 6:\n" +
+                        "   case 5:\n" +
+                        "       x -= 1;\n" +
+                        "   case 123:\n" +
+                        "   case 345:\n" +
+                        "       x *= 2;\n" +
+                        "       break;\n" +
+                        "   case 4:\n" +
+                        "       x = 15;\n" +
+                        "   default:\n" +
+                        "       break;\n" +
+                        "}",
+                "8",
+                Category.ControlFlow,
+                2
+        ));
+
         addQuestion(new Question(
                 "(B) PLEASE WRITE ME",
                 "Please write this!",
@@ -218,8 +265,8 @@ public class QuestionSet {
 
     private void addDataStructure() {
         // Question about HashMap
-        addQuestion(new Question("Hash maps",
-                "What will be the output of map.get(2) after the execution of the code below?\n\n"+
+        addQuestion(new Question("Maps full of hashes",
+                "What will be the value returned by map.get(2) after the execution of the code below?\n\n"+
                         "```Map<Integer, String> map = new HashMap<Integer, String>();\n"+
                         "map.put(1, \"2\");\n"+
                         "map.put(2, \"5\");\n"+
@@ -229,24 +276,24 @@ public class QuestionSet {
                 "D", Category.DataStructure, 1));
 
         // Question about LinkedList
-        addQuestion(new Question("Linked list reversal",
-                "What is the time complexity of the `reverse()` method in the `LinkedList`?\n\n" +
+        addQuestion(new Question("Going backwards",
+                "What is the time complexity of the reverse()` method below?\n\n" +
                         "```public void reverse() {\n" +
-                        "        Node<T> prev = null;\n" +
-                        "        Node<T> current = head;\n" +
-                        "        while (current != null) {\n" +
-                        "            Node<T> next = current.next;\n" +
-                        "            current.next = prev;\n" +
-                        "            prev = current;\n" +
-                        "            current = next;\n" +
-                        "        }\n" +
-                        "        head = prev;\n" +
-                        "    }```\n\n" +
+                        "    Node<T> prev = null;\n" +
+                        "    Node<T> current = head;\n" +
+                        "    while (current != null) {\n" +
+                        "        Node<T> next = current.next;\n" +
+                        "        current.next = prev;\n" +
+                        "        prev = current;\n" +
+                        "        current = next;\n" +
+                        "    }\n" +
+                        "    head = prev;\n" +
+                        "}```\n\n" +
                         "A) O(1) B) O(n) C) O(n^2) D) O(log n) E) O(n log n)",
                 "B", QuestionSet.Category.DataStructure, 2));
 
         // Question about BinaryTree
-        addQuestion(new Question("Binary tree traversal",
+        addQuestion(new Question("Straightening out trees",
                 "What will be the output of the following code?\n\n" +
                         "```BinaryTree tree = new BinaryTree(1);\n" +
                         "tree.left = new BinaryTree(2);\n" +
@@ -265,7 +312,7 @@ public class QuestionSet {
                 "A", QuestionSet.Category.DataStructure, 3));
 
         // Question about stack
-        addQuestion(new Question("Stack",
+        addQuestion(new Question("Stack the weirdness",
                 "What is the result of weirdCalculator(\"234*+5+\")?\n\n " +
                         "```public static int weirdCalculator(String expression) {\n" +
                         "   Stack<Integer> stack = new Stack<>();\n" +
@@ -300,7 +347,7 @@ public class QuestionSet {
                 "E", QuestionSet.Category.DataStructure, 4));
 
         // Question about BST
-        addQuestion(new Question("Binary search trees",
+        addQuestion(new Question("Mind-bending trees",
                 "Given an integer n, what is the number (G(n)) of structurally unique BSTs \n" +
                         "which has exactly n nodes of unique values from 1 to n?\n" +
                         "Initial State: G(0) = 1 G(1) = 1\n\n" +
@@ -314,9 +361,9 @@ public class QuestionSet {
 
     private void addMiscellaneous() {
         // Octal literals
-        addQuestion(new Question("Integer literals and formatting",
+        addQuestion(new Question("Many formats of integers",
                 "What is the output of this line of code?\n" +
-                        "```System.out.printf(\"%03X%03X\", 050, 100);    ```"
+                        "```System.out.printf(\"%03X%03X\", 050, 100);    \n```"
         , "028064", Category.Miscellaneous, 3));
 
         // XOR swapping
@@ -327,7 +374,7 @@ public class QuestionSet {
                         "a ^= b;\n" +
                         "b ^= a;\n" +
                         "a ^= b;\n" +
-                        "System.out.printf(\"%d, %d\", a, b);    \n```"
+                        "System.out.printf(\"%d, %d\", a, b);```"
                 , "45, 30", Category.Miscellaneous, 3));
 
         // XOR swapping gone wrong
@@ -342,10 +389,10 @@ public class QuestionSet {
                 , "0, 0", Category.Miscellaneous, 2));
 
         // Weirdo bitwise manipulation
-        addQuestion(new Question("Bitwise operations",
+        addQuestion(new Question("Fiddling with bits",
                 "What is the value of y?\n" +
                         "```int x = 1;\n" +
-                        "int y = ((x & (-2)) ^ (-1)) + 1;    ```"
+                        "int y = ((x & (-2)) ^ (-1)) + 1;```"
         , "0", Category.Miscellaneous, 4));
 
         // Labels
@@ -373,7 +420,7 @@ public class QuestionSet {
 
 
     private void addRecursion() {
-        addQuestion(new Question("Basic recursion",
+        addQuestion(new Question("Recursion basics",
                 "What value does adder(0) return?\n" +
                         "```public static int adder(int i) { \n"+
                         "    if (i==5) return i;\n" +
@@ -382,9 +429,11 @@ public class QuestionSet {
                 , "10", Category.Recursion, 1));
 
 
-        addQuestion(new Question("Recursion multiple branches",
+        addQuestion(new Question("Recursion and lists",
                 "What value does recursion(0) return?\n" +
-                        "```static int[] numbers = new int[]{11,5,89,2,7,8,12,4,5,37};\n" +
+                        "```static int[] numbers = new int[]{\n" +
+                        "    11,5,89,2,7,8,12,4,5,37\n" +
+                        "};\n" +
                         "public static int recursion(int i) {\n" +
                         "    if (i == numbers.length - 1) return 0;\n" +
                         "    if (numbers[i] % 2 == 0) return i + recursion(i + 1);\n" +
@@ -393,10 +442,10 @@ public class QuestionSet {
                 , "21", Category.Recursion, 2));
 
 
-        addQuestion(new Question("Recursion over a list",
+        addQuestion(new Question("Lists and recursion",
                 "What is the contents of ints after calling list(0)?\n" +
                         "```static int[] ints = new int[] {\n" +
-                        "        17,5,7,3,9,1,11,15,13\n" +
+                        "    17,5,7,3,9,1,11,15,13\n" +
                         "};\n" +
                         "public static void list(int i) {\n" +
                         "    if (i == ints.length - 1) return;\n" +
@@ -417,7 +466,7 @@ public class QuestionSet {
 
 
 
-        addQuestion(new Question("Recursion over a tree",
+        addQuestion(new Question("The tree of recursion",
                 "What is the result of an in-order traversal on the tree generated by treeRecursion(root, 1)?\n" +
                         "```public static void treeRecursion(Node node, int i) {\n" +
                         "    if (i > 10) return;\n" +

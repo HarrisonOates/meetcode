@@ -564,7 +564,6 @@ public class DirectMessageFragment extends Fragment {
     class DirectMessagesObserver extends FirebaseObserver {
 
         public void update() {
-
             FirebaseObserver observer = this;
 
             DirectMessageThread dms = new DirectMessageThread(messageRecipient);
@@ -579,7 +578,6 @@ public class DirectMessageFragment extends Fragment {
             }
 
             dms.runWhenReady((obj) -> {
-
                 // 1. Check if there is any difference between firebase direct messages and
                 //    local direct messages
                 // 2. Update them if there is a difference, otherwise do nothing

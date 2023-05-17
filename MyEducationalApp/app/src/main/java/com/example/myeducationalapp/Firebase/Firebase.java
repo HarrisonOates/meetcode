@@ -134,9 +134,9 @@ public class Firebase {
          * gets passed in first.
          */
         if (username1.compareTo(username2) < 0) {
-            return Arrays.asList("dm", username1, username2);
+            return Arrays.asList("dm", FirebaseRequest.escapeUsername(username1), FirebaseRequest.escapeUsername(username2));
         } else {
-            return Arrays.asList("dm", username2, username1);
+            return Arrays.asList("dm", FirebaseRequest.escapeUsername(username2), FirebaseRequest.escapeUsername(username1));
         }
     }
 
