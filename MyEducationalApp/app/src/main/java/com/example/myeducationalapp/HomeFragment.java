@@ -22,6 +22,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.myeducationalapp.Localization.DynamicLocalization;
+import com.example.myeducationalapp.Localization.LanguageSetting;
 import com.example.myeducationalapp.Search.Search;
 import com.example.myeducationalapp.userInterface.Generatable.GeneratedUserInterfaceViewModel;
 import com.example.myeducationalapp.userInterface.Generatable.HomeCategoryCard;
@@ -131,24 +133,13 @@ public class HomeFragment extends Fragment {
 
         // Updating "Question of the Day" subheading and body with with relevant stuff
         LocalDateTime date = LocalDateTime.now();
-        binding.homeHeroSubheadingText.setText(date.format(DateTimeFormatter.ofPattern("d MMMM")));
+        String today = date.format(DateTimeFormatter.ofPattern("d MMMM"));
+        translatedOrDefaultText(today, binding.homeHeroSubheadingText);
 
         Question qotd = QuestionSet.getInstance().getQuestionOfTheDay();
 
-        // will clean this dynamic localization check later
-//        try {
-//            if (visitedLang) {
-//                LanguageSetting trans = new LanguageSetting();
-//                trans.translateString(qotd.getName());
-//                String translatedText = trans.getTranslatedText();
-//                System.out.println("Translated text :))) " + translatedText);
-//                // Call other methods that require the translated text
-//                binding.homeHeroBodyText.setText(translatedText);
-//            }
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-        binding.homeHeroBodyText.setText(qotd.getName());
+        translatedOrDefaultText(qotd.getName(), binding.homeHeroBodyText);
+
 
 
 
@@ -221,6 +212,16 @@ public class HomeFragment extends Fragment {
 
             return false;
         });
+    }
+
+    private void translatedOrDefaultText(String text, TextView textView) {
+        try{
+            DynamicLocalization.translateText(text, textView);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        // Initial OnViewCreate will always execute the line below
+        textView.setText(text);
     }
 
 

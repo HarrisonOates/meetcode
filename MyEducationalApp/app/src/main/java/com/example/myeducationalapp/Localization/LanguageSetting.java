@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myeducationalapp.Localization.TranslationCallback;
@@ -35,13 +36,14 @@ import java.util.concurrent.CountDownLatch;
  * @author u7469758 Geun Yun
  */
 
-public class LanguageSetting extends AppCompatActivity implements TranslationCallback {
+public class LanguageSetting extends AppCompatActivity{
 
     public Translator portugueseTranslator;
     public Translator koreanTranslator;
     public Translator englishTranslator;
 
-    public String currentLanguage = TranslateLanguage.ENGLISH;
+    public static String previousLanguage;
+    public static String currentLanguage = TranslateLanguage.ENGLISH;
     public Translator currentTranslator;
 
     RadioGroup languages;
@@ -70,6 +72,7 @@ public class LanguageSetting extends AppCompatActivity implements TranslationCal
             @SuppressLint("NonConstantResourceId")
             @Override
             public void onCheckedChanged(RadioGroup group, int languageID) {
+                previousLanguage = currentLanguage;
                 switch (languageID) {
                     case R.id.buttonEn:
                         currentLanguage="en";
@@ -105,16 +108,15 @@ public class LanguageSetting extends AppCompatActivity implements TranslationCal
 
     @SuppressLint("SetTextI18n")
     private void setLanguage(String languageCode) {
-        Question qotd = QuestionSet.getInstance().getQuestionOfTheDay();
-        System.out.println("Before : " + qotd.getName());
-        translateString(qotd.getName());
-        try {
-            qotddd = getTranslatedText();
-            System.out.println("Translated text: " + qotddd);
-            // Call other methods that require the translated text
-        } catch (InterruptedException e) {
-            // Handle the interruption exception
-        }
+//        Question qotd = QuestionSet.getInstance().getQuestionOfTheDay();
+//        System.out.println("Before : " + qotd.getName());
+//        try {
+//            qotddd = getTranslatedText();
+//            System.out.println("Translated text: " + qotddd);
+//            // Call other methods that require the translated text
+//        } catch (InterruptedException e) {
+//            // Handle the interruption exception
+//        }
         System.out.println("QOTDD 되나여?: " + qotddd);
 
         Locale locale = new Locale(languageCode);
@@ -215,29 +217,12 @@ public class LanguageSetting extends AppCompatActivity implements TranslationCal
 
 
 
-    public void translateString(String stringToTranslate) {
-        translationLatch = new CountDownLatch(1);
 
-        currentTranslator.translate(stringToTranslate)
-                .addOnSuccessListener(new OnSuccessListener<String>() {
-                    @Override
-                    public void onSuccess(String translatedText) {
-                        qotddd = translatedText; // Assign the translated text
-                        translationLatch.countDown(); // Release the latch
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        translationLatch.countDown(); // Release the latch in case of failure
-                    }
-                });
-    }
 
-    public String getTranslatedText() throws InterruptedException {
-        translationLatch.await(); // Wait for the translation operation to complete
-        return qotddd;
-    }
+//    public String getTranslatedText() throws InterruptedException {
+//        translationLatch.await(); // Wait for the translation operation to complete
+//        return qotddd;
+//    }
 
 //    // Usage example
 //    translateString("Hello");
@@ -270,21 +255,21 @@ public class LanguageSetting extends AppCompatActivity implements TranslationCal
 //            doSomethingWithTranslatedText(translatedText);
 //        }
 //    });
-
-    public void doSomethingWithTranslatedText(String translatedText) {
-        // Do something with the translated text
-        // ...
-    }
-
-
-    public void translateApp() {
-        System.out.println(QuestionSet.getInstance().getQuestionOfTheDay().getName());
-
-    }
-
-
-    @Override
-    public void onTranslationComplete(String translatedText) {
-        qotddd = translatedText;
-    }
+//
+//    public void doSomethingWithTranslatedText(String translatedText) {
+//        // Do something with the translated text
+//        // ...
+//    }
+//
+//
+//    public void translateApp() {
+//        System.out.println(QuestionSet.getInstance().getQuestionOfTheDay().getName());
+//
+//    }
+//
+//
+//    @Override
+//    public void onTranslationComplete(String translatedText) {
+//        qotddd = translatedText;
+//    }
 }
