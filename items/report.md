@@ -40,7 +40,7 @@ u7468248, Alex Boxall: I contributed 20% of the code. Here are my contributions:
 * All of [QuestionMessageThread.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/QuestionMessageThread.java)
 * All of [UserLocalData.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/UserLocalData.java)
   * All of [UserLocalDataTest.java](./../MyEducationalApp/app/src/androidTest/java/com/example/myeducationalapp/UserLocalDataTest.java)
-* Some of [QuestionMessageFragment.java](./../MyEducationalApp/app/src/androidTest/java/com/example/myeducationalapp/QuestionMessageFragment.java)
+* Some of [QuestionMessageFragment.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/QuestionMessageFragment.java)
   * Adapted the the DirectMessageFragment class written by Nikhila into the QuestionMessageFragment class 
 * Refactoring of [QuestionSet.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/QuestionSet.java)
   * Geun wrote the initial version and I refactored it, including making Question its own class
