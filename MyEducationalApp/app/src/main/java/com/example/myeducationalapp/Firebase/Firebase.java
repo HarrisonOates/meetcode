@@ -104,6 +104,8 @@ public class Firebase {
     }
 
     public void attachDirectMessageObserver(FirebaseObserver observer, String username1, String username2) {
+        Log.d("attachDirectMessageObserver", username1 + " <-> " + username2);
+
         attachObserver(observer, getDirectMessageFilepath(username1, username2, true));
     }
 
@@ -178,7 +180,9 @@ public class Firebase {
         if (!UserLogin.getInstance().isUserLoggedIn(username1) && !UserLogin.getInstance().isUserLoggedIn(username2)) {
             throw new AccessDeniedException("you do not have permission to read this conversation");
         }
-        return FirebaseRequest.read(database, getDirectMessageFilepath(username1, username2, true));
+        Log.d("readDirectMessages", username1 + " <-> " + username2);
+
+        return FirebaseRequest.read(database, getDirectMessageFilepath(username1, username2, false));
     }
 
     /**
@@ -215,7 +219,9 @@ public class Firebase {
             throw new AccessDeniedException("you do not have permission to read this conversation");
         }
 
-        return FirebaseRequest.write(database, getDirectMessageFilepath(username1, username2, true), messages.toString());
+        Log.d("writeDirectMessages", username1 + " <-> " + username2);
+
+        return FirebaseRequest.write(database, getDirectMessageFilepath(username1, username2, false), messages.toString());
     }
 
     /**
@@ -347,7 +353,7 @@ public class Firebase {
      * @return A Firebase result that can be used to determine when the deletion is completed.
      */
     public FirebaseResult debugDeleteAllDirectMessages(String username1, String username2) {
-        return FirebaseRequest.write(database, getDirectMessageFilepath(username1, username2, true), "");
+        return FirebaseRequest.write(database, getDirectMessageFilepath(username1, username2, false), "");
     }
 
     /**
@@ -466,7 +472,8 @@ public class Firebase {
      * @author Harrison Oates u7468212
      */
     public FirebaseResult writeDirectMessagesDatastream(String username1, String username2, MessageThread messages){
-        return FirebaseRequest.write(database, getDirectMessageFilepath(username1, username2, true), messages.toString());
+        Log.d("writeDirectMessagesDatastream", username1 + " <-> " + username2);
+        return FirebaseRequest.write(database, getDirectMessageFilepath(username1, username2, false), messages.toString());
     }
 
 }
