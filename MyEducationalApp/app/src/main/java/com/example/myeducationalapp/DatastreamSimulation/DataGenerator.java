@@ -2,25 +2,14 @@ package com.example.myeducationalapp.DatastreamSimulation;
 
 import android.content.Context;
 import android.content.res.AssetManager;
-import android.os.Environment;
 
 import com.example.myeducationalapp.DirectMessageThread;
-import com.example.myeducationalapp.DirectMessageThreadDatastream;
-import com.example.myeducationalapp.Firebase.Firebase;
-import com.example.myeducationalapp.Firebase.FirebaseRequest;
-import com.example.myeducationalapp.Firebase.FirebaseResult;
-import com.example.myeducationalapp.MessageThread;
-import com.example.myeducationalapp.Person;
 import com.example.myeducationalapp.QuestionMessageThread;
-import com.example.myeducationalapp.QuestionMessageThreadDatastream;
 import com.example.myeducationalapp.QuestionSet;
-import com.example.myeducationalapp.UserLogin;
-import com.example.myeducationalapp.MainActivity;
-import java.io.File;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.AccessDeniedException;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
