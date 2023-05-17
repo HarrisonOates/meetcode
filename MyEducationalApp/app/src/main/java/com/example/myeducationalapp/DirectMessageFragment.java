@@ -574,6 +574,7 @@ public class DirectMessageFragment extends Fragment {
             // If we don't have any data to update we should just, y'know, not update it
             // or something. Maybe return as well
             if (instance.isEmpty()) {
+                observer.enable();
                 return;
             }
 
@@ -616,6 +617,13 @@ public class DirectMessageFragment extends Fragment {
                             messagesToRender.forEach(message -> {
                                 boolean isRecipient = message.getPoster().getUsername().equals(messageRecipient);
 
+                                // if the person's that we're messaging has the same username as us
+                                // then isRecipient will always be false
+                                // this is nice for when we are messaging ourself
+                                if (message.getPoster().getUsername().equals(UserLogin.getInstance().getCurrentUsername())) {
+                                    isRecipient = false;
+                                }
+
                                 generateIndividualBubble(isRecipient, message);
                             });
 
@@ -628,6 +636,13 @@ public class DirectMessageFragment extends Fragment {
                         if (true || firebaseMessage.getLikeCount() != localMessage.getLikeCount()) {
                             // we have to update the ui for this element in the UI
                             ConstraintLayout parent = (ConstraintLayout) binding.directMessageLinearLayout.getChildAt(i);
+
+                            // If the parent we have gotten is a null reference we should break out of this
+                            // loop and continue on our day like nothing ever happened.
+                            if (parent == null) {
+                                break;
+                            }
+
                             ConstraintLayout likeContainer = (ConstraintLayout) parent.getChildAt(1);
                             TextView likeText = (TextView) likeContainer.getChildAt(0);
 
