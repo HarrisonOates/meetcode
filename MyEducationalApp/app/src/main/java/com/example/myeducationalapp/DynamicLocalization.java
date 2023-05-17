@@ -10,4 +10,8 @@ import com.google.mlkit.nl.translate.TranslatorOptions;
 
 
 public class DynamicLocalization extends LanguageSetting {
+
+
+
+
 }
