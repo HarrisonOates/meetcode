@@ -164,6 +164,8 @@ public class Message extends Asynchronous {
                 likedBy.insert(currentUser);
             }
 
+            System.out.printf("uploading new liked by count\n");
+
             /*
              * This may take time to complete, but we don't really care.
              */

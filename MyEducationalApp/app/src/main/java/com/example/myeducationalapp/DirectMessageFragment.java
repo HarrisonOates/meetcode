@@ -577,6 +577,8 @@ public class DirectMessageFragment extends Fragment {
             } catch (NullPointerException nullPointerException) {
                 // If we get a null pointer from the Activity, then we want to postpone updating
                 // until we can acquire a good point to the Activity.
+                System.out.printf("ERROR!!!\n");
+                observer.enable();
                 return;
             }
 
