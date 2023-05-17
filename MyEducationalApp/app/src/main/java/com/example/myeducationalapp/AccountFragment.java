@@ -81,6 +81,8 @@ public class AccountFragment extends Fragment {
         });
 
         binding.accountMenuDailyChallengeConstraintLayout.setOnClickListener(view1 -> {
+            userInterfaceManager.setCurrentlyDisplayedQuestion(QuestionSet.getInstance().getQuestionOfTheDay());
+
             NavHostFragment.findNavController(AccountFragment.this).navigate(R.id.action_accountFragment_to_questionFragment);
         });
 

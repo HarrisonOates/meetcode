@@ -107,7 +107,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/question_body_stars_container_text"
+                android:id="@+id/question_body_stars_container_constraint_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -126,8 +126,8 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:text="Earn 3 stars"
-                    tools:text="Earn 3 stars" />
+                    android:text="Earn 4 stars"
+                    tools:text="Earn 4 stars" />
 
                 <!-- Star icon -->
                 <View
@@ -151,7 +151,7 @@
                 android:background="@drawable/question_primary_code_block"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/question_body_stars_container_text">
+                app:layout_constraintTop_toBottomOf="@+id/question_body_stars_container_constraint_layout">
 
                 <HorizontalScrollView
                     android:layout_width="match_parent"
@@ -160,16 +160,14 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:padding="5dp"
+                    android:paddingVertical="18dp"
+                    android:paddingHorizontal="20dp"
                     android:scrollbars="none">
                     <TextView
                         android:id="@+id/question_code_block_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="18dp"
-                        android:layout_marginTop="23dp"
-                        android:layout_marginEnd="18dp"
-                        android:layout_marginBottom="23dp"
+
                         android:fontFamily="@font/ibm_plex_mono"
                         android:textSize="18sp"/>
                 </HorizontalScrollView>

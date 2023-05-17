@@ -21,7 +21,7 @@ public class QuestionSet {
     public enum Category {
         Algorithm, ControlFlow, DataStructure, Miscellaneous, Recursion, TestQuestion;
 
-        private int[] primaryCategoryColorList = new int[] {
+        private final int[] primaryCategoryColorList = new int[] {
                 Color.parseColor("#FFF25260"),
                 Color.parseColor("#FFB0C5FF"),
                 Color.parseColor("#FF7549D2"),
@@ -30,7 +30,7 @@ public class QuestionSet {
 
         };
 
-        private int[] secondaryCategoryColorList = new int[] {
+        private final int[] secondaryCategoryColorList = new int[] {
                 Color.parseColor("#FFFD99A2"),
                 Color.parseColor("#FF7896E8"),
                 Color.parseColor("#FF9767FE"),
@@ -39,8 +39,13 @@ public class QuestionSet {
 
         };
 
-        private int[] tertiaryCategoryColorList = new int[] {
-            // TODO
+        private final int[] tertiaryCategoryColorList = new int[] {
+                Color.parseColor("#FFFF5659"),
+                Color.parseColor("#FF425381"),
+                Color.parseColor("#FFC4A9FE"),
+                Color.parseColor("#FF14B0A3"),
+                Color.parseColor("#FFFF94B7")
+
         };
 
         public int getPrimaryCategoryColor() {

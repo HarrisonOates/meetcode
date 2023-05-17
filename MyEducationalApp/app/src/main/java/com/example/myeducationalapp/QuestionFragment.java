@@ -118,6 +118,16 @@ public class QuestionFragment extends Fragment {
         binding.questionMultiConstraintLayout.getBackground().setColorFilter(new BlendModeColorFilter(currentQuestion.getCardColour(), BlendMode.SRC_ATOP));
         binding.questionAnswerEntryConstraintLayout.getBackground().setColorFilter(new BlendModeColorFilter(currentQuestion.getCardColour(), BlendMode.SRC_ATOP));
 
+        // Setting secondary colours
+        binding.questionAnswerSubmitOuterButtonConstraintLayout.getBackground().setColorFilter(new BlendModeColorFilter(currentQuestion.getSecondaryCardColour(), BlendMode.SRC_ATOP));
+        binding.questionBodyCategoryContainerConstraintLayout.getBackground().setColorFilter(new BlendModeColorFilter(currentQuestion.getSecondaryCardColour(), BlendMode.SRC_ATOP));
+        binding.questionBodyDifficultyContainerConstraintLayout.getBackground().setColorFilter(new BlendModeColorFilter(currentQuestion.getSecondaryCardColour(), BlendMode.SRC_ATOP));
+        binding.questionBodyStarsContainerConstraintLayout.getBackground().setColorFilter(new BlendModeColorFilter(currentQuestion.getSecondaryCardColour(), BlendMode.SRC_ATOP));
+        binding.questionAnswerEntryCarpetContraintLayout.getBackground().setColorFilter(new BlendModeColorFilter(currentQuestion.getSecondaryCardColour(), BlendMode.SRC_ATOP));
+
+        // Setting tertiary colours
+        binding.questionAnswerSubmitInnerButtonConstraintLayout.getBackground().setColorFilter(new BlendModeColorFilter(currentQuestion.getTertiaryCardColour(), BlendMode.SRC_ATOP));
+
 
 
         // Code block related UI code
