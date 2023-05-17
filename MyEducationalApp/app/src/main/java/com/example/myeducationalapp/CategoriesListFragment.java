@@ -29,6 +29,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.myeducationalapp.Localization.DynamicLocalization;
 import com.example.myeducationalapp.databinding.FragmentCategoriesListBinding;
 import com.example.myeducationalapp.databinding.FragmentQuestionBinding;
 import com.example.myeducationalapp.userInterface.Generatable.CategoryListCard;
@@ -147,9 +148,9 @@ public class CategoriesListFragment extends Fragment {
 
         // Setting UI elements with relevant data
         categoryImage.setImageResource(categoryListCard.getCardImage());
-        headingText.setText(categoryListCard.getHeading());
-        subheadingText.setText(categoryListCard.getSubheading());
-        starHeadingText.setText(categoryListCard.getStarProgress());
+        DynamicLocalization.translatedOrDefaultText(categoryListCard.getHeading(), headingText);
+        DynamicLocalization.translatedOrDefaultText(categoryListCard.getSubheading(), subheadingText);
+        DynamicLocalization.translatedOrDefaultText(categoryListCard.getStarProgress(), starHeadingText);
 
         // Adding the final parent to the LinearLayout nested within the ScrollView
         binding.categoriesListCardLinearLayout.addView(homeCategoryCard);

@@ -137,7 +137,6 @@ public class HomeFragment extends Fragment {
         DynamicLocalization.translatedOrDefaultText(today, binding.homeHeroSubheadingText);
 
         Question qotd = QuestionSet.getInstance().getQuestionOfTheDay();
-
         DynamicLocalization.translatedOrDefaultText(qotd.getName(), binding.homeHeroBodyText);
 
         boolean success = UserLocalData.getInstance().hasQuestionBeenAnsweredCorrectly(qotd.getID());
@@ -298,8 +297,8 @@ public class HomeFragment extends Fragment {
         TextView headingText = (TextView) homeCategoryCard.getChildAt(1);
         TextView subheadingText = (TextView) homeCategoryCard.getChildAt(2);
 
-        headingText.setText(template.getHeading());
-        subheadingText.setText(template.getSubheading());
+        DynamicLocalization.translatedOrDefaultText(template.getHeading(), headingText);
+        DynamicLocalization.translatedOrDefaultText(template.getSubheading(), subheadingText);
         categoryImage.setImageResource(template.getCardImage());
 
         // Adding the final parent to the LinearLayout nested within the ScrollView
