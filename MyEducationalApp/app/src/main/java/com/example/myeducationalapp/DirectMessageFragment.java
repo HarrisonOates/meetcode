@@ -564,22 +564,31 @@ public class DirectMessageFragment extends Fragment {
         messageContainerConstraintLayout.setOnLongClickListener(view -> {
 
             UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
-            userInterfaceManager.getCurrentDirectMessages().getValue().get(messageRecipient).directMessageThread.getMessages().get(currentMessageIndex).toggleLikedByCurrentUser();
+            Message current = userInterfaceManager.getCurrentDirectMessages().getValue().get(messageRecipient).directMessageThread.getMessages().get(currentMessageIndex);
 
-            int newLikeCount = userInterfaceManager.getCurrentDirectMessages().getValue().get(messageRecipient).directMessageThread.getMessages().get(currentMessageIndex).getLikeCount();
+            current.runWhenReady((ignored) -> {
+                Firebase.getInstance().dump();
 
-            if (newLikeCount > 0) {
-                likeContainerConstraintLayout.setVisibility(View.VISIBLE);
+                current.toggleLikedByCurrentUser();
 
-                if (newLikeCount > 1) {
-                    likeText.setText("❤️  " + newLikeCount);
+
+                int newLikeCount = current.getLikeCount();
+
+                if (newLikeCount > 0) {
+                    likeContainerConstraintLayout.setVisibility(View.VISIBLE);
+
+                    if (newLikeCount > 1) {
+                        likeText.setText("❤️  " + newLikeCount);
+                    } else {
+                        likeText.setText("❤️");
+                    }
+
                 } else {
-                    likeText.setText("❤️");
+                    likeContainerConstraintLayout.setVisibility(View.GONE);
                 }
 
-            } else {
-                likeContainerConstraintLayout.setVisibility(View.GONE);
-            }
+                return null;
+            });
 
             return false;
         });

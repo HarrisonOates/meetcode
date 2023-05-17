@@ -232,7 +232,6 @@ public class HomeFragment extends Fragment {
         } else {
             List<String> resultStrings = new ArrayList<>();
             results.forEach(res -> resultStrings.add(res.getStringResult()));
-            System.out.println(Arrays.toString(resultStrings.toArray()));
 
             ArrayAdapter<String> resultsAdapter = new ArrayAdapter<>(this.getContext(), android.R.layout.simple_list_item_1, resultStrings);
             binding.searchResults.setAdapter(resultsAdapter);

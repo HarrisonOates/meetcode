@@ -77,7 +77,7 @@ public class Firebase {
         ValueEventListener postListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                System.out.printf("WAIT WHAT?!?!?!?!");
+
             }
 
             @Override

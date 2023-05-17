@@ -170,9 +170,6 @@ public class QuestionSet {
         long millisSince1970 = System.currentTimeMillis();
         int day = (int) (millisSince1970 / (1000 * 60 * 60 * 24));
         List<String> possibleQuestions = getQuestionIDsInCategory(Category.values()[(day % 5)]);
-        System.out.printf("day %% 5 = %d\n", day % 5);
-        System.out.printf("category = %s\n", Category.values()[day % 5]);
-        System.out.printf("possible qs = %d\n", possibleQuestions.size());
         return usedQuestionSets.get(possibleQuestions.get((day / 5) % possibleQuestions.size()));
     }
 

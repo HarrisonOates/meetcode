@@ -96,16 +96,8 @@ public class FirebaseResult {
                     DatabaseReference parent = current.getKey() == null ? null : current.getParent();
                     DatabaseReference grandparent = parent == null || parent.getKey() == null ? null : parent.getParent();
 
-                    System.out.printf("%s, %s, %s\n",
-                            current.getKey(),
-                            parent == null ? "<null>" : parent.getKey(),
-                            grandparent == null ? "<null>" : grandparent.getKey()
-                    );
-
                     if (grandparent != null && grandparent.getKey() != null && grandparent.getKey().equals("dm")) {
                         List<String> dmPath = Firebase.getInstance().getDirectMessageFilepath(current.getKey(), parent.getKey());
-                        System.out.printf("THE UPDATE CAME FROM %s\n", dmPath);
-
                         Firebase.getInstance().notifyObservers(dmPath);
                     }
                 }

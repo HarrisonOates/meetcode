@@ -131,7 +131,6 @@ public class UserLogin {
     }
 
     public boolean isUserLoggedIn(String username) {
-        System.out.printf("USER COMPARE: %s, %s\n", username, getCurrentUsername());
         return loggedInUsername != null && getCurrentUsername().equals(username);
     }
 
