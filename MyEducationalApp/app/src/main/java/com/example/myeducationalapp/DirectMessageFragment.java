@@ -576,6 +576,10 @@ public class DirectMessageFragment extends Fragment {
                 userInterfaceManager = new ViewModelProvider(requireActivity()).get(UserInterfaceManagerViewModel.class);
             } catch (NullPointerException nullPointerException) {
                 // If we get a null pointer from the Activity, then we want to postpone updating
+                // until we can acquire a good pointer to the Activity.
+                //
+                // If the recipient sends a message/likes a post and we acquire a bad reference to
+                // the Activity, then our data will not be updated
                 // until we can acquire a good point to the Activity.
                 System.out.printf("ERROR!!!\n");
                 observer.enable();
@@ -588,8 +592,9 @@ public class DirectMessageFragment extends Fragment {
                 //    local direct messages
                 // 2. Update them if there is a difference, otherwise do nothing
                 // 3. Then if there is a difference update the UI
-                //    l-> refresh entire UI because if a heart is added somewhere we need to be able to
-                //        add that which is difficult to do unless we refresh everything
+                //    l-> refresh only what needs to be refreshed in terms of liked messages and
+                //        then add new messages one-by-one, instead of generating the entire
+                //        LinearLayout lineage
 
                 List<Message> localMessages = userInterfaceManager.getCurrentDirectMessages().
                         getValue().get(messageRecipient).directMessageThread.messages;
