@@ -423,4 +423,16 @@ public class QuestionSet {
     public SortedMap<String, Question> getUsedQuestionSets() {
         return usedQuestionSets;
     }
+
+
+    public static Category charToCategory(char character) {
+        switch (character) {
+            case 'A' : return Category.Algorithm;
+            case 'C' : return Category.ControlFlow;
+            case 'D' : return Category.DataStructure;
+            case 'M' : return Category.Miscellaneous;
+            case 'R' : return Category.Recursion;
+            default : return Category.Algorithm;
+        }
+    }
 }

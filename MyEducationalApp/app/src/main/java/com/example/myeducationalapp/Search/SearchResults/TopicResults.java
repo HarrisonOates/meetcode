@@ -7,9 +7,21 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Obtains the results of how likely each topic is to be the result being searched for
+ * @author Jayden
+ */
 public class TopicResults extends Results{
+    /**
+     * A list of all the topics in the app
+     */
     String[] topics = new String[]{"Algorithm", "ControlFlow", "DataStructure", "Miscellaneous", "Recursion"};
 
+    /**
+     * Returns a list containing the results from a topic search
+     * @param search The user inputted search
+     * @return A list containing results from each topic
+     */
     @Override
     public List<SearchResult> results(List<String> search) {
         List<SearchResult> results = new ArrayList<>();
@@ -47,6 +59,13 @@ public class TopicResults extends Results{
     }
 
 
+    /**
+     * Calculates the relative score of a word, indicating how likely it is to match the search result
+     * @param word A word from the search
+     * @param map A map of all the characters from the current topic, and the occurrence of each character
+     * @param length The length of the topic word
+     * @return A relative score of how close a searched word is to the user name
+     */
     double wordScore(String word, HashMap<Character, Integer> map, double length) {
         double sum = 0;
 

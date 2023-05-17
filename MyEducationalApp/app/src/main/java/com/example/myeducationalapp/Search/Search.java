@@ -1,5 +1,6 @@
 package com.example.myeducationalapp.Search;
 
+import com.example.myeducationalapp.QuestionSet;
 import com.example.myeducationalapp.Search.SearchParsing.QueryExp;
 import com.example.myeducationalapp.Search.SearchParsing.SearchParser;
 import com.example.myeducationalapp.Search.SearchParsing.SearchToken;
@@ -63,11 +64,11 @@ public class Search {
         for (var exp : expressions) {
             if (exp instanceof QueryExp && ((QueryExp) exp).getQueryType() == SearchToken.Query.Topic) {
                 var queryResults = topicResults.results(words);
-                HashMap<Character, Double> topics = new HashMap<>();
+                HashMap<QuestionSet.Category, Double> topics = new HashMap<>();
 
                 for (var topic : queryResults) {
                     if (topic.getConfidence() >= -2) {
-                        var id = topic.getId().charAt(0);
+                        var id = QuestionSet.charToCategory(topic.getId().charAt(0));//TODO;
                         Double confidence = 2 - Math.abs(topic.getConfidence()) / 2;
                         if (!topics.containsKey(id) || confidence > topics.get(id)) topics.put(id, confidence);
                     }
@@ -95,18 +96,22 @@ public class Search {
                     case User: {
                         var results = userResults.results(expWords);
                         searchResults.addAll(results);
+                        break;
                         }
                     case Discussion: {
                         var results = postResults.results(expWords);
                         searchResults.addAll(results);
+                        break;
                     }
                     case Question: {
                         var results = questionResults.results(expWords);
                         searchResults.addAll(results);
+                        break;
                     }
                     case Topic: {
                         var results = topicResults.results(expWords);
                         searchResults.addAll(results);
+                        break;
                     }
                 }
             }
@@ -165,13 +170,13 @@ public class Search {
 
 
 
-    private void setFilters(HashMap<Character, Double> topics) {
+    private void setFilters(HashMap<QuestionSet.Category, Double> topics) {
         postResults.setTopics(topics);
         questionResults.setTopics(topics);
     }
 
     private void resetFilters() {
-        var noFilter = new HashMap<>(Map.of('0',1.0,'1',1.0,'2',1.0,'3',1.0,'4',1.0));
+        HashMap<QuestionSet.Category, Double> noFilter = new HashMap<>(Map.of(QuestionSet.Category.Algorithm,1.0, QuestionSet.Category.ControlFlow,1.0, QuestionSet.Category.DataStructure,1.0, QuestionSet.Category.Miscellaneous,1.0, QuestionSet.Category.Recursion,1.0));
         postResults.setTopics(noFilter);
         questionResults.setTopics(noFilter);
     }

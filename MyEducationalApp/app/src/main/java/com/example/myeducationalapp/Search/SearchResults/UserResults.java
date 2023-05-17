@@ -8,9 +8,21 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Obtains the results of how likely each user is to be the result being searched for
+ * @author u7146309
+ */
 public class UserResults extends Results{
+    /**
+     * A list of all user names as a string
+     */
     List<String> users;
 
+    /**
+     * Returns a list containing the results from a user search
+     * @param search The user inputted search
+     * @return A list containing results from each user
+     */
     @Override
     public List<SearchResult> results(List<String> search) {
         if (users == null) updateUsers();
@@ -60,6 +72,13 @@ public class UserResults extends Results{
     }
 
 
+    /**
+     * Calculates the relative score of a word, indicating how likely it is to match the search result
+     * @param word A word from the search
+     * @param map A map of all the characters from the current user, and the occurrence of each character
+     * @param length The length of the user name
+     * @return A relative score of how close a searched word is to the user name
+     */
     double wordScore(String word, HashMap<Character, Integer> map, double length) {
         double sum = 0;
 
@@ -79,7 +98,9 @@ public class UserResults extends Results{
     }
 
 
-
+    /**
+     * Updates the users separately, instead of updating every time something is searched
+     */
     public void updateUsers() {
         users = Firebase.getInstance().readAllUsernames();
     }
