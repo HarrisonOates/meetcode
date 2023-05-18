@@ -161,24 +161,4 @@ public class Parser {
     public StringBuilder getHighlightedBlock() {
         return highlightedBlock;
     }
-
-    public Tokenizer getTokenizer() {
-        return tokenizer;
-    }
-
-    public void setTokenizer(Tokenizer tokenizer) {
-        this.tokenizer = tokenizer;
-    }
-
-    public Set<String> getIdentifiers() {
-        return identifiers;
-    }
-
-    public void setIdentifiers(Set<String> identifiers) {
-        this.identifiers = identifiers;
-    }
-
-    public void setHighlightedBlock(StringBuilder highlightedBlock) {
-        this.highlightedBlock = highlightedBlock;
-    }
 }
