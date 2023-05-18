@@ -14,7 +14,7 @@ import java.util.SortedMap;
 
 /**
  * Obtains the results of how likely each post is to be the result being searched for
- * @author u7146309
+ * @author u7146309 Jayden Skidmore
  */
 public class PostResults extends Results{
     /**

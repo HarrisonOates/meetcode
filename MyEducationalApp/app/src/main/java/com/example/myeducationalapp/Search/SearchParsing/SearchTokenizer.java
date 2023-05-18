@@ -2,7 +2,7 @@ package com.example.myeducationalapp.Search.SearchParsing;
 
 /**
  * Class for tokenizing search strings based upon different queries
- * @author Jayden Skidmore
+ * @author u7146309 Jayden Skidmore
  */
 public class SearchTokenizer {
     //Stores the untokenized section of the search string

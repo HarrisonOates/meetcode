@@ -7,6 +7,9 @@ import com.example.myeducationalapp.User.ComparablePair;
 
 import org.junit.Test;
 
+/**
+ * @author u7468248 Alex Boxall
+ */
 public class ComparablePairTest {
     @Test
     public void testWithBothValuesBigger() {

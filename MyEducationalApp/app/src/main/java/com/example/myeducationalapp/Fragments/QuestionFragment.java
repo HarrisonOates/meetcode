@@ -34,7 +34,8 @@ import java.util.List;
  * Use the {@link QuestionFragment#newInstance} factory method to
  * create an instance of this fragment.
  *
- * @author u7300256 Nikhila Gurusinghe
+ * @author u7300256 Nikhila Gurusinghe (practically everything)
+ * @author u7469758 Geun Yun (dynamic localization)
  */
 public class QuestionFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";

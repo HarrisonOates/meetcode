@@ -29,7 +29,8 @@ import android.widget.TextView;
 import java.io.FileNotFoundException;
 
 /**
- * @author u7300256 Nikhila Gurusinghe
+ * @author u7300256 Nikhila Gurusinghe (practically everything)
+ * @author u7469758 Geun Yun (dynamic localization)
  */
 
 public class MainActivity extends AppCompatActivity {

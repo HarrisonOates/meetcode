@@ -6,7 +6,7 @@ import java.util.Scanner;
 /**
  * A class for parsing search results, splitting them up by their query and by
  * the individual words within them
- * @author Jayden Skidmore
+ * @author u7146309 Jayden Skidmore
  */
 public class SearchParser {
     /**

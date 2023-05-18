@@ -339,7 +339,7 @@ The surprise item was not implemented.
 
 2. *Bug 2: Star count in the home page*
 - *Star count of a user in  the home page is initially not reflected until other fragment has been visited.
-- *This has negligible consequence, as users can simply click home button to refresh
+- *This has negligible consequence, as users can simply click home button to refresh.
 - *The count also gets replaced by a back arrows once the language has been switched.
 - *But again, this does not lead to any real issue, as their star counts can be checked in their account menu.
 

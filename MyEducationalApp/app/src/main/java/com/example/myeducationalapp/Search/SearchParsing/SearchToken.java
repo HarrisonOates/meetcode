@@ -6,7 +6,7 @@ import static com.example.myeducationalapp.Search.SearchParsing.SearchToken.Quer
 
 /**
  * Defines all general tokens used in the parsing the search system
- * @author Jayden Skidmore
+ * @author u7146309 Jayden Skidmore
  */
 public class SearchToken {
     /**

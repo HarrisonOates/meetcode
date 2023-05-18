@@ -12,6 +12,11 @@ import com.google.mlkit.nl.translate.TranslatorOptions;
 
 import java.util.Objects;
 
+/**
+ * Allow dynamic strings to be translated as well.
+ *
+ * @author u7469758 Geun Yun
+ */
 public class DynamicLocalization extends LanguageFragment {
     public static void translateText(String textToTranslate, final TextView textView) {
         // Since the given textToTranslate when it first gets called will always be in English,
