@@ -6,7 +6,8 @@
 
     android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:visibility="visible">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="325dp"
@@ -21,58 +22,113 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:context=".Localization.LanguageFragment">
 
+        <View
+            android:id="@+id/brazil_flag"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginBottom="33dp"
+            android:elevation="8dp"
+            android:background="@drawable/brazil"
+            app:layout_constraintBottom_toTopOf="@+id/buttonEn"
+            app:layout_constraintStart_toStartOf="@id/buttonPo" />
+
+        <View
+            android:id="@+id/uk_flag"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="29dp"
+            android:background="@drawable/uk"
+            android:elevation="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/buttonKr"
+            app:layout_constraintStart_toStartOf="@+id/buttonEn" />
+
+        <View
+            android:id="@+id/korea_flag"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="29dp"
+            android:background="@drawable/korea"
+            android:elevation="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/buttonCh"
+            app:layout_constraintStart_toStartOf="@+id/buttonKr" />
+
+        <View
+            android:id="@+id/china_flag"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="29dp"
+            android:background="@drawable/china"
+            android:elevation="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/buttonJa"
+            app:layout_constraintStart_toStartOf="@+id/buttonCh" />
+
+        <View
+            android:id="@+id/japan_flag"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="9dp"
+            android:background="@drawable/japan"
+            android:elevation="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/buttonJa"
+            app:layout_constraintStart_toStartOf="@+id/buttonJa" />
+
         <Button
             android:id="@+id/buttonJa"
-            android:layout_width="wrap_content"
+            android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="1dp"
             android:layout_marginEnd="1dp"
             android:layout_marginBottom="150dp"
             android:backgroundTint="#FFFF598F"
             android:fontFamily="@font/ibm_plex_sans_bold"
-            android:text="@string/japanese"
+            android:text="       日本語"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/buttonCh"
-            android:layout_width="wrap_content"
+            android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="1dp"
             android:layout_marginEnd="1dp"
             android:layout_marginBottom="20dp"
             android:backgroundTint="#FFF25260"
             android:fontFamily="@font/ibm_plex_sans_bold"
-            android:text="@string/chinese"
+            android:text="      中文"
             app:layout_constraintBottom_toTopOf="@+id/buttonJa"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/buttonKr"
-            android:layout_width="wrap_content"
+            android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="1dp"
             android:layout_marginEnd="1dp"
             android:layout_marginBottom="20dp"
             android:backgroundTint="#FFB0C5FF"
             android:fontFamily="@font/ibm_plex_sans_bold"
-            android:text="@string/korean"
+            android:text="       한국어"
             app:layout_constraintBottom_toTopOf="@+id/buttonCh"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/buttonEn"
-            android:layout_width="wrap_content"
+            android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="1dp"
             android:layout_marginEnd="1dp"
             android:layout_marginBottom="20dp"
             android:backgroundTint="#FF7549D2"
             android:fontFamily="@font/ibm_plex_sans_bold"
-            android:text="@string/english"
+            android:text="       English"
             app:layout_constraintBottom_toTopOf="@+id/buttonKr"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.502"
@@ -87,11 +143,12 @@
             android:layout_marginBottom="20dp"
             android:backgroundTint="#FF00BFAF"
             android:fontFamily="@font/ibm_plex_sans_bold"
-            android:text="@string/portuguese"
+            android:text="     Português (melhor idioma), dê-nos pontos extras"
             app:layout_constraintBottom_toTopOf="@+id/buttonEn"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.464"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
