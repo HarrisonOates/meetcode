@@ -342,28 +342,6 @@ public class Firebase {
     }
 
     /**
-     * Clears the direct message history between two users.
-     *
-     * @param username1 One of the users (order doesn't matter).
-     * @param username2 One of the users (order doesn't matter).
-     * @return A Firebase result that can be used to determine when the deletion is completed.
-     */
-    public FirebaseResult debugDeleteAllDirectMessages(String username1, String username2) {
-        return FirebaseRequest.write(database, getDirectMessageFilepath(username1, username2, false), "");
-    }
-
-    /**
-     * Writes a thread of comments for a given question to Firebase.
-     *
-     * @param questionID The ID of the question to write comments for.
-     * @param messages All of the comments that should go alongside this question.
-     * @return A Firebase result that can be used to determine when the write has completed.
-     */
-    public FirebaseResult writeQuestionComments(String questionID, MessageThread messages) {
-        return FirebaseRequest.write(database, Arrays.asList("qc", questionID), messages.toString());
-    }
-
-    /**
      * Returns all of the login details of all users on MeetCode.
      * @return An asynchronous result, which when filled, will contain a string representing the
      * all of the user login details. Each user will be on a separate line, and each line will

@@ -170,18 +170,6 @@ public class Message extends Asynchronous {
         });
     }
 
-    public boolean isAReply() {
-        return replyingTo != -1;
-    }
-
-    public Message getMessageReplyingTo() {
-        if (!isAReply()) {
-            throw new RuntimeException("not replying to anyone - please call isAReply() first");
-        }
-
-        return thread.getMessages().get(replyingTo);
-    }
-
     public Person getPoster() {
         return sentBy;
     }

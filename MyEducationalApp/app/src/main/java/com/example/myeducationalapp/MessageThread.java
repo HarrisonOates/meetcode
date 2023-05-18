@@ -27,10 +27,6 @@ public abstract class MessageThread extends Asynchronous {
     abstract FirebaseResult downloadMessages();
     abstract FirebaseResult uploadChanges();
 
-    FirebaseResult downloadMessageLikeCounts() {
-        return downloadMessages();
-    }
-
     protected MessageThread() {
 
     }
