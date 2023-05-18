@@ -23,7 +23,6 @@ public abstract class MessageThread extends Asynchronous {
         return threadID;
     }
 
-    // TODO: subclass based on either DM / questions
     abstract FirebaseResult downloadMessages();
     abstract FirebaseResult uploadChanges();
 

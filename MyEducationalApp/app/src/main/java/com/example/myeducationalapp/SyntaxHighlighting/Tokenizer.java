@@ -39,7 +39,7 @@ public class Tokenizer {
         buffer = text;
         next();
     }
-    // TODO - refactor the while loops if possible
+
     public void next(){
         if (buffer.isEmpty()){
             currentToken = null;

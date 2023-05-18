@@ -102,7 +102,7 @@ public class Search {
 
                 for (var topic : queryResults) {
                     if (topic.getConfidence() >= -2) {
-                        var id = QuestionSet.charToCategory(topic.getId().charAt(0));//TODO;
+                        var id = QuestionSet.charToCategory(topic.getId().charAt(0));
                         Double confidence = 2 - Math.abs(topic.getConfidence()) / 2;
                         if (!topics.containsKey(id) || confidence > topics.get(id)) topics.put(id, confidence);
                     }

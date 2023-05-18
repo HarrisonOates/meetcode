@@ -36,16 +36,11 @@ public class HomeCategoryCard {
     }
 
     public int getCardColor() {
-        // TODO
         return category.getPrimaryCategoryColor();
     }
 
     public int getSecondaryCardColor() {
         return category.getSecondaryCategoryColor();
-    }
-
-    public int getTertiaryCardColor() {
-        return category.getTertiaryCategoryColor();
     }
 
     public int getCardImage() {

@@ -45,7 +45,6 @@ public class SearchExp extends Exp{
      * Returns a decomposition of the query
      * @return decomposed version of the queries
      */
-    //TODO
     @Override
     public List<String> decomposition() {
         return null;

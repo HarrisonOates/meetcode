@@ -31,7 +31,6 @@ public class StatementExp extends Exp{
      * Returns a decomposition of the query
      * @return decomposed version of the queries
      */
-    //TODO
     @Override
     public List<String> decomposition() {
 

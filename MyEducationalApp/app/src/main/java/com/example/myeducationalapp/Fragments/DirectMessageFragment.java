@@ -53,12 +53,9 @@ import java.util.Objects;
  */
 public class DirectMessageFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -80,7 +77,6 @@ public class DirectMessageFragment extends Fragment {
      * @param param2 Parameter 2.
      * @return A new instance of fragment DirectMessageFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static DirectMessageFragment newInstance(String param1, String param2) {
         DirectMessageFragment fragment = new DirectMessageFragment();
         Bundle args = new Bundle();
@@ -158,7 +154,6 @@ public class DirectMessageFragment extends Fragment {
 
             dms.postMessage(binding.directMessageInputText.getText().toString());
 
-            // TODO make this better
             binding.directMessageLinearLayout.post(() -> {
 
                 // We know this will always be sent by the current user and will always appear
@@ -317,11 +312,6 @@ public class DirectMessageFragment extends Fragment {
     }
 
     private void generateAllDirectMessageBubble(Context context) {
-
-        // TODO only render ~30 messages, then when user scrolls to the top of the scrollviewer
-        // add another 30 messages onto the layout
-        // https://stackoverflow.com/questions/38029423/check-if-a-scrollview-has-reached-the-top-of-the-layout
-
         MessageListCard messageListCard = UserDirectMessages.getInstance().currentDirectMessages.get(messageRecipient);
         String currentUsername = UserLogin.getInstance().getCurrentUsername();
 
@@ -355,8 +345,6 @@ public class DirectMessageFragment extends Fragment {
                         ArrayList<Message> currentPosterMessages = new ArrayList<>();
 
                         currentPosterMessages.add(firstMessage);
-                        // TODO when it gets to this line using the OR condition
-                        // the following might not belong to the same author
                         currentPosterMessages.add(messages.get(i + 1));
 
                         // loop until we reach a message from the next poster
@@ -610,7 +598,6 @@ public class DirectMessageFragment extends Fragment {
                 //        then add new messages one-by-one, instead of generating the entire
                 //        LinearLayout lineage
 
-                // TODO need to make this assignment a deep copy of messages List
                 List<Message> localMessages = instance.currentDirectMessages
                         .get(messageRecipient).directMessageThread.messages;
                 List<Message> firebaseMessages = dms.getMessages();
