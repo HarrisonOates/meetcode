@@ -66,21 +66,19 @@ u7468248, Alex Boxall: I contributed 20% of the code. Here are my contributions:
 u7469758, Geun Yun: I contributed 20% of the code. Here are my contributions:
 * All of [AVLTree.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/AVLTree.java)
   * All of [AVLTreeTest.java](./../MyEducationalApp/app/src/test/java/com/example/myeducationalapp/AVLTreeTest.java)
-* Most of [UserLogin.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/UserLogin.java) 
+* Most of [UserLogin.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/User/UserLogin.java) 
   * Most of [UserLoginTest.java](./../MyEducationalApp/app/src/androidTest/java/com/example/myeducationalapp/UserLoginTest.java)
-* Most of [QuestionSet.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/QuestionSet.java)
+* Most of [QuestionSet.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Question/QuestionSet.java)
 * Search bar UI part of 
-  * [HomeFragment.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/HomeFragment.java)
+  * [HomeFragment.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Fragments/HomeFragment.java)
   * [fragment_home.xml](./../MyEducationalApp/app/src/main/res/layout/fragment_home.xml)
-* All of [LanguageSetting.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/LanguageSetting.java)
-  * Most of
-    MyEducationalApp/app/src/main/res/values-pt-rBR/strings.xml
-    MyEducationalApp/app/src/main/res/values-zh-rCN/strings.xml
-    MyEducationalApp/app/src/main/res/values-ja/strings.xml
-    MyEducationalApp/app/src/main/res/values-ko-rKR/strings.xml
-* B.class: function1(), function2(), ...
+  * [RecyclerViewCustomAdapter.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/RecyclerViewCustomAdapter.java)
+* All of Dynamic Localization
+  * All of [LanguageSetting.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Localization/LanguageFragment.java)
+  * All of [DynamicLocalization.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Localization/DynamicLocalization.java)
+  * All of [strings](./../MyEducationalApp/app/src/main/res/values/strings.xml)
 * What design patterns, data structures, did the involved member propose?
-  * I was responsible for implementing AVLTree as the data structure which stores xxx
+  * I was responsible for implementing AVLTree as the data structure which stores the current user's liked messages, blocked user list and the successfully answered questions in UserLocalData and also who has liked the message in Message.java.
 * Specify what design did the involved member propose? What tools were used for the design?
 * Which part of the report did the involved member write?
 * Were you responsible for the slides?
