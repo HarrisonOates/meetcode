@@ -204,7 +204,10 @@ MeetCode supports Korean, Japanese, and Chinese learners through our app localis
 *List all the use cases in text descriptions or create use case diagrams. Please refer to https://www.visual-paradigm.com/guide/uml-unified-modeling-language/what-is-use-case-diagram/ for use case diagram.*
 
 ## Application UML
-The below UML diagram does not include any of the user interface classes.
+The below UML diagram was created before any programming was done and made up our initial design. At this point, the design of the search and syntax highlighting was not done, so they are not included. The UI is similarly not included.
+![ClassDiagramInitial](./images/ClassDiagramInitial.png) <br>
+
+The below UML diagram was created near the end of the project, and is much more complete. The UI was also not included as it would make the diagram too complicated to be useful.
 
 ![ClassDiagram](./images/ClassDiagram.png) <br>
 
