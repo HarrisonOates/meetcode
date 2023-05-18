@@ -270,10 +270,6 @@ public class HomeFragment extends Fragment {
                             userInterfaceManager.setCurrentlyDisplayedQuestion(QuestionSet.getInstance().getQuestionFromID(clickedID));
                             NavHostFragment.findNavController(HomeFragment.this).navigate(R.id.action_HomeFragment_to_questionFragment);
                         }
-                        case Discussion -> {
-                            Toast toast = Toast.makeText(getContext(), "Can't link you to the discussion yet :(", Toast.LENGTH_SHORT);
-                            toast.show();
-                        }
                         case Topic -> {
                             userInterfaceManager.setCurrentlyDisplayedCategory(QuestionSet.stringToCategory(clickedResult));
                             NavHostFragment.findNavController(HomeFragment.this).navigate(R.id.action_HomeFragment_to_categoryFragment);
