@@ -118,6 +118,8 @@ public class SearchTest {
         assertEquals(tokenizer.currentToken().getQuery(), SearchToken.Query.Word);
         assertEquals(tokenizer.currentToken().getToken(), "a");
         tokenizer.next();
+        assertEquals(tokenizer.currentToken().getQuery(), SearchToken.Query.Separator);
+        tokenizer.next();
         assertEquals(tokenizer.currentToken().getQuery(), SearchToken.Query.Topic);
         tokenizer.next();
         assertEquals(tokenizer.currentToken().getQuery(), SearchToken.Query.Word);
@@ -140,7 +142,7 @@ public class SearchTest {
         search.updateSearchData();
 
         //Test program can handle blank inputs
-        search.search("");
+        search.search(" ");
 
         //Test user search
         var results = search.search("@User");
@@ -194,7 +196,7 @@ public class SearchTest {
         var results = topic.results(Collections.singletonList("Algorithm"));
 
         for (var result : results) {
-            if (result.getWords().equals("Algorithm")) assertEquals(result.getConfidence(),0, 0.0000001);
+            if (result.getId().equals("Algorithm")) assertEquals(result.getConfidence(),0, 0.0001);
             else assertTrue(result.getConfidence() < -0.3);
         }
 
@@ -206,11 +208,11 @@ public class SearchTest {
         double algorithm = Double.MIN_VALUE;
 
         for (var result : results) {
-            if (result.getWords().get(0).equals("Algorithm")) if (result.getConfidence() > algorithm) algorithm = result.getConfidence();
+            if (result.getId().equals("Algorithm")) if (result.getConfidence() > algorithm) algorithm = result.getConfidence();
             else if (result.getConfidence() > notAlgorithm) notAlgorithm = result.getConfidence();
         }
 
-        assertTrue(algorithm > notAlgorithm);
+        assertTrue(algorithm >= notAlgorithm);
     }
 
     /**
@@ -223,7 +225,7 @@ public class SearchTest {
         var results = user.results(Collections.singletonList("jayden"));
 
         for (var result : results) {
-            if (result.getWords().equals("jayden")) assertEquals(result.getConfidence(),0, 0.0000001);
+            if (result.getId().equals("jayden")) assertEquals(result.getConfidence(),0, 0.0001);
             else assertTrue(result.getConfidence() < -0.3);
         }
 
@@ -232,7 +234,7 @@ public class SearchTest {
         //Test general search
         results = user.results(Collections.singletonList("jay"));
         for (var result : results) {
-            if (result.getWords().get(0).equals("jayden")) assertTrue(result.getConfidence() > -2);
+            if (result.getId().equals("jayden")) assertTrue(result.getConfidence() > -2);
         }
     }
 

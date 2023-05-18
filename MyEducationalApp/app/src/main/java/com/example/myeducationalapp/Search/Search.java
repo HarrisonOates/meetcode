@@ -1,6 +1,7 @@
 package com.example.myeducationalapp.Search;
 
 import com.example.myeducationalapp.Question.QuestionSet;
+import com.example.myeducationalapp.Search.SearchParsing.Exp;
 import com.example.myeducationalapp.Search.SearchParsing.QueryExp;
 import com.example.myeducationalapp.Search.SearchParsing.SearchParser;
 import com.example.myeducationalapp.Search.SearchParsing.SearchToken;
@@ -91,7 +92,7 @@ public class Search {
         List<String> words = Arrays.asList(searchInput.split(" "));
 
         var parsedSearch = searchParser.parseSearch(searchInput);
-        var expressions = parsedSearch.expressions();
+        var expressions = parsedSearch==null?new ArrayList<Exp>() : parsedSearch.expressions();
 
 
         for (var exp : expressions) {
