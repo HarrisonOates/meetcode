@@ -3,8 +3,6 @@ package com.example.myeducationalapp;
 import android.content.Context;
 import android.graphics.BlendMode;
 import android.graphics.BlendModeColorFilter;
-import android.graphics.Color;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -26,7 +24,6 @@ import android.widget.Toast;
 
 import com.example.myeducationalapp.Firebase.Firebase;
 import com.example.myeducationalapp.Localization.DynamicLocalization;
-import com.example.myeducationalapp.Localization.LanguageSetting;
 import com.example.myeducationalapp.Search.Search;
 import com.example.myeducationalapp.Search.SearchParsing.SearchToken;
 import com.example.myeducationalapp.userInterface.Generatable.GeneratedUserInterfaceViewModel;
@@ -113,8 +110,6 @@ public class HomeFragment extends Fragment {
                 genUserInterfaceManager.addToListOfElements(new HomeCategoryCard(category));
             }
         }
-
-
     }
 
     @Override
@@ -219,7 +214,7 @@ public class HomeFragment extends Fragment {
 
     private void initializeSearch() {
         if (isFirstSearch) {
-            Toast toast = Toast.makeText(getContext(), "The first search will take a little longer", Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(getContext(), "The first search might take a little longer", Toast.LENGTH_SHORT);
             toast.show();
             isFirstSearch = false;
         }

@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.myeducationalapp.Localization.DynamicLocalization;
-import com.example.myeducationalapp.Localization.LanguageSetting;
+import com.example.myeducationalapp.Localization.LanguageFragment;
 import com.example.myeducationalapp.databinding.FragmentAccountBinding;
 import com.example.myeducationalapp.userInterface.UserInterfaceManagerViewModel;
 
@@ -92,8 +92,7 @@ public class AccountFragment extends Fragment {
         });
 
         binding.accountMenuLanguageMenuConstraintLayout.setOnClickListener(view1 -> {
-            Intent languageIntent = new Intent(getContext(), LanguageSetting.class);
-            startActivity(languageIntent);
+            NavHostFragment.findNavController(AccountFragment.this).navigate(R.id.action_accountFragment_to_languageFragment);
         });
 
         //category_question_car_heading_text
