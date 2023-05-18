@@ -240,8 +240,10 @@ public class QuestionFragment extends Fragment {
                         parent.setOnClickListener(view -> {
 
                             int numberOfQuestionAttemptsAnon = UserLocalData.getInstance().getNumberOfFailedAttempts(currentQuestion.getQuestionID());
+                            boolean hasQuestionBeenAnsweredCorrectlyAnon = UserLocalData.getInstance().hasQuestionBeenAnsweredCorrectly(currentQuestion.getQuestionID());
 
-                            if (numberOfQuestionAttemptsAnon >= 2) {
+                            if (numberOfQuestionAttemptsAnon >= 2 ||
+                                    (hasQuestionBeenAnsweredCorrectlyAnon)) {
                                 return;
                             }
 
@@ -419,6 +421,11 @@ public class QuestionFragment extends Fragment {
 
                 // For when user submits their first answer
                 binding.questionAnswerSubmitOuterButtonConstraintLayout.setOnClickListener(view1 -> {
+
+                    boolean isUserAnswerCorrect = currentQuestion.isAnswerCorrect(binding.
+                            questionAnswerEntryText1stFake.getText().toString().trim());
+
+
 
                 });
             }
