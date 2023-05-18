@@ -4,7 +4,6 @@ import android.widget.TextView;
 
 import androidx.navigation.NavController;
 
-import com.example.myeducationalapp.R;
 import com.example.myeducationalapp.userInterface.UserInterfaceManagerViewModel;
 import com.google.mlkit.common.model.DownloadConditions;
 import com.google.mlkit.nl.translate.Translation;
@@ -13,7 +12,7 @@ import com.google.mlkit.nl.translate.TranslatorOptions;
 
 import java.util.Objects;
 
-public class DynamicLocalization extends LanguageSetting {
+public class DynamicLocalization extends LanguageFragment {
     public static void translateText(String textToTranslate, final TextView textView) {
         // Since the given textToTranslate when it first gets called will always be in English,
         // Its source language should be English if the previous and current language are the same.

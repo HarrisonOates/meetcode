@@ -93,21 +93,11 @@ public class MainActivity extends AppCompatActivity {
 
             DynamicLocalization.navigateTranslatedToolBar(userInterfaceManager, navController, "Messages", R.id.messagesFragment);
 
-//            if (!Objects.equals(userInterfaceManager.getUiState().getValue().getToolbarTitle().getValue(), "Messages")) {
-//                //userInterfaceManager.getUiState().getValue().setIsActionBarInBackState(true);
-//                navController.navigate(R.id.messagesFragment);
-//            }
-
         });
 
         navMenuHamburgerIcon.setOnClickListener(view -> {
 
             DynamicLocalization.navigateTranslatedToolBar(userInterfaceManager, navController, "Menu", R.id.accountFragment);
-
-//            if (!Objects.equals(userInterfaceManager.getUiState().getValue().getToolbarTitle().getValue(), "Menu")) {
-//                //userInterfaceManager.getUiState().getValue().setIsActionBarInBackState(true);
-//                navController.navigate(R.id.accountFragment);
-//            }
 
         });
 
