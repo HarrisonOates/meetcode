@@ -1,7 +1,4 @@
-package com.example.myeducationalapp;
-
-import static android.content.Context.LAYOUT_INFLATER_SERVICE;
-import static androidx.core.content.ContextCompat.getSystemService;
+package com.example.myeducationalapp.Fragments;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -13,13 +10,11 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,8 +27,13 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.example.myeducationalapp.DirectMessageThread;
 import com.example.myeducationalapp.Firebase.Firebase;
 import com.example.myeducationalapp.Localization.DynamicLocalization;
+import com.example.myeducationalapp.Message;
+import com.example.myeducationalapp.R;
+import com.example.myeducationalapp.UserLocalData;
+import com.example.myeducationalapp.UserLogin;
 import com.example.myeducationalapp.databinding.FragmentMessagesBinding;
 import com.example.myeducationalapp.userInterface.Generatable.MessageListCard;
 import com.example.myeducationalapp.userInterface.UserDirectMessages;

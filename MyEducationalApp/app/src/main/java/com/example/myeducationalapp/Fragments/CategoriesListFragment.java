@@ -1,25 +1,16 @@
-package com.example.myeducationalapp;
+package com.example.myeducationalapp.Fragments;
 
 import android.content.Context;
 import android.graphics.BlendMode;
 import android.graphics.BlendModeColorFilter;
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
-import androidx.compose.foundation.gestures.Orientation;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.ConstraintSet;
-import androidx.constraintlayout.widget.Guideline;
-import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 
-import android.text.TextUtils;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -30,8 +21,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.myeducationalapp.Localization.DynamicLocalization;
+import com.example.myeducationalapp.QuestionSet;
+import com.example.myeducationalapp.R;
 import com.example.myeducationalapp.databinding.FragmentCategoriesListBinding;
-import com.example.myeducationalapp.databinding.FragmentQuestionBinding;
 import com.example.myeducationalapp.userInterface.Generatable.CategoryListCard;
 import com.example.myeducationalapp.userInterface.UserInterfaceManagerViewModel;
 

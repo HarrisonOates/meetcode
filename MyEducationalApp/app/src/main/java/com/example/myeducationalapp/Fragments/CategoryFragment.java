@@ -1,4 +1,4 @@
-package com.example.myeducationalapp;
+package com.example.myeducationalapp.Fragments;
 
 import android.content.Context;
 import android.graphics.BlendMode;
@@ -21,9 +21,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.myeducationalapp.Localization.DynamicLocalization;
+import com.example.myeducationalapp.QuestionSet;
+import com.example.myeducationalapp.R;
+import com.example.myeducationalapp.UserLocalData;
 import com.example.myeducationalapp.databinding.FragmentCategoryBinding;
 import com.example.myeducationalapp.userInterface.Generatable.CategoryListCard;
-import com.example.myeducationalapp.userInterface.Generatable.HomeCategoryCard;
 import com.example.myeducationalapp.userInterface.UserInterfaceManagerViewModel;
 
 /**

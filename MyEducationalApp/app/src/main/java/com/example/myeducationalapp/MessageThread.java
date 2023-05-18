@@ -16,7 +16,7 @@ public abstract class MessageThread extends Asynchronous {
     // IMPORTANT: this class needs to have the most up-to-date version of the backend data at all
     //            times, as having stale data could lead to messages being lost.
 
-    protected List<Message> messages = new ArrayList<>();
+    public List<Message> messages = new ArrayList<>();
     protected int threadID;
 
     public int getThreadID() {

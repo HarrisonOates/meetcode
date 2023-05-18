@@ -80,7 +80,7 @@ public class UserLocalData {
 
     private int points = 0;
 
-    int getPoints() {
+    public int getPoints() {
         return points;
     }
 
@@ -186,7 +186,7 @@ public class UserLocalData {
         saveToDisk();
     }
 
-    List<String> getIncorrectAnswers(String questionID) {
+    public List<String> getIncorrectAnswers(String questionID) {
         if (yourAnswers.containsKey(questionID)) {
             return yourAnswers.get(questionID);
         } else {
@@ -209,15 +209,15 @@ public class UserLocalData {
     }
 
 
-    int getNumberOfFailedAttempts(String questionID) {
+    public int getNumberOfFailedAttempts(String questionID) {
         return getIncorrectAnswers(questionID).size();
     }
 
-    boolean hasQuestionBeenAnsweredCorrectly(String questionID) {
+    public boolean hasQuestionBeenAnsweredCorrectly(String questionID) {
         return successfullyAnsweredQuestions.search(questionID) != null;
     }
 
-    void submitCorrectAnswer(String questionID) {
+    public void submitCorrectAnswer(String questionID) {
         if (!hasQuestionBeenAnsweredCorrectly(questionID)) {
             successfullyAnsweredQuestions.insert(questionID);
 
@@ -233,7 +233,7 @@ public class UserLocalData {
         saveToDisk();
     }
 
-    void submitIncorrectAnswer(String questionID, String answer) {
+    public void submitIncorrectAnswer(String questionID, String answer) {
         List<String> answers;
 
         if (yourAnswers.containsKey(questionID)) {
@@ -248,7 +248,7 @@ public class UserLocalData {
         saveToDisk();
     }
 
-    void toggleBlockUser(String username) {
+    public void toggleBlockUser(String username) {
         if (isUserBlocked(username)) {
             blockedUserList.delete(username);
         } else {
@@ -258,11 +258,11 @@ public class UserLocalData {
         saveToDisk();
     }
 
-    boolean isUserBlocked(String username) {
+    public boolean isUserBlocked(String username) {
         return blockedUserList.search(username) != null;
     }
 
-    boolean isMessageLiked(int threadID, int messageID) {
+    public boolean isMessageLiked(int threadID, int messageID) {
         ComparablePair<Integer> pair = new ComparablePair<>(threadID, messageID);
         return likedMessages.search(pair) != null;
     }

@@ -1,6 +1,5 @@
-package com.example.myeducationalapp;
+package com.example.myeducationalapp.Fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -13,7 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.myeducationalapp.Localization.DynamicLocalization;
-import com.example.myeducationalapp.Localization.LanguageFragment;
+import com.example.myeducationalapp.QuestionSet;
+import com.example.myeducationalapp.R;
+import com.example.myeducationalapp.UserLocalData;
+import com.example.myeducationalapp.UserLogin;
 import com.example.myeducationalapp.databinding.FragmentAccountBinding;
 import com.example.myeducationalapp.userInterface.UserInterfaceManagerViewModel;
 

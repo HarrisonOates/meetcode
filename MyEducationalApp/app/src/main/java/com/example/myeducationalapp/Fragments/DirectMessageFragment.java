@@ -1,4 +1,4 @@
-package com.example.myeducationalapp;
+package com.example.myeducationalapp.Fragments;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -25,15 +25,21 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.myeducationalapp.DirectMessageThread;
 import com.example.myeducationalapp.Firebase.Firebase;
 import com.example.myeducationalapp.Firebase.FirebaseObserver;
+import com.example.myeducationalapp.Message;
+import com.example.myeducationalapp.MessageBubbleOrientation;
+import com.example.myeducationalapp.Person;
+import com.example.myeducationalapp.R;
 import com.example.myeducationalapp.SyntaxHighlighting.DetectCodeBlock;
+import com.example.myeducationalapp.UserLocalData;
+import com.example.myeducationalapp.UserLogin;
 import com.example.myeducationalapp.databinding.FragmentDirectMessageBinding;
 import com.example.myeducationalapp.userInterface.Generatable.MessageListCard;
 import com.example.myeducationalapp.userInterface.UserDirectMessages;
 import com.example.myeducationalapp.userInterface.UserInterfaceManagerViewModel;
 
-import java.nio.file.AccessDeniedException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
