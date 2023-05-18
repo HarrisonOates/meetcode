@@ -8,16 +8,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
+ * Used to store the current user's liked messages, blocked user list and the successfully answered questions in UserLocalData
+ * and also who has liked the message in Message.java.
  * @author u7469758 Geun Yun
  */
-
-// The AVLTree data structure will be implemented for each of these data sets:
-// - Past questions' ID
-// - Liked message ID
-// ...
 public class AVLTree<T extends Comparable<T>> {
-    // Keep a track of how many past questions have been deleted (e.g. wrong questions have been posted so need to be removed?)
-    // delete() will be the last one to implement if we have time
     public int deletedNo = 0;
     public Node<T> root;
     public AVLTree() {this.root = null;}
@@ -451,8 +446,8 @@ public class AVLTree<T extends Comparable<T>> {
 
     public static class Node<E extends Comparable<E>> {
 
-        E value; // Node value - hash value of past questions?
-        Node<E> parent, left, right; // this parent, this left and right nodes
+        E value;
+        Node<E> parent, left, right;
 
         public Node(E value) {
             this.value = value;
