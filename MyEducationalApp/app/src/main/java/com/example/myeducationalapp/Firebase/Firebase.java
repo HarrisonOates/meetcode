@@ -47,8 +47,6 @@ public class Firebase {
         return instance;
     }
 
-
-
     /**
      * All observers in this array will have their .notify() method called whenever
      * any data has been modified on the Firebase backend.
@@ -69,24 +67,6 @@ public class Firebase {
      */
     private Firebase() {
         database = FirebaseDatabase.getInstance("https://comp2100groupassignment-8427a-default-rtdb.asia-southeast1.firebasedatabase.app").getReference();
-
-        ValueEventListener postListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                /*
-                 * We're not planning to cancel requests (that is known of), so we would not
-                 * expect it to be anything but an error if this happened.
-                 */
-                Log.e("FirebaseInterface", "Firebase: onCancelled error");
-            }
-        };
-
-        database.addListenerForSingleValueEvent(postListener);
     }
 
     /**
@@ -99,6 +79,15 @@ public class Firebase {
         observers.add(observer);
     }
 
+    /**
+     * Registers an observer for a given direct message thread between two users. Whenever anyone
+     * reads or writes to this direct message thread (including sending, reading and liking), the
+     * update() function of the observer will be called.
+     *
+     * @param observer The class whose update() method will be called when a change or read occurs
+     * @param username1 One of the two users in the direct message thread. Order doesn't matter.
+     * @param username2 One of the two users in the direct message thread. Order doesn't matter.
+     */
     public void attachDirectMessageObserver(FirebaseObserver observer, String username1, String username2) {
         Log.d("attachDirectMessageObserver", username1 + " <-> " + username2);
 
@@ -108,9 +97,16 @@ public class Firebase {
     /**
      * Internally used to notify all of the observers that something has changed on the backend.
      * Should only be called when this happens.
+     *
+     * @param firebasePath The Firebase filepath that has been updated.
      */
     protected void notifyObservers(List<String> firebasePath) {
         for (FirebaseObserver observer: observers) {
+            /*
+             * Only call the observer if it is actually for them, and they aren't already in the
+             * middle of an update() handler. This is critical as update() handlers may cause
+             * other notifications to be sent out, and we would get infinite recursion otherwise.
+             */
             if (observer.path.equals(firebasePath) && observer.isEnabled()) {
                 observer.disable();
                 observer.update();
@@ -124,6 +120,9 @@ public class Firebase {
      *
      * @param username1 One of the two usernames (the order doesn't matter)
      * @param username2 One of the two usernames (the order doesn't matter)
+     * @param escape Whether or not usernames with special characters should have their escaped
+     *               values used in the result. Set to false only if the usernames have already
+     *               been escaped.
      * @return A list containing the 'subdirectories' to enter on the Firebase database
      */
     List<String> getDirectMessageFilepath(String username1, String username2, boolean escape) {

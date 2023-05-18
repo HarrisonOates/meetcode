@@ -28,6 +28,12 @@ public class FirebaseRequest {
                 .replace("]", "!e");
     }
 
+    /**
+     * Given a path to an object on Firebase, return the Firebase object pointing to it.
+     * @param current The root of the database
+     * @param path The path to navigate to, with each fragment (folder) as a list entry in order
+     * @return The reference to the object in the database
+     */
     static DatabaseReference traversePath(DatabaseReference current, List<String> path) {
         for (int i = 0; i < path.size(); ++i) {
             String component = escapeUsername(path.get(i));
@@ -36,10 +42,22 @@ public class FirebaseRequest {
         return current;
     }
 
+    /**
+     * Reads a file from Firebase.
+     * @param root The root of the database
+     * @param path The path to navigate to, with each fragment (folder) as a list entry in order
+     * @return An asynchronous result, which when filled, contains the data read.
+     */
     public static FirebaseResult read(DatabaseReference root, List<String> path) {
         return new FirebaseResult(traversePath(root, path));
     }
 
+    /**
+     * Reads a file from Firebase.
+     * @param root The root of the database
+     * @param path The path to navigate to, with each fragment (folder) as a list entry in order
+     * @return An asynchronous result, which will be filled upon completion of the write.
+     */
     public static FirebaseResult write(DatabaseReference root, List<String> path, Object value) {
         return new FirebaseResult(traversePath(root, path), value);
     }

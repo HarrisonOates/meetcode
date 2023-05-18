@@ -9,10 +9,14 @@ import java.util.List;
  */
 
 public abstract class FirebaseObserver {
+    /**
+     * The implementation of update() must call enable() after the final direct message read
+     * from firebase, or upon returning, whichever is later.
+     */
     public abstract void update();
 
     /*
-     * Don't touch this - Firebase.Firebase.java will set this for you.
+     * Don't change this manually - Firebase.Firebase.java will set this for you.
      */
     List<String> path;
 
