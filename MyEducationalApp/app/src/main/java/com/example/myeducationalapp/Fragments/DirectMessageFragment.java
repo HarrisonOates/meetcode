@@ -315,7 +315,7 @@ public class DirectMessageFragment extends Fragment {
             }
         }
     }
-    
+
     private void generateAllDirectMessageBubble(Context context) {
 
         // TODO only render ~30 messages, then when user scrolls to the top of the scrollviewer
