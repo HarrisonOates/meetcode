@@ -123,18 +123,21 @@ u7146309, Jayden Skidmore: I contributed 20% of the code. Here are my contributi
 
 
 u7300256, Nikhila Gurusinghe: I contributed 20% of the code. Here are my contributions:
-* The class methods of the enum [QuestionSet.Category](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/QuestionSet.java)
-* All of [LoginActivity.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/LoginActivity.java)
-* All of [MainActivity.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/MainActivity.java)
-* All of [AccountFragment.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/AccountFragment.java)
-* All of [CategoriesListFragment.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/CategoriesListFragment.java)
-* Most of [DirectMessageFragment.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/DirectMessageFragment.java)
+* The class methods of the enum [Question/QuestionSet.Category](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Question/QuestionSet.java) as well as the getters QuestionSet.getNumberOfQuestionsInCategory() and QuestionSet.getQuestionFromID()
+* All of [LoginActivity.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/LoginActivity.java),  [MainActivity.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/MainActivity.java) apart from dynamic localisation which Geun did.
+* All of [Fragments/AccountFragment.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Fragments/AccountFragment.java),  [Fragments/CategoriesListFragment.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Fragments/CategoriesListFragment.java), and [Fragments/QuestionFragment.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Fragments/QuestionFragment.java) apart from localisation in these fragments that Geun did.
+* Most of [Fragments/MessagesFragment.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Fragments/MessagesFragment.java)
+  * Jayden implemented the UI and logic for blocking users from direct messaging the current user. 
+  * Geun did localisation
+* Most of [Fragments/DirectMessageFragment.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Fragments/DirectMessageFragment.java)
   * Alex added scrolling the LinearLayout to the bottom and suggested and implemented long clicking to like direct messages
   * The team also helped debug the code inside this Fragment as well
-* Most of [HomeFragment.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/HomeFragment.java)
+  * Geun did localisation
+* Most of [Fragments/HomeFragment.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Fragments/HomeFragment.java)
   * Geun implemented all the search bar UI and functionality
-* All of [MessagesFragment.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/MessagesFragment.java)
-* All of [QuestionFragment.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/QuestionFragment.java)
+  * Geun did localisation
+* All of [MessageBubbleOrientation.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/MessageBubbleOrientation.java), but Alex made it a public class as it was originally an inner class in Fragments/DirectMessageFragment.java
+* The method [User/UserLocalData.getNumberOfAnsweredQuestionsInCategory()](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/User/UserLocalData.java)
 * All of [userInterface/UserInterfaceManager.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/userInterface/UserInterfaceManager.java)
 * All of [userInterface/UserDirectMessages.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/userInterface/UserDirectMessages.java)
 * All of [userInterface/UserInterfaceManagerViewModel.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/userInterface/UserInterfaceManagerViewModel.java)
@@ -147,12 +150,22 @@ u7300256, Nikhila Gurusinghe: I contributed 20% of the code. Here are my contrib
 * All of [font](./../MyEducationalApp/app/src/main/res/font), [navigation](./../MyEducationalApp/app/src/main/res/navigation), [values](./../MyEducationalApp/app/src/main/res/values) and [anim](./../MyEducationalApp/app/src/main/res/anim) resource folders
 * Most of [layout](./../MyEducationalApp/app/src/main/res/layout) resource folder (aside from localisation and search UI implementation which was done by Geun)
 * What design patterns, data structures, did the involved member propose?
-  * I used a Singleton in [userInterface/UserDirectMessages.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/userInterface/UserDirectMessages.java) and an Iterator (implemented in [userInterface/Generatable/IterableCollection](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/userInterface/Generatable/IterableCollection.java) and [userInterface/Generatable/Iterator](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/userInterface/Generatable/Iterator.java)) to support the data structure in  [userInterface/Generatable/GeneratedUserInterfaceViewModel.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/userInterface/Generatable/GeneratedUserInterfaceViewModel.java.java) which was used for persisting user interface elements
-* Specify what design did the involved member propose? What tools were used for the design?
+  * I designed and implemented a Singleton in [userInterface/UserDirectMessages.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/userInterface/UserDirectMessages.java) to utilise in the Observer that Alex created to fix an issue regarding the observer being lifecycle unaware.
+  * Also I proposed and implemented an Iterator (implemented in [userInterface/Generatable/IterableCollection](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/userInterface/Generatable/IterableCollection.java) and [userInterface/Generatable/Iterator](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/userInterface/Generatable/Iterator.java)) to support the data structure in  [userInterface/Generatable/GeneratedUserInterfaceViewModel.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/userInterface/Generatable/GeneratedUserInterfaceViewModel.java.java) which was used for persisting user interface elements
 * Which part of the report did the involved member write?
-* Were you responsible for the slides?
+  * This section
+  * The Application Description
 * You are welcome to provide anything that you consider as a contribution to the project or team.
-  * I made the video and generated the APK for the project
+  * I designed UI wireframes and sourced icons as well as a font that would support the languages that we were aiming to localise the app to. In terms of fonts this is difficult to do as many do not support the Hangul characters.
+  * I also implemented all of the UI except for the dynamic localization, and search UI (done by Geun) as well as the blocking user UI (done by Jayden).
+    * Implemented a customized action bar implementation that supports backwards navigation within MainActivity.java
+    * Created XML layouts for 9 graphically complex Fragments and 2 Activities
+    as well as more XML layouts for generating user interface elements from code (these can be found in the res/layouts/ directory)
+    * Data is persisted across the user interface using android ViewModel's meaning that this data is lifecycle aware and is less likely to cause memory related issues. The relevant classes are userInterface/Generatable/GeneratedUserInterfaceViewModel.java and userInterface/Generatable/GeneratedUserInterfaceViewModel.java
+    * Designed and created a graphical interface for private peer-to-peer messaging, as well as updating that interface in real time when an observer triggers. The majority of this logic is located within Fragments/DirectMessageFragment.java
+    * Designed and implemented the logic and user interface to facilitate answering Questions. A question is one of two states, either multiple choice or not and each state has multiple sub-states inside (as a user only gets two attempts). This was implemented in Fragments/Question.java
+    * All persisted data through Firebase was displayed on the user interface in some way and for every user interface element (apart from search UI) I coded and implemented it to display in Android.
+    * I made the video and generated the APK for the project
 
 ## Conflict Resolution Protocol
 
@@ -166,36 +179,30 @@ The following conflict resolution protocol was decided on in our first meeting.
 
 ## Application Description
 
-*[What is your application, what does it do? Include photos or diagrams if necessary]*
-
 MeetCode: Program Together
 
 MeetCode is a disruptive new breed of app asking the question: what if a social media application was also about learning programming? 
 
 MeetCode allow users to learn programming in bite-sized chunks, via daily questions, and do so together, via direct messaging each other or commenting on questions.
 
-MeetCode supports Korean, Japanese, and Chinese learners through our app localisation which allows you to truly program together like never before.
+Alongside English, MeetCode supports Portuguese, Korean, Japanese, and Chinese learners through our app localisation which allows you to truly program together like never before.
 
 **Application Use Cases and or Examples**
 
-*[Provide use cases and examples of people using your application. Who are the target users of your application? How do the users use your application?]*
+Target Users: Those who have started learning programming in Java
 
-*Here is an educational application example*
+* Users can get a better understanding of various programming such as Algorithms and Control Flow topics by attempting the daily Java questions.
+* Users from non-English speaking backgrounds can still learn as the app supports localisation in Portuguese, Korean, Japanese, and Chinese.
+* The questions support syntax highlighting which makes it easier for beginners to become familiar with Java syntax. The colours also allow for users to understand and parse the code faster.
+* Search allows for users to quickly find questions as well as basically anything in the application including direct messages with users.
 
-*Target Users: Those who have started learning programming in java*
+Targets Users: Those who wish to discuss with other people about programming
 
-* *Users can get better understanding of various topics by attempting the daily question.*
-* *Users from non-English speaking background can still learn as the app supports localisation with multiple languages.*
-* ...
+* Users can mutually interact with each other by private direct messaging which in return will benefit them from the progressing collective intelligence.
+* Users can maintain constructive relationships with others by blocking anyone (this can be done by clicking on their profile in the fragment that lists all direct messages), who is causing any harm through the interaction.
+* Users from non-English speaking backgrounds can also message in any language.
+* Users can also send syntax highlighted code snippets in direct messages by enclosing a segment of code in triple backticks ("```") 
 
-*Targets Users: Those who wish to discuss about programming*
-
-* *Users can mutually interact with each other by direct messaging and comments which in return will benefit them from the progressing collective intelligence.*
-* *Users can maintain constructive relationships with others by blocking anyone, who is causing any harm through the interaction.*
-* ...
-
-
-*List all the use cases in text descriptions or create use case diagrams. Please refer to https://www.visual-paradigm.com/guide/uml-unified-modeling-language/what-is-use-case-diagram/ for use case diagram.*
 
 ## Application UML
 The below UML diagram was created before any programming was done and was used as a basis for the Firebase and messaging design. At this point, the design of the search and syntax highlighting was not done, so they are not included. The UI is similarly not included.
