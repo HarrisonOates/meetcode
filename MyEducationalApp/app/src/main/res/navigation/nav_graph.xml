@@ -9,101 +9,197 @@
         android:id="@+id/HomeFragment"
         android:name="com.example.myeducationalapp.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home"
+        app:enterAnim="@anim/enter_right_to_left"
+        app:exitAnim="@anim/exit_right_to_left"
+        app:popEnterAnim="@anim/enter_left_to_right"
+        app:popExitAnim="@anim/exit_left_to_right">
         <action
             android:id="@+id/action_HomeFragment_to_categoryFragment"
-            app:destination="@id/categoryFragment" />
+            app:destination="@id/categoryFragment"
+            app:enterAnim="@anim/enter_right_to_left"
+            app:exitAnim="@anim/exit_right_to_left"
+            app:popEnterAnim="@anim/enter_left_to_right"
+            app:popExitAnim="@anim/exit_left_to_right"/>
         <action
             android:id="@+id/action_HomeFragment_to_categoriesListFragment"
             app:destination="@id/categoriesListFragment"
-            app:enterAnim="@anim/slide_in"
-            app:exitAnim="@anim/fade_out"
-            app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/slide_out" />
+            app:enterAnim="@anim/enter_right_to_left"
+            app:exitAnim="@anim/exit_right_to_left"
+            app:popEnterAnim="@anim/enter_left_to_right"
+            app:popExitAnim="@anim/exit_left_to_right" />
         <action
             android:id="@+id/action_HomeFragment_to_questionFragment"
-            app:destination="@id/questionFragment" />
+            app:destination="@id/questionFragment"
+            app:enterAnim="@anim/enter_right_to_left"
+            app:exitAnim="@anim/exit_right_to_left"
+            app:popEnterAnim="@anim/enter_left_to_right"
+            app:popExitAnim="@anim/exit_left_to_right"/>
         <action
             android:id="@+id/action_HomeFragment_to_directMessageFragment"
-            app:destination="@id/directMessageFragment" />
+            app:destination="@id/directMessageFragment"
+            app:enterAnim="@anim/enter_right_to_left"
+            app:exitAnim="@anim/exit_right_to_left"
+            app:popEnterAnim="@anim/enter_left_to_right"
+            app:popExitAnim="@anim/exit_left_to_right"/>
     </fragment>
     <fragment
         android:id="@+id/categoryFragment"
         android:name="com.example.myeducationalapp.CategoryFragment"
         android:label="fragment_category"
-        tools:layout="@layout/fragment_category" >
+        tools:layout="@layout/fragment_category"
+        app:enterAnim="@anim/enter_right_to_left"
+        app:exitAnim="@anim/exit_right_to_left"
+        app:popEnterAnim="@anim/enter_left_to_right"
+        app:popExitAnim="@anim/exit_left_to_right">
         <action
             android:id="@+id/action_categoryFragment_to_questionFragment"
-            app:destination="@id/questionFragment" />
+            app:destination="@id/questionFragment"
+            app:enterAnim="@anim/enter_right_to_left"
+            app:exitAnim="@anim/exit_right_to_left"
+            app:popEnterAnim="@anim/enter_left_to_right"
+            app:popExitAnim="@anim/exit_left_to_right"/>
         <action
             android:id="@+id/action_categoryFragment_to_categoriesListFragment"
-            app:destination="@id/categoriesListFragment" />
+            app:destination="@id/categoriesListFragment"
+            app:enterAnim="@anim/enter_right_to_left"
+            app:exitAnim="@anim/exit_right_to_left"
+            app:popEnterAnim="@anim/enter_left_to_right"
+            app:popExitAnim="@anim/exit_left_to_right"/>
         <action
             android:id="@+id/action_categoryFragment_to_HomeFragment"
-            app:destination="@id/HomeFragment" />
+            app:destination="@id/HomeFragment"
+            app:enterAnim="@anim/enter_right_to_left"
+            app:exitAnim="@anim/exit_right_to_left"
+            app:popEnterAnim="@anim/enter_left_to_right"
+            app:popExitAnim="@anim/exit_left_to_right"/>
     </fragment>
     <fragment
         android:id="@+id/messagesFragment"
         android:name="com.example.myeducationalapp.MessagesFragment"
         android:label="fragment_messages"
-        tools:layout="@layout/fragment_messages" >
+        tools:layout="@layout/fragment_messages"
+        app:enterAnim="@anim/enter_right_to_left"
+        app:exitAnim="@anim/exit_right_to_left"
+        app:popEnterAnim="@anim/enter_left_to_right"
+        app:popExitAnim="@anim/exit_left_to_right">
         <action
             android:id="@+id/action_messagesFragment_to_directMessageFragment"
-            app:destination="@id/directMessageFragment" />
+            app:destination="@id/directMessageFragment"
+            app:enterAnim="@anim/enter_right_to_left"
+            app:exitAnim="@anim/exit_right_to_left"
+            app:popEnterAnim="@anim/enter_left_to_right"
+            app:popExitAnim="@anim/exit_left_to_right"/>
     </fragment>
     <fragment
         android:id="@+id/directMessageFragment"
         android:name="com.example.myeducationalapp.DirectMessageFragment"
         android:label="fragment_direct_message"
-        tools:layout="@layout/fragment_direct_message" >
+        tools:layout="@layout/fragment_direct_message"
+        app:enterAnim="@anim/enter_right_to_left"
+        app:exitAnim="@anim/exit_right_to_left"
+        app:popEnterAnim="@anim/enter_left_to_right"
+        app:popExitAnim="@anim/exit_left_to_right">
         <action
             android:id="@+id/action_directMessageFragment_to_messagesFragment"
-            app:destination="@id/messagesFragment" />
+            app:destination="@id/messagesFragment"
+            app:enterAnim="@anim/enter_right_to_left"
+            app:exitAnim="@anim/exit_right_to_left"
+            app:popEnterAnim="@anim/enter_left_to_right"
+            app:popExitAnim="@anim/exit_left_to_right" />
     </fragment>
     <fragment
         android:id="@+id/categoriesListFragment"
         android:name="com.example.myeducationalapp.CategoriesListFragment"
         android:label="fragment_categories_list"
-        tools:layout="@layout/fragment_categories_list" >
+        tools:layout="@layout/fragment_categories_list"
+        app:enterAnim="@anim/enter_right_to_left"
+        app:exitAnim="@anim/exit_right_to_left"
+        app:popEnterAnim="@anim/enter_left_to_right"
+        app:popExitAnim="@anim/exit_left_to_right">
         <action
             android:id="@+id/action_categoriesListFragment_to_categoryFragment"
-            app:destination="@id/categoryFragment" />
+            app:destination="@id/categoryFragment"
+            app:enterAnim="@anim/enter_right_to_left"
+            app:exitAnim="@anim/exit_right_to_left"
+            app:popEnterAnim="@anim/enter_left_to_right"
+            app:popExitAnim="@anim/exit_left_to_right"/>
         <action
             android:id="@+id/action_categoriesListFragment_to_accountFragment"
-            app:destination="@id/accountFragment" />
+            app:destination="@id/accountFragment"
+            app:enterAnim="@anim/enter_right_to_left"
+            app:exitAnim="@anim/exit_right_to_left"
+            app:popEnterAnim="@anim/enter_left_to_right"
+            app:popExitAnim="@anim/exit_left_to_right"/>
         <action
             android:id="@+id/action_categoriesListFragment_to_HomeFragment"
-            app:destination="@id/HomeFragment" />
+            app:destination="@id/HomeFragment"
+            app:enterAnim="@anim/enter_right_to_left"
+            app:exitAnim="@anim/exit_right_to_left"
+            app:popEnterAnim="@anim/enter_left_to_right"
+            app:popExitAnim="@anim/exit_left_to_right"/>
     </fragment>
     <fragment
         android:id="@+id/questionFragment"
         android:name="com.example.myeducationalapp.QuestionFragment"
         android:label="fragment_question"
-        tools:layout="@layout/fragment_question" >
+        tools:layout="@layout/fragment_question"
+        app:enterAnim="@anim/enter_right_to_left"
+        app:exitAnim="@anim/exit_right_to_left"
+        app:popEnterAnim="@anim/enter_left_to_right"
+        app:popExitAnim="@anim/exit_left_to_right">
         <action
             android:id="@+id/action_questionFragment_to_categoryFragment"
-            app:destination="@id/categoryFragment" />
+            app:destination="@id/categoryFragment"
+            app:enterAnim="@anim/enter_right_to_left"
+            app:exitAnim="@anim/exit_right_to_left"
+            app:popEnterAnim="@anim/enter_left_to_right"
+            app:popExitAnim="@anim/exit_left_to_right"/>
         <action
             android:id="@+id/action_questionFragment_to_HomeFragment"
-            app:destination="@id/HomeFragment" />
+            app:destination="@id/HomeFragment"
+            app:enterAnim="@anim/enter_right_to_left"
+            app:exitAnim="@anim/exit_right_to_left"
+            app:popEnterAnim="@anim/enter_left_to_right"
+            app:popExitAnim="@anim/exit_left_to_right"/>
     </fragment>
     <fragment
         android:id="@+id/accountFragment"
         android:name="com.example.myeducationalapp.AccountFragment"
         android:label="fragment_account"
-        tools:layout="@layout/fragment_account" >
+        tools:layout="@layout/fragment_account"
+        app:enterAnim="@anim/enter_right_to_left"
+        app:exitAnim="@anim/exit_right_to_left"
+        app:popEnterAnim="@anim/enter_left_to_right"
+        app:popExitAnim="@anim/exit_left_to_right">
         <action
             android:id="@+id/action_accountFragment_to_categoriesListFragment"
-            app:destination="@id/categoriesListFragment" />
+            app:destination="@id/categoriesListFragment"
+            app:enterAnim="@anim/enter_right_to_left"
+            app:exitAnim="@anim/exit_right_to_left"
+            app:popEnterAnim="@anim/enter_left_to_right"
+            app:popExitAnim="@anim/exit_left_to_right"/>
         <action
             android:id="@+id/action_accountFragment_to_questionFragment"
-            app:destination="@id/questionFragment" />
+            app:destination="@id/questionFragment"
+            app:enterAnim="@anim/enter_right_to_left"
+            app:exitAnim="@anim/exit_right_to_left"
+            app:popEnterAnim="@anim/enter_left_to_right"
+            app:popExitAnim="@anim/exit_left_to_right"/>
         <action
             android:id="@+id/action_accountFragment_to_loginActivity"
-            app:destination="@id/loginActivity" />
+            app:destination="@id/loginActivity"
+            app:enterAnim="@anim/enter_right_to_left"
+            app:exitAnim="@anim/exit_right_to_left"
+            app:popEnterAnim="@anim/enter_left_to_right"
+            app:popExitAnim="@anim/exit_left_to_right"/>
         <action
             android:id="@+id/action_accountFragment_to_languageFragment"
-            app:destination="@id/languageFragment" />
+            app:destination="@id/languageFragment"
+            app:enterAnim="@anim/enter_right_to_left"
+            app:exitAnim="@anim/exit_right_to_left"
+            app:popEnterAnim="@anim/enter_left_to_right"
+            app:popExitAnim="@anim/exit_left_to_right"/>
     </fragment>
     <activity
         android:id="@+id/loginActivity"
@@ -113,9 +209,17 @@
     <fragment
         android:id="@+id/languageFragment"
         android:name="com.example.myeducationalapp.Localization.LanguageFragment"
-        android:label="LanguageFragment" >
+        android:label="LanguageFragment"
+        app:enterAnim="@anim/enter_right_to_left"
+        app:exitAnim="@anim/exit_right_to_left"
+        app:popEnterAnim="@anim/enter_left_to_right"
+        app:popExitAnim="@anim/exit_left_to_right">
         <action
             android:id="@+id/action_languageFragment_to_HomeFragment"
-            app:destination="@id/HomeFragment" />
+            app:destination="@id/HomeFragment"
+            app:enterAnim="@anim/enter_right_to_left"
+            app:exitAnim="@anim/exit_right_to_left"
+            app:popEnterAnim="@anim/enter_left_to_right"
+            app:popExitAnim="@anim/exit_left_to_right"/>
     </fragment>
 </navigation>
