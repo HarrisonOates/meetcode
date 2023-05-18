@@ -112,9 +112,7 @@ public class Search {
             }
         }
 
-
         ArrayList<SearchResult> searchResults = new ArrayList<>();
-
 
         for (var exp : expressions) {
             if (exp instanceof QueryExp) {
