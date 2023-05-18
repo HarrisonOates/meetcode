@@ -1,4 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="language_setting">语言设置</string>
+    <string name="enter_your_username">输入你的用户名</string>
+    <string name="username">用户名</string>
+    <string name="enter_your_password">输入您的密码</string>
+    <string name="password">密码</string>
+    <string name="log_in">登录 ➜</string>
+    <string name="you_ve_achieved_x_stars">您已获得 %1$d 星</string>
+    <string name="categories">类型</string>
+    <string name="daily_challenge">每日任务</string>
+    <string name="logout">登出</string>
+    <string name="earn_x_stars">获得 %1$d 星</string>
+    <string name="completed">完成!</string>
+    <string name="earn_1_star">获得 1 星</string>
+    <string name="question">问题</string>
+    <string name="topic">主题</string>
+    <string name="user">用户</string>
+    <string name="post">朋友圈</string>
+    <string name="all">全部</string>
+    <string name="basic_algorithms">基本算法</string>
+    <string name="language_test">语言设定</string>
+    <string name="message">发消息...</string>
+    <string name="hide">隐藏</string>
+    <string name="see_more">查看更多</string>
+    <string name="search">搜索</string>
+    <string name="message_someone">发消息...</string>
+    <string name="enter_your_answer">输入你的答案...</string>
+    <string name="your_second_attempt">你的第二次尝试</string>
+    <string name="you_got_it_correct_great_job">你答对了, 干得好！</string>
+    <string name="oh_no_better_luck_next_time">哦不, 祝你下次好运.</string>
+    <string name="submit">提交</string>
+    <string name="your_first_attempt">你的第一次尝试</string>
 </resources>

@@ -44,4 +44,5 @@
     <string name="you_got_it_correct_great_job">You got it correct, great job!</string>
     <string name="oh_no_better_luck_next_time">Oh no, better luck next time.</string>
     <string name="submit">Submit</string>
+    <string name="your_first_attempt">Your First Attempt</string>
 </resources>

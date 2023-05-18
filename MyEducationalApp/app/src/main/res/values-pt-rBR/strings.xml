@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="language_setting">Configurações de linguagem</string>
     <string name="enter_your_username">Digitar seu nome de usuário</string>
     <string name="username">Nome de usuário</string>
     <string name="enter_your_password">Digitar sua senha</string>
@@ -29,4 +30,5 @@
     <string name="you_got_it_correct_great_job">Você acertou, ótimo trabalho!</string>
     <string name="oh_no_better_luck_next_time">Oh não, melhor sorte da próxima vez.</string>
     <string name="submit">Enviar</string>
+    <string name="your_first_attempt">Primeira tentativa</string>
 </resources>

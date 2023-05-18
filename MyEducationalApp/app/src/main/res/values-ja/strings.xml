@@ -30,4 +30,5 @@
     <string name="you_got_it_correct_great_job">正解です。良くできました</string>
     <string name="oh_no_better_luck_next_time">残念。再挑戦を待ってます。</string>
     <string name="submit">送る</string>
+    <string name="your_first_attempt">最初の試み</string>
 </resources>

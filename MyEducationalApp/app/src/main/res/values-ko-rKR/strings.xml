@@ -30,4 +30,5 @@
     <string name="you_got_it_correct_great_job">정답이에요, 축하해요!</string>
     <string name="oh_no_better_luck_next_time">앗, 나중에 다시 도전해보세요.</string>
     <string name="submit">제출하기</string>
+    <string name="your_first_attempt">첫 번째 시도</string>
 </resources>
