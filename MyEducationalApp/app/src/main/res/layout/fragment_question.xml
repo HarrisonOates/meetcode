@@ -183,7 +183,7 @@
             android:layout_gravity="center|top"
             android:layout_marginTop="25dp"
             android:background="@drawable/home_category_carousel_container"
-            tools:visibility="visible">
+            tools:visibility="gone">
 
             <TextView
                 android:id="@+id/question_multi_question_text"
@@ -651,7 +651,7 @@
             android:layout_gravity="center|top"
             android:layout_marginTop="25dp"
             android:background="@drawable/home_category_carousel_container"
-            tools:visibility="gone">
+            tools:visibility="visible">
 
             <TextView
                 android:id="@+id/question_answer_entry_1st_question_text"

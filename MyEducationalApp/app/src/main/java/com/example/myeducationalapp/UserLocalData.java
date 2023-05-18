@@ -65,6 +65,10 @@ public class UserLocalData {
 
     AVLTree<ComparablePair<Integer>> likedMessages = new AVLTree<>();
 
+    public List<String> getYourAnswers(String questionID) {
+        return yourAnswers.get(questionID);
+    }
+
     /*
      * Gives all of the answers you've given for each question. Stored as
      * <question id, answer list>
