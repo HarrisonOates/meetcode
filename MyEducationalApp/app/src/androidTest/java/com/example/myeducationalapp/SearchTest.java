@@ -10,6 +10,7 @@ import com.example.myeducationalapp.Search.SearchParsing.SearchToken;
 import com.example.myeducationalapp.Search.SearchParsing.SearchTokenizer;
 import com.example.myeducationalapp.Search.SearchParsing.StatementExp;
 import com.example.myeducationalapp.Search.SearchResults.PostResults;
+import com.example.myeducationalapp.Search.SearchResults.QuestionResults;
 import com.example.myeducationalapp.Search.SearchResults.TopicResults;
 import com.example.myeducationalapp.Search.SearchResults.UserResults;
 
@@ -18,16 +19,91 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 /**
  * @author u7146309 Jayden Skidmore
  */
 public class SearchTest {
     @Test
-    public void topicTest(){
-        var result = Search.getInstance().search("test");
+    public void searchTest() {
+        Search search = new Search();
+        search.updateSearchData();
 
-        assertTrue(false);
+        search.search("");
+
+        var results = search.search("@User");
+        boolean allTrue = true;
+
+        for (var result : results) {
+            allTrue = allTrue && result.getType() == SearchToken.Query.User;
+        }
+    }
+
+
+
+    @Test
+    public void topicTest(){
+        TopicResults topic = new TopicResults();
+        var results = topic.results(Collections.singletonList("Algorithm"));
+
+        for (var result : results) {
+            if (result.getWords().equals("Algorithm")) assertEquals(result.getConfidence(),0, 0.0000001);
+            else assertTrue(result.getConfidence() < -1);
+        }
+
+
+
+
+        results = topic.results(Collections.singletonList("Algo"));
+        double notAlgorithm = Double.MIN_VALUE;
+        double algorithm = Double.MIN_VALUE;
+
+        for (var result : results) {
+            if (result.getWords().get(0).equals("Algorithm")) if (result.getConfidence() > algorithm) algorithm = result.getConfidence();
+            else if (result.getConfidence() > notAlgorithm) notAlgorithm = result.getConfidence();
+        }
+
+        assertTrue(algorithm > notAlgorithm);
+    }
+
+    @Test
+    public void userTest() {
+        UserResults user = new UserResults();
+        var results = user.results(Collections.singletonList("jayden"));
+
+        for (var result : results) {
+            if (result.getWords().equals("jayden")) assertEquals(result.getConfidence(),0, 0.0000001);
+            else assertTrue(result.getConfidence() < -0.3);
+        }
+
+
+
+
+        results = user.results(Collections.singletonList("jay"));
+        for (var result : results) {
+            if (result.getWords().get(0).equals("jayden")) assertTrue(result.getConfidence() < -2);
+        }
+    }
+
+
+    @Test
+    public void questionTest() {
+        QuestionResults question = new QuestionResults();
+        var results = question.results(Collections.singletonList("Lists and recursion"));
+
+        for (var result : results) {
+            if (result.getWords().equals("Lists and recursion")) assertEquals(result.getConfidence(),0, 0.0000001);
+            else assertTrue(result.getConfidence() < -0.3);
+        }
+
+
+
+
+        results = question.results(Collections.singletonList("Lists"));
+        for (var result : results) {
+            if (result.getWords().get(0).equals("Lists and recursion")) assertTrue(result.getConfidence() < -2);
+        }
     }
 
 
