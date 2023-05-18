@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.res.AssetManager;
 
 import com.example.myeducationalapp.DirectMessageThread;
-import com.example.myeducationalapp.QuestionMessageThread;
 import com.example.myeducationalapp.QuestionSet;
 
 import java.io.FileNotFoundException;
@@ -84,7 +83,7 @@ public class DataGenerator {
 
 
             for (int i = 0; i < 2500; i++){
-                int n = r.nextInt(5);
+                int n = r.nextInt(3);
 
                 switch (n) {
                     case 0 -> {
@@ -109,28 +108,6 @@ public class DataGenerator {
 
                     }
                     case 2 -> {
-                        int questionSelector = r.nextInt(questionIDs.length);
-                        // For the sake of demonstration, we're hardcoding questions to answer
-                        QuestionMessageThread dms = new QuestionMessageThread(questionIDs[questionSelector]);
-                        dms.runWhenReady((ignored) -> {
-                            dms.postMessage(sc.nextLine());
-                            return null;
-                        });
-
-                    }
-
-                    case 3 -> {
-                    // questionMessage with a code block
-                        int questionSelector = r.nextInt(questionIDs.length);
-                        // For the sake of demonstration, we're hardcoding questions to answer
-                        QuestionMessageThread dms = new QuestionMessageThread(questionIDs[questionSelector]);
-                        int codeBlockSelector = r.nextInt(exampleCodeBlocks.length);
-                        dms.runWhenReady((ignored) -> {
-                            dms.postMessage(exampleCodeBlocks[codeBlockSelector]);
-                            return null;
-                        });
-                    }
-                    case 4 -> {
                         // Like / unlike a random message
                         DirectMessageThread dms = new DirectMessageThread("comp2100@anu.au");
                         if (dms.getMessages().size() > 0) {

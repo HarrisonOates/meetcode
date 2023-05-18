@@ -6,7 +6,6 @@ import android.text.Html;
 import android.text.Spanned;
 
 import com.example.myeducationalapp.Question;
-import com.example.myeducationalapp.QuestionMessageThread;
 import com.example.myeducationalapp.SyntaxHighlighting.DetectCodeBlock;
 
 import java.util.ArrayList;
@@ -18,8 +17,6 @@ import java.util.List;
 public class QuestionCard {
 
     private Question question;
-
-    private QuestionMessageThread questionMessageThread;
 
     public List<String> multiChoiceOptions;
 
@@ -40,7 +37,6 @@ public class QuestionCard {
         if (isQuestionMultiChoice()) {
             multiChoiceOptions = getQuestionMultiChoiceOptions();
         }
-        questionMessageThread = new QuestionMessageThread(question.getID());
     }
 
     public String getQuestionID() {
