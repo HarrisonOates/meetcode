@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Parent discussion post -->
+<androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/discussion_parent_constraint_layout"
+    android:layout_width="350dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center|top"
+    android:layout_marginTop="20dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ImageView
+        android:id="@+id/discussion_parent_profile_image"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:contentDescription="TODO"
+        android:src="@drawable/user_profile_default"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/discussion_parent_heading_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/ibm_plex_sans_bold"
+        android:lines="1"
+        android:textColor="@color/black"
+        android:textSize="19sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/discussion_parent_profile_image"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Firstname Lastname" />
+
+    <TextView
+        android:id="@+id/discussion_parent_body_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:fontFamily="@font/ibm_plex_sans"
+        android:textSize="16.5sp"
+        app:layout_constraintEnd_toEndOf="@+id/discussion_parent_heading_text"
+        app:layout_constraintStart_toStartOf="@+id/discussion_parent_heading_text"
+        app:layout_constraintTop_toBottomOf="@+id/discussion_parent_heading_text"
+        tools:text="Firstname Lastname Firstname Lastname Firstname Lastname Firstname Lastname  Firstname Lastname" />
+
+    <TextView
+        android:id="@+id/discussion_parent_subheading_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/ibm_plex_sans_semibold"
+        android:lines="1"
+        android:text="Reply"
+        android:textColor="@color/black"
+        android:textSize="17sp"
+        app:layout_constraintStart_toStartOf="@+id/discussion_parent_body_text"
+        app:layout_constraintTop_toBottomOf="@+id/discussion_parent_body_text" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

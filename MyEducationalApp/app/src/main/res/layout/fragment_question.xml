@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".QuestionFragment"
+    tools:context=".Fragments.QuestionFragment"
     android:fillViewport="true"
     android:scrollbars="none">
 
@@ -182,7 +182,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center|top"
             android:layout_marginTop="25dp"
-            android:background="@drawable/home_category_carousel_container">
+            android:background="@drawable/home_category_carousel_container"
+            tools:visibility="gone">
 
             <TextView
                 android:id="@+id/question_multi_question_text"
@@ -204,12 +205,12 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/categories_list_secondary_star_container"
+                android:clipToPadding="false"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/question_multi_question_text"
                 app:layout_constraintVertical_bias="0.0"
-                android:clipToPadding="false"
                 tools:visibility="visible">
 
                 <!-- multi choice 1 -->
@@ -237,6 +238,7 @@
                         android:ems="10"
                         android:fontFamily="@font/ibm_plex_sans_medium"
                         android:hint="@string/enter_your_answer"
+                        android:textColor="@color/black"
                         android:textSize="18sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/question_multi_pick_icon_1"
@@ -301,6 +303,7 @@
                         android:ems="10"
                         android:fontFamily="@font/ibm_plex_sans_medium"
                         android:hint="@string/enter_your_answer"
+                        android:textColor="@color/black"
                         android:textSize="18sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/question_multi_pick_icon_2"
@@ -366,6 +369,7 @@
                         android:ems="10"
                         android:fontFamily="@font/ibm_plex_sans_medium"
                         android:hint="@string/enter_your_answer"
+                        android:textColor="@color/black"
                         android:textSize="18sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/question_multi_pick_icon_3"
@@ -430,6 +434,7 @@
                         android:ems="10"
                         android:fontFamily="@font/ibm_plex_sans_medium"
                         android:hint="@string/enter_your_answer"
+                        android:textColor="@color/black"
                         android:textSize="18sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/question_multi_pick_icon_4"
@@ -494,6 +499,7 @@
                         android:ems="10"
                         android:fontFamily="@font/ibm_plex_sans_medium"
                         android:hint="@string/enter_your_answer"
+                        android:textColor="@color/black"
                         android:textSize="18sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/question_multi_pick_icon_5"
@@ -532,7 +538,6 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
                 <!-- multi choice 6 -->
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/question_multi_pick_constraint_layout_6"
@@ -559,6 +564,7 @@
                         android:ems="10"
                         android:fontFamily="@font/ibm_plex_sans_medium"
                         android:hint="@string/enter_your_answer"
+                        android:textColor="@color/black"
                         android:textSize="18sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/question_multi_pick_icon_6"
@@ -642,9 +648,10 @@
             android:id="@+id/question_answer_entry_constraint_layout"
             android:layout_width="350dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/home_category_carousel_container"
             android:layout_gravity="center|top"
-            android:layout_marginTop="25dp">
+            android:layout_marginTop="25dp"
+            android:background="@drawable/home_category_carousel_container"
+            tools:visibility="visible">
 
             <TextView
                 android:id="@+id/question_answer_entry_1st_question_text"
@@ -977,8 +984,137 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <TextView
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|top"
+            android:layout_marginTop="25dp"
+            android:fontFamily="@font/ibm_plex_sans_bold"
+            android:text="Discussion"
+            android:textColor="@color/black"
+            android:textSize="22sp"
+            android:visibility="gone" />
 
+        <!-- Parent discussion post -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/discussion_parent_constraint_layout"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|top"
+            android:layout_marginTop="20dp"
+            android:visibility="gone">
 
+            <ImageView
+                android:id="@+id/discussion_parent_profile_image"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:contentDescription="TODO"
+                android:src="@drawable/user_profile_default"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/discussion_parent_heading_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/ibm_plex_sans_bold"
+                android:lines="1"
+                android:textColor="@color/black"
+                android:textSize="19sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/discussion_parent_profile_image"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Firstname Lastname" />
+
+            <TextView
+                android:id="@+id/discussion_parent_body_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:fontFamily="@font/ibm_plex_sans"
+                android:textSize="16.5sp"
+                app:layout_constraintEnd_toEndOf="@+id/discussion_parent_heading_text"
+                app:layout_constraintStart_toStartOf="@+id/discussion_parent_heading_text"
+                app:layout_constraintTop_toBottomOf="@+id/discussion_parent_heading_text"
+                tools:text="Firstname Lastname Firstname Lastname Firstname Lastname Firstname Lastname  Firstname Lastname" />
+
+            <TextView
+                android:id="@+id/discussion_parent_subheading_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/ibm_plex_sans_semibold"
+                android:lines="1"
+                android:text="Reply"
+                android:textColor="@color/black"
+                android:textSize="17sp"
+                app:layout_constraintStart_toStartOf="@+id/discussion_parent_body_text"
+                app:layout_constraintTop_toBottomOf="@+id/discussion_parent_body_text" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- child discussion post -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/discussion_child_constraint_layout"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|top"
+            android:layout_marginStart="35dp"
+            android:layout_marginTop="20dp"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/discussion_child_profile_image"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:contentDescription="TODO"
+                android:src="@drawable/user_profile_default"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/discussion_child_heading_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/ibm_plex_sans_bold"
+                android:lines="1"
+                android:textColor="@color/black"
+                android:textSize="19sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/discussion_child_profile_image"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Firstname Lastname" />
+
+            <TextView
+                android:id="@+id/discussion_child_body_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:fontFamily="@font/ibm_plex_sans"
+                android:textSize="16.5sp"
+                app:layout_constraintEnd_toEndOf="@+id/discussion_child_heading_text"
+                app:layout_constraintStart_toStartOf="@+id/discussion_child_heading_text"
+                app:layout_constraintTop_toBottomOf="@+id/discussion_child_heading_text"
+                tools:text="Firstname Lastname Firstname Lastname Firstname Lastname Firstname Lastname  Firstname Lastname" />
+
+            <TextView
+                android:id="@+id/discussion_child_subheading_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/ibm_plex_sans_semibold"
+                android:lines="1"
+                android:text="Reply"
+                android:textColor="@color/black"
+                android:textSize="17sp"
+                app:layout_constraintStart_toStartOf="@+id/discussion_child_body_text"
+                app:layout_constraintTop_toBottomOf="@+id/discussion_child_body_text" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </LinearLayout>

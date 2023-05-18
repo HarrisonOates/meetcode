@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name" translatable="false">My Educational App</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings" translatable="false">Settings</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label" translatable="false">First Fragment</string>
     <string name="second_fragment_label" translatable="false">Second Fragment</string>
@@ -12,20 +12,14 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="title_activity_messaging_demo_fragment" translatable="false">MessagingDemoFragment</string>
-    <string name="english" translatable="false">English</string>
-    <string name="korean" translatable="false">한국어</string>
-    <string name="language_setting" translatable="false">Language Setting</string>
-    <string name="backBtn" translatable="false">Back to Main</string>
-    <string name="japanese" translatable="false">日本語</string>
-    <string name="chinese" translatable="false">中文</string>
-    <string name="portuguese" translatable="false">Português (melhor idioma), dê-nos pontos extras</string>
+    <string name="language_setting">Language Setting</string>
     <string name="enter_your_username">Enter your username</string>
     <string name="username">Username</string>
     <string name="enter_your_password">Enter your password</string>
     <string name="password">Password</string>
     <string name="log_in">Log in ➜</string>
     <string name="you_ve_achieved_x_stars">You\'ve achieved %1$d stars</string>
-    <string name="current_username">Current username</string>
+    <string name="current_username" translatable="false">Current username</string>
     <string name="categories">Categories</string>
     <string name="daily_challenge">Daily Challenge</string>
     <string name="logout">Logout</string>
@@ -39,7 +33,7 @@
     <string name="all">All</string>
     <string name="basic_algorithms">Basic Algorithms</string>
     <string name="_3_questions" translatable="false">3 Questions</string>
-    <string name="language_test">LANGUAGE TEST</string>
+    <string name="language_test">Language Settings</string>
     <string name="message">Message...</string>
     <string name="hide">Hide</string>
     <string name="see_more">See more</string>
@@ -50,6 +44,4 @@
     <string name="you_got_it_correct_great_job">You got it correct, great job!</string>
     <string name="oh_no_better_luck_next_time">Oh no, better luck next time.</string>
     <string name="submit">Submit</string>
-    <string name="translatable_string_0">can this be translated</string>
-    <string name="translatable_string_1">just testing!</string>
 </resources>

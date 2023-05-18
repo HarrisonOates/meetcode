@@ -23,13 +23,14 @@ import java.util.Set;
  */
 public class Parser {
     /**
-     * Temporary colour scheme while developing is based on a mix of Android Studio
-     * and Stack Overflow, for ease.
-     * keywords are orange
-     * numbers are blue
-     * Chars and strings are green.
-     * semicolons are orange, but rest of punctuation is black.
-     * TODO - Types?
+     * Our colourscheme:
+     * - keywords are orange
+     * - numbers are blue
+     * - Chars and strings are green.
+     * - All punctuation is black
+     * - Classes are teal
+     * - Identifiers are magenta
+     * - Comments are grey.
      */
 
     public static class IllegalTokenException extends IllegalArgumentException {

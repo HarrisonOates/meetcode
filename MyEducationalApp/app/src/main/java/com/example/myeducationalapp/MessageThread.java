@@ -16,7 +16,7 @@ public abstract class MessageThread extends Asynchronous {
     // IMPORTANT: this class needs to have the most up-to-date version of the backend data at all
     //            times, as having stale data could lead to messages being lost.
 
-    protected List<Message> messages = new ArrayList<>();
+    public List<Message> messages = new ArrayList<>();
     protected int threadID;
 
     public int getThreadID() {
@@ -59,7 +59,7 @@ public abstract class MessageThread extends Asynchronous {
         return messages;
     }
 
-    public void postMessage(String content, Message replyingTo) {
+    public Message postMessage(String content, Message replyingTo) {
         int indexReplyingTo = replyingTo == null ? -1 : replyingTo.getIndex();
 
         // -1\t content here \t\t
@@ -70,9 +70,11 @@ public abstract class MessageThread extends Asynchronous {
             uploadChanges();
             return null;
         });
+
+        return message;
     }
 
-    public void postMessage(String content) {
-        postMessage(content, null);
+    public Message postMessage(String content) {
+        return postMessage(content, null);
     }
 }

@@ -1,6 +1,6 @@
 package com.example.myeducationalapp.Search;
 
-import com.example.myeducationalapp.QuestionSet;
+import com.example.myeducationalapp.Question.QuestionSet;
 import com.example.myeducationalapp.Search.SearchParsing.QueryExp;
 import com.example.myeducationalapp.Search.SearchParsing.SearchParser;
 import com.example.myeducationalapp.Search.SearchParsing.SearchToken;

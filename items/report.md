@@ -37,7 +37,6 @@ u7468248, Alex Boxall: I contributed 20% of the code. Here are my contributions:
 * All of [MessageThread.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/MessageThread.java)
 * All of [Person.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Person.java)
 * All of [Question.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Question.java)
-* All of [QuestionMessageThread.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/QuestionMessageThread.java)
 * All of [UserLocalData.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/UserLocalData.java)
   * All of [UserLocalDataTest.java](./../MyEducationalApp/app/src/androidTest/java/com/example/myeducationalapp/UserLocalDataTest.java)
 * Refactoring of [QuestionSet.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/QuestionSet.java)
@@ -124,42 +123,36 @@ u7146309, Jayden Skidmore: I contributed 20% of the code. Here are my contributi
 
 
 u7300256, Nikhila Gurusinghe: I contributed 20% of the code. Here are my contributions:
+* The class methods of the enum [QuestionSet.Category](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/QuestionSet.java)
 * All of [LoginActivity.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/LoginActivity.java)
 * All of [MainActivity.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/MainActivity.java)
 * All of [AccountFragment.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/AccountFragment.java)
 * All of [CategoriesListFragment.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/CategoriesListFragment.java)
 * Most of [DirectMessageFragment.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/DirectMessageFragment.java)
   * Alex added scrolling the LinearLayout to the bottom and suggested and implemented long clicking to like direct messages
+  * The team also helped debug the code inside this Fragment as well
 * Most of [HomeFragment.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/HomeFragment.java)
   * Geun implemented all the search bar UI and functionality
 * All of [MessagesFragment.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/MessagesFragment.java)
 * All of [QuestionFragment.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/QuestionFragment.java)
-* All of [UserInterfaceManager.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/userInterface/UserInterfaceManager.java)
-* All of [UserInterfaceManagerViewModel.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/userInterface/UserInterfaceManagerViewModel.java)
-* All of [CategoryListCard.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/userInterface/Generation/CategoryListCard.java)
-* All of [CategoryQuestionCard.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/userInterface/Generation/CategoryQuestionCard.java)
-* All of [DiscussionElement.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/userInterface/Generation/DiscussionElement.java)
-* All of [HomeCategoryCard.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/userInterface/Generation/HomeCategoryCard.java)
-* All of [MessagesListCard.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/userInterface/Generation/MessagesListCard.java)
-* All of [QuestionCategoriesCard.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/userInterface/Generation/QuestionCategoriesCard.java)
-* All of [GeneratedUserInterfaceViewModel.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/userInterface/Generation/GeneratedUserInterfaceViewModel.java.java)
+* All of [userInterface/UserInterfaceManager.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/userInterface/UserInterfaceManager.java)
+* All of [userInterface/UserDirectMessages.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/userInterface/UserDirectMessages.java)
+* All of [userInterface/UserInterfaceManagerViewModel.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/userInterface/UserInterfaceManagerViewModel.java)
+* All of [userInterface/Generatable/IterableCollection](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/userInterface/Generatable/IterableCollection.java), and [userInterface/Generatable/Iterator](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/userInterface/Generatable/Iterator.java)
+* All of [userInterface/Generatable/CategoryListCard.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/userInterface/Generatable/CategoryListCard.java),  [userInterface/Generatable/CategoryQuestionCard.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/userInterface/Generatable/CategoryQuestionCard.java), [userInterface/Generatable/HomeCategoryCard.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/userInterface/Generatable/HomeCategoryCard.java), [userInterface/Generatable/MessagesListCard.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/userInterface/Generatable/MessagesListCard.java), and [userInterface/Generatable/QuestionCard.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/userInterface/Generatable/QuestionCard.java)
+* All of [userInterface/Generatable/GeneratedUserInterfaceViewModel.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/userInterface/Generatable/GeneratedUserInterfaceViewModel.java.java)
 * Most of [drawable](./../MyEducationalApp/app/src/main/res/drawable) resource folder
+  * Geun added country flags for Localisation UI
+  * Alex added some test images for user profiles
 * All of [font](./../MyEducationalApp/app/src/main/res/font), [navigation](./../MyEducationalApp/app/src/main/res/navigation), [values](./../MyEducationalApp/app/src/main/res/values) and [anim](./../MyEducationalApp/app/src/main/res/anim) resource folders
-* Most of [layout](./../MyEducationalApp/app/src/main/res/layout) resource folder including:
-  * All of [activity_login.xml](./../MyEducationalApp/app/src/main/res/layout/activity_login.xml) (aside from localisation)
-  * All of [activity_main.xml](./../MyEducationalApp/app/src/main/res/layout/activity_main.xml) (aside from localisation)
-  * All of [fragment_account.xml](./../MyEducationalApp/app/src/main/res/layout/fragment_account.xml) (aside from localisation)
-  * All of [fragment_categories_list.xml](./../MyEducationalApp/app/src/main/res/layout/fragment_categories_list.xml) (aside from localisation)
-  * All of [fragment_category.xml](./../MyEducationalApp/app/src/main/res/layout/fragment_category.xml) (aside from localisation)
-  * All of [fragment_direct_message.xml](./../MyEducationalApp/app/src/main/res/layout/fragment_direct_message.xml) (aside from localisation)
-  * Most of [fragment_home.xml](./../MyEducationalApp/app/src/main/res/layout/fragment_home.xml) (aside from localisation and search UI implementation which was done by Geun)
-  * All of [fragment_messages.xml](./../MyEducationalApp/app/src/main/res/layout/fragment_messages.xml) (aside from localisation)
-  * All of [fragment_question.xml](./../MyEducationalApp/app/src/main/res/layout/fragment_question.xml) (aside from localisation)
+* Most of [layout](./../MyEducationalApp/app/src/main/res/layout) resource folder (aside from localisation and search UI implementation which was done by Geun)
 * What design patterns, data structures, did the involved member propose?
+  * I used a Singleton in [userInterface/UserDirectMessages.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/userInterface/UserDirectMessages.java) and an Iterator (implemented in [userInterface/Generatable/IterableCollection](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/userInterface/Generatable/IterableCollection.java) and [userInterface/Generatable/Iterator](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/userInterface/Generatable/Iterator.java)) to support the data structure in  [userInterface/Generatable/GeneratedUserInterfaceViewModel.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/userInterface/Generatable/GeneratedUserInterfaceViewModel.java.java) which was used for persisting user interface elements
 * Specify what design did the involved member propose? What tools were used for the design?
 * Which part of the report did the involved member write?
 * Were you responsible for the slides?
 * You are welcome to provide anything that you consider as a contribution to the project or team.
+  * I made the video and generated the APK for the project
 
 ## Conflict Resolution Protocol
 
@@ -205,7 +198,10 @@ MeetCode supports Korean, Japanese, and Chinese learners through our app localis
 *List all the use cases in text descriptions or create use case diagrams. Please refer to https://www.visual-paradigm.com/guide/uml-unified-modeling-language/what-is-use-case-diagram/ for use case diagram.*
 
 ## Application UML
-The below UML diagram does not include any of the user interface classes.
+The below UML diagram was created before any programming was done and was used as a basis for the Firebase and messaging design. At this point, the design of the search and syntax highlighting was not done, so they are not included. The UI is similarly not included.
+![ClassDiagramInitial](./images/ClassDiagramInitial.png) <br>
+
+The below UML diagram was created near the end of the project, and is much more complete. The UI was also not included as it would make the diagram too complicated to be useful.
 
 ![ClassDiagram](./images/ClassDiagram.png) <br>
 
@@ -371,8 +367,12 @@ Many types of test were created:
   - reading messages downloaded
   - checking whether messages have been liked
 
+- Tests for syntax highlighting (```SyntaxHighlightingTest``` and ```SyntaxHighlightingParsingTest```), which test the following:
+  - Tokenizer accuracy in creating tokens
+  - Parser accuracy in translating this to HTML
+
 Android Studio does not provide code coverage for instrumented tests, and thus the exact code coverage is not known.
-However, by manually inspecting the code, we find that the user login tests gets 100% line coverage of ```Firebase.FirebaseRequest```, approximately 76% of both ```Firebase.FirebaseResult```, and ```UserLogin```. Additionally, 100% of ```UserLocalData``` is tested, split across ```UserLocalDataTest``` (for most methods), and ```DirecteMessageTest``` (for ```loadFromDisk```).
+However, by manually inspecting the code, we find that the user login tests gets 100% line coverage of ```Firebase.FirebaseRequest```, approximately 76% of both ```Firebase.FirebaseResult```, and ```UserLogin```. Additionally, 100% of ```UserLocalData``` is tested, split across ```UserLocalDataTest``` (for most methods), and ```DirecteMessageTest``` (for ```loadFromDisk```). We achieve 100% branch coverage of the syntax highlighting methods across the two methods.
 
 
 ## Implemented Features
@@ -384,14 +384,24 @@ However, by manually inspecting the code, we find that the user login tests gets
     * Class X, methods Z, Y, Lines of code: 10-100
     * Additional description: ...
       <br>
-2. [Data Visualization]. Description  ... ...
+
+2. [Data Stream]. Uses a second instance of an Android Virtual Device to mimic a realistic data stream of over 2500 data instances (easy). 
+   * Class DatastreamSimulation.DataGenerator - whole file
+   * Class MainActivity - lines 127-134.
+   * Additional description:
+     * As we built a client-server model application, it was easier to set up a second instance of the app to feed data to the Firebase, and then use the primary account to pull from. See [here](https://wattlecourses.anu.edu.au/mod/forum/discuss.php?d=875865) for permission.
+
+     * To set this up, log onto the secondary AVD with the credentials 'harrison' and '12345678' and then open up the primary marker account 'comp2100@anu.au'.
+     The secondary account will then send code snippets, text excerpts, or like comments at random every three seconds, without the need for additional input. This is due to a login hook on mainActivity that activates whenever that specific account is logged into. The link to our Firebase can be found [here](https://console.firebase.google.com/u/0/project/comp2100groupassignment-8427a/overview).
+
+3. [Data Visualization]. Description  ... ...
 <br><br>
 
 ### General Features
 Feature Category: Data Structures <br>
 1. [Data-Deletion]. Deletion method of either a Red-Black Tree, AVL tree or B-Tree data structure. The deletion of nodes must serve a purpose within your application. (hard)
    * Class AVLTree, methods delete, findImbalanceDelete, deleteBeforeBalance, balanceSubtree, Lines of code: 53
-   * Additional description: ...
+   * TODO for Geun
 
 Feature Category: Firebase Integration <br>
 2. [FB-Persist] Use Firebase to persist all data used in your app. (medium)
@@ -428,10 +438,23 @@ Feature Category: Peer-to-peer messaging <br>
 
 Feature Category: Syntax Highlighting (custom, approved as per [here](https://wattlecourses.anu.edu.au/mod/forum/discuss.php?d=870859)) <br>
 6. [Custom-Syntax-Highlighting]. Description: The user interface will be able to display snippets of code to the user, with dynamically generated syntax highlighting applied. The syntax of the code will be Java-like. (hard)
-   * Class SyntaxHighlighting.???, methods Z, Y, Lines of code: 10-100
-   * Class SyntaxHighlighting.???, methods K, L, M, Lines of code: 35-150
-   * Additional description: ...
+   * Class SyntaxHighlighting.DetectCodeBlock, whole file
+   * Class SyntaxHighlighting.Parser, whole file
+   * Class SyntaxHighlighting.Tokenizer, whole file
+   * Class SyntaxHighlighting.Token, whole file
+   * Additional description: 
+     * Users are able to input code in comments in between two sets of three backticks, and this code will be highlighted according to our custom colour scheme. Token types are stored in Token, with the classification of the text into tokens happening in the ```next()``` method in the Tokenizer class.
+     The Parser calls ```next()``` repeatedly until the end of the text and transforms the tokenized query into HTML, applying the colours appropriately.
+     All of this is bundled into a static method, ```SyntaxHighlighting.DetectCodeBlock.parseCodeBlocks()```, which detects the backticks and feeds the appropriate section of text to the other classes.
+     To interface with the frontend, we call the method inside ```Html.fromHtml```, which is itself inside ```textView.setText()```.
 
+7. [Dynamic Localization] Provide users to switch languages of not only the hardcoded string values, but also the ones that are dynamic. (easy)
+   * Class Localization.DynamicLocalization, whole file
+   * Class Localization.LanguageSetting, whole file
+   * Most of the UI related classes
+   * Additional description:
+     * There are certain strings that were intentionally not translated, including programming questions and search query, as doing so would confuse users more.
+     
 *List all features you have completed in their separate categories with their difficulty classification. If they are features that are suggested and approved, please state this somewhere as well.*
 
 ## Team Meetings

@@ -113,7 +113,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/messages_text_container"
-        tools:context=".MessagesFragment">
+        tools:context=".Fragments.MessagesFragment">
 
         <!-- horizontal scroll view wrapper -->
 

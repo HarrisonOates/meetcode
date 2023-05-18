@@ -12,7 +12,7 @@
         android:theme="@style/Theme.MyEducationalApp"
         tools:targetApi="31">
         <activity
-            android:name=".LanguageSetting"
+            android:name=".Localization.LanguageFragment"
             android:exported="false" />
         <activity
             android:name=".MessagingDemoActivity"

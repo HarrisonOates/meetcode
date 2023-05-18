@@ -1,16 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">교육 앱</string>
-    <string name="action_settings">세팅</string>
-    <string name="first_fragment_label">첫 번째</string>
-    <string name="second_fragment_label">두 번째</string>
-    <string name="next">다음</string>
-    <string name="previous">이전</string>
-    <string name="hello_first_fragment">첫 번째 환영</string>
-    <string name="hello_second_fragment">두 번째 환영\\</string>
-    <string name="hello_blank_fragment">빈 환영</string>
-    <string name="title_activity_messaging_demo_fragment">메세지 테스트</string>
-    <string name="backBtn">홈으로</string>
     <string name="language_setting">언어 설정</string>
     <string name="enter_your_username">계정 이름을 적으세요</string>
     <string name="username">계정 이름</string>
@@ -18,11 +7,10 @@
     <string name="password">비밀번호</string>
     <string name="log_in">로그인 ➜</string>
     <string name="you_ve_achieved_x_stars">%1$d 개 별을 모았어요</string>
-    <string name="current_username">현재 계정 이름</string>
     <string name="categories">카테고리</string>
     <string name="daily_challenge">일일 과제</string>
     <string name="logout">로그아웃</string>
-    <string name="earn_x_stars">별 %1$d 획득하기</string>
+    <string name="earn_x_stars">별 %1$d개 획득하기</string>
     <string name="completed">완료!</string>
     <string name="earn_1_star">별 1개 획득하기</string>
     <string name="question">문제</string>
@@ -32,7 +20,7 @@
     <string name="all">전체</string>
     <string name="basic_algorithms">기본 알고리즘</string>
     <string name="language_test">언어 설정</string>
-    <string name="message">메세지</string>
+    <string name="message">메세지하기...</string>
     <string name="hide">숨기기</string>
     <string name="see_more">더보기</string>
     <string name="search">검색</string>
@@ -41,5 +29,5 @@
     <string name="your_second_attempt">두 번째 시도</string>
     <string name="you_got_it_correct_great_job">정답이에요, 축하해요!</string>
     <string name="oh_no_better_luck_next_time">앗, 나중에 다시 도전해보세요.</string>
-    <string name="submit">제출</string>
+    <string name="submit">제출하기</string>
 </resources>

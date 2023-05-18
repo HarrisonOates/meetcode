@@ -2,6 +2,8 @@ package com.example.myeducationalapp;
 
 import androidx.annotation.NonNull;
 
+import com.example.myeducationalapp.User.ComparablePair;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -321,7 +323,7 @@ public class AVLTree<T extends Comparable<T>> {
     }
 
     /**
-     * @return All the nodes in the AVLTree in orderas an array list
+     * @return All the nodes in the AVLTree in orders an array list
      */
     public ArrayList<Node<T>> inOrderTraversal(){
         ArrayList<Node<T>> nodes = new ArrayList<>();

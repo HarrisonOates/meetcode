@@ -3,7 +3,4 @@
     <item
         android:id="@+id/block"
         android:title="Block" />
-    <item
-        android:id="@+id/two"
-        android:title="Maybe something cool?"/>
 </menu>

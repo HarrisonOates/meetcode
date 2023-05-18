@@ -3,21 +3,19 @@ package com.example.myeducationalapp;
 import android.os.Bundle;
 
 import com.example.myeducationalapp.DatastreamSimulation.DataGenerator;
-import com.example.myeducationalapp.Firebase.Firebase;
+import com.example.myeducationalapp.Localization.DynamicLocalization;
+import com.example.myeducationalapp.User.UserLocalData;
+import com.example.myeducationalapp.User.UserLogin;
 import com.example.myeducationalapp.userInterface.UserInterfaceManagerViewModel;
 
-import androidx.activity.OnBackPressedCallback;
-import androidx.activity.OnBackPressedDispatcher;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.util.Log;
 import android.view.View;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
@@ -29,8 +27,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.io.FileNotFoundException;
-import java.util.HashMap;
-import java.util.Objects;
 
 /**
  * @author u7300256 Nikhila Gurusinghe
@@ -78,40 +74,33 @@ public class MainActivity extends AppCompatActivity {
         TextView toolbarStarContainerText = (TextView) findViewById(R.id.toolbar_star_container_number);
         toolbarStarContainerText.setText(String.valueOf(UserLocalData.getInstance().getPoints()));
 
-        // Setting initial states of dynamic elements
-
-
         // Anonymous on-click handlers
+        // Home icon on nav menu
         navMenuHomeIcon.setOnClickListener(view -> {
-
-            if (!Objects.equals(userInterfaceManager.getUiState().getValue().getToolbarTitle().getValue(), "Home")) {
-                //userInterfaceManager.getUiState().getValue().setIsActionBarInBackState(false);
-                navController.navigate(R.id.HomeFragment);
-            }
+            toolbarStarContainerText.setText(String.valueOf(UserLocalData.getInstance().getPoints()));
+            DynamicLocalization.navigateTranslatedToolBar(userInterfaceManager, navController, "Home", R.id.HomeFragment);
 
         });
 
+        // Mail icon on nav menu
         navMenuMailIcon.setOnClickListener(view -> {
 
-            if (!Objects.equals(userInterfaceManager.getUiState().getValue().getToolbarTitle().getValue(), "Messages")) {
-                //userInterfaceManager.getUiState().getValue().setIsActionBarInBackState(true);
-                navController.navigate(R.id.messagesFragment);
-            }
+            DynamicLocalization.navigateTranslatedToolBar(userInterfaceManager, navController, "Messages", R.id.messagesFragment);
 
         });
 
+        // Hamburger menu on nav menu
         navMenuHamburgerIcon.setOnClickListener(view -> {
 
-            if (!Objects.equals(userInterfaceManager.getUiState().getValue().getToolbarTitle().getValue(), "Menu")) {
-                //userInterfaceManager.getUiState().getValue().setIsActionBarInBackState(true);
-                navController.navigate(R.id.accountFragment);
-            }
+            DynamicLocalization.navigateTranslatedToolBar(userInterfaceManager, navController, "Menu", R.id.accountFragment);
 
         });
 
+        // Navigating backwards
         toolbarBackwardsArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                toolbarStarContainerText.setText(String.valueOf(UserLocalData.getInstance().getPoints()));
                 onSupportNavigateUp();
             }
         });
@@ -131,6 +120,9 @@ public class MainActivity extends AppCompatActivity {
                 throw new RuntimeException(e);
             }
         }
+
+        toolbarStarContainerText.setText(String.valueOf(UserLocalData.getInstance().getPoints()));
+
     }
 
     @Override

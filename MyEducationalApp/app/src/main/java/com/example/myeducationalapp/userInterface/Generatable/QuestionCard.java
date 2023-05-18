@@ -1,12 +1,11 @@
 package com.example.myeducationalapp.userInterface.Generatable;
 
-import static com.example.myeducationalapp.QuestionSet.MAXIMUM_NUMBER_OF_MULTI_CHOICE_OPTIONS;
+import static com.example.myeducationalapp.Question.QuestionSet.MAXIMUM_NUMBER_OF_MULTI_CHOICE_OPTIONS;
 
 import android.text.Html;
 import android.text.Spanned;
 
-import com.example.myeducationalapp.Question;
-import com.example.myeducationalapp.QuestionMessageThread;
+import com.example.myeducationalapp.Question.Question;
 import com.example.myeducationalapp.SyntaxHighlighting.DetectCodeBlock;
 
 import java.util.ArrayList;
@@ -19,8 +18,6 @@ public class QuestionCard {
 
     private Question question;
 
-    private QuestionMessageThread questionMessageThread;
-
     public List<String> multiChoiceOptions;
 
     public String getHeading() {
@@ -28,7 +25,7 @@ public class QuestionCard {
     }
 
     public String getSubheading() {
-        return question.getContent().split("```")[0].replace("\n", "");
+        return question.getContent().split("```")[0].replace("\n", "").split("A\\)")[0];
     }
 
     public boolean doesQuestionHaveCodeBlock() {
@@ -40,7 +37,6 @@ public class QuestionCard {
         if (isQuestionMultiChoice()) {
             multiChoiceOptions = getQuestionMultiChoiceOptions();
         }
-        //questionMessageThread = new QuestionMessageThread(question.getID());
     }
 
     public String getQuestionID() {
