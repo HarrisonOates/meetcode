@@ -12,10 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.myeducationalapp.Localization.DynamicLocalization;
-import com.example.myeducationalapp.QuestionSet;
+import com.example.myeducationalapp.Question.QuestionSet;
 import com.example.myeducationalapp.R;
-import com.example.myeducationalapp.UserLocalData;
-import com.example.myeducationalapp.UserLogin;
+import com.example.myeducationalapp.User.UserLocalData;
+import com.example.myeducationalapp.User.UserLogin;
 import com.example.myeducationalapp.databinding.FragmentAccountBinding;
 import com.example.myeducationalapp.userInterface.UserInterfaceManagerViewModel;
 

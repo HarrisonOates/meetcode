@@ -3,14 +3,11 @@ package com.example.myeducationalapp.Firebase;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import com.example.myeducationalapp.DirectMessageThread;
 import com.example.myeducationalapp.MessageThread;
-import com.example.myeducationalapp.Person;
-import com.example.myeducationalapp.UserLogin;
-import com.example.myeducationalapp.UserLocalData;
-import com.google.firebase.database.ChildEventListener;
+import com.example.myeducationalapp.User.UserLogin;
+import com.example.myeducationalapp.User.UserLocalData;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -20,7 +17,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.nio.file.AccessDeniedException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.function.Function;
 

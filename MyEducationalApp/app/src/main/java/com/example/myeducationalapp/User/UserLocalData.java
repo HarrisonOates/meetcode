@@ -1,45 +1,18 @@
-package com.example.myeducationalapp;
+package com.example.myeducationalapp.User;
 
 import android.annotation.SuppressLint;
 import android.util.Log;
 
+import com.example.myeducationalapp.AVLTree;
 import com.example.myeducationalapp.Firebase.Firebase;
 import com.example.myeducationalapp.Firebase.FirebaseResult;
+import com.example.myeducationalapp.Question.QuestionSet;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-/**
- * Used to store two integers in a way that implements the Comparable interface (so it can
- * be added to an AVL tree).
- *
- * @author u7468248 Alex Boxall
- */
-class ComparablePair<T extends Comparable> implements Comparable<ComparablePair<T>> {
-    public T first;
-    public T second;
 
-    ComparablePair(T a, T b) {
-        this.first = a;
-        this.second = b;
-    }
-
-    @Override
-    public int compareTo(ComparablePair<T> t) {
-        int res = first.compareTo(t.first);
-        if (res == 0) {
-            return second.compareTo(t.second);
-        } else {
-            return res;
-        }
-    }
-
-    @Override
-    public String toString() {
-        return first.toString() + "@" + second.toString();
-    }
-}
 
 /**
  * Stores all data that is local to a given user (e.g. posts they've liked, their answers to
@@ -173,7 +146,7 @@ public class UserLocalData {
     }
 
 
-    void toggleLikeMessage(int threadID, int messageID) {
+    public void toggleLikeMessage(int threadID, int messageID) {
         var pair = new ComparablePair<>(threadID, messageID);
         if (likedMessages.search(pair) == null) {
             likedMessages.insert(pair);

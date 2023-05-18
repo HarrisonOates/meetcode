@@ -1,9 +1,6 @@
 package com.example.myeducationalapp.userInterface.Generatable;
 
-import android.graphics.Color;
-
-import com.example.myeducationalapp.QuestionSet;
-import com.example.myeducationalapp.R;
+import com.example.myeducationalapp.Question.QuestionSet;
 
 /**
  * @author u7300256 Nikhila Gurusinghe

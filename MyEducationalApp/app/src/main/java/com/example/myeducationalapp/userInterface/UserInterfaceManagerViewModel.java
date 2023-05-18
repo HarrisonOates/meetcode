@@ -4,14 +4,10 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.myeducationalapp.Question;
-import com.example.myeducationalapp.QuestionSet;
+import com.example.myeducationalapp.Question.Question;
+import com.example.myeducationalapp.Question.QuestionSet;
 import com.example.myeducationalapp.userInterface.Generatable.CategoryListCard;
-import com.example.myeducationalapp.userInterface.Generatable.HomeCategoryCard;
-import com.example.myeducationalapp.userInterface.Generatable.MessageListCard;
 import com.example.myeducationalapp.userInterface.Generatable.QuestionCard;
-
-import java.util.LinkedHashMap;
 
 /**
  * @author u7300256 Nikhila Gurusinghe

@@ -1,7 +1,8 @@
-package com.example.myeducationalapp;
+package com.example.myeducationalapp.User;
 
 import androidx.annotation.Nullable;
 
+import com.example.myeducationalapp.Asynchronous;
 import com.example.myeducationalapp.Firebase.Firebase;
 import java.util.Objects;
 

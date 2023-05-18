@@ -6,7 +6,7 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
-import android.util.Log;
+import com.example.myeducationalapp.User.UserLogin;
 
 import org.junit.Test;
 

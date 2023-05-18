@@ -1,12 +1,11 @@
 package com.example.myeducationalapp.Search.SearchResults;
 
 import com.example.myeducationalapp.Firebase.Firebase;
-import com.example.myeducationalapp.Question;
-import com.example.myeducationalapp.QuestionSet;
+import com.example.myeducationalapp.Question.Question;
+import com.example.myeducationalapp.Question.QuestionSet;
 import com.example.myeducationalapp.Search.SearchParsing.SearchToken;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

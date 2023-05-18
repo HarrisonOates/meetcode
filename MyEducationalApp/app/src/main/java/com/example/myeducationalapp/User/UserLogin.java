@@ -1,4 +1,4 @@
-package com.example.myeducationalapp;
+package com.example.myeducationalapp.User;
 
 import com.example.myeducationalapp.Firebase.Firebase;
 import com.example.myeducationalapp.userInterface.UserDirectMessages;
@@ -6,8 +6,6 @@ import com.example.myeducationalapp.userInterface.UserDirectMessages;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.security.MessageDigest;

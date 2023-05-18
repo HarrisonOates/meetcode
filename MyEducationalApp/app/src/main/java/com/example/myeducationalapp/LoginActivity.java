@@ -6,16 +6,14 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Toast;
 
 import com.example.myeducationalapp.Firebase.Firebase;
+import com.example.myeducationalapp.User.UserLogin;
 import com.example.myeducationalapp.databinding.ActivityLoginBinding;
-import com.example.myeducationalapp.databinding.ActivityMainBinding;
 
 /**
  * @author u7300256 Nikhila Gurusinghe

@@ -21,7 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.myeducationalapp.Localization.DynamicLocalization;
-import com.example.myeducationalapp.QuestionSet;
+import com.example.myeducationalapp.Question.QuestionSet;
 import com.example.myeducationalapp.R;
 import com.example.myeducationalapp.databinding.FragmentCategoriesListBinding;
 import com.example.myeducationalapp.userInterface.Generatable.CategoryListCard;

@@ -3,25 +3,19 @@ package com.example.myeducationalapp;
 import android.os.Bundle;
 
 import com.example.myeducationalapp.DatastreamSimulation.DataGenerator;
-import com.example.myeducationalapp.Firebase.Firebase;
 import com.example.myeducationalapp.Localization.DynamicLocalization;
-import com.example.myeducationalapp.databinding.FragmentFirstBinding;
+import com.example.myeducationalapp.User.UserLocalData;
+import com.example.myeducationalapp.User.UserLogin;
 import com.example.myeducationalapp.userInterface.UserInterfaceManagerViewModel;
 
-import androidx.activity.OnBackPressedCallback;
-import androidx.activity.OnBackPressedDispatcher;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
@@ -29,13 +23,10 @@ import com.example.myeducationalapp.databinding.ActivityMainBinding;
 
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.io.FileNotFoundException;
-import java.util.HashMap;
-import java.util.Objects;
 
 /**
  * @author u7300256 Nikhila Gurusinghe

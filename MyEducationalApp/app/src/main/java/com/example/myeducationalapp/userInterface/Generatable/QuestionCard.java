@@ -1,11 +1,11 @@
 package com.example.myeducationalapp.userInterface.Generatable;
 
-import static com.example.myeducationalapp.QuestionSet.MAXIMUM_NUMBER_OF_MULTI_CHOICE_OPTIONS;
+import static com.example.myeducationalapp.Question.QuestionSet.MAXIMUM_NUMBER_OF_MULTI_CHOICE_OPTIONS;
 
 import android.text.Html;
 import android.text.Spanned;
 
-import com.example.myeducationalapp.Question;
+import com.example.myeducationalapp.Question.Question;
 import com.example.myeducationalapp.SyntaxHighlighting.DetectCodeBlock;
 
 import java.util.ArrayList;

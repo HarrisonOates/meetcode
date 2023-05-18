@@ -1,7 +1,7 @@
 package com.example.myeducationalapp.userInterface.Generatable;
 
-import com.example.myeducationalapp.QuestionSet;
-import com.example.myeducationalapp.UserLocalData;
+import com.example.myeducationalapp.Question.QuestionSet;
+import com.example.myeducationalapp.User.UserLocalData;
 
 /**
  * @author u7300256 Nikhila Gurusinghe

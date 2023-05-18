@@ -1,9 +1,10 @@
 package com.example.myeducationalapp;
 
 import android.annotation.SuppressLint;
-import android.util.Log;
 
-import com.example.myeducationalapp.Firebase.FirebaseResult;
+import com.example.myeducationalapp.User.Person;
+import com.example.myeducationalapp.User.UserLocalData;
+import com.example.myeducationalapp.User.UserLogin;
 
 /**
  * Contains a message/comment, either a direct message or one that is underneath a question.

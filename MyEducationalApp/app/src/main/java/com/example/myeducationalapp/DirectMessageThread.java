@@ -2,6 +2,8 @@ package com.example.myeducationalapp;
 
 import com.example.myeducationalapp.Firebase.Firebase;
 import com.example.myeducationalapp.Firebase.FirebaseResult;
+import com.example.myeducationalapp.User.Person;
+import com.example.myeducationalapp.User.UserLogin;
 
 import java.nio.file.AccessDeniedException;
 

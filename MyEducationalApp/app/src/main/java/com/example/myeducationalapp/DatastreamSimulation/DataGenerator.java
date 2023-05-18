@@ -2,13 +2,9 @@ package com.example.myeducationalapp.DatastreamSimulation;
 
 import android.content.Context;
 import android.content.res.AssetManager;
-import android.util.Log;
 
 import com.example.myeducationalapp.DirectMessageThread;
-import com.example.myeducationalapp.Firebase.Firebase;
-import com.example.myeducationalapp.QuestionSet;
-import com.example.myeducationalapp.UserLocalData;
-import com.example.myeducationalapp.UserLogin;
+import com.example.myeducationalapp.Question.QuestionSet;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

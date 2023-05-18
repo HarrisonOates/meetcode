@@ -1,4 +1,4 @@
-package com.example.myeducationalapp;
+package com.example.myeducationalapp.Question;
 
 /**
  * Stores a programming question that users can answer in the app.

@@ -1,11 +1,9 @@
-package com.example.myeducationalapp;
+package com.example.myeducationalapp.Question;
 
 import android.graphics.Color;
 
-import com.example.myeducationalapp.SyntaxHighlighting.DetectCodeBlock;
+import com.example.myeducationalapp.R;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 import java.util.SortedMap;
