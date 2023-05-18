@@ -26,43 +26,9 @@ public class SearchParser {
      * @param searchQuery The search query to parse
      * @return The parsed version of the search
      */
-    //TODO
     public SearchExp parseSearch(String searchQuery) {
         tokenizer.newSearch(searchQuery);
         return parseExp();
-    }
-
-    /**
-     * For testing, outputs the parsed version of a given string
-     * Will be removed later //TODO: Remove
-     * @param args
-     */
-    public static void main(String[] args) {
-        // Create a scanner to get the user's input.
-        Scanner scanner = new Scanner(System.in);
-
-        /*
-         Continue to get the user's input until they exit.
-         To exit press: Control + D or providing the string 'q'
-         */
-        System.out.println("Provide a search string to be parsed:");
-        while (scanner.hasNext()) {
-            String input = scanner.nextLine();
-
-            // Check if 'quit' is provided.
-            if (input.equals("q"))
-                break;
-
-            // Create an instance of the tokenizer.
-            tokenizer = new SearchTokenizer(input);
-            tokenizer.newSearch(input);
-
-            // Print out the expression from the parser.
-            Exp expression = parseExp();
-            if (expression == null) System.out.println("Null Expression");
-            else System.out.println("Parsing: " + expression.show());
-            //System.out.println("Evaluation: " + expression.decomposition().toString());
-        }
     }
 
     /**

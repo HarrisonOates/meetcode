@@ -47,7 +47,6 @@ public class QuestionResults extends Results{
                         count += (double)searchWord.length()/(double)questionWord.length();
                         break;
                     }
-
                 }
             }
 
@@ -68,24 +67,20 @@ public class QuestionResults extends Results{
      */
     public void updateQuestions() {
         SortedMap<String, Question> questions = QuestionSet.getInstance().getUsedQuestionSets();
-        //HashMap<String, String[]> questions = new HashMap<>();
-        //TODO
+
         if (questions == null) return;
 
         searchResults = new ArrayList<>();
 
         var entrySet = questions.keySet();
         for (String entry : entrySet) {
-            if (!topics.containsKey(questions.get(entry).getCategory())) continue;//Arrays.stream(topics.).noneMatch(x -> x == entry.charAt(0))) continue;
+            if (!topics.containsKey(questions.get(entry).getCategory())) continue;
 
-            //var searchResult = new SearchResult(entry, SearchToken.Query.Question, List.of(questions.get(entry).getContent().split(" ")));
-            var searchResult2 = new SearchResult(entry, SearchToken.Query.Question, List.of(questions.get(entry).getName().split(" ")));
+            var searchResult = new SearchResult(entry, SearchToken.Query.Question, List.of(questions.get(entry).getName().split(" ")));
 
-            //searchResult.setConfidence(-20); //TODO
-            searchResult2.setConfidence(0);
+            searchResult.setConfidence(0);
 
-            //searchResults.add(searchResult);
-            searchResults.add(searchResult2);
+            searchResults.add(searchResult);
 
         }
     }

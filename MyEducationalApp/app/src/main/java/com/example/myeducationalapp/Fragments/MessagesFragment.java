@@ -244,8 +244,6 @@ public class MessagesFragment extends Fragment {
     }
 
     private ConstraintLayout generateMessageListCard(MessageListCard template, Context context, boolean isNotification, String username) {
-        UserLocalData.getInstance().loadFromDisk();
-
         // making ui elements within parent
         ImageView image = new ImageView(context);
         TextView heading = new TextView(context);

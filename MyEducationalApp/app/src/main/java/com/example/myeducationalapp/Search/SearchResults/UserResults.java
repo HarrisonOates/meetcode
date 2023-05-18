@@ -54,14 +54,6 @@ public class UserResults extends Results{
             var currentScore = wordScore(totalWord, (HashMap<Character, Integer>) map.clone(), charArray.length);
             if (currentScore > score) score = currentScore;
 
-            //TODO: Cut username to same length as what is being searched
-            // or search just the length that is currently inserted
-
-
-            //TODO: Maybe something like Map<Char, Int, Int>, with the first int being number of occurences and second being number of matches
-            //then count the number of matches vs word length
-
-
             var currentResult = new SearchResult(user, SearchToken.Query.User, Collections.singletonList(user));
             currentResult.setConfidence(score);
             results.add(currentResult);
