@@ -134,7 +134,7 @@ public class UserLogin {
         return loggedInUsername != null && getCurrentUsername().equals(username);
     }
 
-    protected void performUnitTestLogin() {
+    public void performUnitTestLogin() {
         loggedInUsername = "alex";
         UserLocalData.getInstance().loadFromDisk();
     }
