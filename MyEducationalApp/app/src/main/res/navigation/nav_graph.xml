@@ -115,9 +115,6 @@
         android:name="com.example.myeducationalapp.Localization.LanguageFragment"
         android:label="LanguageFragment" >
         <action
-            android:id="@+id/action_languageFragment_to_accountFragment"
-            app:destination="@id/accountFragment" />
-        <action
             android:id="@+id/action_languageFragment_to_HomeFragment"
             app:destination="@id/HomeFragment" />
     </fragment>
