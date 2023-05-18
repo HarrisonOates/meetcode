@@ -2,9 +2,13 @@ package com.example.myeducationalapp.DatastreamSimulation;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.util.Log;
 
 import com.example.myeducationalapp.DirectMessageThread;
+import com.example.myeducationalapp.Firebase.Firebase;
 import com.example.myeducationalapp.QuestionSet;
+import com.example.myeducationalapp.UserLocalData;
+import com.example.myeducationalapp.UserLogin;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -80,10 +84,9 @@ public class DataGenerator {
                     + "}```"
             };
 
-
-
             for (int i = 0; i < 2500; i++){
-                int n = r.nextInt(3);
+                int n = r.nextInt(4);
+                if (n == 3) n = 2;
 
                 switch (n) {
                     case 0 -> {
@@ -109,18 +112,22 @@ public class DataGenerator {
                     }
                     case 2 -> {
                         // Like / unlike a random message
-                        DirectMessageThread dms = new DirectMessageThread("comp2100@anu.au");
-                        if (dms.getMessages().size() > 0) {
-                            int indexToLike = r.nextInt(dms.getMessages().size());
-
-                            dms.runWhenReady((ignored) -> {
-                                dms.getMessages().get(indexToLike).runWhenReady((ignored2) -> {
-                                    dms.getMessages().get(indexToLike).toggleLikedByCurrentUser();
-                                    return null;
-                                });
+                        try {
+                            DirectMessageThread dms = new DirectMessageThread("comp2100@anu.au");
+                            dms.runWhenReady((ignored3) -> {
+                                if (dms.getMessages().size() > 0) {
+                                    int indexToLike = r.nextInt(dms.getMessages().size());
+                                    dms.getMessages().get(indexToLike).runWhenReady((ignored2) -> {
+                                        dms.getMessages().get(indexToLike).toggleLikedByCurrentUser();
+                                        return null;
+                                    });
+                                }
                                 return null;
                             });
+                        } catch (Exception e) {
+
                         }
+
 
                     }
                     default -> {

@@ -71,9 +71,6 @@ public class Message extends Asynchronous {
     @SuppressLint("DefaultLocale")
     @Override
     public String toString() {
-        if (sentBy.getUsername() == null) {
-            //throw new AssertionError("message toString() didn't wait for sentBy to complete");
-        }
         return String.format("%d\t%s\t%s\t%s", replyingTo, escapeString(content), escapeString(sentBy.getUsername()), escapeString(likedBy.toString()));
     }
 

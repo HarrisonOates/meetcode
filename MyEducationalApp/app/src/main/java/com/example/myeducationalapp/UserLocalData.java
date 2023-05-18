@@ -80,7 +80,7 @@ public class UserLocalData {
         return points;
     }
 
-    void logout() {
+    public void logout() {
         points = 0;
         likedMessages = new AVLTree<>();
         yourAnswers = new HashMap<>();
