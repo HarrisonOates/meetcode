@@ -23,6 +23,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.myeducationalapp.Firebase.Firebase;
 import com.example.myeducationalapp.Firebase.FirebaseObserver;
@@ -144,6 +145,11 @@ public class DirectMessageFragment extends Fragment {
 
 
     private void sendMessage(boolean isRecipient) {
+        if (UserLocalData.getInstance().isUserBlocked(messageRecipient)) {
+            Toast.makeText(getContext(),"User is blocked", Toast.LENGTH_LONG).show();
+            return;
+        }
+
 
         UserInterfaceManagerViewModel userInterfaceManager = new ViewModelProvider(getActivity()).get(UserInterfaceManagerViewModel.class);
         DirectMessageThread dms = UserDirectMessages.getInstance().currentDirectMessages.get(messageRecipient).directMessageThread;
