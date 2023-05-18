@@ -18,16 +18,41 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Search class for interfacing all search classes
+ * @author u7146309 Jayden Skidmore
+ */
 public class Search {
+    /**
+     * Singleton structure
+     */
     private static Search instance;
 
+    /**
+     * Searches posts
+     */
     private static PostResults postResults;
+    /**
+     * Searches questions
+     */
     private static QuestionResults questionResults;
+    /**
+     * Searches topics
+     */
     private static TopicResults topicResults;
+    /**
+     * Searches users
+     */
     private static UserResults userResults;
 
+    /**
+     * Parses search strings
+     */
     private static SearchParser searchParser;
 
+    /**
+     * Initialises search class bu updating all search types
+     */
     public Search() {
         postResults = new PostResults();
         postResults.updatePosts();
@@ -44,13 +69,21 @@ public class Search {
 
     }
 
+    /**
+     * Returns search instance
+     * @return current search instance, or a new one if not present
+     */
     public static Search getInstance() {
         if (instance == null) instance = new Search();
-        return instance; //TODO
+        return instance;
     }
 
 
-
+    /**
+     * Searches using an inputted string
+     * @param searchInput search input from user
+     * @return a list of search results, sorted in order of likelihood
+     */
     public ArrayList<SearchResult> search(String searchInput) {
         resetFilters();
 
@@ -75,10 +108,6 @@ public class Search {
                 }
 
                 setFilters(topics);
-
-                //TODO: cut off results at confidence < -2 (?)
-                //TODO: bump up confidence of most confident search
-                //TODO: store filter for use later
             }
         }
 
@@ -86,10 +115,8 @@ public class Search {
         ArrayList<SearchResult> searchResults = new ArrayList<>();
 
 
-        //TODO: Modify weights if certain queries are used. E.g. reduce user if topic is searched for
         for (var exp : expressions) {
             if (exp instanceof QueryExp) {
-                //TODO
                 var expWords = exp.decomposition();
 
                 switch (((QueryExp) exp).getQueryType()) {
@@ -116,7 +143,6 @@ public class Search {
                 }
             }
             else if (exp instanceof StatementExp) {
-                //TODO
                 var expWords = exp.decomposition();
 
                 var users = userResults.results(expWords);
@@ -133,35 +159,23 @@ public class Search {
 
         searchResults.sort(new SortResults());
 
-
-        //TODO: Get results - Parse, separate queries, get results
-
-        //TODO: Sort results
-
-
-
-
-        //TODO: Only return top ____ results
-
         return searchResults;
     }
 
 
-//    private ArrayList<SearchResult> sortResults(ArrayList<SearchResult> results) {
-//        //TODO
-//        results.sort(new SortResults());
-//        return results;
-//    }
-
-
+    /**
+     * Comparator for sorting search results
+     */
     class SortResults implements Comparator<SearchResult> {
-
         @Override
         public int compare(SearchResult o1, SearchResult o2) {
             return (int) ((o1.getConfidence() - o2.getConfidence())*(-100));
         }
     }
 
+    /**
+     * Updates all data from search types
+     */
     public void updateSearchData() {
         postResults.updatePosts();
         questionResults.updateQuestions();
@@ -169,22 +183,21 @@ public class Search {
     }
 
 
-
+    /**
+     * Sets the filters for searching different topics
+     * @param topics the topics and their assigned weighting
+     */
     private void setFilters(HashMap<QuestionSet.Category, Double> topics) {
         postResults.setTopics(topics);
         questionResults.setTopics(topics);
     }
 
+    /**
+     * Resets all filters to default values
+     */
     private void resetFilters() {
         HashMap<QuestionSet.Category, Double> noFilter = new HashMap<>(Map.of(QuestionSet.Category.Algorithm,1.0, QuestionSet.Category.ControlFlow,1.0, QuestionSet.Category.DataStructure,1.0, QuestionSet.Category.Miscellaneous,1.0, QuestionSet.Category.Recursion,1.0));
         postResults.setTopics(noFilter);
         questionResults.setTopics(noFilter);
     }
-
-
-    //TODO: Sort results
-    //TODO: Filter results
-    //TODO: Interface to return results
-    //TODO: Store search types/classes so they don't keep initialising
-    //TODO: Updating search function data
 }
