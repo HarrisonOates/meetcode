@@ -25,6 +25,9 @@ code:
   - comment: The use of a 'CountDownLatch' to synchronise things in Firebase/FirebaseResult.java
     url: https://stackoverflow.com/questions/55785311/how-do-i-wait-until-my-data-is-retrieved-from-firebase
     licence: Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
+  - comment: Splitting a Java string but keeping empty split cases
+    url: https://stackoverflow.com/questions/14602062/java-string-split-removed-empty-values
+    license: Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
 
 
 # add as many "url+licence+comment" entries as necessary
