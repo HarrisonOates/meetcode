@@ -153,7 +153,7 @@ public class DynamicLocalization extends LanguageSetting {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        userInterfaceManager.getUiState().getValue().enterNewFragment(textToTranslate);
+        userInterfaceManager.getUiState().getValue().enterNewFragment(textToTranslate, visibility);
     }
 
 

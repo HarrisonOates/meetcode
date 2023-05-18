@@ -99,8 +99,36 @@ public class QuestionFragment extends Fragment {
         DynamicLocalization.translatedOrDefaultToolBar(userInterfaceManager.getCurrentlyDisplayedQuestion().getValue().getHeading(), userInterfaceManager, true);
 
 
-
+        clearBorderDecoration();
         initializeLayoutOnEnter();
+    }
+
+    private void clearBorderDecoration() {
+        // For multi choice
+        for (int i = 0; i < QuestionSet.MAXIMUM_NUMBER_OF_MULTI_CHOICE_OPTIONS; i++) {
+            ConstraintLayout parent = (ConstraintLayout) binding.questionMultiCarpetContraintLayout.getChildAt(i);
+
+            GradientDrawable parentTextBox = (GradientDrawable) parent.getBackground();
+
+            parentTextBox.setStroke(((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 0, getResources().getDisplayMetrics())),
+                    Color.parseColor("#FFFF102D"));
+
+        }
+
+        // For single choice
+        GradientDrawable fakeSingleTextBox = (GradientDrawable) binding.questionAnswerEntryBoxConstraintLayout1stFake.getBackground();
+        GradientDrawable firstSingleTextBox = (GradientDrawable) binding.questionAnswerEntryBoxConstraintLayout1st.getBackground();
+        GradientDrawable secondSingleTextBox = (GradientDrawable) binding.questionAnswerEntryBoxConstraintLayout2nd.getBackground();
+
+        secondSingleTextBox.setStroke(((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 0, getResources().getDisplayMetrics())),
+                Color.parseColor("#FFFF102D"));
+        firstSingleTextBox.setStroke(((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 0, getResources().getDisplayMetrics())),
+                Color.parseColor("#FFFF102D"));
+        fakeSingleTextBox.setStroke(((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 0, getResources().getDisplayMetrics())),
+                Color.parseColor("#FFFF102D"));
+
+
+
     }
 
     private void initializeLayoutOnEnter() {
@@ -154,12 +182,19 @@ public class QuestionFragment extends Fragment {
             // This should be of size 6 or less
             List<String> listOfMultiChoiceOptions = currentQuestion.multiChoiceOptions;
 
+            // Checking if this question has been answered correctly before
+            // also the amount of times it's been answered
+            boolean hasQuestionBeenAnsweredCorrectly = UserLocalData.getInstance().hasQuestionBeenAnsweredCorrectly(currentQuestion.getQuestionID());
+            int numberOfQuestionAttempts = UserLocalData.getInstance().getNumberOfFailedAttempts(currentQuestion.getQuestionID());
+            List<String> incorrectAnswers = UserLocalData.getInstance().getIncorrectAnswers(currentQuestion.getQuestionID());
+
             // Showing the multiple choice questions
             for (int i = 0; i < QuestionSet.MAXIMUM_NUMBER_OF_MULTI_CHOICE_OPTIONS; i++) {
                 // This is guaranteed to always return a non null element
                 ConstraintLayout parent = (ConstraintLayout) binding.questionMultiCarpetContraintLayout.getChildAt(i);
                 // This index is derived from the XML
                 TextView multiChoiceText = (TextView) parent.getChildAt(0);
+                View statusIcon = parent.getChildAt(1);
 
                 // Checking to see if listOfMultiChoiceOptions size is smaller than the current
                 // value of the counter
@@ -169,22 +204,35 @@ public class QuestionFragment extends Fragment {
                     // we're editing the multiple choice options that we want to display
                     multiChoiceText.setText(((char)('A' + i)) + ")  " + listOfMultiChoiceOptions.get(i));
 
-                    // Checking if this question has been answered correctly before
-                    // also the amount of times it's been answered
-                    boolean hasQuestionBeenAnsweredCorrectly = UserLocalData.getInstance().hasQuestionBeenAnsweredCorrectly(currentQuestion.getQuestionID());
-                    int numberOfQuestionAttempts = UserLocalData.getInstance().getNumberOfFailedAttempts(currentQuestion.getQuestionID());
-
                     // If we have attempted this question before
                     // if we haven't attempted this question before then we just want to set
                     // on click listeners and do nothing else
                     if (numberOfQuestionAttempts != 0) {
                         // we need to init previous attempts
 
+                        // we need to init incorrect dialogue message
+                        // if incorrect answers contains this current option
+                        if (incorrectAnswers.contains(String.valueOf((char)('A' + i)))) {
+                            // Set this current option as an error state
+
+                            // Setting status icon to red and bad
+                            statusIcon.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.icon_cross_circle));
+                            statusIcon.setVisibility(View.VISIBLE);
+
+                            // Setting text to strike through and bad
+                            multiChoiceText.setTextColor(Color.parseColor("#FFFF102D"));
+                            multiChoiceText.setPaintFlags(multiChoiceText.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+
+                            // Setting red border
+                            GradientDrawable incorrectTextBox = (GradientDrawable) parent.getBackground();
+                            incorrectTextBox.setStroke(((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2, getResources().getDisplayMetrics())),
+                                    Color.parseColor("#FFFF102D"));
+                        }
                     }
 
 
                     // If question has not been answered correctly
-                    if (!hasQuestionBeenAnsweredCorrectly) {
+                    if (!hasQuestionBeenAnsweredCorrectly && numberOfQuestionAttempts < 2) {
                         // we haven't answered the question correctly so we need to have
                         // the multiple choice options clickeable by the user
                         // Setting on click handler
@@ -193,20 +241,89 @@ public class QuestionFragment extends Fragment {
 
                             int numberOfQuestionAttemptsAnon = UserLocalData.getInstance().getNumberOfFailedAttempts(currentQuestion.getQuestionID());
 
+                            if (numberOfQuestionAttemptsAnon >= 2) {
+                                return;
+                            }
+
                             if (currentQuestion.isAnswerCorrect(listOfMultiChoiceOptions.get(finalI))) {
-                                if (numberOfQuestionAttemptsAnon == 0) {
+                                UserLocalData.getInstance().submitCorrectAnswer(currentQuestion.getQuestionID());
+                                // Set parent in correct state and display correct
 
-                                } else if (numberOfQuestionAttemptsAnon == 2) {
+                                multiChoiceText.setTextColor(Color.parseColor("#FF00D408"));
 
+                                statusIcon.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.icon_check_mark_circle));
+                                statusIcon.setVisibility(View.VISIBLE);
+
+                                GradientDrawable incorrectTextBox = (GradientDrawable) parent.getBackground();
+                                incorrectTextBox.setStroke(((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2, getResources().getDisplayMetrics())),
+                                        Color.parseColor("#FF00D408"));
+
+                                binding.questionMultiResultCorrectText.setVisibility(View.VISIBLE);
+
+                            } else {
+                                UserLocalData.getInstance().submitIncorrectAnswer(currentQuestion.getQuestionID(),
+                                        String.valueOf((char)('A' + finalI)));
+
+                                // Setting status icon to red and bad
+                                statusIcon.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.icon_cross_circle));
+                                statusIcon.setVisibility(View.VISIBLE);
+
+                                // Setting text to strike through and bad
+                                multiChoiceText.setTextColor(Color.parseColor("#FFFF102D"));
+                                multiChoiceText.setPaintFlags(multiChoiceText.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+
+                                // Setting red border
+                                GradientDrawable incorrectTextBox = (GradientDrawable) parent.getBackground();
+                                incorrectTextBox.setStroke(((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2, getResources().getDisplayMetrics())),
+                                        Color.parseColor("#FFFF102D"));
+
+                                numberOfQuestionAttemptsAnon = UserLocalData.getInstance().getNumberOfFailedAttempts(currentQuestion.getQuestionID());
+
+                                if (numberOfQuestionAttemptsAnon == 1) {
+                                    binding.questionMultiQuestionText.setText(getString(R.string.your_second_attempt));
+                                }
+
+                                if (numberOfQuestionAttemptsAnon >= 2) {
+                                    binding.questionMultiResultIncorrectText.setVisibility(View.VISIBLE);
                                 }
                             }
-                            //UserLocalData.getInstance().hasQuestionBeenAnsweredCorrectly()
                         });
                     }
-
-
-
                 }
+            }
+
+            if (numberOfQuestionAttempts >= 1) {
+                binding.questionMultiQuestionText.setText(getString(R.string.your_second_attempt));
+            }
+
+            // Now we want to check if the question has been answered correctly or
+            // if the total amount of question attempts has been used up so we can set the
+            // rest of the UI that needs to be set
+            if (hasQuestionBeenAnsweredCorrectly) {
+
+                // As multi choice getAnswer will always return a single letter string/char
+                char correctOption = currentQuestion.getAnswer().toCharArray()[0];
+
+                ConstraintLayout parent = (ConstraintLayout) binding.questionMultiCarpetContraintLayout
+                        .getChildAt(correctOption - 'A');
+                // This index is derived from the XML
+                TextView multiChoiceText = (TextView) parent.getChildAt(0);
+                View statusIcon = parent.getChildAt(1);
+
+                multiChoiceText.setTextColor(Color.parseColor("#FF00D408"));
+
+                statusIcon.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.icon_check_mark_circle));
+                statusIcon.setVisibility(View.VISIBLE);
+
+                GradientDrawable incorrectTextBox = (GradientDrawable) parent.getBackground();
+                incorrectTextBox.setStroke(((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2, getResources().getDisplayMetrics())),
+                        Color.parseColor("#FF00D408"));
+
+                binding.questionMultiResultCorrectText.setVisibility(View.VISIBLE);
+
+            } else if (numberOfQuestionAttempts == 2) {
+
+                binding.questionMultiResultIncorrectText.setVisibility(View.VISIBLE);
             }
 
         } else {
