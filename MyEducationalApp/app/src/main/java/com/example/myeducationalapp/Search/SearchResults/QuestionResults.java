@@ -13,7 +13,7 @@ import java.util.SortedMap;
 
 /**
  * Obtains the results of how likely each question is to be the result being searched for
- * @author u7146309
+ * @author u7146309 Jayden Skidmore
  */
 public class QuestionResults extends Results{
     /**

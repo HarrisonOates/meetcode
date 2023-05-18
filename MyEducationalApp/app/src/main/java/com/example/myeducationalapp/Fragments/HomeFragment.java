@@ -54,7 +54,7 @@ import java.util.List;
  * create an instance of this fragment.
  *
  * @author u7300256 Nikhila Gurusinghe (main code)
- * @author u7469758 Geun Yun (search bar UI)
+ * @author u7469758 Geun Yun (search bar UI and dynamic localization)
  */
 public class HomeFragment extends Fragment {
 

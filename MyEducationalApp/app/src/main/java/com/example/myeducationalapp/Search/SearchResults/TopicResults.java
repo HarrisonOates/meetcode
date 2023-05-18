@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * Obtains the results of how likely each topic is to be the result being searched for
- * @author Jayden
+ * @author u7146309 Jayden Skidmore
  */
 public class TopicResults extends Results{
     /**

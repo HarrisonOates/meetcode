@@ -333,13 +333,15 @@ The surprise item was not implemented.
 
 *Here is an example:*
 
-1. *Bug 1:*
-
+1. *Bug 1: Space bar in the sign in*
 - *A space bar (' ') in the sign in email will crash the application.*
 - ...
 
-2. *Bug 2:*
-3. ...
+2. *Bug 2: Star count in the home page*
+- *Star count of a user in  the home page is initially not reflected until other fragment has been visited.
+- *This has negligible consequence, as users can simply click home button to refresh.
+- *The count also gets replaced by a back arrows once the language has been switched.
+- *But again, this does not lead to any real issue, as their star counts can be checked in their account menu.
 
 *List all the known errors and bugs here. If we find bugs/errors that your team does not know of, it shows that your testing is not thorough.*
 

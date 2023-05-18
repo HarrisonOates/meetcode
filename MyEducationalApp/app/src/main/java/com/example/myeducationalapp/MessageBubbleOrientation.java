@@ -1,5 +1,8 @@
 package com.example.myeducationalapp;
 
+/**
+ * @author u7468248 Alex Boxall
+ */
 public enum MessageBubbleOrientation {
     BOTTOM(R.drawable.direct_message_bubble_combo_bottom),
     BOTTOM_RECIPIENT(R.drawable.direct_message_recipient_bubble_combo_bottom),

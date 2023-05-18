@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  * Represents a formatted expression of a query
- * @author Jayden Skidmore
+ * @author u7146309 Jayden Skidmore
  */
 public class QueryExp extends Exp{
     //Stores the type of query

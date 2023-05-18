@@ -4,6 +4,9 @@ import com.example.myeducationalapp.Search.SearchParsing.SearchToken;
 
 import java.util.List;
 
+/**
+ * @author u7146309 Jayden Skidmore
+ */
 public class SearchResult {
     private final String id;
     private final SearchToken.Query type;

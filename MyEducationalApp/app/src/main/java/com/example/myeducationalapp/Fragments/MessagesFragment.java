@@ -48,7 +48,8 @@ import java.util.Objects;
  * Use the {@link MessagesFragment#newInstance} factory method to
  * create an instance of this fragment.
  *
- * @author u7300256 Nikhila Gurusinghe
+ * @author u7300256 Nikhila Gurusinghe (practically everything)
+ * @author u7469758 Geun Yun (dynamic localization)
  */
 public class MessagesFragment extends Fragment {
 

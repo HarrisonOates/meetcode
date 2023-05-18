@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * Obtains the results of how likely each user is to be the result being searched for
- * @author u7146309
+ * @author u7146309 Jayden Skidmore
  */
 public class UserResults extends Results{
     /**

@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  * Abstract class to represent search expressions
- * @author Jayden Skidmore
+ * @author u7146309 Jayden Skidmore
  */
 public abstract class Exp {
     //Returns the expression as a string

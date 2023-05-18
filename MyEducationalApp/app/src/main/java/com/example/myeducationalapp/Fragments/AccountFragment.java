@@ -24,7 +24,8 @@ import com.example.myeducationalapp.userInterface.UserInterfaceManagerViewModel;
  * Use the {@link AccountFragment#newInstance} factory method to
  * create an instance of this fragment.
  *
- * @author u7300256 Nikhila Gurusinghe
+ * @author u7300256 Nikhila Gurusinghe (practically everything)
+ * @author u7469758 Geun Yun (dynamic localization)
  */
 public class AccountFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";

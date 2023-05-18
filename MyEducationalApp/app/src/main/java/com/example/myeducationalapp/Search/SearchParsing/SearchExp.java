@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * Represents a formatted expression of a search
- * @author Jayden Skidmore
+ * @author u7146309 Jayden Skidmore
  */
 public class SearchExp extends Exp{
     //Contains the first query expression
