@@ -85,8 +85,7 @@ public class DataGenerator {
             };
 
             for (int i = 0; i < 2500; i++){
-                int n = r.nextInt(4);
-                if (n == 3) n = 2;
+                int n = r.nextInt(3);
 
                 switch (n) {
                     case 0 -> {
