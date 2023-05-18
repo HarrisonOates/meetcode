@@ -19,13 +19,6 @@ declaration: >-
   own work, with the following exceptions:
 
 
-# add as many "name+comment" entries as necessary
-# (or remove it altogether if you haven't collaborated with anyone outside your group)
-collaboration:
-  - name:
-    comment: >-
-
-
 # add as many "url+licence+comment" entries as necessary
 # (or remove it altogether if you haven't used any external code)
 code:
@@ -37,10 +30,6 @@ code:
 # add as many "url+licence+comment" entries as necessary
 # (or remove it altogether if you haven't used any external assets)
 assets:
-  # NOTE: "Bliss" is just here as an example, you SHOULD REMOVE IT
-  - comment: "_Bliss_ by Charles O'Rear"
-    url: https://en.wikipedia.org/wiki/Bliss_(image)
-    licence: fair use
   - comment: "Virtual Reality Technology Icons designed by gstudioimagen / Freepik"
     url: http://www.freepik.com
     licence: http://www.freepik.com/terms_of_use
@@ -50,6 +39,10 @@ assets:
   - comment: "Unique mesh fluid gradient by MagicPattern.design tool"
     url: https://unsplash.com/photos/bevXKKL7E9g
     licence: https://unsplash.com/license
+  - comment: "Cases where more than one re-balancing is required in AVLTree deletion"
+    url: https://cs.stackexchange.com/questions/128245/worst-case-for-avl-tree-balancing-after-deletion
+    licence: https://stackoverflow.com/legal/terms-of-service
+
 
 
 ### Questions (answer before final submission):
