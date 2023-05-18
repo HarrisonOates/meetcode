@@ -5,13 +5,16 @@ import android.os.Bundle;
 import com.example.myeducationalapp.DatastreamSimulation.DataGenerator;
 import com.example.myeducationalapp.Firebase.Firebase;
 import com.example.myeducationalapp.Localization.DynamicLocalization;
+import com.example.myeducationalapp.databinding.FragmentFirstBinding;
 import com.example.myeducationalapp.userInterface.UserInterfaceManagerViewModel;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.activity.OnBackPressedDispatcher;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 
 import androidx.databinding.DataBindingUtil;
@@ -26,6 +29,7 @@ import com.example.myeducationalapp.databinding.ActivityMainBinding;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -79,31 +83,33 @@ public class MainActivity extends AppCompatActivity {
         TextView toolbarStarContainerText = (TextView) findViewById(R.id.toolbar_star_container_number);
         toolbarStarContainerText.setText(String.valueOf(UserLocalData.getInstance().getPoints()));
 
-        // Setting initial states of dynamic elements
-
-
         // Anonymous on-click handlers
+        // Home icon on nav menu
         navMenuHomeIcon.setOnClickListener(view -> {
-
+            toolbarStarContainerText.setText(String.valueOf(UserLocalData.getInstance().getPoints()));
             DynamicLocalization.navigateTranslatedToolBar(userInterfaceManager, navController, "Home", R.id.HomeFragment);
 
         });
 
+        // Mail icon on nav menu
         navMenuMailIcon.setOnClickListener(view -> {
 
             DynamicLocalization.navigateTranslatedToolBar(userInterfaceManager, navController, "Messages", R.id.messagesFragment);
 
         });
 
+        // Hamburger menu on nav menu
         navMenuHamburgerIcon.setOnClickListener(view -> {
 
             DynamicLocalization.navigateTranslatedToolBar(userInterfaceManager, navController, "Menu", R.id.accountFragment);
 
         });
 
+        // Navigating backwards
         toolbarBackwardsArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                toolbarStarContainerText.setText(String.valueOf(UserLocalData.getInstance().getPoints()));
                 onSupportNavigateUp();
             }
         });
@@ -123,6 +129,9 @@ public class MainActivity extends AppCompatActivity {
                 throw new RuntimeException(e);
             }
         }
+
+        toolbarStarContainerText.setText(String.valueOf(UserLocalData.getInstance().getPoints()));
+
     }
 
     @Override
