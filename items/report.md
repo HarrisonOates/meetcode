@@ -63,6 +63,8 @@ u7468248, Alex Boxall: I contributed 20% of the code. Here are my contributions:
   * The section on the instrumented tests
   * Added the UML to the report
   * Added the screenshots for code coverage
+* **IMPORTANT NOTE**
+  * On GitLab, for some unknown reason, it shows that the code committed and pushed I've pushed was done by "alexboxall3@gmail.com" (my personal email). **However, I have actually been using my ANU account (u7468248@anu.edu.au), and this is reflected in the activity page of my u7468248@anu.edu.au GitLab page [(which you can see here)](https://gitlab.cecs.anu.edu.au/users/u7468248/activity)**.
 
 
 u7469758, Geun Yun: I contributed 20% of the code. Here are my contributions:
@@ -122,6 +124,8 @@ u7468212, Harrison Oates: I contributed 20% of the code. Here are my contributio
 
 * Which part of the report did the involved member write?
   * I wrote about the Syntax Highlighting Grammar, and about the [Custom-Syntax-Highlighting] and [datastream] features, .in addition to the present section.
+* **IMPORTANT NOTE**
+  * Some Git contributions were done under 48871176+harrisonoates@users.noreply.github.com
 
 
 u7146309, Jayden Skidmore: I contributed 20% of the code. Here are my contributions:
@@ -206,7 +210,8 @@ u7300256, Nikhila Gurusinghe: I contributed 20% of the code. Here are my contrib
     * Designed and implemented the logic and user interface to facilitate answering Questions. A question is one of two states, either multiple choice or not and each state has multiple sub-states inside (as a user only gets two attempts). This was implemented in Fragments/Question.java
     * All persisted data through Firebase was displayed on the user interface in some way and for every user interface element (apart from search UI) I coded and implemented it to display in Android.
     * I made the video and generated the APK for the project
-
+  * **IMPORTANT NOTE**:
+    * Some Git contributions are listed under nikhilagurusinghe@gmail.com
 
 ## Important Notes
 Our Firebase database is located here: https://comp2100groupassignment-8427a-default-rtdb.asia-southeast1.firebasedatabase.app
@@ -214,11 +219,6 @@ Our Firebase database is located here: https://comp2100groupassignment-8427a-def
 The location of the APK (from the root directory) is either in ```APK/app-debug.apk``` or ```items/app-debug.apk```. These two files are the exact same.
 
 As per this Wattle thread (https://wattlecourses.anu.edu.au/mod/forum/discuss.php?d=875865), our data stream requires a second AVD (Android Virtual Device) to use. Please read data stream section of the report for more details.
-
-### Notes on GitLab accounts
-On GitLab, for some unknown reason, it shows that the code committed and pushed by Alex Boxall (u7467248) was done by "alexboxall3@gmail.com" (my personal email). **However, I have been using my ANU account (u7468248@anu.edu.au), and this is reflected in the activity page of my u7468248@anu.edu.au GitLab page [(here)](https://gitlab.cecs.anu.edu.au/users/u7468248/activity)**.
-
-Additionally some of the contributions from both Nikhila Gurusinghe (u7300256), and Harrison Oates (u7468212) were done from their personal accounts, nikhilagurusinghe@gmail.com and 48871176+harrisonoates@users.noreply.github.com respectively.
 
 ## Conflict Resolution Protocol
 
