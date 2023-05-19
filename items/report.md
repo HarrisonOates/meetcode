@@ -64,7 +64,7 @@ u7468248, Alex Boxall: I contributed 20% of the code. Here are my contributions:
   * Added the UML to the report
   * Added the screenshots for code coverage
 * **IMPORTANT NOTE**
-  * On GitLab, for some unknown reason, it shows that the code committed and pushed I've pushed was done by "alexboxall3@gmail.com" (my personal email). **However, I have actually been using my ANU account (u7468248@anu.edu.au), and this is reflected in the activity page of my u7468248@anu.edu.au GitLab page [(which you can see here)](https://gitlab.cecs.anu.edu.au/users/u7468248/activity)**.
+  * On GitLab, for some unknown reason, it shows that the code I've contributed was done by "alexboxall3@gmail.com" (my personal email). **However, I have actually been using my ANU account (u7468248@anu.edu.au), and this is reflected in the activity page of my u7468248@anu.edu.au GitLab page [(which you can see here)](https://gitlab.cecs.anu.edu.au/users/u7468248/activity)**.
 
 
 u7469758, Geun Yun: I contributed 20% of the code. Here are my contributions:
