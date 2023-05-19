@@ -215,8 +215,10 @@ The location of the APK (from the root directory) is either in ```APK/app-debug.
 
 As per this Wattle thread (https://wattlecourses.anu.edu.au/mod/forum/discuss.php?d=875865), our data stream requires a second AVD (Android Virtual Device) to use. Please read data stream section of the report for more details.
 
-### Notes on accounts used to push code
-Code commited 
+### Notes on GitLab accounts
+On GitLab, for some unknown reason, it shows that the code committed and pushed by Alex Boxall (u7467248) was done by "alexboxall3@gmail.com" (my personal email). **However, I have been using my ANU account (u7468248@anu.edu.au), and this is reflected in the activity page of my u7468248@anu.edu.au GitLab page [(here)](https://gitlab.cecs.anu.edu.au/users/u7468248/activity)**.
+
+Additionally some of the contributions from both Nikhila Gurusinghe (u7300256), and Harrison Oates (u7468212) were done from their personal accounts, nikhilagurusinghe@gmail.com and 48871176+harrisonoates@users.noreply.github.com respectively.
 
 ## Conflict Resolution Protocol
 
