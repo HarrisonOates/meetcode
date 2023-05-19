@@ -303,7 +303,7 @@ We used the following design patterns in our project:
 * Locations: 
   * The interface userInterface.Generatable.IterableCollection
   * The interface userInterface.Generatable.Iterator
-  * userInterface.GeneratedUserInterfaceViewModel, lines 23-45. The entire class implements the interface IterableCollection.
+  * userInterface.GeneratedUserInterfaceViewModel, lines 23-45. The entire class implements the interface IterableCollection. The underlying data structure being hidden by this design pattern is in line 13.
 * Reasons:
     * To keep client code loosely coupled from the underlying implementation of the data structure as well. 
 
