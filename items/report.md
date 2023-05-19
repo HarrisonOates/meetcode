@@ -299,11 +299,13 @@ We used the following design patterns in our project:
   * Hence we use an observer that can be registered with Firebase, and the ```update()``` method will be called when a change occurs
 
 3. Iterator
-* Objective:
-* Locations:
+* Objective: To allow for user interface elements that are generated to be accessed in sequential order.
+* Locations: 
+  * The interface userInterface.Generatable.IterableCollection
+  * The interface userInterface.Generatable.Iterator
+  * userInterface.GeneratedUserInterfaceViewModel, lines 23-45. The entire class implements the interface IterableCollection.
 * Reasons:
-    * ...
-    * ...
+    * To keep client code loosely coupled from the underlying implementation of the data structure as well. 
 
 4. Facade
 * Objective: Abstract away from the low-level details of the database backend, and provide an easy-to-use, unified and implementation independent interface.
