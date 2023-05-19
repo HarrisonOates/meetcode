@@ -216,6 +216,8 @@ The following conflict resolution protocol was decided on in our first meeting.
 - ChatGPT and other generative AI tools: Don't use it except as a last resort, ask team members before using.
 - Communication: use Microsoft Teams messages.
 
+## Conflicts
+There were no conflicts during the development of this project.
 
 ## Application Description
 
