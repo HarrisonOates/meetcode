@@ -252,9 +252,12 @@ We used the following data structures in our project:
 
 1. AVL Tree
 
-   * Objective: It is used for storing xxxx for xxx feature.
+   * Objective: Used to store objects, and check if they exist in an efficient time. Also allows efficient insertion and deletion.
 
-   * Locations: line xxx in XXX.java, ..., etc.
+   * Locations:
+     * implementation is in AVLTree.java (whole file)
+     * used in User.UserLocalData (line 46, lines 61-71), to store the blocked user list, the messages that are liked by the current user and the submitted answers per question per user
+     * used in Message (line 43) to store who has liked the message
 
    * Reasons:
 
@@ -330,8 +333,6 @@ Production rules for the search:
     <query> ::= specifier <statement>
     <statement> ::= word | word <statement>
 
-*[How do you design the grammar? What are the advantages of your designs?]*
-
 The grammar was designed around the intent of separating searches into sections called queries, allowing for a user to filter their results based upon what they were looking for. e.g. searching for users or topics. By using a specific separator, it allows the regular tokens, such as '?' to be used in the search without it being taken as another query. Although this does mean that the separator can't be used in a search normally, this was circumvented by allowing the separator to be put twice to indicate a regular ';' in text.
 The grammar was designed in a way which allowed for multiple words to be searched under one query, as well as having multiple queries to be used under the same search.
 
@@ -374,8 +375,6 @@ Production rules for syntax highlighting:
    
    The grammar was designed through observing the characteristics of common colour schemes like Dracula and Android Studio's default themes.
 
-*[How do you design the grammar? What are the advantages of your designs?]*
-
 **Tokenizer and Parsers**
 
 Two tokenizers and parses were built, one of each for search and syntax highlighting.
@@ -389,9 +388,8 @@ This is done through a number of ```if```-statements that determine which token 
 The parser takes each token's type and applies a given colour through HTML syntax. For some tokens, there exist characters that are reserved in HTML, so the parser additionally escapes these characters where required. This design choice means that the parser could be easily modified if we were to change the way we wish to render text.
 
 
-*[Where do you use tokenisers and parsers? How are they built? What are the advantages of the designs?]*
-
 **Surprise Item**
+
 The surprise item was not implemented.
 
 ## Summary of Known Errors and Bugs
@@ -407,8 +405,6 @@ The surprise item was not implemented.
    - The count also gets replaced by a back arrows once the language has been switched.
    - But again, this does not lead to any real issue, as their star counts can be checked in their account menu.
    - This bug also does not relate to any of the basic or general features
-
-*List all the known errors and bugs here. If we find bugs/errors that your team does not know of, it shows that your testing is not thorough.*
 
 ## Testing Summary
 
@@ -453,8 +449,6 @@ The code coverage for these tests are shown below:
 ![ClassDiagram](./images/paircc.png)
 
 ## Implemented Features
-
-*[What features have you implemented?]*
 
 ### Basic App
 1. [Login]. Description of the feature and your implementation (easy)
