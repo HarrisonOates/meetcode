@@ -207,6 +207,14 @@ u7300256, Nikhila Gurusinghe: I contributed 20% of the code. Here are my contrib
     * All persisted data through Firebase was displayed on the user interface in some way and for every user interface element (apart from search UI) I coded and implemented it to display in Android.
     * I made the video and generated the APK for the project
 
+
+## Important Notes
+Our Firebase database is located here: https://comp2100groupassignment-8427a-default-rtdb.asia-southeast1.firebasedatabase.app
+
+The location of the APK (from the root directory) is either in ```APK/app-debug.apk``` or ```items/app-debug.apk```. These two files are the exact same.
+
+As per this Wattle thread (https://wattlecourses.anu.edu.au/mod/forum/discuss.php?d=875865), our data stream requires a second AVD (Android Virtual Device) to use. Please read data stream section of the report for more details.
+
 ## Conflict Resolution Protocol
 
 The following conflict resolution protocol was decided on in our first meeting.
