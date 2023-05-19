@@ -502,9 +502,10 @@ Feature Category: Firebase Integration <br>
    updated as the remote database is updated without restarting the application. (hard)
    * Class Firebase.FirebaseObserver: whole file
    * Class Firebase.Firebase: constructor (lines 74-98), methods attachObserver and notifyObservers (lines 100-117)
-   * Class <some UI stuff>:
+   * Class DirectMessageFragment.DirectMessageObserver: whole class
    * Additional description: 
      * Most of this follows from the fact that the app's state is persisted on Firebase (and therefore the classes and files in the [FB-Persist] section are utilised). For the app to automatically update without restarting, all that needs to be done is determine when a change has occurred on Firebase, and then update the user interface appropriately. The Firebase API provides a listener for when data changes. This is caught in Firebase.Firebase, which is then able to notify any observers of the change. One of the observers is the user interface, which then is then able to use the functions in Firebase.Firebase to redownload the new state of the app, and rerender the user interface appropriately.
+     * DirectMessageFragment.DirectMessageObserver inherits FirebaseObserver and will refresh the direct messaging UI, showing new likes/unlikes as well as new messages. This means that user can enjoy real time updates to their direct message thread.
 
 Feature Category: Peer-to-peer messaging <br>
 4. [P2P-Block] Provide users with the ability to ‘block’ users, preventing them from direct messaging
@@ -520,8 +521,11 @@ Feature Category: Peer-to-peer messaging <br>
    * Class Message: whole file
    * Class DirectMessageThread: whole file
    * Class MessageThread: whole file
+   * Class DirectMessageFragment: whole file
+   * Class UserDirectMessages : whole file
    * Additional description:
      * Users are able to direct message each other. This is possible due to the state of the program being stored on Firebase. For each pair of users, there exists a Firebase object that contains all of the messages that they've sent to each other. This gets loaded into the DirectMessageThread class, which inherits from MessageThread (this is done so messages posted under questions can be handled in the same way). Messages can be sent between the users by adding a new message to the list and re-uploading it to Firebase.
+     * The UI uses a DirectMessageThread object as well as its list of Messages in order to render messages to the user interface, allowing users to like and unlike messages on top of allowing for them to send and receive messages in real time. The UI of a message bubble that encapsulates the raw text of a message changes depending on the number of consecutive direct messages as well as depending on who sent those messages, making for a visually appealing appearance.
 <br>
    
 Feature category: Search <br>
@@ -544,6 +548,7 @@ Feature Category: Syntax Highlighting (custom, approved as per [here](https://wa
    * Class SyntaxHighlighting.Parser, whole file
    * Class SyntaxHighlighting.Tokenizer, whole file
    * Class SyntaxHighlighting.Token, whole file
+   * Class QuestionFragment and DirectMessageFragment form the UI front-end for displaying highlighted syntax
    * Additional description: 
      * Users are able to input code in comments in between two sets of three backticks, and this code will be highlighted according to our custom colour scheme. Token types are stored in Token, with the classification of the text into tokens happening in the ```next()``` method in the Tokenizer class.
      The Parser calls ```next()``` repeatedly until the end of the text and transforms the tokenized query into HTML, applying the colours appropriately.
