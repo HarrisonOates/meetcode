@@ -521,7 +521,7 @@ Feature Category: Firebase Integration <br>
      - Additionally, the Asynchronous class is used to allow the other classes in the program act asynchronously, and allow them to wait on each other to receive data before running a callback.
      - Data is local to particular users, such as messages they've liked, their blocked user list, and any answers they've submitted is stored in the UserLocalData class. However, to handle users logging out of the app and back in again, this is also synchronised to Firebase whenever this data changes. This means the user can log in from any device and their data will still be there.
 
-
+. <br>
 3. [FB-Syn] Using Firebase or another remote database to store user information and having the app updated as the remote database is updated without restarting the application. (hard)
    - Class Firebase.FirebaseObserver: whole file
    - Class Firebase.Firebase: constructor (lines 74-98), methods attachObserver and notifyObservers (lines 100-117)
@@ -530,7 +530,7 @@ Feature Category: Firebase Integration <br>
      - Most of this follows from the fact that the app's state is persisted on Firebase (and therefore the classes and files in the [FB-Persist] section are utilised). For the app to automatically update without restarting, all that needs to be done is determine when a change has occurred on Firebase, and then update the user interface appropriately. The Firebase API provides a listener for when data changes. This is caught in Firebase.Firebase, which is then able to notify any observers of the change. One of the observers is the user interface, which then is then able to use the functions in Firebase.Firebase to redownload the new state of the app, and rerender the user interface appropriately.
      - DirectMessageFragment.DirectMessageObserver inherits FirebaseObserver and will refresh the direct messaging UI, showing new likes/unlikes as well as new messages. This means that user can enjoy real time updates to their direct message thread.
 
-Feature Category: Peer-to-peer messaging
+Feature Category: Peer-to-peer messaging <br>
 4. [P2P-Block] Provide users with the ability to ‘block’ users, preventing them from direct messaging them. (medium)
    - Class UserLocalData: methods `toggleBlockUser`, `isUserBlocked`
    - Class DirectMessageFragment: lines 148-151
@@ -539,7 +539,7 @@ Feature Category: Peer-to-peer messaging
      - Users are not able to send to or receive messages from users they have blocked. 
      - This is implemented by checking whether the user is on a blocked user list, and if so, not allowing any of their messages to be shown. It also prevents messages from being sent to the blocked user.
 
-
+. <br>
 5. [P2P-DM] Provide users with the ability to message each other directly in private. (hard)
    - Class Message: whole file
    - Class DirectMessageThread: whole file
@@ -549,7 +549,6 @@ Feature Category: Peer-to-peer messaging
    - Additional description:
      - Users are able to direct message each other. This is possible due to the state of the program being stored on Firebase. For each pair of users, there exists a Firebase object that contains all of the messages that they've sent to each other. This gets loaded into the DirectMessageThread class, which inherits from MessageThread (this is done so messages posted under questions can be handled in the same way). Messages can be sent between the users by adding a new message to the list and re-uploading it to Firebase.
      - The UI uses a DirectMessageThread object as well as its list of Messages in order to render messages to the user interface, allowing users to like and unlike messages on top of allowing for them to send and receive messages in real time. The UI of a message bubble that encapsulates the raw text of a message changes depending on the number of consecutive direct messages as well as depending on who sent those messages, making for a visually appealing appearance.
-<br>
    
 Feature category: Search <br>
 6. [Search-Invalid] Search functionality can handle partially valid and invalid search queries. (medium)
@@ -557,7 +556,7 @@ Feature category: Search <br>
    - Class Fragments.HomeFragment: part of onViewCreated, initializeSearch and visualizeClickableSearchResults (lines 170-285)
    - The search will rank all results based upon how likely it is to be the correct response and return them in a sorted order.
 
-
+. <br>
 7. [Search-Filter] Sort and/or filter a list of items returned from a search, with the help of suitable UI components. (easy)
    - All classes within `myeducationalapp/Search` folder
    - Class Fragments.HomeFragment: part of onViewCreated, initializeSearch and visualizeClickableSearchResults (lines 170-285)
@@ -565,8 +564,6 @@ Feature category: Search <br>
    - Users can also search more specific filters through direct text input, as outlined in the Tokenizer and Parsers section above.
    - The search is always listed in a descending order of relevancy.
    - Note that UI for discussion was not implemented, so clicking the discussion search results will not navigate users to anywhere.
-<br>
-   
 
 Feature Category: Syntax Highlighting (custom, approved as per [here](https://wattlecourses.anu.edu.au/mod/forum/discuss.php?d=870859)) <br>
 8. [Custom-Syntax-Highlighting]. Description: The user interface will be able to display snippets of code to the user, with dynamically generated syntax highlighting applied. The syntax of the code will be Java-like. (hard)
@@ -580,7 +577,6 @@ Feature Category: Syntax Highlighting (custom, approved as per [here](https://wa
      - The Parser calls ```next()``` repeatedly until the end of the text and transforms the tokenized query into HTML, applying the colours appropriately. 
      - All of this is bundled into a static method, ```SyntaxHighlighting.DetectCodeBlock.parseCodeBlocks()```, which detects the backticks and feeds the appropriate section of text to the other classes. 
      - To interface with the frontend, we call the method inside ```Html.fromHtml```, which is itself inside ```textView.setText()```.
-
 
 Feature Category: Localisation (custom, approved as per [here](https://wattlecourses.anu.edu.au/mod/forum/discuss.php?d=870913)) <br>
 9. [Custom-Localization] The user is able to change the (spoken, not programming) language of the app they are most comfortable with. This will remove the language barrier and provide equal quality to users from all backgrounds. For example, the language for the app could be changed to Portuguese. Or, if the user is a pirate, they will see the text "Hello how are you?" as "arr me matey, how goes it?" (easy)
