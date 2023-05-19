@@ -372,41 +372,23 @@ The parser takes each token's type and applies a given colour through HTML synta
 **Surprise Item**
 The surprise item was not implemented.
 
-**Other**
-
-*[What other design decisions have you made which you feel are relevant? Feel free to separate these into their own subheadings.]*
-
 ## Summary of Known Errors and Bugs
 
-*[Where are the known errors and bugs? What consequences might they lead to?]*
+1. *Exiting and re-entering the same direct message conversation*
+   - If a user exits a direct message conversation, and then re-enters it, it will no longer automatically refresh (e.g. likes will not update). This is due to a bug in how the user interface manages the direct message conversations.
+   - In this state, if the user sends a message to another user who is currently logged into the app and viewing the same direct message conversation, their app may crash
+   - There may be other instabilities when the app is in this state
 
-*Here is an example:*
-
-1. *Bug 1: Space bar in the sign in*
-- *A space bar (' ') in the sign in email will crash the application.*
-- ...
-
-2. *Bug 2: Star count in the home page*
-- *Star count of a user in  the home page is initially not reflected until other fragment has been visited.
-- *This has negligible consequence, as users can simply click home button to refresh.
-- *The count also gets replaced by a back arrows once the language has been switched.
-- *But again, this does not lead to any real issue, as their star counts can be checked in their account menu.
+2. *Star count in the home page*
+   - The star count of a user in the home page is initially not reflected until other fragment has been visited.
+   - This has negligible consequence, as users can simply click home button to refresh.
+   - The count also gets replaced by a back arrows once the language has been switched.
+   - But again, this does not lead to any real issue, as their star counts can be checked in their account menu.
+   - This bug also does not relate to any of the basic or general features
 
 *List all the known errors and bugs here. If we find bugs/errors that your team does not know of, it shows that your testing is not thorough.*
 
 ## Testing Summary
-
-*[What features have you tested? What is your testing coverage?]*
-
-*Here is an example:*
-
-- *Number of test cases: ...*
-
-- *Code coverage: ...*
-
-- *Types of tests created: ...*
-
-*Please provide some screenshots of your testing summary, showing the achieved testing coverage. Feel free to provide further details on your tests.*
 
 Much of the application relies on Firebase, and therefore much of the program relies on instrumented tests instead of standard unit tests.
 Many types of test were created:
@@ -426,11 +408,9 @@ Many types of test were created:
   - downloading messages from a direct message thread
   - reading messages downloaded
   - checking whether messages have been liked
-
 - Tests for syntax highlighting (```SyntaxHighlightingTest``` and ```SyntaxHighlightingParsingTest```), which test the following:
   - Tokenizer accuracy in creating tokens
   - Parser accuracy in translating this to HTML
-
 - Tests for searching (```SearchTest```) which tests the following:
   - Tokenizer ability to generate tokens
   - Parser ability to deal with blank inputs and properly separate regular inputs into queries.
@@ -438,9 +418,17 @@ Many types of test were created:
   - Search for results using all search types at once (general search).
 
 Android Studio does not provide code coverage for instrumented tests, and thus the exact code coverage is not known.
-However, by manually inspecting the code, we find that the user login tests gets 100% line coverage of ```Firebase.FirebaseRequest```, approximately 76% of both ```Firebase.FirebaseResult```, and ```UserLogin```. Additionally, 100% of ```UserLocalData``` is tested, split across ```UserLocalDataTest``` (for most methods), and ```DirecteMessageTest``` (for ```loadFromDisk```). We achieve 100% branch coverage of the syntax highlighting methods across the two methods. 100% branch coverage is achieved for search.
+However, by manually inspecting the code, we find that the user login tests gets 100% line coverage of ```Firebase.FirebaseRequest```, approximately 76% of both ```Firebase.FirebaseResult```, and ```UserLogin```. Additionally, 100% of ```UserLocalData``` is tested, split across ```UserLocalDataTest``` (for most methods), and ```DirectMessageTest``` (for ```loadFromDisk```). We achieve 100% branch coverage of the syntax highlighting methods across the two methods. 100% branch coverage is achieved for search.
 
-General testing was additionally used throughout the program to test the functionality of code. An example of this being testing for search being done through verifying that the results that show up after searching something within the app are appropriate.
+General testing was additionally used throughout the program to test the functionality of code. An example of this being testing for search being done through verifying that the results that show up after searching something within the app are appropriate. Unit tests were written for the ```AVLTree```, ```ComparablePair``` and the syntax highlighting.
+
+The code coverage for these tests are shown below:
+
+![ClassDiagram](./images/avlcc.png)
+
+![ClassDiagram](./images/syntaxcc.png)
+
+![ClassDiagram](./images/paircc.png)
 
 ## Implemented Features
 
