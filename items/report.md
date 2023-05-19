@@ -192,7 +192,7 @@ u7300256, Nikhila Gurusinghe: I contributed 20% of the code. Here are my contrib
   * This section
   * The Application Description
   * Some of the Application Use Cases and or Examples
-  * Some of the UI explanations on [FB-Persist], [FB-Syn], and [P2P-DM]
+  * Some of the UI explanations on [FB-Persist], [FB-Syn], [Data Visualization],  and [P2P-DM]
 * You are welcome to provide anything that you consider as a contribution to the project or team.
   * I designed UI wireframes and sourced icons as well as a font that would support the languages that we were aiming to localise the app to. 
   ![wireframe](./images/wireframe.png) <br>  
@@ -491,7 +491,12 @@ The code coverage for these tests are shown below:
      - To set this up, log onto the secondary AVD with the credentials 'harrison' and '12345678' and then open up the primary marker account 'comp2100@anu.au'.
      The secondary account will then send code snippets, text excerpts, or like comments at random every three seconds, without the need for additional input. This is due to a login hook on mainActivity that activates whenever that specific account is logged into. The link to our Firebase can be found [here](https://console.firebase.google.com/u/0/project/comp2100groupassignment-8427a/overview).
 
-3. [Data Visualization]. Description  ... ...
+3. [Data Visualization].
+    * All activities and fragments
+    * All classes within the userInterface package
+    * Additional description:
+      * The UI relies on a number of backend classes such as DirectMessageThread to render direct messages to the screen. Using the list of messages in an instance of DirectMessageThread the user interface can determine on which side of the screen message bubbles should appear (as it differs depending on if the recipient of the current user sent a message) as well as what shape they must be (as they change shape depending on previously send messages). A similar process occurs for when a user likes or unlikes a direct message as this must be reflected in the user interface.
+      * In terms of questions, the majority of the user interface elements rendered for questions are static (with only the text in these elements changing). This is facilitated through the use of ConstraintLayout's which can dynamically change their size and configuration depending on the size of their containing elements. Lastly, for answer entry, there are two different types of entry interfaces: one for multiple choice and another for non-multiple choice. Each of these interfaces has multiple states as each user only receives two attempts at a question. All of these elements must react based on the data that is pulled from Firebase, and must also push data to Firebase.
 <br>
 
 4. [Search] Users must be able to search for information on your app. (medium)
