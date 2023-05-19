@@ -183,6 +183,8 @@ u7300256, Nikhila Gurusinghe: I contributed 20% of the code. Here are my contrib
 * Which part of the report did the involved member write?
   * This section
   * The Application Description
+  * Some of the Application Use Cases and or Examples
+  * Some of the UI explanations on [FB-Persist], [FB-Syn], and [P2P-DM]
 * You are welcome to provide anything that you consider as a contribution to the project or team.
   * I designed UI wireframes and sourced icons as well as a font that would support the languages that we were aiming to localise the app to. 
   ![wireframe](./images/wireframe.png) <br>  
