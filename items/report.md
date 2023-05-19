@@ -151,15 +151,11 @@ u7146309, Jayden Skidmore: I contributed 20% of the code. Here are my contributi
   * I added blocking functionalities to users, which blocks the chats of users who an individual does not want to interact with.
 * What design patterns, data structures, did the involved member propose?
   * A singleton pattern was used for the search functionality, implemented through the Search class.
-*
-* Specify what design did the involved member propose? What tools were used for the design?
-* 
 * Which part of the report did the involved member write?
   * Grammar, tokenizer and parser around the search
   * Features [Search], [Search-Invalid], [Search-Filter], [P2P-Block]
   * Testing for Search classes in testing summary
-* 
-* You are welcome to provide anything that you consider as a contribution to the project or team.
+  * Bugs 3 and 4 in bug and error list
 
 
 u7300256, Nikhila Gurusinghe: I contributed 20% of the code. Here are my contributions:
