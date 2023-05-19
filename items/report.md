@@ -35,13 +35,13 @@ u7468248, Alex Boxall: I contributed 20% of the code. Here are my contributions:
     * All of [DirectMessageTest.java](./../MyEducationalApp/app/src/androidTest/java/com/example/myeducationalapp/DirectMessageTest.java)
 * All of [Message.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Message.java)
 * All of [MessageThread.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/MessageThread.java)
-* All of [Person.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Person.java)
-* All of [Question.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Question.java)
-* All of [UserLocalData.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/UserLocalData.java)
+* All of [Person.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/User/Person.java)
+* All of [Question.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Question/Question.java)
+* All of [UserLocalData.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/User/UserLocalData.java)
   * All of [UserLocalDataTest.java](./../MyEducationalApp/app/src/androidTest/java/com/example/myeducationalapp/UserLocalDataTest.java)
-* Refactoring of [QuestionSet.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/QuestionSet.java)
+* Refactoring of [QuestionSet.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Question/QuestionSet.java)
   * Geun wrote the initial version and I refactored it, including making Question its own class
-* Some of [UserLogin.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/UserLogin.java)
+* Some of [UserLogin.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/User/UserLogin.java)
   * Geun wrote most of it, and I added ```getCurrentUsername```, ```isUserLoggedIn```, and made changes to ```authoriseUser```
 * Summary of contributions:
   * I designed and implemented the code related to Firebase and messaging. This included creating the format of storing the objects on Firebase (which uses a filesystem like-structure with "paths", explained later in the section on features implemented), and away of reading and writing data from it. 
@@ -61,6 +61,8 @@ u7468248, Alex Boxall: I contributed 20% of the code. Here are my contributions:
   * This section
   * [FB-Syn] and [P2P-DM] in the 'features implemented' section
   * The section on the instrumented tests
+  * Added the UML to the report
+  * Added the screenshots for code coverage
 
 
 u7469758, Geun Yun: I contributed 20% of the code. Here are my contributions:
@@ -274,22 +276,42 @@ We used the following design patterns in our project:
 
 1. Singleton
 
-* Objective: Used for various classes that require only one instance (or 'global' classes). For example, there is one object for managing user logins, the current user's settings, and the Firebase connection.
+* Objective: To ensure there is only one instance of certain classes.
 
-* Locations: line xxx in XXX.java, ..., etc.
-
+* Locations: 
+  * Firebase.Firebase (entire class), lines 37-48 implement it (with private constructor on lines 68-70)
+  * User.UserLogin (entire class), lines 20-26 implement it (with private constructor on lines 36-53)
+  * User.UserLocalData (entire class), lines 28-39 implement it (including private constructor)
+  * Question.QuestionSet (entire class), lines 140-147 implement it
 * Reasons:
-  *
-  * 
+  * Java does not support global functions or variables. Therefore, having a single instance of an object to hold such global data is useful.
+  * There should only be one connection to Firebase, so access is done through a singleton
+  * The use of singletons in QuestionSet, UserLocalData and UserLogin are to maintain a global state while the app is running.
 
-2. Facade
+2. Observer
+* Objective: To update the user interface only when a change has been made to the relevant data on Firebase.
+* Locations:
+  * the subject is set up in Firebase.Firebase, line 54, lines 77-115
+  * the handler that causes the subject to start notifying is line 158 in Firebase.FirebaseResult
+  * the observer is in Fragments.DirectMessageFragment.DirectMessagesObserver, entire class (lines 573-692)
+* Reasons:
+  * We wanted to have a way of parts of the app being notified when relevant information is changed on Firebase.
+  * Hence we use an observer that can be registered with Firebase, and the ```update()``` method will be called when a change occurs
 
-3. Observer
+3. Iterator
 * Objective:
 * Locations:
 * Reasons:
-  * ...
-  * ...
+    * ...
+    * ...
+
+4. Facade
+* Objective: Abstract away from the low-level details of the database backend, and provide an easy-to-use, unified and implementation independent interface.
+* Locations:
+  * Firebase.Firebase (entire file)
+* Reasons:
+    * Prevents the rest of the application from relying on the use of a Firebase database - if a different database were to be used we could just change this class instead of the rest of the code. This decreases coupling.
+    * Simplifies the remainder of the code by providing a single point of access for all data synchronisation and database interfacing
 
 **Grammar(s)**
 
@@ -436,9 +458,10 @@ The code coverage for these tests are shown below:
 
 ### Basic App
 1. [Login]. Description of the feature and your implementation (easy)
-    * Class X, methods Z, Y, Lines of code: 10-100
-    * Additional description: ...
-      <br>
+    * Class User.UserLogin: whole file
+    * Additional description:
+      * User accounts consist of a username and a salted password.
+      * The hashed password, salt and usernames are stored on Firebase. The plaintext passwords never get stored.
 
 2. [Data-Stream]. Uses a second instance of an Android Virtual Device to mimic a realistic data stream of over 2500 data instances (easy). 
    * Class DatastreamSimulation.DataGenerator - whole file
@@ -490,7 +513,8 @@ Feature Category: Peer-to-peer messaging <br>
    * Class DirectMessageFragment: lines 148-151
    * Class MessagesFragment: lines 266-298
    * Additional description: 
-     * Users are not able to send to or receive messages from users they have blocked
+     * Users are not able to send to or receive messages from users they have blocked. 
+     * This is implemented by checking whether the user is on a blocked user list, and if so, not allowing any of their messages to be shown. It also prevents messages from being sent to the blocked user.
 <br>
 5. [P2P-DM] Provide users with the ability to message each other directly in private. (hard)
    * Class Message: whole file
@@ -499,6 +523,7 @@ Feature Category: Peer-to-peer messaging <br>
    * Additional description:
      * Users are able to direct message each other. This is possible due to the state of the program being stored on Firebase. For each pair of users, there exists a Firebase object that contains all of the messages that they've sent to each other. This gets loaded into the DirectMessageThread class, which inherits from MessageThread (this is done so messages posted under questions can be handled in the same way). Messages can be sent between the users by adding a new message to the list and re-uploading it to Firebase.
 <br>
+   
 Feature category: Search <br>
 6. [Search-Invalid] Search functionality can handle partially valid and invalid search queries. (medium)
    * All classes within `myeducationalapp/Search` folder
@@ -512,6 +537,7 @@ Feature category: Search <br>
    * Users can also search more specific filters through direct text input, as outlined in the Tokenizer and Parsers section above.
    * The search is always listed in a descending order of relevancy.
 <br>
+   
 Feature Category: Syntax Highlighting (custom, approved as per [here](https://wattlecourses.anu.edu.au/mod/forum/discuss.php?d=870859)) <br>
 8. [Custom-Syntax-Highlighting]. Description: The user interface will be able to display snippets of code to the user, with dynamically generated syntax highlighting applied. The syntax of the code will be Java-like. (hard)
    * Class SyntaxHighlighting.DetectCodeBlock, whole file
@@ -524,18 +550,18 @@ Feature Category: Syntax Highlighting (custom, approved as per [here](https://wa
      All of this is bundled into a static method, ```SyntaxHighlighting.DetectCodeBlock.parseCodeBlocks()```, which detects the backticks and feeds the appropriate section of text to the other classes.
      To interface with the frontend, we call the method inside ```Html.fromHtml```, which is itself inside ```textView.setText()```.
 <br>
-9. [Dynamic-Localization] Provide users to switch languages of not only the hardcoded string values, but also the ones that are dynamic. (easy)
+     
+Feature Category: Localisation (custom, approved as per [here](https://wattlecourses.anu.edu.au/mod/forum/discuss.php?d=870913)) <br>
+9. [Custom-Localization] The user is able to change the (spoken, not programming) language of the app they are most comfortable with. This will remove the language barrier and provide equal quality to users from all backgrounds. For example, the language for the app could be changed to Portuguese. Or, if the user is a pirate, they will see the text "Hello how are you?" as "arr me matey, how goes it?" (easy)
    * Class Localization.DynamicLocalization, whole file
    * Class Localization.LanguageSetting, whole file
    * Most of the UI related classes
    * Additional description:
+     * In addition to implementing the feature as voice, we have taken the idea further and allowed for the values to be localised dynamically at runtime. 
      * There are certain strings that were intentionally not translated, including programming questions and search query, as doing so would confuse users more.
-     
-*List all features you have completed in their separate categories with their difficulty classification. If they are features that are suggested and approved, please state this somewhere as well.*
 
 ## Team Meetings
-
-*Here is an example (you could start numbering your meetings from 1):*
+The meeting minutes can be found here:
 
 - *[Team Meeting 1](./meeting1.md)* (1/4)
 - *[Team Meeting 2](./meeting2.md)* (20/4)
