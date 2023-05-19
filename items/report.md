@@ -215,6 +215,9 @@ The location of the APK (from the root directory) is either in ```APK/app-debug.
 
 As per this Wattle thread (https://wattlecourses.anu.edu.au/mod/forum/discuss.php?d=875865), our data stream requires a second AVD (Android Virtual Device) to use. Please read data stream section of the report for more details.
 
+### Notes on accounts used to push code
+Code commited 
+
 ## Conflict Resolution Protocol
 
 The following conflict resolution protocol was decided on in our first meeting.
