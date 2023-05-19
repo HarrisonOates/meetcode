@@ -167,7 +167,7 @@ public class HomeFragment extends Fragment {
             NavHostFragment.findNavController(HomeFragment.this).navigate(R.id.action_HomeFragment_to_questionFragment);
         });
 
-        // Question is set as the default type of search
+        // All is set as the default type of search
         binding.allSearch.setChecked(true);
 
         // Search filter and results should only be visible when they are explicitly used

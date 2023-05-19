@@ -411,6 +411,9 @@ However, by manually inspecting the code, we find that the user login tests gets
      The secondary account will then send code snippets, text excerpts, or like comments at random every three seconds, without the need for additional input. This is due to a login hook on mainActivity that activates whenever that specific account is logged into. The link to our Firebase can be found [here](https://console.firebase.google.com/u/0/project/comp2100groupassignment-8427a/overview).
 
 3. [Data Visualization]. Description  ... ...
+<br>
+
+4. [Search] Users must be able to search for information on your app. (medium)
 <br><br>
 
 ### General Features
@@ -451,9 +454,15 @@ Feature Category: Peer-to-peer messaging <br>
    * Class MessageThread: whole file
    * Additional description:
      * Users are able to direct message each other. This is possible due to the state of the program being stored on Firebase. For each pair of users, there exists a Firebase object that contains all of the messages that they've sent to each other. This gets loaded into the DirectMessageThread class, which inherits from MessageThread (this is done so messages posted under questions can be handled in the same way). Messages can be sent between the users by adding a new message to the list and re-uploading it to Firebase.
-
+<br>
+6. [Search-Filter] Sort and/or filter a list of items returned from a search, with the help of suitable UI components. (easy)
+   * "Class Search that sorts the results" 
+   * Class Fragments.HomeFragment: part of onViewCreated, initializeSearch and visualizeClickableSearchResults (lines 170-285)
+   * Users can choose a filter to be applied in a search to get more specific result.
+   * The search is always listed in a descending order of relevancy.
+<br>
 Feature Category: Syntax Highlighting (custom, approved as per [here](https://wattlecourses.anu.edu.au/mod/forum/discuss.php?d=870859)) <br>
-6. [Custom-Syntax-Highlighting]. Description: The user interface will be able to display snippets of code to the user, with dynamically generated syntax highlighting applied. The syntax of the code will be Java-like. (hard)
+7. [Custom-Syntax-Highlighting]. Description: The user interface will be able to display snippets of code to the user, with dynamically generated syntax highlighting applied. The syntax of the code will be Java-like. (hard)
    * Class SyntaxHighlighting.DetectCodeBlock, whole file
    * Class SyntaxHighlighting.Parser, whole file
    * Class SyntaxHighlighting.Tokenizer, whole file
@@ -463,8 +472,8 @@ Feature Category: Syntax Highlighting (custom, approved as per [here](https://wa
      The Parser calls ```next()``` repeatedly until the end of the text and transforms the tokenized query into HTML, applying the colours appropriately.
      All of this is bundled into a static method, ```SyntaxHighlighting.DetectCodeBlock.parseCodeBlocks()```, which detects the backticks and feeds the appropriate section of text to the other classes.
      To interface with the frontend, we call the method inside ```Html.fromHtml```, which is itself inside ```textView.setText()```.
-
-7. [Dynamic Localization] Provide users to switch languages of not only the hardcoded string values, but also the ones that are dynamic. (easy)
+<br>
+8. [Dynamic Localization] Provide users to switch languages of not only the hardcoded string values, but also the ones that are dynamic. (easy)
    * Class Localization.DynamicLocalization, whole file
    * Class Localization.LanguageSetting, whole file
    * Most of the UI related classes
