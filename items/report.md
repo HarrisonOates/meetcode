@@ -521,6 +521,7 @@ Feature Category: Firebase Integration <br>
      - Additionally, the Asynchronous class is used to allow the other classes in the program act asynchronously, and allow them to wait on each other to receive data before running a callback.
      - Data is local to particular users, such as messages they've liked, their blocked user list, and any answers they've submitted is stored in the UserLocalData class. However, to handle users logging out of the app and back in again, this is also synchronised to Firebase whenever this data changes. This means the user can log in from any device and their data will still be there.
 
+
 3. [FB-Syn] Using Firebase or another remote database to store user information and having the app updated as the remote database is updated without restarting the application. (hard)
    - Class Firebase.FirebaseObserver: whole file
    - Class Firebase.Firebase: constructor (lines 74-98), methods attachObserver and notifyObservers (lines 100-117)
@@ -529,7 +530,7 @@ Feature Category: Firebase Integration <br>
      - Most of this follows from the fact that the app's state is persisted on Firebase (and therefore the classes and files in the [FB-Persist] section are utilised). For the app to automatically update without restarting, all that needs to be done is determine when a change has occurred on Firebase, and then update the user interface appropriately. The Firebase API provides a listener for when data changes. This is caught in Firebase.Firebase, which is then able to notify any observers of the change. One of the observers is the user interface, which then is then able to use the functions in Firebase.Firebase to redownload the new state of the app, and rerender the user interface appropriately.
      - DirectMessageFragment.DirectMessageObserver inherits FirebaseObserver and will refresh the direct messaging UI, showing new likes/unlikes as well as new messages. This means that user can enjoy real time updates to their direct message thread.
 
-Feature Category: Peer-to-peer messaging <br>
+Feature Category: Peer-to-peer messaging
 4. [P2P-Block] Provide users with the ability to ‘block’ users, preventing them from direct messaging them. (medium)
    - Class UserLocalData: methods `toggleBlockUser`, `isUserBlocked`
    - Class DirectMessageFragment: lines 148-151
@@ -537,6 +538,7 @@ Feature Category: Peer-to-peer messaging <br>
    - Additional description: 
      - Users are not able to send to or receive messages from users they have blocked. 
      - This is implemented by checking whether the user is on a blocked user list, and if so, not allowing any of their messages to be shown. It also prevents messages from being sent to the blocked user.
+
 
 5. [P2P-DM] Provide users with the ability to message each other directly in private. (hard)
    - Class Message: whole file
@@ -555,6 +557,7 @@ Feature category: Search <br>
    - Class Fragments.HomeFragment: part of onViewCreated, initializeSearch and visualizeClickableSearchResults (lines 170-285)
    - The search will rank all results based upon how likely it is to be the correct response and return them in a sorted order.
 
+
 7. [Search-Filter] Sort and/or filter a list of items returned from a search, with the help of suitable UI components. (easy)
    - All classes within `myeducationalapp/Search` folder
    - Class Fragments.HomeFragment: part of onViewCreated, initializeSearch and visualizeClickableSearchResults (lines 170-285)
@@ -564,6 +567,7 @@ Feature category: Search <br>
    - Note that UI for discussion was not implemented, so clicking the discussion search results will not navigate users to anywhere.
 <br>
    
+
 Feature Category: Syntax Highlighting (custom, approved as per [here](https://wattlecourses.anu.edu.au/mod/forum/discuss.php?d=870859)) <br>
 8. [Custom-Syntax-Highlighting]. Description: The user interface will be able to display snippets of code to the user, with dynamically generated syntax highlighting applied. The syntax of the code will be Java-like. (hard)
    - Class SyntaxHighlighting.DetectCodeBlock, whole file
@@ -577,6 +581,7 @@ Feature Category: Syntax Highlighting (custom, approved as per [here](https://wa
      - All of this is bundled into a static method, ```SyntaxHighlighting.DetectCodeBlock.parseCodeBlocks()```, which detects the backticks and feeds the appropriate section of text to the other classes. 
      - To interface with the frontend, we call the method inside ```Html.fromHtml```, which is itself inside ```textView.setText()```.
 
+
 Feature Category: Localisation (custom, approved as per [here](https://wattlecourses.anu.edu.au/mod/forum/discuss.php?d=870913)) <br>
 9. [Custom-Localization] The user is able to change the (spoken, not programming) language of the app they are most comfortable with. This will remove the language barrier and provide equal quality to users from all backgrounds. For example, the language for the app could be changed to Portuguese. Or, if the user is a pirate, they will see the text "Hello how are you?" as "arr me matey, how goes it?" (easy)
    - Class Localization.DynamicLocalization, whole file
@@ -585,6 +590,7 @@ Feature Category: Localisation (custom, approved as per [here](https://wattlecou
    - Additional description:
      - In addition to implementing the feature as voice, we have taken the idea further and allowed for the values to be localised dynamically at runtime. 
      - There are certain strings that were intentionally not translated, including chat messages, programming questions and search query, as doing so would confuse users more.
+
 
 ## Team Meetings
 The meeting minutes can be found here:
