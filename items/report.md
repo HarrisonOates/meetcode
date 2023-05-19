@@ -188,7 +188,7 @@ u7300256, Nikhila Gurusinghe: I contributed 20% of the code. Here are my contrib
 * You are welcome to provide anything that you consider as a contribution to the project or team.
   * I designed UI wireframes and sourced icons as well as a font that would support the languages that we were aiming to localise the app to. 
   ![wireframe](./images/wireframe.png) <br>  
-  In terms of fonts this is difficult to do as many do not support the Hangul characters.
+  In terms of fonts this is difficult to do as many do not support Hangul characters whilst also supporting languages such as Japanese or Chinese.
   * I also implemented all of the UI except for the dynamic localization, and search UI (done by Geun) as well as the blocking user UI (done by Jayden).
     * Implemented a customized action bar implementation that supports backwards navigation within MainActivity.java
     * Created XML layouts for 9 graphically complex Fragments and 2 Activities
