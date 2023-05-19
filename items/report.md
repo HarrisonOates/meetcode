@@ -473,7 +473,7 @@ Feature Category: Syntax Highlighting (custom, approved as per [here](https://wa
      All of this is bundled into a static method, ```SyntaxHighlighting.DetectCodeBlock.parseCodeBlocks()```, which detects the backticks and feeds the appropriate section of text to the other classes.
      To interface with the frontend, we call the method inside ```Html.fromHtml```, which is itself inside ```textView.setText()```.
 <br>
-8. [Dynamic Localization] Provide users to switch languages of not only the hardcoded string values, but also the ones that are dynamic. (easy)
+8. [Dynamic-Localization] Provide users to switch languages of not only the hardcoded string values, but also the ones that are dynamic. (easy)
    * Class Localization.DynamicLocalization, whole file
    * Class Localization.LanguageSetting, whole file
    * Most of the UI related classes
