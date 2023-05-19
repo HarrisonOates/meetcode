@@ -135,8 +135,7 @@ u7146309, Jayden Skidmore: I contributed 20% of the code. Here are my contributi
   * I added blocking functionalities to users, which blocks the chats of users who an individual does not want to interact with.
 * What design patterns, data structures, did the involved member propose?
   * A singleton pattern was used for the search functionality, implemented through the Search class.
-* 
-* 
+*
 * Specify what design did the involved member propose? What tools were used for the design?
 * 
 * Which part of the report did the involved member write?
@@ -144,7 +143,6 @@ u7146309, Jayden Skidmore: I contributed 20% of the code. Here are my contributi
   * Features [Search], [Search-Invalid], [Search-Filter], [P2P-Block]
   * Testing for Search classes in testing summary
 * 
-* Were you responsible for the slides?
 * You are welcome to provide anything that you consider as a contribution to the project or team.
 
 
@@ -310,8 +308,9 @@ Production rules for the search:
 
 *[How do you design the grammar? What are the advantages of your designs?]*
 
-The grammar was designed around the intent of separating searches into sections called queries, allowing for a user to filter their results based upon what they were looking for. e.g. searching for users or topics. By using a specific separator, it allows the regular tokens, such as '?' to be used in the search without it being taken as another query. Although this does mean that the separator can't be used in a search normally, this was circumvented by allowing the separator to be put twice to indicate a regular ';' in text.
+The grammar was designed around the intent of separating searches into sections called queries, allowing for a user to filter their results based upon what they were looking for. e.g. searching for users or topics. By using a specific separator, it allows the regular tokens, such as `?` to be used in the search without it being taken as another query. Although this does mean that the separator can't be used in a search normally, this was circumvented in code by allowing the separator to be put twice to indicate a regular `;` in text.
 The grammar was designed in a way which allowed for multiple words to be searched under one query, as well as having multiple queries to be used under the same search.
+The grammar is very flexible to new queries, as it only requires a new identifier to be added to the specifier set, allowing for easy adaptability.
 
 Production rules for syntax highlighting:
 
@@ -358,8 +357,8 @@ Production rules for syntax highlighting:
 
 Two tokenizers and parses were built, one of each for search and syntax highlighting.
 
-A tokenizer and parser was developed for the search to allow for different types of queries to be searched through the use of characters within the text. For example, if you wanted to search for an AVLTree question in the recursion topic, you could input `#Recursion; ?AVLTree`. Additionally, it allows flexibility to search multiple things at once, for example if you wanted to search `Harry; Harrison` because you are unsure of which username was used.
-The tokenizer for the search functionality was implemented using `next()`, which scans the input for the first non-whitespace character, and determining whether the character matches one of the predetermined tokens. If it does not, the tokenizer will process all the following non-whitespace and non-';' characters as a word. 
+A tokenizer and parser was developed for the search to allow for different types of queries to be searched through the use of characters within the text. For example, if you wanted to search for an AVLTree question and the user comp2100@anu.au, you could input `@comp2100; ?AVLTree`. Additionally, it allows flexibility to search multiple things at once, for example if you wanted to search `Harry; Harrison` because you are unsure of which username was used.
+The tokenizer for the search functionality was implemented using `next()`, which scans the input for the first non-whitespace character, and determining whether the character matches one of the predetermined tokens. If it does not, the tokenizer will process all the following characters as a word, until whitespace or a `;` is reached. 
 
 The tokenizer of the syntax highlighter works by calling a function, ```next()```, that will tokenize the next part of an input string.
 This is done through a number of ```if```-statements that determine which token type the token falls under.
@@ -392,7 +391,17 @@ The surprise item was not implemented.
 - *The count also gets replaced by a back arrows once the language has been switched.
 - *But again, this does not lead to any real issue, as their star counts can be checked in their account menu.
 
+3. *Bug 3: Search is slow for first search*
+- *All search data is loaded upon the first search (to not slow the app down if search isn't wanted)
+- *Search data is additionally only updated on first search, to prevent the app from being slow at other points
 *List all the known errors and bugs here. If we find bugs/errors that your team does not know of, it shows that your testing is not thorough.*
+
+4. *Bug 4: Clicking discussion posts doesn't take you to discussion post*
+- *Discussion post results from the search do not take you to the discussion post, as this part of the UI was not implemented
+
+5. *Bug 5: Searching topics at the same time as questions crashes app*
+- *An originally intended feature of narrowing search results by searching for topics at the same time as discussion posts causes the app to crash
+- *This is because the discussion post UI code was originally planned for, but later reverted, as such, testing was not done as comprehensively on an unintended feature
 
 ## Testing Summary
 
