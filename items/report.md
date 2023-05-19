@@ -520,8 +520,7 @@ Feature Category: Firebase Integration <br>
      - Internally, the app treats Firebase like a filesystem - each object has a value, name (filename) and child objects (folders). The Firebase.FirebaseRequest file is used to abstract away the low level details of resolving these filepath-like paths into a Firebase API object. Firebase.FirebaseResult provides a clean asynchronous interface that allow callbacks to be chained with ```.then()```, or waited on with ```.await()```. Finally, Firebase.Firebase acts as a singleton and a facade, allowing the rest of the program use core functionality such as getting lists of users, notifications when data changes, and messages stored on the server. 
      - Additionally, the Asynchronous class is used to allow the other classes in the program act asynchronously, and allow them to wait on each other to receive data before running a callback.
      - Data is local to particular users, such as messages they've liked, their blocked user list, and any answers they've submitted is stored in the UserLocalData class. However, to handle users logging out of the app and back in again, this is also synchronised to Firebase whenever this data changes. This means the user can log in from any device and their data will still be there.
-     
-<br>
+
 3. [FB-Syn] Using Firebase or another remote database to store user information and having the app updated as the remote database is updated without restarting the application. (hard)
    - Class Firebase.FirebaseObserver: whole file
    - Class Firebase.Firebase: constructor (lines 74-98), methods attachObserver and notifyObservers (lines 100-117)
@@ -539,7 +538,6 @@ Feature Category: Peer-to-peer messaging <br>
      - Users are not able to send to or receive messages from users they have blocked. 
      - This is implemented by checking whether the user is on a blocked user list, and if so, not allowing any of their messages to be shown. It also prevents messages from being sent to the blocked user.
 
-<br>
 5. [P2P-DM] Provide users with the ability to message each other directly in private. (hard)
    - Class Message: whole file
    - Class DirectMessageThread: whole file
@@ -557,7 +555,6 @@ Feature category: Search <br>
    - Class Fragments.HomeFragment: part of onViewCreated, initializeSearch and visualizeClickableSearchResults (lines 170-285)
    - The search will rank all results based upon how likely it is to be the correct response and return them in a sorted order.
 
-<br>
 7. [Search-Filter] Sort and/or filter a list of items returned from a search, with the help of suitable UI components. (easy)
    - All classes within `myeducationalapp/Search` folder
    - Class Fragments.HomeFragment: part of onViewCreated, initializeSearch and visualizeClickableSearchResults (lines 170-285)
@@ -579,8 +576,7 @@ Feature Category: Syntax Highlighting (custom, approved as per [here](https://wa
      - The Parser calls ```next()``` repeatedly until the end of the text and transforms the tokenized query into HTML, applying the colours appropriately. 
      - All of this is bundled into a static method, ```SyntaxHighlighting.DetectCodeBlock.parseCodeBlocks()```, which detects the backticks and feeds the appropriate section of text to the other classes. 
      - To interface with the frontend, we call the method inside ```Html.fromHtml```, which is itself inside ```textView.setText()```.
-     
-<br>
+
 Feature Category: Localisation (custom, approved as per [here](https://wattlecourses.anu.edu.au/mod/forum/discuss.php?d=870913)) <br>
 9. [Custom-Localization] The user is able to change the (spoken, not programming) language of the app they are most comfortable with. This will remove the language barrier and provide equal quality to users from all backgrounds. For example, the language for the app could be changed to Portuguese. Or, if the user is a pirate, they will see the text "Hello how are you?" as "arr me matey, how goes it?" (easy)
    - Class Localization.DynamicLocalization, whole file
