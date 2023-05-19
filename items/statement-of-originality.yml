@@ -45,7 +45,9 @@ assets:
   - comment: "Cases where more than one re-balancing is required in AVLTree deletion"
     url: https://cs.stackexchange.com/questions/128245/worst-case-for-avl-tree-balancing-after-deletion
     licence: https://stackoverflow.com/legal/terms-of-service
-
+  - comment: "bee movie.txt"
+    url: http://www.script-o-rama.com/movie_scripts/a1/bee-movie-script-transcript-seinfeld.html
+    license: fair use
 
 
 ### Questions (answer before final submission):
