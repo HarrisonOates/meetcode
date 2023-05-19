@@ -26,7 +26,7 @@
 ## Summary of Individual Contributions
 
 u7468248, Alex Boxall: I contributed 20% of the code. Here are my contributions:
-* All of [Firebase/Firebase.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Firebase/Firebase.java), except ```writeDirectMessagesDatastream```, which was written by Harrison
+* All of [Firebase/Firebase.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Firebase/Firebase.java)
 * All of [Firebase/FirebaseObserver.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Firebase/FirebaseObserver.java)
 * All of [Firebase/FirebaseRequest.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Firebase/FirebaseRequest.java)
 * All of [Firebase/FirebaseResult.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Firebase/FirebaseResult.java)
@@ -93,21 +93,19 @@ u7468212, Harrison Oates: I contributed 20% of the code. Here are my contributio
 * All of [SyntaxHighlightingTest.java](./../MyEducationalApp/app/test/java/com/example/myeducationalapp/SyntaxHighlightingTest.java)
 * All of [SyntaxHighlightingParsingTest.java](./../MyEducationalApp/app/test/java/com/example/myeducationalapp/SyntaxHighlightingParsingTest.java)
 * All of [DatastreamSimulation.DataGenerator.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/DatastreamSimulation/DataGenerator.java)
+* Lines 116 - 123 of [MainActivity.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/MainActivity.java), which acts as a hook for the datastream.
 
 * Summary of contributions:
   * I designed and implemented code relating to syntax highlighting. This included building the tokenizer and parser to detect code snippets and render these accordingly.
-  *  and simulating the datastream. 
-  * I set up the Firebase access for the app to use.
-  * I also wrote in code to simulate a datastream for the project. As we successfully implemented a client-server model, the easiest way for this to occur was to use a thread of the program when logged in to one of the marking accounts to send messages to the firebase, with the app downloading these messages through its usual channels.
-
-
+  * I set up the Firebase access for the app to use and created the initial project scaffolding files.
+  * I also wrote code to simulate a datastream for the project. As we successfully implemented a client-server model, the easiest way for this to occur was to use a thread of the program when logged in to a specific account to send messages to the firebase, with the app downloading these messages through its usual channels.
 * What design patterns, data structures, did the involved member propose?
-  
-* Specify what design did the involved member propose? What tools were used for the design?
+  * I initially proposed subclassing special firebase methods for the datastream simulation, before this approach was scrapped when the easier option was approved.
+  * I proposed storing the text to send to firebase for the [datastream] feature in the data folder of Android.
+  * I was involved in all discussions around the choice of patterns for tasks outside of my direct remit.
+
 * Which part of the report did the involved member write?
-  * I wrote about the Syntax Highlighting Grammar, and about the [Custom-Syntax-Highlighting] and [datastream] features.
-* Were you responsible for the slides?
-* You are welcome to provide anything that you consider as a contribution to the project or team.
+  * I wrote about the Syntax Highlighting Grammar, and about the [Custom-Syntax-Highlighting] and [datastream] features, .in addition to the present section.
 
 
 u7146309, Jayden Skidmore: I contributed 20% of the code. Here are my contributions:
@@ -278,7 +276,7 @@ Production rules for syntax highlighting:
       KEYWORD         ::= <font color = "#FF6000"> keyword </font> TOKENS
       NUMERIC_LITERAL ::= <font color = "blue"> numeric_literal </font> TOKENS
       STRING_LITERAL  ::= <font color = "#008000"> string_literal </font> TOKENS 
-      IDENTIFIER      ::= <font color = "#0080A0"> identifier </font> TOKENS | <font color = "purple"> identifier </font> TOKENS
+      IDENTIFIER      ::= <font color = "#0080A0"> Identifier </font> TOKENS | <font color = "purple"> identifier </font> TOKENS
       NEWLINE         ::= <br> TOKENS 
       WHITESPACE      ::= (<&nbsp;>)* TOKENS
       PUNCTUATOR      ::= <font color = "black"> punctuator </font> TOKENS
@@ -296,9 +294,10 @@ Production rules for syntax highlighting:
                         | switch | synchronized |  this |  throw |  throws |  transient 
                         |  try |  void |  volatile |  while 
 
-      numeric         ::= \{x | x \in \mathbb{R}, base 10, 2, or 16\}. 
+      numeric         ::= \{x | x \in \mathbb{R}, base 10, 2 (prefix 0b), or 16 (prefix 0x)\}. 
       string literal  ::= "[a-zA-Z]+" | ""
       identifier      ::= [a-zA-Z]+
+      Identifier      ::= [A-Z]([A-zA-Z])^*
       punctuator      :=  { | } | ( | ) | [ | ] | . | : | = | - | + | ! | @ | # 
                         | $ | % | ^ | & | * | ; | ' | ~ | < | > | / | \ | | |
       multiline       ::= /* Any character combination save end comment sign */
@@ -314,7 +313,15 @@ Production rules for syntax highlighting:
 
 **Tokenizer and Parsers**
 
-Two tokenizers and parses were built...
+Two tokenizers and parses were built, one of each for search and syntax highlighting.
+
+Search...
+
+The tokenizer of the syntax highlighter works by calling a function, ```next()```, that will tokenize the next part of an input string.
+This is done through a number of ```if```-statements that determine which token type the token falls under.
+```next()``` is called by the parser function ```parseCodeBlock()``` repeatedly until it returns ```null```, at which point parsing is finished.
+The parser takes each token's type and applies a given colour through HTML syntax. For some tokens, there exist characters that are reserved in HTML, so the parser additionally escapes these characters where required. This design choice means that the parser could be easily modified if we were to change the way we wish to render text.
+
 
 *[Where do you use tokenisers and parsers? How are they built? What are the advantages of the designs?]*
 
@@ -394,7 +401,7 @@ However, by manually inspecting the code, we find that the user login tests gets
     * Additional description: ...
       <br>
 
-2. [Data Stream]. Uses a second instance of an Android Virtual Device to mimic a realistic data stream of over 2500 data instances (easy). 
+2. [Data-Stream]. Uses a second instance of an Android Virtual Device to mimic a realistic data stream of over 2500 data instances (easy). 
    * Class DatastreamSimulation.DataGenerator - whole file
    * Class MainActivity - lines 127-134.
    * Additional description:
