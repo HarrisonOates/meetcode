@@ -477,6 +477,7 @@ The code coverage for these tests are shown below:
     * Additional description:
       * User accounts consist of a username and a salted password.
       * The hashed password, salt and usernames are stored on Firebase. The plaintext passwords never get stored.
+      * **The location of the APK (from the root directory) is either in ```APK/app-debug.apk``` or ```items/app-debug.apk```. These two files are the exact same.**
 
 2. [Data-Stream]. Uses a second instance of an Android Virtual Device to mimic a realistic data stream of over 2500 data instances (easy). 
    * Class DatastreamSimulation.DataGenerator - whole file
