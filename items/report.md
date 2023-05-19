@@ -591,7 +591,7 @@ Feature Category: Localisation (custom, approved as per [here](https://wattlecou
    * Most of the UI related classes
    * Additional description:
      * In addition to implementing the feature as voice, we have taken the idea further and allowed for the values to be localised dynamically at runtime. 
-     * There are certain strings that were intentionally not translated, including programming questions and search query, as doing so would confuse users more.
+     * There are certain strings that were intentionally not translated, including chat messages, programming questions and search query, as doing so would confuse users more.
 
 ## Team Meetings
 The meeting minutes can be found here:
