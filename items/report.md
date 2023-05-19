@@ -121,20 +121,29 @@ u7146309, Jayden Skidmore: I contributed 20% of the code. Here are my contributi
   * All of [QueryExp.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Search/SearchParsing/QueryExp.java)
   * All of [SearchExp.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Search/SearchParsing/SearchExp.java)
   * All of [StatementExp.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Search/SearchParsing/StatementExp.java)
-
 * All of [SearchTokenizer.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Search/SearchParsing/SearchTokenizer.java)
   * All of [SearchToken.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Search/SearchParsing/SearchToken.java)
 * All of [blocking_menu.xml](./../MyEducationalApp/app/res/menu/blocking_menu.xml)
   * Lines 266-298 of [MessagesFragment.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Fragments/MessagesFragment.java)
-  * All of [SearchTests.java](./../MyEducationalApp/app/src/androidTest/java/com/example/myeducationalapp/SearchTest.java)
   * Lines 148-151 of [DirectMessageFragment.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Fragments/DirectMessageFragment.java)
+* All of [SearchTests.java](./../MyEducationalApp/app/src/androidTest/java/com/example/myeducationalapp/SearchTest.java)
 
-
-* A.class
-* B.class: function1(), function2(), ...
+* Summary of my contributions:
+  * I designed and implemented a tokenizer, parser and grammar for processing search requests.
+  * I designed and implemented a group of search functions, which can search for users, questions, topics or discussions.
+  * I added the ability to filter different search queries, as well as using multiple search queries at the same time, to either enhance a search or search for multiple things at once.
+  * I added blocking functionalities to users, which blocks the chats of users who an individual does not want to interact with.
 * What design patterns, data structures, did the involved member propose?
+  * A singleton pattern was used for the search functionality, implemented through the Search class.
+* 
+* 
 * Specify what design did the involved member propose? What tools were used for the design?
+* 
 * Which part of the report did the involved member write?
+  * Grammar, tokenizer and parser around the search
+  * Features [Search], [Search-Invalid], [Search-Filter], [P2P-Block]
+  * Testing for Search classes in testing summary
+* 
 * Were you responsible for the slides?
 * You are welcome to provide anything that you consider as a contribution to the project or team.
 
@@ -286,10 +295,23 @@ We used the following design patterns in our project:
 
 Production rules for the search:
     
-    <Non-Terminal> ::= <some output>
-    <Non-Terminal> ::= <some output>
+    tokens          ::= specifier | separator | word
+    specifier       ::= question | user | discussion | topic
+    question        ::= ?
+    user            ::= @
+    discussion      ::= !
+    topic           ::= #
+    separator       ::= ;
+    word            ::= [!-~] | [!-~] word
+    
+    <exp> ::= <query> | <query> separator <exp> | <statement> 
+    <query> ::= specifier <statement>
+    <statement> ::= word | word <statement>
 
 *[How do you design the grammar? What are the advantages of your designs?]*
+
+The grammar was designed around the intent of separating searches into sections called queries, allowing for a user to filter their results based upon what they were looking for. e.g. searching for users or topics. By using a specific separator, it allows the regular tokens, such as '?' to be used in the search without it being taken as another query. Although this does mean that the separator can't be used in a search normally, this was circumvented by allowing the separator to be put twice to indicate a regular ';' in text.
+The grammar was designed in a way which allowed for multiple words to be searched under one query, as well as having multiple queries to be used under the same search.
 
 Production rules for syntax highlighting:
 
@@ -336,7 +358,8 @@ Production rules for syntax highlighting:
 
 Two tokenizers and parses were built, one of each for search and syntax highlighting.
 
-Search...
+A tokenizer and parser was developed for the search to allow for different types of queries to be searched through the use of characters within the text. For example, if you wanted to search for an AVLTree question in the recursion topic, you could input `#Recursion; ?AVLTree`. Additionally, it allows flexibility to search multiple things at once, for example if you wanted to search `Harry; Harrison` because you are unsure of which username was used.
+The tokenizer for the search functionality was implemented using `next()`, which scans the input for the first non-whitespace character, and determining whether the character matches one of the predetermined tokens. If it does not, the tokenizer will process all the following non-whitespace and non-';' characters as a word. 
 
 The tokenizer of the syntax highlighter works by calling a function, ```next()```, that will tokenize the next part of an input string.
 This is done through a number of ```if```-statements that determine which token type the token falls under.
@@ -408,9 +431,16 @@ Many types of test were created:
   - Tokenizer accuracy in creating tokens
   - Parser accuracy in translating this to HTML
 
-Android Studio does not provide code coverage for instrumented tests, and thus the exact code coverage is not known.
-However, by manually inspecting the code, we find that the user login tests gets 100% line coverage of ```Firebase.FirebaseRequest```, approximately 76% of both ```Firebase.FirebaseResult```, and ```UserLogin```. Additionally, 100% of ```UserLocalData``` is tested, split across ```UserLocalDataTest``` (for most methods), and ```DirecteMessageTest``` (for ```loadFromDisk```). We achieve 100% branch coverage of the syntax highlighting methods across the two methods.
+- Tests for searching (```SearchTest```) which tests the following:
+  - Tokenizer ability to generate tokens
+  - Parser ability to deal with blank inputs and properly separate regular inputs into queries.
+  - Searching (both matching and incomplete searches), and accuracy of, users using `UserResults.java`, questions using `QuestionResults.java`, topics using `TopicResults.java` and discussions using `PostResults.java`.
+  - Search for results using all search types at once (general search).
 
+Android Studio does not provide code coverage for instrumented tests, and thus the exact code coverage is not known.
+However, by manually inspecting the code, we find that the user login tests gets 100% line coverage of ```Firebase.FirebaseRequest```, approximately 76% of both ```Firebase.FirebaseResult```, and ```UserLogin```. Additionally, 100% of ```UserLocalData``` is tested, split across ```UserLocalDataTest``` (for most methods), and ```DirecteMessageTest``` (for ```loadFromDisk```). We achieve 100% branch coverage of the syntax highlighting methods across the two methods. 100% branch coverage is achieved for search.
+
+General testing was additionally used throughout the program to test the functionality of code. An example of this being testing for search being done through verifying that the results that show up after searching something within the app are appropriate.
 
 ## Implemented Features
 
@@ -435,6 +465,9 @@ However, by manually inspecting the code, we find that the user login tests gets
 <br>
 
 4. [Search] Users must be able to search for information on your app. (medium)
+   * All classes within `myeducationalapp/Search`
+   * Additional description:
+     * Users can search for other users, topics or questions on the app and quickly navigate to them
 <br><br>
 
 ### General Features
@@ -465,9 +498,11 @@ Feature Category: Firebase Integration <br>
 Feature Category: Peer-to-peer messaging <br>
 4. [P2P-Block] Provide users with the ability to ‘block’ users, preventing them from direct messaging
    them. (medium)
-   * Class UserLocalData: methods A, B, C, lines of code: whole file
-   * Class ??? (probably some UI stuff): ...
-   * Additional description: ...
+   * Class UserLocalData: methods `toggleBlockUser`, `isUserBlocked`
+   * Class DirectMessageFragment: lines 148-151
+   * Class MessagesFragment: lines 266-298
+   * Additional description: 
+     * Users are not able to send to or receive messages from users they have blocked
 <br>
 5. [P2P-DM] Provide users with the ability to message each other directly in private. (hard)
    * Class Message: whole file
@@ -476,14 +511,21 @@ Feature Category: Peer-to-peer messaging <br>
    * Additional description:
      * Users are able to direct message each other. This is possible due to the state of the program being stored on Firebase. For each pair of users, there exists a Firebase object that contains all of the messages that they've sent to each other. This gets loaded into the DirectMessageThread class, which inherits from MessageThread (this is done so messages posted under questions can be handled in the same way). Messages can be sent between the users by adding a new message to the list and re-uploading it to Firebase.
 <br>
-6. [Search-Filter] Sort and/or filter a list of items returned from a search, with the help of suitable UI components. (easy)
-   * "Class Search that sorts the results" 
+Feature category: Search <br>
+6. [Search-Invalid] Search functionality can handle partially valid and invalid search queries. (medium)
+   * All classes within `myeducationalapp/Search` folder
+   * Class Fragments.HomeFragment: part of onViewCreated, initializeSearch and visualizeClickableSearchResults (lines 170-285)
+   * The search will rank all results based upon how likely it is to be the correct response and return them in a sorted order.
+<br>
+7. [Search-Filter] Sort and/or filter a list of items returned from a search, with the help of suitable UI components. (easy)
+   * All classes within `myeducationalapp/Search` folder
    * Class Fragments.HomeFragment: part of onViewCreated, initializeSearch and visualizeClickableSearchResults (lines 170-285)
    * Users can choose a filter to be applied in a search to get more specific result.
+   * Users can also search more specific filters through direct text input, as outlined in the Tokenizer and Parsers section above.
    * The search is always listed in a descending order of relevancy.
 <br>
 Feature Category: Syntax Highlighting (custom, approved as per [here](https://wattlecourses.anu.edu.au/mod/forum/discuss.php?d=870859)) <br>
-7. [Custom-Syntax-Highlighting]. Description: The user interface will be able to display snippets of code to the user, with dynamically generated syntax highlighting applied. The syntax of the code will be Java-like. (hard)
+8. [Custom-Syntax-Highlighting]. Description: The user interface will be able to display snippets of code to the user, with dynamically generated syntax highlighting applied. The syntax of the code will be Java-like. (hard)
    * Class SyntaxHighlighting.DetectCodeBlock, whole file
    * Class SyntaxHighlighting.Parser, whole file
    * Class SyntaxHighlighting.Tokenizer, whole file
@@ -494,7 +536,7 @@ Feature Category: Syntax Highlighting (custom, approved as per [here](https://wa
      All of this is bundled into a static method, ```SyntaxHighlighting.DetectCodeBlock.parseCodeBlocks()```, which detects the backticks and feeds the appropriate section of text to the other classes.
      To interface with the frontend, we call the method inside ```Html.fromHtml```, which is itself inside ```textView.setText()```.
 <br>
-8. [Dynamic Localization] Provide users to switch languages of not only the hardcoded string values, but also the ones that are dynamic. (easy)
+9. [Dynamic Localization] Provide users to switch languages of not only the hardcoded string values, but also the ones that are dynamic. (easy)
    * Class Localization.DynamicLocalization, whole file
    * Class Localization.LanguageSetting, whole file
    * Most of the UI related classes
