@@ -79,12 +79,26 @@ u7469758, Geun Yun: I contributed 20% of the code. Here are my contributions:
   * All of [LanguageSetting.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Localization/LanguageFragment.java)
   * All of [DynamicLocalization.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Localization/DynamicLocalization.java)
   * All of [strings](./../MyEducationalApp/app/src/main/res/values/strings.xml)
+* Summary of contributions:
+  * Implemented AVLTree and verified its functionality with AVLTreeTest. On top of all the basic functionality, the tree can also correctly delete nodes.
+  * Designed the structure of UserLogin by implementing the salted password to ensure extra security.
+  * First designed the QuestionSet as its own class, which then got refactored by Alex.
+  * Wrote the questions in a category of DataStructure.
+  * Made the search implemented by Jayden to be usable in the app, which involved applying the filter and navigating a search result to a right place when clicked.
+  * The search bar UI led me to create RecyclerViewCustomAdapter as the search results in listView causes the nested listView issue. The custom adapter also gives an index to each search result which was used to implement for making search results clickable.
+  * Implemented dynamic localization such that not only the string values stored in the strings.xml but also the ones that dynamically change can be translated into 5 different languages.
+  * Such dynamic localization involved the use of Google's ML Kit Translation, which its asynchronous property led me to create a class that handles 
 * What design patterns, data structures, did the involved member propose?
   * I was responsible for implementing AVLTree as the data structure which stores the current user's liked messages, blocked user list and the successfully answered questions in UserLocalData and also who has liked the message in Message.java.
 * Specify what design did the involved member propose? What tools were used for the design?
 * Which part of the report did the involved member write?
+  * This section 
+  * Testing summary of AVLTreeTest
+  * Reason for AVLTree as our data structure
+  * Bug 'Star count in the home page'
+  * Features [Login], [Data-Deletion], [Custom-Localization] and part of [Search-Filter]
 * Were you responsible for the slides?
-* You are welcome to provide anything that you consider as a contribution to the project or team.
+  * Yes
 
 
 u7468212, Harrison Oates: I contributed 20% of the code. Here are my contributions:
@@ -266,14 +280,13 @@ We used the following data structures in our project:
      * Having the property of self-balancing along with the binary search tree guarantees the performance of O(logN) in the worst case for insertion, deletion and searching.
      * Although HashMap may seem more plausible with better time complexity, the AVL Tree can get data in order via inOrderTraversal().
      * The AVL tree is also useful as we can easily store in Firebase, and then reload directly into a tree at a later time. This reduces the time taken to reload it back into a tree structure.
-
-2. Unlike the most operation in the AVL Tree, the deletion was not covered in the lecture, so its implementation will be briefly outlined.
-   * The node that is to be deleted first gets searched, similar to the initial search fro the insertion.
-   * It then gets deleted accordingly preserving the BST properties depending on the number of children node/s it has.
-   * The tree now identifies node/s that violate/s the balance factor rule.
-   * Balance the subtree based on the imbalanced nodes, which uses the same method for balancing in the insertion.
-   * Note that it is possible that the balancing is required multiple times, unlike the insertion where the whole tree was guaranteed to be AVL Tree after a single balancing.
-   * The author believes that it is because the insertion only manipulates the leaf node, while the deletion manipulates any node, which can cause more than one imbalanced path.
+     * Unlike the most operation in the AVL Tree, the deletion was not covered in the lecture, so its implementation will be briefly outlined.
+        * The node that is to be deleted first gets searched, similar to the initial search fro the insertion.
+        * It then gets deleted accordingly preserving the BST properties depending on the number of children node/s it has.
+        * The tree now identifies node/s that violate/s the balance factor rule.
+        * Balance the subtree based on the imbalanced nodes, which uses the same method for balancing in the insertion.
+        * Note that it is possible that the balancing is required multiple times, unlike the insertion where the whole tree was guaranteed to be AVL Tree after a single balancing.
+        * The author believes that it is because the insertion only manipulates the leaf node, while the deletion manipulates any node, which can cause more than one imbalanced path.
 
 **Design Patterns**
 
@@ -438,6 +451,10 @@ Many types of test were created:
   - Parser ability to deal with blank inputs and properly separate regular inputs into queries.
   - Searching (both matching and incomplete searches), and accuracy of, users using `UserResults.java`, questions using `QuestionResults.java`, topics using `TopicResults.java` and discussions using `PostResults.java`.
   - Search for results using all search types at once (general search).
+- Tests for AVLTree (```AVLTreeTest```) which tests the following:
+  - Every methods (100% method coverage) and every cases except when the type of node's value is ComparablePair (95% line coverage).
+  - Different trees, including empty one, single node, one with empty left child, one with empty right child and trees with substantial number of nodes were used.
+  - For each tree, deletion of tis node in random order was repeated for 100 times, which makes it reasonable to assume that it practically considers all the cases for deletion.
 
 Android Studio does not provide code coverage for instrumented tests, and thus the exact code coverage is not known.
 However, by manually inspecting the code, we find that the user login tests gets 100% line coverage of ```Firebase.FirebaseRequest```, approximately 76% of both ```Firebase.FirebaseResult```, and ```UserLogin```. Additionally, 100% of ```UserLocalData``` is tested, split across ```UserLocalDataTest``` (for most methods), and ```DirectMessageTest``` (for ```loadFromDisk```). We achieve 100% branch coverage of the syntax highlighting methods across the two methods. 100% branch coverage is achieved for search.
@@ -483,7 +500,9 @@ The code coverage for these tests are shown below:
 Feature Category: Data Structures <br>
 1. [Data-Deletion]. Deletion method of either a Red-Black Tree, AVL tree or B-Tree data structure. The deletion of nodes must serve a purpose within your application. (hard)
    * Class AVLTree, methods delete, findImbalanceDelete, deleteBeforeBalance, balanceSubtree, Lines of code: 53
-   * TODO for Geun
+   * Additional description:
+     * Custom Node class was created which allowed each node have left and right child node as well as parent node, a useful component to traverse from root and find imbalance. 
+     * While loop is used to ensure findImbalanceDelete and balanceSubtree are called until the whole tree satisfies the balance factor rule of the AVL Tree. This recognizes the fact that tree is not guaranteed to be balanced after deleting a node and re-balancing the tree, unlike the insertion.
 
 Feature Category: Firebase Integration <br>
 2. [FB-Persist] Use Firebase to persist all data used in your app. (medium)
@@ -538,6 +557,7 @@ Feature category: Search <br>
    * Users can choose a filter to be applied in a search to get more specific result.
    * Users can also search more specific filters through direct text input, as outlined in the Tokenizer and Parsers section above.
    * The search is always listed in a descending order of relevancy.
+   * Note that UI for discussion was not implemented, so clicking the discussion search results will not navigate users to anywhere.
 <br>
    
 Feature Category: Syntax Highlighting (custom, approved as per [here](https://wattlecourses.anu.edu.au/mod/forum/discuss.php?d=870859)) <br>
