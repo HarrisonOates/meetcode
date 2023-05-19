@@ -345,8 +345,6 @@ Production rules for the search:
     <query> ::= specifier <statement>
     <statement> ::= word | word <statement>
 
-*[How do you design the grammar? What are the advantages of your designs?]*
-
 The grammar was designed around the intent of separating searches into sections called queries, allowing for a user to filter their results based upon what they were looking for. e.g. searching for users or topics. By using a specific separator, it allows the regular tokens, such as `?` to be used in the search without it being taken as another query. Although this does mean that the separator can't be used in a search normally, this was circumvented in code by allowing the separator to be put twice to indicate a regular `;` in text.
 The grammar was designed in a way which allowed for multiple words to be searched under one query, as well as having multiple queries to be used under the same search.
 The grammar is very flexible to new queries, as it only requires a new identifier to be added to the specifier set, allowing for easy adaptability.
@@ -409,24 +407,24 @@ The surprise item was not implemented.
 
 ## Summary of Known Errors and Bugs
 
-1. *Exiting and re-entering the same direct message conversation*
+1. Exiting and re-entering the same direct message conversation
    - If a user exits a direct message conversation, and then re-enters it, it will no longer automatically refresh (e.g. likes will not update). This is due to a bug in how the user interface manages the direct message conversations.
    - In this state, if the user sends a message to another user who is currently logged into the app and viewing the same direct message conversation, their app may crash
    - There may be other instabilities when the app is in this state
 
-2. *Star count in the home page*
+2. Star count in the home page
    - The star count of a user in the home page is initially not reflected until other fragment has been visited.
    - This has negligible consequence, as users can simply click home button to refresh.
    - The count also gets replaced by a back arrows once the language has been switched.
    - But again, this does not lead to any real issue, as their star counts can be checked in their account menu.
    - This bug also does not relate to any of the basic or general features
 
-3. *Bug 4: Clicking discussion posts doesn't take you to discussion post*
-- Discussion post results from the search do not take you to the discussion post, as this part of the UI was not implemented
+3. Clicking discussion posts doesn't take you to discussion post*
+   - Discussion post results from the search do not take you to the discussion post, as this part of the UI was not implemented
 
-4. *Bug 5: Searching topics at the same time as questions crashes app*
-- An originally intended feature of narrowing search results by searching for topics at the same time as discussion posts causes the app to crash
-- This is because the discussion post UI code was originally planned for, but later reverted, as such, testing was not done as comprehensively on an unintended feature
+4. Searching topics at the same time as questions crashes app*
+   - An originally intended feature of narrowing search results by searching for topics at the same time as discussion posts causes the app to crash
+   - This is because the discussion post UI code was originally planned for, but later reverted, as such, testing was not done as comprehensively on an unintended feature
 
 ## Testing Summary
 
@@ -478,116 +476,115 @@ The code coverage for these tests are shown below:
 
 ### Basic App
 1. [Login]. Description of the feature and your implementation (easy)
-    * Class User.UserLogin: whole file
-    * Additional description:
-      * User accounts consist of a username and a salted password.
-      * The hashed password, salt and usernames are stored on Firebase. The plaintext passwords never get stored.
-      * **The location of the APK (from the root directory) is either in ```APK/app-debug.apk``` or ```items/app-debug.apk```. These two files are the exact same.**
+    - Class User.UserLogin: whole file
+    - Additional description:
+      - User accounts consist of a username and a salted password.
+      - The hashed password, salt and usernames are stored on Firebase. The plaintext passwords never get stored.
+      - **The location of the APK (from the root directory) is either in ```APK/app-debug.apk``` or ```items/app-debug.apk```. These two files are the exact same.**
 
 2. [Data-Stream]. Uses a second instance of an Android Virtual Device to mimic a realistic data stream of over 2500 data instances (easy). 
-   * Class DatastreamSimulation.DataGenerator - whole file
-   * Class MainActivity - lines 127-134.
-   * Additional description:
-     * As we built a client-server model application, it was easier to set up a second instance of the app to feed data to the Firebase, and then use the primary account to pull from. See [here](https://wattlecourses.anu.edu.au/mod/forum/discuss.php?d=875865) for permission.
+   - Class DatastreamSimulation.DataGenerator - whole file
+   - Class MainActivity - lines 127-134.
+   - Additional description:
+     - As we built a client-server model application, it was easier to set up a second instance of the app to feed data to the Firebase, and then use the primary account to pull from. See [here](https://wattlecourses.anu.edu.au/mod/forum/discuss.php?d=875865) for permission.
 
-     * To set this up, log onto the secondary AVD with the credentials 'harrison' and '12345678' and then open up the primary marker account 'comp2100@anu.au'.
+     - To set this up, log onto the secondary AVD with the credentials 'harrison' and '12345678' and then open up the primary marker account 'comp2100@anu.au'.
      The secondary account will then send code snippets, text excerpts, or like comments at random every three seconds, without the need for additional input. This is due to a login hook on mainActivity that activates whenever that specific account is logged into. The link to our Firebase can be found [here](https://console.firebase.google.com/u/0/project/comp2100groupassignment-8427a/overview).
 
 3. [Data Visualization]. Description  ... ...
 <br>
 
 4. [Search] Users must be able to search for information on your app. (medium)
-   * All classes within `myeducationalapp/Search`
-   * Additional description:
-     * Users can search for other users, topics or questions on the app and quickly navigate to them
+   - All classes within `myeducationalapp/Search`
+   - Additional description:
+     - Users can search for other users, topics or questions on the app and quickly navigate to them
 <br><br>
 
 ### General Features
 Feature Category: Data Structures <br>
 1. [Data-Deletion]. Deletion method of either a Red-Black Tree, AVL tree or B-Tree data structure. The deletion of nodes must serve a purpose within your application. (hard)
-   * Class AVLTree, methods delete, findImbalanceDelete, deleteBeforeBalance, balanceSubtree, Lines of code: 53
-   * Additional description:
-     * Custom Node class was created which allowed each node have left and right child node as well as parent node, a useful component to traverse from root and find imbalance. 
-     * While loop is used to ensure findImbalanceDelete and balanceSubtree are called until the whole tree satisfies the balance factor rule of the AVL Tree. This recognizes the fact that tree is not guaranteed to be balanced after deleting a node and re-balancing the tree, unlike the insertion.
+   - Class AVLTree, methods delete, findImbalanceDelete, deleteBeforeBalance, balanceSubtree, Lines of code: 53
+   - Additional description:
+     - Custom Node class was created which allowed each node have left and right child node as well as parent node, a useful component to traverse from root and find imbalance. 
+     - While loop is used to ensure findImbalanceDelete and balanceSubtree are called until the whole tree satisfies the balance factor rule of the AVL Tree. This recognizes the fact that tree is not guaranteed to be balanced after deleting a node and re-balancing the tree, unlike the insertion.
 
 Feature Category: Firebase Integration <br>
 2. [FB-Persist] Use Firebase to persist all data used in your app. (medium)
-   * Class Firebase.Firebase: whole file
-   * Class Firebase.FirebaseRequest: whole file
-   * Class Firebase.FirebaseResult: whole file
-   * Class UserLocalData: whole file
-   * Class Asynchronous: whole file
-   * Additional description:
-     * The entire state of the app is stored on Firebase. This was done to allow for messages to be sent between users and persist. It also allows for messages to be liked, for different users to be search for, etc. The Firebase package is used to provide an asynchronous interface between the rest of the app and the Firebase database. Internally, the app treats Firebase like a filesystem - each object has a value, name (filename) and child objects (folders). The Firebase.FirebaseRequest file is used to abstract away the low level details of resolving these filepath-like paths into a Firebase API object. Firebase.FirebaseResult provides a clean asynchronous interface that allow callbacks to be chained with ```.then()```, or waited on with ```.await()```. Finally, Firebase.Firebase acts as a singleton and a facade, allowing the rest of the program use core functionality such as getting lists of users, notifications when data changes, and messages stored on the server. Additionally, the Asynchronous class is used to allow the other classes in the program act asynchronously, and allow them to wait on each other to receive data before running a callback.
-     * Data is local to particular users, such as messages they've liked, their blocked user list, and any answers they've submitted is stored in the UserLocalData class. However, to handle users logging out of the app and back in again, this is also synchronised to Firebase whenever this data changes. This means the user can log in from any device and their data will still be there.
+   - Class Firebase.Firebase: whole file
+   - Class Firebase.FirebaseRequest: whole file
+   - Class Firebase.FirebaseResult: whole file
+   - Class UserLocalData: whole file
+   - Class Asynchronous: whole file
+   - Additional description:
+     - The entire state of the app is stored on Firebase. This was done to allow for messages to be sent between users and persist. It also allows for messages to be liked, for different users to be search for, etc. The Firebase package is used to provide an asynchronous interface between the rest of the app and the Firebase database. 
+     - Internally, the app treats Firebase like a filesystem - each object has a value, name (filename) and child objects (folders). The Firebase.FirebaseRequest file is used to abstract away the low level details of resolving these filepath-like paths into a Firebase API object. Firebase.FirebaseResult provides a clean asynchronous interface that allow callbacks to be chained with ```.then()```, or waited on with ```.await()```. Finally, Firebase.Firebase acts as a singleton and a facade, allowing the rest of the program use core functionality such as getting lists of users, notifications when data changes, and messages stored on the server. 
+     - Additionally, the Asynchronous class is used to allow the other classes in the program act asynchronously, and allow them to wait on each other to receive data before running a callback.
+     - Data is local to particular users, such as messages they've liked, their blocked user list, and any answers they've submitted is stored in the UserLocalData class. However, to handle users logging out of the app and back in again, this is also synchronised to Firebase whenever this data changes. This means the user can log in from any device and their data will still be there.
 <br>
-3. [FB-Syn] Using Firebase or another remote database to store user information and having the app
-   updated as the remote database is updated without restarting the application. (hard)
-   * Class Firebase.FirebaseObserver: whole file
-   * Class Firebase.Firebase: constructor (lines 74-98), methods attachObserver and notifyObservers (lines 100-117)
-   * Class DirectMessageFragment.DirectMessageObserver: whole class
-   * Additional description: 
-     * Most of this follows from the fact that the app's state is persisted on Firebase (and therefore the classes and files in the [FB-Persist] section are utilised). For the app to automatically update without restarting, all that needs to be done is determine when a change has occurred on Firebase, and then update the user interface appropriately. The Firebase API provides a listener for when data changes. This is caught in Firebase.Firebase, which is then able to notify any observers of the change. One of the observers is the user interface, which then is then able to use the functions in Firebase.Firebase to redownload the new state of the app, and rerender the user interface appropriately.
-     * DirectMessageFragment.DirectMessageObserver inherits FirebaseObserver and will refresh the direct messaging UI, showing new likes/unlikes as well as new messages. This means that user can enjoy real time updates to their direct message thread.
+3. [FB-Syn] Using Firebase or another remote database to store user information and having the app updated as the remote database is updated without restarting the application. (hard)
+   - Class Firebase.FirebaseObserver: whole file
+   - Class Firebase.Firebase: constructor (lines 74-98), methods attachObserver and notifyObservers (lines 100-117)
+   - Class DirectMessageFragment.DirectMessageObserver: whole class
+   - Additional description: 
+     - Most of this follows from the fact that the app's state is persisted on Firebase (and therefore the classes and files in the [FB-Persist] section are utilised). For the app to automatically update without restarting, all that needs to be done is determine when a change has occurred on Firebase, and then update the user interface appropriately. The Firebase API provides a listener for when data changes. This is caught in Firebase.Firebase, which is then able to notify any observers of the change. One of the observers is the user interface, which then is then able to use the functions in Firebase.Firebase to redownload the new state of the app, and rerender the user interface appropriately.
+     - DirectMessageFragment.DirectMessageObserver inherits FirebaseObserver and will refresh the direct messaging UI, showing new likes/unlikes as well as new messages. This means that user can enjoy real time updates to their direct message thread.
 
 Feature Category: Peer-to-peer messaging <br>
-4. [P2P-Block] Provide users with the ability to ‘block’ users, preventing them from direct messaging
-   them. (medium)
-   * Class UserLocalData: methods `toggleBlockUser`, `isUserBlocked`
-   * Class DirectMessageFragment: lines 148-151
-   * Class MessagesFragment: lines 266-298
-   * Additional description: 
-     * Users are not able to send to or receive messages from users they have blocked. 
-     * This is implemented by checking whether the user is on a blocked user list, and if so, not allowing any of their messages to be shown. It also prevents messages from being sent to the blocked user.
+4. [P2P-Block] Provide users with the ability to ‘block’ users, preventing them from direct messaging them. (medium)
+   - Class UserLocalData: methods `toggleBlockUser`, `isUserBlocked`
+   - Class DirectMessageFragment: lines 148-151
+   - Class MessagesFragment: lines 266-298
+   - Additional description: 
+     - Users are not able to send to or receive messages from users they have blocked. 
+     - This is implemented by checking whether the user is on a blocked user list, and if so, not allowing any of their messages to be shown. It also prevents messages from being sent to the blocked user.
 <br>
 5. [P2P-DM] Provide users with the ability to message each other directly in private. (hard)
-   * Class Message: whole file
-   * Class DirectMessageThread: whole file
-   * Class MessageThread: whole file
-   * Class DirectMessageFragment: whole file
-   * Class UserDirectMessages : whole file
-   * Additional description:
-     * Users are able to direct message each other. This is possible due to the state of the program being stored on Firebase. For each pair of users, there exists a Firebase object that contains all of the messages that they've sent to each other. This gets loaded into the DirectMessageThread class, which inherits from MessageThread (this is done so messages posted under questions can be handled in the same way). Messages can be sent between the users by adding a new message to the list and re-uploading it to Firebase.
-     * The UI uses a DirectMessageThread object as well as its list of Messages in order to render messages to the user interface, allowing users to like and unlike messages on top of allowing for them to send and receive messages in real time. The UI of a message bubble that encapsulates the raw text of a message changes depending on the number of consecutive direct messages as well as depending on who sent those messages, making for a visually appealing appearance.
+   - Class Message: whole file
+   - Class DirectMessageThread: whole file
+   - Class MessageThread: whole file
+   - Class DirectMessageFragment: whole file
+   - Class UserDirectMessages : whole file
+   - Additional description:
+     - Users are able to direct message each other. This is possible due to the state of the program being stored on Firebase. For each pair of users, there exists a Firebase object that contains all of the messages that they've sent to each other. This gets loaded into the DirectMessageThread class, which inherits from MessageThread (this is done so messages posted under questions can be handled in the same way). Messages can be sent between the users by adding a new message to the list and re-uploading it to Firebase.
+     - The UI uses a DirectMessageThread object as well as its list of Messages in order to render messages to the user interface, allowing users to like and unlike messages on top of allowing for them to send and receive messages in real time. The UI of a message bubble that encapsulates the raw text of a message changes depending on the number of consecutive direct messages as well as depending on who sent those messages, making for a visually appealing appearance.
 <br>
    
 Feature category: Search <br>
 6. [Search-Invalid] Search functionality can handle partially valid and invalid search queries. (medium)
-   * All classes within `myeducationalapp/Search` folder
-   * Class Fragments.HomeFragment: part of onViewCreated, initializeSearch and visualizeClickableSearchResults (lines 170-285)
-   * The search will rank all results based upon how likely it is to be the correct response and return them in a sorted order.
+   - All classes within `myeducationalapp/Search` folder
+   - Class Fragments.HomeFragment: part of onViewCreated, initializeSearch and visualizeClickableSearchResults (lines 170-285)
+   - The search will rank all results based upon how likely it is to be the correct response and return them in a sorted order.
 <br>
 7. [Search-Filter] Sort and/or filter a list of items returned from a search, with the help of suitable UI components. (easy)
-   * All classes within `myeducationalapp/Search` folder
-   * Class Fragments.HomeFragment: part of onViewCreated, initializeSearch and visualizeClickableSearchResults (lines 170-285)
-   * Users can choose a filter to be applied in a search to get more specific result.
-   * Users can also search more specific filters through direct text input, as outlined in the Tokenizer and Parsers section above.
-   * The search is always listed in a descending order of relevancy.
-   * Note that UI for discussion was not implemented, so clicking the discussion search results will not navigate users to anywhere.
+   - All classes within `myeducationalapp/Search` folder
+   - Class Fragments.HomeFragment: part of onViewCreated, initializeSearch and visualizeClickableSearchResults (lines 170-285)
+   - Users can choose a filter to be applied in a search to get more specific result.
+   - Users can also search more specific filters through direct text input, as outlined in the Tokenizer and Parsers section above.
+   - The search is always listed in a descending order of relevancy.
+   - Note that UI for discussion was not implemented, so clicking the discussion search results will not navigate users to anywhere.
 <br>
    
 Feature Category: Syntax Highlighting (custom, approved as per [here](https://wattlecourses.anu.edu.au/mod/forum/discuss.php?d=870859)) <br>
 8. [Custom-Syntax-Highlighting]. Description: The user interface will be able to display snippets of code to the user, with dynamically generated syntax highlighting applied. The syntax of the code will be Java-like. (hard)
-   * Class SyntaxHighlighting.DetectCodeBlock, whole file
-   * Class SyntaxHighlighting.Parser, whole file
-   * Class SyntaxHighlighting.Tokenizer, whole file
-   * Class SyntaxHighlighting.Token, whole file
-   * Class QuestionFragment and DirectMessageFragment form the UI front-end for displaying highlighted syntax
-   * Additional description: 
-     * Users are able to input code in comments in between two sets of three backticks, and this code will be highlighted according to our custom colour scheme. Token types are stored in Token, with the classification of the text into tokens happening in the ```next()``` method in the Tokenizer class.
-     The Parser calls ```next()``` repeatedly until the end of the text and transforms the tokenized query into HTML, applying the colours appropriately.
-     All of this is bundled into a static method, ```SyntaxHighlighting.DetectCodeBlock.parseCodeBlocks()```, which detects the backticks and feeds the appropriate section of text to the other classes.
-     To interface with the frontend, we call the method inside ```Html.fromHtml```, which is itself inside ```textView.setText()```.
+   - Class SyntaxHighlighting.DetectCodeBlock, whole file
+   - Class SyntaxHighlighting.Parser, whole file
+   - Class SyntaxHighlighting.Tokenizer, whole file
+   - Class SyntaxHighlighting.Token, whole file
+   - Class QuestionFragment and DirectMessageFragment form the UI front-end for displaying highlighted syntax
+   - Additional description: 
+     - Users are able to input code in comments in between two sets of three backticks, and this code will be highlighted according to our custom colour scheme. Token types are stored in Token, with the classification of the text into tokens happening in the ```next()``` method in the Tokenizer class. 
+     - The Parser calls ```next()``` repeatedly until the end of the text and transforms the tokenized query into HTML, applying the colours appropriately. 
+     - All of this is bundled into a static method, ```SyntaxHighlighting.DetectCodeBlock.parseCodeBlocks()```, which detects the backticks and feeds the appropriate section of text to the other classes. 
+     - To interface with the frontend, we call the method inside ```Html.fromHtml```, which is itself inside ```textView.setText()```.
 <br>
-     
 Feature Category: Localisation (custom, approved as per [here](https://wattlecourses.anu.edu.au/mod/forum/discuss.php?d=870913)) <br>
 9. [Custom-Localization] The user is able to change the (spoken, not programming) language of the app they are most comfortable with. This will remove the language barrier and provide equal quality to users from all backgrounds. For example, the language for the app could be changed to Portuguese. Or, if the user is a pirate, they will see the text "Hello how are you?" as "arr me matey, how goes it?" (easy)
-   * Class Localization.DynamicLocalization, whole file
-   * Class Localization.LanguageSetting, whole file
-   * Most of the UI related classes
-   * Additional description:
-     * In addition to implementing the feature as voice, we have taken the idea further and allowed for the values to be localised dynamically at runtime. 
-     * There are certain strings that were intentionally not translated, including chat messages, programming questions and search query, as doing so would confuse users more.
+   - Class Localization.DynamicLocalization, whole file
+   - Class Localization.LanguageSetting, whole file
+   - Most of the UI related classes
+   - Additional description:
+     - In addition to implementing the feature as voice, we have taken the idea further and allowed for the values to be localised dynamically at runtime. 
+     - There are certain strings that were intentionally not translated, including chat messages, programming questions and search query, as doing so would confuse users more.
 
 ## Team Meetings
 The meeting minutes can be found here:
