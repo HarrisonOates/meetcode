@@ -109,6 +109,27 @@ u7468212, Harrison Oates: I contributed 20% of the code. Here are my contributio
 
 
 u7146309, Jayden Skidmore: I contributed 20% of the code. Here are my contributions:
+* All of [Search.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Search/Search.java)
+* All of [Results.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Search/SearchResults/Results.java)
+  * All of [QuestionResults.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Search/SearchResults/QuestionResults.java)
+  * All of [PostResults.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Search/SearchResults/PostResults.java)
+  * All of [TopicResults.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Search/SearchResults/TopicResults.java)
+  * All of [UserResults.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Search/SearchResults/UserResults.java)
+  * All of [SearchResult.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Search/SearchResults/SearchResult.java)
+* All of [SearchParser.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Search/SearchParsing/SearchParser.java)
+  * All of [Exp.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Search/SearchParsing/Exp.java)
+  * All of [QueryExp.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Search/SearchParsing/QueryExp.java)
+  * All of [SearchExp.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Search/SearchParsing/SearchExp.java)
+  * All of [StatementExp.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Search/SearchParsing/StatementExp.java)
+
+* All of [SearchTokenizer.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Search/SearchParsing/SearchTokenizer.java)
+  * All of [SearchToken.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Search/SearchParsing/SearchToken.java)
+* All of [blocking_menu.xml](./../MyEducationalApp/app/res/menu/blocking_menu.xml)
+  * Lines 266-298 of [MessagesFragment.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Fragments/MessagesFragment.java)
+  * All of [SearchTests.java](./../MyEducationalApp/app/src/androidTest/java/com/example/myeducationalapp/SearchTest.java)
+  * Lines 148-151 of [DirectMessageFragment.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Fragments/DirectMessageFragment.java)
+
+
 * A.class
 * B.class: function1(), function2(), ...
 * What design patterns, data structures, did the involved member propose?
