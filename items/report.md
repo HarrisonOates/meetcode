@@ -35,13 +35,13 @@ u7468248, Alex Boxall: I contributed 20% of the code. Here are my contributions:
     * All of [DirectMessageTest.java](./../MyEducationalApp/app/src/androidTest/java/com/example/myeducationalapp/DirectMessageTest.java)
 * All of [Message.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Message.java)
 * All of [MessageThread.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/MessageThread.java)
-* All of [Person.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Person.java)
-* All of [Question.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Question.java)
-* All of [UserLocalData.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/UserLocalData.java)
+* All of [Person.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/User/Person.java)
+* All of [Question.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Question/Question.java)
+* All of [UserLocalData.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/User/UserLocalData.java)
   * All of [UserLocalDataTest.java](./../MyEducationalApp/app/src/androidTest/java/com/example/myeducationalapp/UserLocalDataTest.java)
-* Refactoring of [QuestionSet.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/QuestionSet.java)
+* Refactoring of [QuestionSet.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Question/QuestionSet.java)
   * Geun wrote the initial version and I refactored it, including making Question its own class
-* Some of [UserLogin.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/UserLogin.java)
+* Some of [UserLogin.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/User/UserLogin.java)
   * Geun wrote most of it, and I added ```getCurrentUsername```, ```isUserLoggedIn```, and made changes to ```authoriseUser```
 * Summary of contributions:
   * I designed and implemented the code related to Firebase and messaging. This included creating the format of storing the objects on Firebase (which uses a filesystem like-structure with "paths", explained later in the section on features implemented), and away of reading and writing data from it. 
@@ -61,6 +61,8 @@ u7468248, Alex Boxall: I contributed 20% of the code. Here are my contributions:
   * This section
   * [FB-Syn] and [P2P-DM] in the 'features implemented' section
   * The section on the instrumented tests
+  * Added the UML to the report
+  * Added the screenshots for code coverage
 
 
 u7469758, Geun Yun: I contributed 20% of the code. Here are my contributions:
@@ -77,12 +79,26 @@ u7469758, Geun Yun: I contributed 20% of the code. Here are my contributions:
   * All of [LanguageSetting.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Localization/LanguageFragment.java)
   * All of [DynamicLocalization.java](./../MyEducationalApp/app/src/main/java/com/example/myeducationalapp/Localization/DynamicLocalization.java)
   * All of [strings](./../MyEducationalApp/app/src/main/res/values/strings.xml)
+* Summary of contributions:
+  * Implemented AVLTree and verified its functionality with AVLTreeTest. On top of all the basic functionality, the tree can also correctly delete nodes.
+  * Designed the structure of UserLogin by implementing the salted password to ensure extra security.
+  * First designed the QuestionSet as its own class, which then got refactored by Alex.
+  * Wrote the questions in a category of DataStructure.
+  * Made the search implemented by Jayden to be usable in the app, which involved applying the filter and navigating a search result to a right place when clicked.
+  * The search bar UI led me to create RecyclerViewCustomAdapter as the search results in listView causes the nested listView issue. The custom adapter also gives an index to each search result which was used to implement for making search results clickable.
+  * Implemented dynamic localization such that not only the string values stored in the strings.xml but also the ones that dynamically change can be translated into 5 different languages.
+  * Such dynamic localization involved the use of Google's ML Kit Translation, which its asynchronous property led me to create a class that handles 
 * What design patterns, data structures, did the involved member propose?
   * I was responsible for implementing AVLTree as the data structure which stores the current user's liked messages, blocked user list and the successfully answered questions in UserLocalData and also who has liked the message in Message.java.
 * Specify what design did the involved member propose? What tools were used for the design?
 * Which part of the report did the involved member write?
+  * This section 
+  * Testing summary of AVLTreeTest
+  * Reason for AVLTree as our data structure
+  * Bug 'Star count in the home page'
+  * Features [Login], [Data-Deletion], [Custom-Localization] and part of [Search-Filter]
 * Were you responsible for the slides?
-* You are welcome to provide anything that you consider as a contribution to the project or team.
+  * Yes
 
 
 u7468212, Harrison Oates: I contributed 20% of the code. Here are my contributions:
@@ -179,10 +195,12 @@ u7300256, Nikhila Gurusinghe: I contributed 20% of the code. Here are my contrib
 * Which part of the report did the involved member write?
   * This section
   * The Application Description
+  * Some of the Application Use Cases and or Examples
+  * Some of the UI explanations on [FB-Persist], [FB-Syn], and [P2P-DM]
 * You are welcome to provide anything that you consider as a contribution to the project or team.
   * I designed UI wireframes and sourced icons as well as a font that would support the languages that we were aiming to localise the app to. 
   ![wireframe](./images/wireframe.png) <br>  
-  In terms of fonts this is difficult to do as many do not support the Hangul characters.
+  In terms of fonts this is difficult to do as many do not support Hangul characters whilst also supporting languages such as Japanese or Chinese.
   * I also implemented all of the UI except for the dynamic localization, and search UI (done by Geun) as well as the blocking user UI (done by Jayden).
     * Implemented a customized action bar implementation that supports backwards navigation within MainActivity.java
     * Created XML layouts for 9 graphically complex Fragments and 2 Activities
@@ -248,23 +266,25 @@ We used the following data structures in our project:
 
 1. AVL Tree
 
-   * Objective: It is used for storing xxxx for xxx feature.
+   * Objective: Used to store objects, and check if they exist in an efficient time. Also allows efficient insertion and deletion.
 
-   * Locations: line xxx in XXX.java, ..., etc.
+   * Locations:
+     * implementation is in AVLTree.java (whole file)
+     * used in User.UserLocalData (line 46, lines 61-71), to store the blocked user list, the messages that are liked by the current user and the submitted answers per question per user
+     * used in Message (line 43) to store who has liked the message
 
    * Reasons:
 
      * Having the property of self-balancing along with the binary search tree guarantees the performance of O(logN) in the worst case for insertion, deletion and searching.
      * Although HashMap may seem more plausible with better time complexity, the AVL Tree can get data in order via inOrderTraversal().
      * The AVL tree is also useful as we can easily store in Firebase, and then reload directly into a tree at a later time. This reduces the time taken to reload it back into a tree structure.
-
-2. Unlike the most operation in the AVL Tree, the deletion was not covered in the lecture, so its implementation will be briefly outlined.
-   * The node that is to be deleted first gets searched, similar to the initial search fro the insertion.
-   * It then gets deleted accordingly preserving the BST properties depending on the number of children node/s it has.
-   * The tree now identifies node/s that violate/s the balance factor rule.
-   * Balance the subtree based on the imbalanced nodes, which uses the same method for balancing in the insertion.
-   * Note that it is possible that the balancing is required multiple times, unlike the insertion where the whole tree was guaranteed to be AVL Tree after a single balancing.
-   * The author believes that it is because the insertion only manipulates the leaf node, while the deletion manipulates any node, which can cause more than one imbalanced path.
+     * Unlike the most operation in the AVL Tree, the deletion was not covered in the lecture, so its implementation will be briefly outlined.
+        * The node that is to be deleted first gets searched, similar to the initial search fro the insertion.
+        * It then gets deleted accordingly preserving the BST properties depending on the number of children node/s it has.
+        * The tree now identifies node/s that violate/s the balance factor rule.
+        * Balance the subtree based on the imbalanced nodes, which uses the same method for balancing in the insertion.
+        * Note that it is possible that the balancing is required multiple times, unlike the insertion where the whole tree was guaranteed to be AVL Tree after a single balancing.
+        * The author believes that it is because the insertion only manipulates the leaf node, while the deletion manipulates any node, which can cause more than one imbalanced path.
 
 **Design Patterns**
 
@@ -272,22 +292,45 @@ We used the following design patterns in our project:
 
 1. Singleton
 
-* Objective: Used for various classes that require only one instance (or 'global' classes). For example, there is one object for managing user logins, the current user's settings, and the Firebase connection.
+* Objective: To ensure there is only one instance of certain classes.
 
-* Locations: line xxx in XXX.java, ..., etc.
-
+* Locations: 
+  * Firebase.Firebase (entire class), lines 37-48 implement it (with private constructor on lines 68-70)
+  * User.UserLogin (entire class), lines 20-26 implement it (with private constructor on lines 36-53)
+  * User.UserLocalData (entire class), lines 28-39 implement it (including private constructor)
+  * Question.QuestionSet (entire class), lines 140-147 implement it
+  * Search.Search (entire class), lines 77-80 implement it
 * Reasons:
-  *
-  * 
+  * Java does not support global functions or variables. Therefore, having a single instance of an object to hold such global data is useful.
+  * There should only be one connection to Firebase, so access is done through a singleton
+  * The use of singletons in QuestionSet, UserLocalData and UserLogin are to maintain a global state while the app is running.
 
-2. Facade
-
-3. Observer
-* Objective:
+2. Observer
+* Objective: To update the user interface only when a change has been made to the relevant data on Firebase.
 * Locations:
+  * the subject is set up in Firebase.Firebase, line 54, lines 77-115
+  * the handler that causes the subject to start notifying is line 158 in Firebase.FirebaseResult
+  * the observer is in Fragments.DirectMessageFragment.DirectMessagesObserver, entire class (lines 573-692)
 * Reasons:
-  * ...
-  * ...
+  * We wanted to have a way of parts of the app being notified when relevant information is changed on Firebase.
+  * Hence we use an observer that can be registered with Firebase, and the ```update()``` method will be called when a change occurs
+
+3. Iterator
+* Objective: To allow for user interface elements that are generated to be accessed in sequential order.
+* Locations: 
+  * The interface userInterface.Generatable.IterableCollection
+  * The interface userInterface.Generatable.Iterator
+  * userInterface.GeneratedUserInterfaceViewModel, lines 23-45. The entire class implements the interface IterableCollection. The underlying data structure being hidden by this design pattern is in line 13.
+* Reasons:
+    * To keep client code loosely coupled from the underlying implementation of the data structure as well. 
+
+4. Facade
+* Objective: Abstract away from the low-level details of the database backend, and provide an easy-to-use, unified and implementation independent interface.
+* Locations:
+  * Firebase.Firebase (entire file)
+* Reasons:
+    * Prevents the rest of the application from relying on the use of a Firebase database - if a different database were to be used we could just change this class instead of the rest of the code. This decreases coupling.
+    * Simplifies the remainder of the code by providing a single point of access for all data synchronisation and database interfacing
 
 **Grammar(s)**
 
@@ -351,8 +394,6 @@ Production rules for syntax highlighting:
    
    The grammar was designed through observing the characteristics of common colour schemes like Dracula and Android Studio's default themes.
 
-*[How do you design the grammar? What are the advantages of your designs?]*
-
 **Tokenizer and Parsers**
 
 Two tokenizers and parses were built, one of each for search and syntax highlighting.
@@ -366,56 +407,32 @@ This is done through a number of ```if```-statements that determine which token 
 The parser takes each token's type and applies a given colour through HTML syntax. For some tokens, there exist characters that are reserved in HTML, so the parser additionally escapes these characters where required. This design choice means that the parser could be easily modified if we were to change the way we wish to render text.
 
 
-*[Where do you use tokenisers and parsers? How are they built? What are the advantages of the designs?]*
-
 **Surprise Item**
+
 The surprise item was not implemented.
-
-**Other**
-
-*[What other design decisions have you made which you feel are relevant? Feel free to separate these into their own subheadings.]*
 
 ## Summary of Known Errors and Bugs
 
-*[Where are the known errors and bugs? What consequences might they lead to?]*
+1. *Exiting and re-entering the same direct message conversation*
+   - If a user exits a direct message conversation, and then re-enters it, it will no longer automatically refresh (e.g. likes will not update). This is due to a bug in how the user interface manages the direct message conversations.
+   - In this state, if the user sends a message to another user who is currently logged into the app and viewing the same direct message conversation, their app may crash
+   - There may be other instabilities when the app is in this state
 
-*Here is an example:*
+2. *Star count in the home page*
+   - The star count of a user in the home page is initially not reflected until other fragment has been visited.
+   - This has negligible consequence, as users can simply click home button to refresh.
+   - The count also gets replaced by a back arrows once the language has been switched.
+   - But again, this does not lead to any real issue, as their star counts can be checked in their account menu.
+   - This bug also does not relate to any of the basic or general features
 
-1. *Bug 1: Space bar in the sign in*
-- *A space bar (' ') in the sign in email will crash the application.*
-- ...
+3. *Bug 4: Clicking discussion posts doesn't take you to discussion post*
+- Discussion post results from the search do not take you to the discussion post, as this part of the UI was not implemented
 
-2. *Bug 2: Star count in the home page*
-- *Star count of a user in  the home page is initially not reflected until other fragment has been visited.
-- *This has negligible consequence, as users can simply click home button to refresh.
-- *The count also gets replaced by a back arrows once the language has been switched.
-- *But again, this does not lead to any real issue, as their star counts can be checked in their account menu.
-
-3. *Bug 3: Search is slow for first search*
-- *All search data is loaded upon the first search (to not slow the app down if search isn't wanted)
-- *Search data is additionally only updated on first search, to prevent the app from being slow at other points
-*List all the known errors and bugs here. If we find bugs/errors that your team does not know of, it shows that your testing is not thorough.*
-
-4. *Bug 4: Clicking discussion posts doesn't take you to discussion post*
-- *Discussion post results from the search do not take you to the discussion post, as this part of the UI was not implemented
-
-5. *Bug 5: Searching topics at the same time as questions crashes app*
-- *An originally intended feature of narrowing search results by searching for topics at the same time as discussion posts causes the app to crash
-- *This is because the discussion post UI code was originally planned for, but later reverted, as such, testing was not done as comprehensively on an unintended feature
+4. *Bug 5: Searching topics at the same time as questions crashes app*
+- An originally intended feature of narrowing search results by searching for topics at the same time as discussion posts causes the app to crash
+- This is because the discussion post UI code was originally planned for, but later reverted, as such, testing was not done as comprehensively on an unintended feature
 
 ## Testing Summary
-
-*[What features have you tested? What is your testing coverage?]*
-
-*Here is an example:*
-
-- *Number of test cases: ...*
-
-- *Code coverage: ...*
-
-- *Types of tests created: ...*
-
-*Please provide some screenshots of your testing summary, showing the achieved testing coverage. Feel free to provide further details on your tests.*
 
 Much of the application relies on Firebase, and therefore much of the program relies on instrumented tests instead of standard unit tests.
 Many types of test were created:
@@ -435,31 +452,41 @@ Many types of test were created:
   - downloading messages from a direct message thread
   - reading messages downloaded
   - checking whether messages have been liked
-
 - Tests for syntax highlighting (```SyntaxHighlightingTest``` and ```SyntaxHighlightingParsingTest```), which test the following:
   - Tokenizer accuracy in creating tokens
   - Parser accuracy in translating this to HTML
-
 - Tests for searching (```SearchTest```) which tests the following:
   - Tokenizer ability to generate tokens
   - Parser ability to deal with blank inputs and properly separate regular inputs into queries.
   - Searching (both matching and incomplete searches), and accuracy of, users using `UserResults.java`, questions using `QuestionResults.java`, topics using `TopicResults.java` and discussions using `PostResults.java`.
   - Search for results using all search types at once (general search).
+- Tests for AVLTree (```AVLTreeTest```) which tests the following:
+  - Every methods (100% method coverage) and every cases except when the type of node's value is ComparablePair (95% line coverage).
+  - Different trees, including empty one, single node, one with empty left child, one with empty right child and trees with substantial number of nodes were used.
+  - For each tree, deletion of tis node in random order was repeated for 100 times, which makes it reasonable to assume that it practically considers all the cases for deletion.
 
 Android Studio does not provide code coverage for instrumented tests, and thus the exact code coverage is not known.
-However, by manually inspecting the code, we find that the user login tests gets 100% line coverage of ```Firebase.FirebaseRequest```, approximately 76% of both ```Firebase.FirebaseResult```, and ```UserLogin```. Additionally, 100% of ```UserLocalData``` is tested, split across ```UserLocalDataTest``` (for most methods), and ```DirecteMessageTest``` (for ```loadFromDisk```). We achieve 100% branch coverage of the syntax highlighting methods across the two methods. 100% branch coverage is achieved for search.
+However, by manually inspecting the code, we find that the user login tests gets 100% line coverage of ```Firebase.FirebaseRequest```, approximately 76% of both ```Firebase.FirebaseResult```, and ```UserLogin```. Additionally, 100% of ```UserLocalData``` is tested, split across ```UserLocalDataTest``` (for most methods), and ```DirectMessageTest``` (for ```loadFromDisk```). We achieve 100% branch coverage of the syntax highlighting methods across the two methods. 100% branch coverage is achieved for search.
 
-General testing was additionally used throughout the program to test the functionality of code. An example of this being testing for search being done through verifying that the results that show up after searching something within the app are appropriate.
+General testing was additionally used throughout the program to test the functionality of code. An example of this being testing for search being done through verifying that the results that show up after searching something within the app are appropriate. Unit tests were written for the ```AVLTree```, ```ComparablePair``` and the syntax highlighting.
+
+The code coverage for these tests are shown below:
+
+![ClassDiagram](./images/avlcc.png)
+
+![ClassDiagram](./images/syntaxcc.png)
+
+![ClassDiagram](./images/paircc.png)
 
 ## Implemented Features
 
-*[What features have you implemented?]*
-
 ### Basic App
 1. [Login]. Description of the feature and your implementation (easy)
-    * Class X, methods Z, Y, Lines of code: 10-100
-    * Additional description: ...
-      <br>
+    * Class User.UserLogin: whole file
+    * Additional description:
+      * User accounts consist of a username and a salted password.
+      * The hashed password, salt and usernames are stored on Firebase. The plaintext passwords never get stored.
+      * **The location of the APK (from the root directory) is either in ```APK/app-debug.apk``` or ```items/app-debug.apk```. These two files are the exact same.**
 
 2. [Data-Stream]. Uses a second instance of an Android Virtual Device to mimic a realistic data stream of over 2500 data instances (easy). 
    * Class DatastreamSimulation.DataGenerator - whole file
@@ -483,7 +510,9 @@ General testing was additionally used throughout the program to test the functio
 Feature Category: Data Structures <br>
 1. [Data-Deletion]. Deletion method of either a Red-Black Tree, AVL tree or B-Tree data structure. The deletion of nodes must serve a purpose within your application. (hard)
    * Class AVLTree, methods delete, findImbalanceDelete, deleteBeforeBalance, balanceSubtree, Lines of code: 53
-   * TODO for Geun
+   * Additional description:
+     * Custom Node class was created which allowed each node have left and right child node as well as parent node, a useful component to traverse from root and find imbalance. 
+     * While loop is used to ensure findImbalanceDelete and balanceSubtree are called until the whole tree satisfies the balance factor rule of the AVL Tree. This recognizes the fact that tree is not guaranteed to be balanced after deleting a node and re-balancing the tree, unlike the insertion.
 
 Feature Category: Firebase Integration <br>
 2. [FB-Persist] Use Firebase to persist all data used in your app. (medium)
@@ -500,9 +529,10 @@ Feature Category: Firebase Integration <br>
    updated as the remote database is updated without restarting the application. (hard)
    * Class Firebase.FirebaseObserver: whole file
    * Class Firebase.Firebase: constructor (lines 74-98), methods attachObserver and notifyObservers (lines 100-117)
-   * Class <some UI stuff>:
+   * Class DirectMessageFragment.DirectMessageObserver: whole class
    * Additional description: 
      * Most of this follows from the fact that the app's state is persisted on Firebase (and therefore the classes and files in the [FB-Persist] section are utilised). For the app to automatically update without restarting, all that needs to be done is determine when a change has occurred on Firebase, and then update the user interface appropriately. The Firebase API provides a listener for when data changes. This is caught in Firebase.Firebase, which is then able to notify any observers of the change. One of the observers is the user interface, which then is then able to use the functions in Firebase.Firebase to redownload the new state of the app, and rerender the user interface appropriately.
+     * DirectMessageFragment.DirectMessageObserver inherits FirebaseObserver and will refresh the direct messaging UI, showing new likes/unlikes as well as new messages. This means that user can enjoy real time updates to their direct message thread.
 
 Feature Category: Peer-to-peer messaging <br>
 4. [P2P-Block] Provide users with the ability to ‘block’ users, preventing them from direct messaging
@@ -511,15 +541,20 @@ Feature Category: Peer-to-peer messaging <br>
    * Class DirectMessageFragment: lines 148-151
    * Class MessagesFragment: lines 266-298
    * Additional description: 
-     * Users are not able to send to or receive messages from users they have blocked
+     * Users are not able to send to or receive messages from users they have blocked. 
+     * This is implemented by checking whether the user is on a blocked user list, and if so, not allowing any of their messages to be shown. It also prevents messages from being sent to the blocked user.
 <br>
 5. [P2P-DM] Provide users with the ability to message each other directly in private. (hard)
    * Class Message: whole file
    * Class DirectMessageThread: whole file
    * Class MessageThread: whole file
+   * Class DirectMessageFragment: whole file
+   * Class UserDirectMessages : whole file
    * Additional description:
      * Users are able to direct message each other. This is possible due to the state of the program being stored on Firebase. For each pair of users, there exists a Firebase object that contains all of the messages that they've sent to each other. This gets loaded into the DirectMessageThread class, which inherits from MessageThread (this is done so messages posted under questions can be handled in the same way). Messages can be sent between the users by adding a new message to the list and re-uploading it to Firebase.
+     * The UI uses a DirectMessageThread object as well as its list of Messages in order to render messages to the user interface, allowing users to like and unlike messages on top of allowing for them to send and receive messages in real time. The UI of a message bubble that encapsulates the raw text of a message changes depending on the number of consecutive direct messages as well as depending on who sent those messages, making for a visually appealing appearance.
 <br>
+   
 Feature category: Search <br>
 6. [Search-Invalid] Search functionality can handle partially valid and invalid search queries. (medium)
    * All classes within `myeducationalapp/Search` folder
@@ -532,31 +567,34 @@ Feature category: Search <br>
    * Users can choose a filter to be applied in a search to get more specific result.
    * Users can also search more specific filters through direct text input, as outlined in the Tokenizer and Parsers section above.
    * The search is always listed in a descending order of relevancy.
+   * Note that UI for discussion was not implemented, so clicking the discussion search results will not navigate users to anywhere.
 <br>
+   
 Feature Category: Syntax Highlighting (custom, approved as per [here](https://wattlecourses.anu.edu.au/mod/forum/discuss.php?d=870859)) <br>
 8. [Custom-Syntax-Highlighting]. Description: The user interface will be able to display snippets of code to the user, with dynamically generated syntax highlighting applied. The syntax of the code will be Java-like. (hard)
    * Class SyntaxHighlighting.DetectCodeBlock, whole file
    * Class SyntaxHighlighting.Parser, whole file
    * Class SyntaxHighlighting.Tokenizer, whole file
    * Class SyntaxHighlighting.Token, whole file
+   * Class QuestionFragment and DirectMessageFragment form the UI front-end for displaying highlighted syntax
    * Additional description: 
      * Users are able to input code in comments in between two sets of three backticks, and this code will be highlighted according to our custom colour scheme. Token types are stored in Token, with the classification of the text into tokens happening in the ```next()``` method in the Tokenizer class.
      The Parser calls ```next()``` repeatedly until the end of the text and transforms the tokenized query into HTML, applying the colours appropriately.
      All of this is bundled into a static method, ```SyntaxHighlighting.DetectCodeBlock.parseCodeBlocks()```, which detects the backticks and feeds the appropriate section of text to the other classes.
      To interface with the frontend, we call the method inside ```Html.fromHtml```, which is itself inside ```textView.setText()```.
 <br>
-9. [Dynamic-Localization] Provide users to switch languages of not only the hardcoded string values, but also the ones that are dynamic. (easy)
+     
+Feature Category: Localisation (custom, approved as per [here](https://wattlecourses.anu.edu.au/mod/forum/discuss.php?d=870913)) <br>
+9. [Custom-Localization] The user is able to change the (spoken, not programming) language of the app they are most comfortable with. This will remove the language barrier and provide equal quality to users from all backgrounds. For example, the language for the app could be changed to Portuguese. Or, if the user is a pirate, they will see the text "Hello how are you?" as "arr me matey, how goes it?" (easy)
    * Class Localization.DynamicLocalization, whole file
    * Class Localization.LanguageSetting, whole file
    * Most of the UI related classes
    * Additional description:
+     * In addition to implementing the feature as voice, we have taken the idea further and allowed for the values to be localised dynamically at runtime. 
      * There are certain strings that were intentionally not translated, including programming questions and search query, as doing so would confuse users more.
-     
-*List all features you have completed in their separate categories with their difficulty classification. If they are features that are suggested and approved, please state this somewhere as well.*
 
 ## Team Meetings
-
-*Here is an example (you could start numbering your meetings from 1):*
+The meeting minutes can be found here:
 
 - *[Team Meeting 1](./meeting1.md)* (1/4)
 - *[Team Meeting 2](./meeting2.md)* (20/4)
