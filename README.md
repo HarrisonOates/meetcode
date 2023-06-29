@@ -5,7 +5,7 @@ Custom code blocks mean users can communicate their code effectively.
 
 ![wireframe](wireframe.png)
 
-This project, represents over two months of work by:
+This project represents over two months of work by:
 - Harrison Oates
 - Nikhila Gurusinghe
 - Alex Boxall
