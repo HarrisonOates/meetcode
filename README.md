@@ -6,8 +6,8 @@ Custom code blocks mean users can communicate their code effectively.
 ![wireframe](wireframe.png)
 
 This project represents over two months of work by:
-- Harrison Oates
-- Nikhila Gurusinghe
-- Alex Boxall
-- Geun Yun
+- [Harrison Oates](https://github.com/HarrisonOates)
+- [Nikhila Gurusinghe](https://github.com/NikhilaGurusinghe)
+- [Alex Boxall](https://github.com/alexdboxall)
+- [Geun Yun](https://github.com/geun-yun)
 - Jayden Skidmore
